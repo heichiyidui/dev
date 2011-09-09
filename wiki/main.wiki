@@ -11,7 +11,7 @@ I just write one editor for myself then.
 
 = Details =
 
-NEdit ( www.nedit.org ) 是好程序。
+NEdit ( http://www.nedit.org ) 是好程序。
 
 我用它编辑文本文件，用了十年了。快捷，稳定，功能强大。
 
