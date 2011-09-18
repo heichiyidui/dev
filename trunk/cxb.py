@@ -1,10 +1,20 @@
-#!/usr/bin/env python3 
-#...................................................................................
-
+#!/usr/bin/env python3
 from tkinter import *
 from tkinter import ttk
 
-class cxb_tab(ttk.Frame):
+################################################################################
+#                           global options                                     #
+################################################################################
+
+DEFAULT_FONT=('Efont Fixed', 13)
+DEFAULT_HEIGHT=42
+DEFAULT_WIDTH=82
+
+################################################################################
+#                           The Tab class                                      #
+################################################################################
+
+class CxbTab(ttk.Frame):
 
     def __init__(self, parent=None, text='', file=None):
         ttk.Frame.__init__(self, parent)
@@ -16,9 +26,12 @@ class cxb_tab(ttk.Frame):
         
         xsbar = ttk.Scrollbar(self,orient=HORIZONTAL)
         ysbar = ttk.Scrollbar(self)
-        label = ttk.Label(self, text = 'untitled')
+        statusbar = ttk.Label(self, text='untitled',
+                             font=DEFAULT_FONT,width=DEFAULT_WIDTH)
         
-        text = Text(self,height=42, width=82, relief=SUNKEN)
+        text = Text(self, wrap='none',
+                          font=DEFAULT_FONT, height=DEFAULT_HEIGHT,
+                          width=DEFAULT_WIDTH, relief=SUNKEN)
         
         xsbar.config(command=text.xview)
         ysbar.config(command=text.yview)
@@ -26,7 +39,7 @@ class cxb_tab(ttk.Frame):
         text.config(xscrollcommand=xsbar.set)           
         text.config(yscrollcommand=ysbar.set)           
         
-        label.pack(side=BOTTOM,fill=X)
+        statusbar.pack(side=BOTTOM,fill=X)
         xsbar.pack(side=BOTTOM,fill=X)
         ysbar.pack(side=RIGHT, fill=Y)                 
         
@@ -44,16 +57,18 @@ class cxb_tab(ttk.Frame):
     def gettext(self):                             
         return self.text.get('1.0', END+'-1c') 
 
-root = Tk()
-root.title('程序本')
+################################################################################
+#                           the main script                                    #
+################################################################################
 
-tabs=ttk.Notebook(root)
-
-tab1=cxb_tab(tabs)
-tab2=cxb_tab(tabs)
-
-tabs.add(tab1,text='tab1')
-tabs.add(tab2,text='tab2')
-
-tabs.pack()
-root.mainloop()
+if __name__ == '__main__':
+    root = Tk()
+    root.title(string='程序本 v0.01')
+    
+    tabs = ttk.Notebook(root)
+    tab1 = CxbTab(tabs); # first tab,
+    tabs.add(tab1, text='One')
+    
+    tabs.pack(expand=YES,fill=BOTH)
+    
+    root.mainloop()
