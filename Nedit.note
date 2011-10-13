@@ -1,0 +1,91 @@
+To change the behaviuor of the program SciTE, 
+and make it as close as possible to Nedit.
+
+I tried it with scintilla and scite version 2.29
+
+################################################################################
+# 1. in makefile of scintilla and scite                                        #
+################################################################################
+
+make sure gtk+3.0 is intalled.
+
+GTKVERSION=gtk+-3.0
+
+make and do NOT install. Just put a link of the executable to ~/bin
+
+alias se='SciTE '
+
+################################################################################
+# 2. in ~/.SciTEUser.properties                                                #
+################################################################################
+
+Well, plenty of stuff there. 
+
+################################################################################
+# 3. fix the source                                                            #
+################################################################################
+
+########################################
+3.1 the short cuts in the menu 
+
+in the file gtk/SciTEGTK.cxx
+
+3.1.1 redo should be Ctrl-Shift-Z not Ctrl-Y
+
+from 
+ {"/Edit/_Redo", "<control>Y", menuSig, IDM_REDO, 0},
+to
+ {"/Edit/_Redo", "<control><shift>Z", menuSig, IDM_REDO, 0},
+
+for whatever reason, Ctrl+Y is still working...
+
+3.1.2 revert (maybe reload) should not be Ctrl-R, replace should be 
+
+from 
+ {"/File/_Revert", "<control>R", menuSig, IDM_REVERT, 0},
+to 
+ {"/File/_Revert", NULL, menuSig, IDM_REVERT, 0},
+from 
+ {"/Search/R_eplace...", "<control>H", menuSig, IDM_REPLACE, 0},
+to
+ {"/Search/R_eplace...", "<control>R", menuSig, IDM_REPLACE, 0},
+
+3.1.3 find next should be <control>G, not F3 (I don't use IE, I use Firefox)
+ Go to should be Ctrl-L, not Ctrl-G, 
+from 
+ {"/Search/Find _Next", "F3", menuSig, IDM_FINDNEXT, 0},
+to 
+ {"/Search/Find _Next", "<control>G", menuSig, IDM_FINDNEXT, 0},
+
+from 
+ {"/Search/_Go To...", "<control>G", menuSig, IDM_GOTO, 0},
+to
+ {"/Search/_Go To Line...", "<control>L", menuSig, IDM_GOTO, 0},
+ 
+3.1.4 Block comment/uncomment should be Ctrl-D quit should be Ctrl-Q
+
+from 
+ {"/Edit/Duplicat_e", "<control>D", menuSig, IDM_DUPLICATE, 0},
+to
+ {"/Edit/Duplicat_e", "", menuSig, IDM_DUPLICATE, 0},
+from 
+ {"/File/E_xit", "", menuSig, IDM_QUIT, 0},
+to 
+ {"/File/E_xit", "<control>Q", menuSig, IDM_QUIT, 0},
+
+from 
+ {"/Edit/Block Co_mment or Uncomment", "<control>Q", menuSig, IDM_BLOCK_COMMENT, 0},
+to
+ {"/Edit/Block Co_mment or Uncomment", "<control>D", menuSig, IDM_BLOCK_COMMENT, 0},
+########################################
+3.2 horizontal scroll bar adjust to the width of text? 
+Well, failed to achieve that... Too many things involved. 
+
+########################################
+3.6 move the status bar up, to be attached to the tab bar
+
+the section of wStatusBar packing is in the file gtk/SciTEGTK.cxx
+
+Move the 6 lines of code, including the gtk_box_pack_start() line, 
+to after the notebook section, before the wContent line. 
+
