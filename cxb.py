@@ -15,7 +15,7 @@ DEFAULT_WIDTH=82
 ################################################################################
 
 class CxbTab(ttk.Frame):
-
+    
     def __init__(self, parent=None, text='', file=None):
         ttk.Frame.__init__(self, parent)
         self.pack(expand=YES, fill=BOTH)                 
@@ -31,7 +31,9 @@ class CxbTab(ttk.Frame):
         
         text = Text(self, wrap='none',
                           font=DEFAULT_FONT, height=DEFAULT_HEIGHT,
-                          width=DEFAULT_WIDTH, relief=SUNKEN)
+                          width=DEFAULT_WIDTH, relief=SUNKEN,
+                          insertwidth=3,insertbackgroun='#FF00FF',
+                          padx=4,pady=4,setgrid=True)
         
         xsbar.config(command=text.xview)
         ysbar.config(command=text.yview)
