@@ -6,7 +6,7 @@ from tkinter import ttk
 #                           global options                                     #
 ################################################################################
 
-DEFAULT_FONT=('Efont Fixed', 13)
+DEFAULT_FONT=('Efont Fixed', 13 )
 DEFAULT_HEIGHT=42
 DEFAULT_WIDTH=82
 

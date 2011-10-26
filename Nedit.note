@@ -1,9 +1,7 @@
 To change the behaviuor of the program SciTE, 
 and make it as close as possible to Nedit.
 
-I tried it with scintilla and scite version 2.29
-
-from http://www.scintilla.org
+I tried it with scintilla and scite version 2.29 from http://www.scintilla.org
 
 ################################################################################
 # 1. fix the source                                                            #
