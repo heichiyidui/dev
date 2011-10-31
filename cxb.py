@@ -6,9 +6,10 @@ from tkinter import ttk
 #                           global options                                     #
 ################################################################################
 
-DEFAULT_FONT=('Efont Fixed', 13 )
-DEFAULT_HEIGHT=42
-DEFAULT_WIDTH=82
+CXB_VERSION - '0.01'
+CXV_WEBSITE = 'http://code.google.com/p/cxb/'
+
+from default import *
 
 ################################################################################
 #                           The Tab class                                      #
@@ -30,10 +31,13 @@ class CxbTab(ttk.Frame):
                              font=DEFAULT_FONT,width=DEFAULT_WIDTH)
         
         text = Text(self, wrap='none',
-                          font=DEFAULT_FONT, height=DEFAULT_HEIGHT,
-                          width=DEFAULT_WIDTH, relief=SUNKEN,
-                          insertwidth=3,insertbackgroun='#FF00FF',
-                          padx=4,pady=4,setgrid=True)
+            font=DEFAULT_FONT, height=DEFAULT_HEIGHT,
+            background=DEFAULT_BACKGROUND_COLOR,
+            foreground=DEFAULT_FOREGROUND_COLOR,
+            width=DEFAULT_WIDTH, relief=SUNKEN,
+            insertwidth=DEFAULT_CURSOR_WIDTH,
+            insertbackgroun=DEFAULT_CURSOR_COLOR,
+            padx=4,pady=4,setgrid=True)
         
         xsbar.config(command=text.xview)
         ysbar.config(command=text.yview)
@@ -41,7 +45,7 @@ class CxbTab(ttk.Frame):
         text.config(xscrollcommand=xsbar.set)           
         text.config(yscrollcommand=ysbar.set)           
         
-        statusbar.pack(side=BOTTOM,fill=X)
+        statusbar.pack(side=TOP,fill=X)
         xsbar.pack(side=BOTTOM,fill=X)
         ysbar.pack(side=RIGHT, fill=Y)                 
         
