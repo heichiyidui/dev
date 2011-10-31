@@ -173,18 +173,16 @@ local RUN_TESTS = false
 -- _G.snippets.path = "$(FilePath)"
 -- _G.snippets.tab  = "\${${1:1}:${2:default}}"
 -- _G.snippets.key  = "['${1:}'] = { ${2:func}${3:, ${4:arg}} }"
--- _G.snippets.for2 = "for(${1:counter}=0;${1}<${2:range};i++){\n    ${0}\n}\n"
 
--- @class table
--- @name snippets2
 _G.snippets = {
     file = "$(FileNameExt)",
     path = "$(FilePath)",
     [SCLEX_CPP] = {
-        for3 = "for(${1:counter}=0;${1}<${2:range};i++){\n    ${0}\n}\n"
+        forl="for (size_t ${1:counter}=0;${1}<${2:range};${1}++){\n    ${0}",
+        fos="for (size_t ${1:counter}=0;${1}<${2:range};${1}++) ${0}",
     },
     [SCLEX_PYTHON] = {
-        for2 = "for(${1:counter}=0;${1}<${2:range};i++){\n    ${0}\n}\n"
+        fos="for ${1:counter} in ${2:range}:\n    ${0}"
     }
 }
 
