@@ -2,14 +2,15 @@
 from tkinter import *
 from tkinter import ttk
 
+# how the hell can I get the c version of this thing?
 ################################################################################
 #                           global options                                     #
 ################################################################################
 
-CXB_VERSION - '0.01'
-CXV_WEBSITE = 'http://code.google.com/p/cxb/'
+CXB_VERSION = '0.01'
+CXB_WEBSITE = 'http://code.google.com/p/cxb/'
 
-from default import *
+from options import *
 
 ################################################################################
 #                           The Tab class                                      #
@@ -22,7 +23,7 @@ class CxbTab(ttk.Frame):
         self.pack(expand=YES, fill=BOTH)                 
         self.makewidgets()
         self.settext(text, file)
-
+    
     def makewidgets(self):
         
         xsbar = ttk.Scrollbar(self,orient=HORIZONTAL)
@@ -51,7 +52,7 @@ class CxbTab(ttk.Frame):
         
         text.pack(side=LEFT, expand=YES, fill=BOTH)  
         self.text = text
-
+    
     def settext(self, text='', file=None):
         if file: 
             text = open(file, 'r').read()
@@ -59,7 +60,7 @@ class CxbTab(ttk.Frame):
         self.text.insert('1.0', text)               
         self.text.mark_set(INSERT, '1.0')          
         self.text.focus()                           
-
+    
     def gettext(self):                             
         return self.text.get('1.0', END+'-1c') 
 
