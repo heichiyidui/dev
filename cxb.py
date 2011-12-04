@@ -28,16 +28,18 @@ class CxbTab(ttk.Frame):
         
         xsbar = ttk.Scrollbar(self,orient=HORIZONTAL)
         ysbar = ttk.Scrollbar(self)
-        statusbar = ttk.Label(self, text='untitled',
-                             font=DEFAULT_FONT,width=DEFAULT_WIDTH)
+#        statusbar = ttk.Label(self, text='untitled',
+#                             font=DEFAULT_FONT,width=DEFAULT_WIDTH)
         
-        text = Text(self, wrap='none',
-            font=DEFAULT_FONT, height=DEFAULT_HEIGHT,
-            background=DEFAULT_BACKGROUND_COLOR,
-            foreground=DEFAULT_FOREGROUND_COLOR,
-            width=DEFAULT_WIDTH, relief=SUNKEN,
-            insertwidth=DEFAULT_CURSOR_WIDTH,
-            insertbackgroun=DEFAULT_CURSOR_COLOR,
+        text = Text(self, 
+            font=EDITOR['FONT'],wrap=EDITOR['WRAP'],
+            height=EDITOR['HEIGHT'],width=EDITOR['WIDTH'],
+            background=EDITOR['BACKGROUND_COLOR'],
+            foreground=EDITOR['FOREGROUND_COLOR'],
+            insertwidth=EDITOR['CURSOR_WIDTH'],
+            insertbackgroun=EDITOR['CURSOR_COLOR'],
+            
+            relief=SUNKEN,
             padx=4,pady=4,setgrid=True)
         
         xsbar.config(command=text.xview)
@@ -46,7 +48,7 @@ class CxbTab(ttk.Frame):
         text.config(xscrollcommand=xsbar.set)           
         text.config(yscrollcommand=ysbar.set)           
         
-        statusbar.pack(side=TOP,fill=X)
+#        statusbar.pack(side=TOP,fill=X)
         xsbar.pack(side=BOTTOM,fill=X)
         ysbar.pack(side=RIGHT, fill=Y)                 
         

@@ -1,14 +1,19 @@
 ################################################################################
-#                           global options                                     #
+#                           Editor options                                     #
 ################################################################################
 
-DEFAULT_FONT=('Efont Fixed', 13 )
-DEFAULT_HEIGHT=42
-DEFAULT_WIDTH=82
+EDITOR={}
+EDITOR['FONT']=('Efont Fixed', 13 )
+EDITOR['HEIGHT']=43
+EDITOR['WIDTH']=83
+EDITOR['WRAP']='none'
 
-DEFAULT_BACKGROUND_COLOR='#F5FFF5'
-DEFAULT_FOREGROUND_COLOR='#0F000F'
+EDITOR['BACKGROUND_COLOR']='#F5FFF5'
+EDITOR['FOREGROUND_COLOR']='#0F000F'
 
-DEFAULT_CURSOR_WIDTH=3
-DEFAULT_CURSOR_COLOR='#FF00FF'
+EDITOR['CURSOR_WIDTH']=2
+EDITOR['CURSOR_COLOR']='#FF00FF'
 
+################################################################################
+#                           binding options                                    #
+################################################################################
