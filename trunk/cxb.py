@@ -18,11 +18,12 @@ from options import *
 
 class CxbTab(ttk.Frame):
     
-    def __init__(self, parent=None, text='', file=None):
-        ttk.Frame.__init__(self, parent)
+    def __init__(self, parent=None, file=None):
+        self.ifileName='';
+        ttk.Frame.__init__(self, parent,border=0,relief=SUNKEN)
         self.pack(expand=YES, fill=BOTH)                 
         self.makewidgets()
-        self.settext(text, file)
+        self.settext(file)
     
     def makewidgets(self):
         
@@ -39,8 +40,8 @@ class CxbTab(ttk.Frame):
             insertwidth=EDITOR['CURSOR_WIDTH'],
             insertbackgroun=EDITOR['CURSOR_COLOR'],
             
-            relief=SUNKEN,
-            padx=4,pady=4,setgrid=True)
+            relief=FLAT,bd=0,
+            padx=3,pady=3,setgrid=True)
         
         xsbar.config(command=text.xview)
         ysbar.config(command=text.yview)
@@ -55,7 +56,8 @@ class CxbTab(ttk.Frame):
         text.pack(side=LEFT, expand=YES, fill=BOTH)  
         self.text = text
     
-    def settext(self, text='', file=None):
+    def settext(self, file=None):
+        text=''
         if file: 
             text = open(file, 'r').read()
         self.text.delete('1.0', END)                 
@@ -72,11 +74,12 @@ class CxbTab(ttk.Frame):
 
 if __name__ == '__main__':
     root = Tk()
-    root.title(string='程序本 v0.01')
+    root.title(string='cxb version'+ CXB_VERSION)
     
     tabs = ttk.Notebook(root)
-    tab1 = CxbTab(tabs); # first tab,
-    tabs.add(tab1, text='One')
+    
+    tab1 = CxbTab(tabs,None); # first tab,
+    tabs.add(tab1, text=tab1.ifileName)
     
     tabs.pack(expand=YES,fill=BOTH)
     
