@@ -25,6 +25,15 @@ class ScrolledText(Frame):
         self.pack(expand=YES, fill=BOTH)               
         self.makewidgets()
         self.settext(text, file)
+        self.text.bind('<Control-p>',self.printPos)
+    
+    def printPos(self,event):
+        line, column = self.text.index(INSERT).split('.')
+        self.text.see(str(int(line)+10)+'.'+column)
+        self.text.see(str(int(line)-10)+'.'+column)
+        self.text.see(INSERT)
+        return 'break'
+
     def makewidgets(self):
         sbar = Scrollbar(self)
         text = Text(self, relief=SUNKEN)
@@ -55,7 +64,8 @@ class SimpleEditor(ScrolledText):
         Button(frm, text='Find',  command=self.onFind).pack(side=LEFT)
         Quitter(frm).pack(side=LEFT)
         ScrolledText.__init__(self, parent, file=file) 
-        self.text.config(font=('courier', 9, 'normal'))
+        self.text.config(font=('courier', 12, 'normal'))
+    
     def onSave(self):
         filename = asksaveasfilename()
         if filename:
