@@ -2,9 +2,8 @@
 from tkinter import *
 from tkinter import ttk
 
-# how the hell can I get the c version of this thing?
 ################################################################################
-#                           global options                                     #
+#                               options                                        #
 ################################################################################
 
 CXB_VERSION = '0.01'
@@ -19,7 +18,7 @@ from options import *
 class CxbTab(ttk.Frame):
     
     def __init__(self, parent=None, file=None):
-        self.ifileName='';
+        self.fileName='';
         ttk.Frame.__init__(self, parent,border=0,relief=SUNKEN)
         self.pack(expand=YES, fill=BOTH)                 
         self.makewidgets()
@@ -27,35 +26,42 @@ class CxbTab(ttk.Frame):
     
     def makewidgets(self):
         
-        xsbar = ttk.Scrollbar(self,orient=HORIZONTAL)
-        ysbar = ttk.Scrollbar(self)
-#        statusbar = ttk.Label(self, text='untitled',
-#                             font=DEFAULT_FONT,width=DEFAULT_WIDTH)
+        statusBar = ttk.Frame(self)
+        lineLabel = ttk.Label(statusBar,text="line1")
+        lineLabel.pack(side=RIGHT)
         
-        text = Text(self, 
+        middlePanel = ttk.Frame(self)
+        ysbar = ttk.Scrollbar(middlePanel)
+        self.text = Text(middlePanel, 
             font=EDITOR['FONT'],wrap=EDITOR['WRAP'],
             height=EDITOR['HEIGHT'],width=EDITOR['WIDTH'],
             background=EDITOR['BACKGROUND_COLOR'],
             foreground=EDITOR['FOREGROUND_COLOR'],
             insertwidth=EDITOR['CURSOR_WIDTH'],
             insertbackgroun=EDITOR['CURSOR_COLOR'],
+            relief=FLAT,bd=0,padx=3,pady=3)
             
-            relief=FLAT,bd=0,
-            padx=3,pady=3,setgrid=True)
+        ysbar.pack(side=RIGHT,expand=NO,fill=Y)
+        self.text.pack(side=LEFT,expand=YES,fill=BOTH)
         
-        xsbar.config(command=text.xview)
-        ysbar.config(command=text.yview)
+        bottomPanel=ttk.Frame(self)
+        xsbar = ttk.Scrollbar(bottomPanel,orient=HORIZONTAL)
+        grip  = ttk.Sizegrip(bottomPanel)
         
-        text.config(xscrollcommand=xsbar.set)           
-        text.config(yscrollcommand=ysbar.set)           
+        grip.pack(side=RIGHT,expand=NO,fill=NONE)
+        xsbar.pack(side=LEFT,expand=YES,fill=X)
         
-#        statusbar.pack(side=TOP,fill=X)
-        xsbar.pack(side=BOTTOM,fill=X)
-        ysbar.pack(side=RIGHT, fill=Y)                 
+        xsbar.config(command=self.text.xview)
+        ysbar.config(command=self.text.yview)
         
-        text.pack(side=LEFT, expand=YES, fill=BOTH)  
-        self.text = text
-    
+        self.text.config(xscrollcommand=xsbar.set)           
+        self.text.config(yscrollcommand=ysbar.set)           
+        
+        statusBar.pack(side=TOP,expand=NO,fill=X)
+        bottomPanel.pack(side=BOTTOM,expand=NO,fill=X)
+        middlePanel.pack(side=LEFT,expand=YES,fill=BOTH)
+        self.pack()
+        
     def settext(self, file=None):
         text=''
         if file: 
@@ -65,9 +71,6 @@ class CxbTab(ttk.Frame):
         self.text.mark_set(INSERT, '1.0')          
         self.text.focus()                           
     
-    def gettext(self):                             
-        return self.text.get('1.0', END+'-1c') 
-
 ################################################################################
 #                           the main script                                    #
 ################################################################################
@@ -79,7 +82,7 @@ if __name__ == '__main__':
     tabs = ttk.Notebook(root)
     
     tab1 = CxbTab(tabs,None); # first tab,
-    tabs.add(tab1, text=tab1.ifileName)
+    tabs.add(tab1, text=tab1.fileName)
     
     tabs.pack(expand=YES,fill=BOTH)
     
