@@ -32,6 +32,7 @@ class CxbTab(ttk.Frame):
         
         middlePanel = ttk.Frame(self)
         ysbar = ttk.Scrollbar(middlePanel)
+        
         self.text = Text(middlePanel, 
             font=EDITOR['FONT'],wrap=EDITOR['WRAP'],
             height=EDITOR['HEIGHT'],width=EDITOR['WIDTH'],
@@ -39,7 +40,7 @@ class CxbTab(ttk.Frame):
             foreground=EDITOR['FOREGROUND_COLOR'],
             insertwidth=EDITOR['CURSOR_WIDTH'],
             insertbackgroun=EDITOR['CURSOR_COLOR'],
-            relief=FLAT,bd=0,padx=3,pady=3)
+            relief=FLAT,bd=0,padx=3,pady=3,setgrid=1)
             
         ysbar.pack(side=RIGHT,expand=NO,fill=Y)
         self.text.pack(side=LEFT,expand=YES,fill=BOTH)
@@ -54,8 +55,7 @@ class CxbTab(ttk.Frame):
         xsbar.config(command=self.text.xview)
         ysbar.config(command=self.text.yview)
         
-        self.text.config(xscrollcommand=xsbar.set)           
-        self.text.config(yscrollcommand=ysbar.set)           
+        self.text.config(xscrollcommand=xsbar.set,yscrollcommand=ysbar.set)           
         
         statusBar.pack(side=TOP,expand=NO,fill=X)
         bottomPanel.pack(side=BOTTOM,expand=NO,fill=X)
