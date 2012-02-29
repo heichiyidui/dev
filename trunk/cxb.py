@@ -21,10 +21,9 @@ class CxbTab(ttk.Frame):
         self.fileName='';
         ttk.Frame.__init__(self, parent,border=0,relief=SUNKEN)
         self.pack(expand=YES, fill=BOTH)                 
-        self.makewidgets()
-        self.settext(file)
+        self.make_widgets()
     
-    def makewidgets(self):
+    def make_widgets(self):
         
         statusBar = ttk.Frame(self)
         lineLabel = ttk.Label(statusBar,text="line1")
@@ -62,15 +61,6 @@ class CxbTab(ttk.Frame):
         middlePanel.pack(side=LEFT,expand=YES,fill=BOTH)
         self.pack()
         
-    def settext(self, file=None):
-        text=''
-        if file: 
-            text = open(file, 'r').read()
-        self.text.delete('1.0', END)                 
-        self.text.insert('1.0', text)               
-        self.text.mark_set(INSERT, '1.0')          
-        self.text.focus()                           
-    
 ################################################################################
 #                           the main script                                    #
 ################################################################################
