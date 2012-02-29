@@ -98,4 +98,7 @@ in /usr/share/gtksourceview-3.0/styles/
 
 creat green.xml
 
+in /usr/share/gtksourceview-3.0/language-specs/
+
+change c.lang and python.lang
 

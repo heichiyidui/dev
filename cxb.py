@@ -19,7 +19,7 @@ class CxbTab(ttk.Frame):
     
     def __init__(self, parent=None, file=None):
         self.fileName='';
-        ttk.Frame.__init__(self, parent,border=0,relief=SUNKEN)
+        ttk.Frame.__init__(self, parent,border=0,relief=FLAT)
         self.pack(expand=YES, fill=BOTH)                 
         self.make_widgets()
     
@@ -67,7 +67,7 @@ class CxbTab(ttk.Frame):
 
 if __name__ == '__main__':
     root = Tk()
-    root.title(string='cxb version'+ CXB_VERSION)
+    root.title(string='程序本v'+ CXB_VERSION)
     
     tabs = ttk.Notebook(root)
     

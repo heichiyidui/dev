@@ -17,51 +17,50 @@
 
   <!-- Global Settings -->
 
-  <style name="text"                     foreground="#261039" background="#DEF1CE" />
-  <style name="selection"                background="#F2F0FB"/>
-  <style name="current-line"             background="#CCE9B3" />
-  <style name="line-numbers"             foreground="#7F9889" background="#F1FAE9"/>
+  <style name="text"               foreground="#24023C" background="#DEF1CE"/>
+  <style name="selection"          background="#F2F0FB"/>
+  <style name="current-line"       background="#CCE9B3" />
+  <style name="line-numbers"       foreground="#7F9889" background="#F1FAE9"/>
 
-  <style name="right-margin"             background="#DEECD3"/>
-  <style name="bracket-match"            background="#81609D" bold="true" />
-  <style name="bracket-mismatch"         background="#FF0000" bold="true"/>
+  <style name="right-margin"       background="#DEECD3"/>
+  <style name="bracket-match"      background="#81609D" bold="true" />
+  <style name="bracket-mismatch"   background="#FF0000" bold="true"/>
 
   <!-- Search Matching -->
-  <style name="search-match"             background="#ECA928"/>
+  <style name="search-match"       background="#ECA928"/>
 
   <!-- Comments -->
-  <style name="def:comment"              foreground="#1E285F" background="#F1EACE"/>
-  <style name="def:shebang"              use-style="def:comment"/>
-  <style name="def:doc-comment"          foreground="#1E285F" background="#F1EACE" bold="true"/>
-  <style name="def:doc-comment-element"  use-style="def:doc-comment"/>
+  <style name="def:comment"        foreground="#1E285F" background="#F1EACE"/>
+  <style name="def:shebang"        use-style="def:comment"/>
+  <style name="def:doc-comment"    foreground="#1E285F" background="#F1EACE" bold="true"/>
 
   <!-- Constants -->
-  <style name="def:constant"             foreground="#173370" bold="true"/>
-  <style name="def:decimal"              foreground="#174C70" bold="true"/>
-  <style name="def:base-n-integer"       use-style="def:decimal"/>
-  <style name="def:floating-point"       use-style="def:decimal"/>
-  <style name="def:complex"              use-style="def:decimal"/>
-  <style name="def:character"            use-style="def:constant"/>
-  <style name="def:string"               use-style="def:constant"/>
-  <style name="def:special-char"         use-style="def:constant"/>
-  <style name="def:builtin"              use-style="def:constant"/>
+  <style name="def:constant"       foreground="#173370" bold="true"/>
+  <style name="def:decimal"        foreground="#174C70" bold="true"/>
+  <style name="def:base-n-integer" use-style="def:decimal"/>
+  <style name="def:floating-point" use-style="def:decimal"/>
+  <style name="def:complex"        use-style="def:decimal"/>
+  <style name="def:character"      use-style="def:constant"/>
+  <style name="def:string"         use-style="def:constant"/>
+  <style name="def:special-char"   use-style="def:constant"/>
+  <style name="def:builtin"        use-style="def:constant"/>
 
- <!-- Identifiers -->
-  <style name="def:identifier"           foreground="#710FC6" background="#E2F3D4" bold="true"/>
-  <style name="def:function"             foreground="#5E0FC6" background="#E2F3D4" bold="true"/>
-
-  <!-- Types -->
-  <style name="def:type"                 foreground="#A40839" bold="true" italic="true" />
+ <!-- Identifiers -->		   
+  <style name="def:identifier"     foreground="#140984" background="#E2F3D4" bold="true"/>
+  <style name="def:function"       foreground="#810984" background="#E2F3D4" bold="true"/>
+				  
+  <!-- Types -->		  
+  <style name="def:type"           foreground="#A40839" bold="true" italic="true" />
 
   <!-- Statements -->
-  <style name="def:statement"            foreground="#A46D08" bold="true"/>
-  <style name="def:keyword"              foreground="#A46D08" background="#D4F3DF" bold="true"/>
+  <style name="def:statement"      foreground="#A46D08" bold="true"/>
+  <style name="def:keyword"        foreground="#A46D08" background="#ABF5DE" bold="true"/>
 
   <!-- Others -->
-  <style name="def:preprocessor"         foreground="#A46D08" italic="true"/>
+  <style name="def:preprocessor"   foreground="#A46D08" italic="true"/>
 
-  <style name="Others"                   foreground="#000000"/>
-  <style name="Others 2"                 foreground="#000000"/>
-  <style name="Others 3"                 foreground="#000000"/>
+  <style name="Others"             foreground="#000000"/>
+  <style name="Others 2"           foreground="#000000"/>
+  <style name="Others 3"           foreground="#000000"/>
 
 </style-scheme>
