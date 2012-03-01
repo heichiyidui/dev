@@ -17,8 +17,8 @@
 
   <!-- Global Settings -->
 
-  <style name="text"               foreground="#24023C" background="#DEF1CE"/>
-  <style name="selection"          background="#F2F0FB"/>
+  <style name="text"               foreground="#24023C" background="#E8F5E2"/>
+  <style name="selection"          background="#9F99BC"/>
   <style name="current-line"       background="#CCE9B3" />
   <style name="line-numbers"       foreground="#7F9889" background="#F1FAE9"/>
 
@@ -35,8 +35,8 @@
   <style name="def:doc-comment"    foreground="#1E285F" background="#F1EACE" bold="true"/>
 
   <!-- Constants -->
-  <style name="def:constant"       foreground="#173370" bold="true"/>
-  <style name="def:decimal"        foreground="#174C70" bold="true"/>
+  <style name="def:constant"       foreground="#173370" background="#EAF1CE" bold="true"/>
+  <style name="def:decimal"        foreground="#175B70" background="#EAF1CE" bold="true"/>
   <style name="def:base-n-integer" use-style="def:decimal"/>
   <style name="def:floating-point" use-style="def:decimal"/>
   <style name="def:complex"        use-style="def:decimal"/>
@@ -46,15 +46,15 @@
   <style name="def:builtin"        use-style="def:constant"/>
 
  <!-- Identifiers -->		   
-  <style name="def:identifier"     foreground="#140984" background="#E2F3D4" bold="true"/>
-  <style name="def:function"       foreground="#810984" background="#E2F3D4" bold="true"/>
+  <style name="def:identifier"     foreground="#1E1AA0" bold="true"/>
+  <style name="def:function"       foreground="#E117E6" bold="true"/>
 				  
   <!-- Types -->		  
   <style name="def:type"           foreground="#A40839" bold="true" italic="true" />
 
   <!-- Statements -->
   <style name="def:statement"      foreground="#A46D08" bold="true"/>
-  <style name="def:keyword"        foreground="#A46D08" background="#ABF5DE" bold="true"/>
+  <style name="def:keyword"        foreground="#E6721A" background="#D1EFEF" bold="true" />
 
   <!-- Others -->
   <style name="def:preprocessor"   foreground="#A46D08" italic="true"/>
