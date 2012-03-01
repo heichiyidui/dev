@@ -102,3 +102,10 @@ in /usr/share/gtksourceview-3.0/language-specs/
 
 change c.lang and python.lang
 
+################################################################################
+# 2. the plugins                                                               #
+################################################################################
+
+mkdir ~/.local/share/gedit
+mkdir ~/.local/share/gedit/plugins
+
