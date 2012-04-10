@@ -109,3 +109,43 @@ change c.lang and python.lang
 mkdir ~/.local/share/gedit
 mkdir ~/.local/share/gedit/plugins
 
+################################################################################
+#                                                                              #
+#                       Gedit is too slow in KDE? Kate?                        #
+#                                                                              #
+################################################################################
+
+1. the font and the color scheme
+
+set font to "Liberation Mono regular 11"
+added the color scheme file kate_Normal.kateschema
+
+in file /usr/share/kde4/apps/katepart/syntax/cpp.xml
+add size_t and string to types
+
+in <contexts> <context attribute="Normal Text">
+add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
+
+
+add 
+<itemData name="Function"     defStyleNum="dfFuntion" spellChecking="false"/>
+to <itemDatas>
+
+in file /usr/share/kde4/apps/katepart/syntax/python.xml
+in <contexts> <context name="Normal">, before the normal regExpr line
+add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
+in <itemDatas>, after the normal text line,
+add <itemData name="Function" defStyleNum="dfFuntion" spellChecking="false"/>
+
+2. configure kate options
+
+I want File Templates, Snippets, Symbol viewer, and maybe CTags
+
+Don't auto brackets (especially the default one). The plugin one can be 
+used when the auto insertion of ")","\"" and "]" is switched off.
+Backspace in leading blank space unindents.
+Don't do auto backup.
+
+change the mode of files so the line numbers are shown.
+
+
