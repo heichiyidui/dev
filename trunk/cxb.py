@@ -77,3 +77,4 @@ if __name__ == '__main__':
     tabs.pack(expand=YES,fill=BOTH)
     
     root.mainloop()
+    
