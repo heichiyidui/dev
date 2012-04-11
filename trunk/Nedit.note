@@ -117,8 +117,7 @@ mkdir ~/.local/share/gedit/plugins
 
 1. the font and the color scheme
 
-set font to "Liberation Mono regular 11"
-added the color scheme file kate_Normal.kateschema
+set font to "Efont Fixed Regular 12"
 
 in file /usr/share/kde4/apps/katepart/syntax/cpp.xml
 add size_t and string to types
@@ -126,16 +125,16 @@ add size_t and string to types
 in <contexts> <context attribute="Normal Text">
 add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
 
-
-add 
-<itemData name="Function"     defStyleNum="dfFuntion" spellChecking="false"/>
-to <itemDatas>
+in <itemDatas>
+add <itemData name="Function"    defStyleNum="dfFuntion" spellChecking="false"/>
 
 in file /usr/share/kde4/apps/katepart/syntax/python.xml
 in <contexts> <context name="Normal">, before the normal regExpr line
 add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
 in <itemDatas>, after the normal text line,
 add <itemData name="Function" defStyleNum="dfFuntion" spellChecking="false"/>
+
+import the color scheme file kate_Normal.kateschema
 
 2. configure kate options
 
@@ -148,4 +147,6 @@ Don't do auto backup.
 
 change the mode of files so the line numbers are shown.
 
-
+3. added the two snippets files
+0_C++ Snippets-0.6.xml and 0_Python Snippets-0.1.xml from 
+~/.kde4/share/apps/ktexteditor_snippets/data/

@@ -1,0 +1,99 @@
+<snippets namespace="" license="BSD" filetypes="Python" snippetlicense="public domain" authors="Kuang Lin" name="Python Snippets">
+ <item>
+  <displayprefix></displayprefix>
+  <match>whi</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>while ${condition}:
+	${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>foo</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>for ${condition}:
+	${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>def</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>def ${name}:
+	${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>class</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>class ${name}:
+	def __init__(self,${initargs}):
+		${initialization}
+	${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>gplheader</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>#  This file is part of ${project}
+#
+# Copyright (C) %{year} %{fullname} &lt;%{email}>
+#
+#  This library is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU Library General Public
+#  License as published by the Free Software Foundation; either
+#  version 2 of the License, or (at your option) any later version.
+#
+#  This library is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#  Library General Public License for more details.
+#
+#  You should have received a copy of the GNU Library General Public License
+#  along with this library; see the file COPYING.LIB.  If not, write to
+#  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#  Boston, MA 02110-1301, USA.
+#
+</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>prr</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>print(${content})${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>brk</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>################################################################################
+${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>env</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>#!/usr/bin/env python3${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>frm</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>from ${lib} import ${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>tes</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>if __name__=="__main__":
+	${cursor}</fillin>
+ </item>
+</snippets>

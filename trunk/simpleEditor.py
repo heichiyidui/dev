@@ -6,10 +6,11 @@ from tkinter import *
 from tkinter.simpledialog import askstring
 from tkinter.filedialog   import asksaveasfilename
 
-from tkinter.messagebox import askokcancel          
+from tkinter.messagebox import askokcancel 
 
-class Quitter(Frame):                        
-    def __init__(self, parent=None):          
+
+class Quitter(Frame):
+    def __init__(self, parent=None):
         Frame.__init__(self, parent)
         self.pack()
         widget = Button(self, text='Quit', command=self.quit)
