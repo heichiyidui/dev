@@ -1,0 +1,201 @@
+<snippets namespace="" license="BSD" filetypes="C++" snippetlicense="public domain" authors="Kuang Lin &lt;kuanggong@gmail.com>" name="C++ snippets">
+ <script>function headerGuard() {
+  var filename = document.fileName().toUpperCase();
+  filename = filename.replace(/[\.\-]/, '_');
+  return filename;
+}
+
+function mocHeader() {
+  var filename = document.fileName();
+  return filename.replace(/.cpp$/, '.moc');
+}
+
+function mocImpl() {
+  var filename = document.fileName();
+  return "moc_" + filename;
+}</script>
+ <item>
+  <displayprefix></displayprefix>
+  <match>ins</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>#include &lt;${fileName}>
+${cursor}
+</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>inl</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>#include "${fileName}"
+${cursor}
+</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>uns</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>using namespace ${name_space};
+${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>foo</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>for (;${condition};){
+	${cursor}
+}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>for</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>for (size_t ${index}=0;${index}&lt;${range};${index}++){
+	${cursor}
+}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>fos</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>for (size_t ${index}=0;${index}&lt;${range};${index}++)${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>iff</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>if (${condition}){
+	${cursor}
+}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>ifs</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>if (${condition})${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>ele</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>else{
+	${cursor}
+}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>eli</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>else if (${condition}){
+	${cursor}
+}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>cer</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>cerr&lt;&lt;${content}&lt;&lt;'\n';${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>cot</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>cout&lt;&lt;${content}&lt;&lt;'\n';${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>cos</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>cout&lt;&lt;${content}&lt;&lt;' ';${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>cov</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>cout&lt;&lt;"${variable} = "&lt;&lt;${variable}&lt;&lt;'\n';${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>tss</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>string ts;
+${cursor}
+</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>tls</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>vector &lt;string> tlist;
+${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>ifl</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>ifstream ${ifile};
+${ifile}.open(${fileName});
+assert(${ifile});
+${cursor}
+${ifile}.close();</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>ofl</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>ofstream ${ofile};
+${ofile}.open(${fileName});
+assert(${ofile});
+${cursor}
+${ofile}.close();</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>gtl</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>getline(${ifile},ts);${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>rand</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>srandom(514);
+random();random();random();random();
+${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>ind</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>vector &lt;string> ind;
+${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>brk</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>////////////////////////////////////////////////////////////////////////////////
+${cursor}</fillin>
+ </item>
+</snippets>
