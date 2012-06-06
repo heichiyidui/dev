@@ -115,15 +115,46 @@ mkdir ~/.local/share/gedit/plugins
 #                                                                              #
 ################################################################################
 
+1. switch off startup help
+
+2. setting -> show toolbar off
+
+3. config kate
+    application
+        general 
+            warn about foreign process modification -> on
+        plugin
+            build plugin -> on
+            kate snippets -> on
+            Tab bar -> on
+            symbol viewer -> on
+        Kate Snippets
+            cp 0_C++ Snippets-0.6.xml and 0_Python Snippets-0.1.xml to \
+            ~/.kde4/share/apps/ktexteditor_snippets/data/        
+            C++ snippets -> on
+            Python Snippets -> on
+        Symbol Viewer
+            Display functions parameters -> on
+    Editor
+        appearance
+            Show indentation lines -> on
+            Highlight range between selected brackets -> on
+            Show line numbers -> on
+        Font And Colour
+            
+            in file /usr/share/kde4/apps/katepart/syntax/cpp.xml
+            add size_t and string to types
+
+            add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
+            to <contexts> <context attribute="Normal Text">
+            
+            import scheme kate_Normal.kateschema
+
 1. the font and the color scheme
 
 set font to "Efont Fixed Regular 12"
 
-in file /usr/share/kde4/apps/katepart/syntax/cpp.xml
-add size_t and string to types
 
-in <contexts> <context attribute="Normal Text">
-add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
 
 in <itemDatas>
 add <itemData name="Function"    defStyleNum="dfFuntion" spellChecking="false"/>

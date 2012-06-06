@@ -1,18 +1,18 @@
 [Default Item Styles - Schema kate - Normal]
-Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
-Base-N Integer=ff175b70,ffffdd00,1,,,,ffeaf1ce,-,,---
-Character=ff173370,ffff80e0,1,,,,ffeaf1ce,-,,---
-Comment=ff1e285f,ffded7be,,0,,,fff1eace,-,,---
-Data Type=ffa40839,ff0068ea,,1,,,ffe8f5e2,-,,---
-Decimal/Value=ff175b70,ffffdd00,1,,,,ffeaf1ce,-,,---
-Error=ffbf0303,ff9c0e0e,,,,,-,-,,---
-Floating Point=ff175b70,ffffdd00,1,,,,ffeaf1ce,-,,---
-Function=ffe117e6,ff452886,1,,,,ffe8f5e2,-,,---
-Keyword=ffe6721a,ffe6721a,1,,,,ffd1efef,-,,---
-Normal=ff24023c,ff272735,1,,,,ffe8f5e2,-,,---
-Others=ff006e28,ff80ff80,,,,,-,-,,---
-Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,-,,---
-String=ff173370,ff9c0e0e,0,,,,ffeaf1ce,-,,---
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,,,---
+Base-N Integer=ff175b70,ffffdd00,0,1,,,ffeaf1ce,,,---
+Character=ff173370,ffff80e0,0,,,,ffeaf1ce,,,---
+Comment=ff1e285f,ffded7be,0,0,,,fff1eace,,,---
+Data Type=ffa40839,ff0068ea,,1,,,ffe8f5e2,,,---
+Decimal/Value=ff175b70,ffffdd00,0,,0,,ffeaf1ce,,,---
+Error=ffbf0303,ff9c0e0e,,,,,,,,---
+Floating Point=ff175b70,ffffdd00,0,,,,ffeaf1ce,,,---
+Function=ffe117e6,ff452886,1,,,,ffe8f5e2,,,---
+Keyword=ffe6721a,ffe6721a,0,,,,ffd1efef,,,---
+Normal=ff24023c,ff272735,0,0,,,ffe8f5e2,,,---
+Others=ff006e28,ff80ff80,,,,,,,,---
+Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,,,---
+String=ff173370,ff9c0e0e,0,,,,ffeaf1ce,,,---
 
 [Highlighting .desktop - Schema kate - Normal]
 .desktop:Comment=8,,,,,,,,,,---
@@ -848,6 +848,52 @@ Clojure:Operator=1,ffd22811,,,,,,,,,---
 Clojure:Region Marker=12,,,,,,,,,,---
 Clojure:String=7,,,,,,,,,,---
 Clojure:Variable=1,ffb07e1f,,,,,,,,,---
+
+[Highlighting CofeeScript - Schema kate - Normal]
+Alerts:Alert=10,,,,,,,,,,---
+Alerts:Normal Text=0,,,,,,,,,,---
+Alerts_indent:Alert=10,,,,,,,,,,---
+Alerts_indent:Normal Text=0,,,,,,,,,,---
+CofeeScript:Accessor=2,,,,,,,,,,---
+CofeeScript:Browser Globals=0,,,,,,,,,,---
+CofeeScript:Class=2,,,1,,,,,,,---
+CofeeScript:Comment=8,,,,,,,,,,---
+CofeeScript:Decimal=3,,,,,,,,,,---
+CofeeScript:Embedding=6,,,,,,,,,,---
+CofeeScript:Float=5,,,,,,,,,,---
+CofeeScript:Function=11,,,,,,,,,,---
+CofeeScript:Globals=9,,,,,,,,,,---
+CofeeScript:Hex=4,,,,,,,,,,---
+CofeeScript:Identifier=0,,,,,,,,,,---
+CofeeScript:Javascript=10,,,,1,,,,,,---
+CofeeScript:Keyword=1,,,,,,,,,,---
+CofeeScript:Node.js Globals=0,,,,,,,,,,---
+CofeeScript:Normal=0,,,,,,,,,,---
+CofeeScript:Oct=4,,,,,,,,,,---
+CofeeScript:Regex=7,,,,,,,,,,---
+CofeeScript:Reserved=10,,,,,,,,,,---
+CofeeScript:String=7,,,,,,,,,,---
+CofeeScript:Symbol=1,,,,,,,,,,---
+CofeeScript:Value Keywords=9,,,,,,,,,,---
+JavaScript:Char=6,,,,,,,,,,---
+JavaScript:Comment=8,,,,,,,,,,---
+JavaScript:Decimal=3,,,,,,,,,,---
+JavaScript:Events=1,fff766d5,ff00ffff,0,0,,,,,,---
+JavaScript:Float=5,,,,,,,,,,---
+JavaScript:Function=11,,,,,,,,,,---
+JavaScript:JSON=2,,,,,,,,,,---
+JavaScript:Keyword=1,,,,,,,,,,---
+JavaScript:Math=1,ffdba716,ff00ffff,0,0,,,,,,---
+JavaScript:Normal Text=0,,,,,,,,,,---
+JavaScript:Object Member=11,,,,,,,,,,---
+JavaScript:Objects=1,ff008000,ff00ffff,0,0,,,,,,---
+JavaScript:Pattern Character Class=4,,,,,,,,,,---
+JavaScript:Pattern Internal Operator=5,,,,,,,,,,---
+JavaScript:Region Marker=12,,,,,,,,,,---
+JavaScript:Regular Expression=9,,,,,,,,,,---
+JavaScript:String=7,,,,,,,,,,---
+JavaScript:String Char=6,,,,,,,,,,---
+JavaScript:Symbol=0,,,,,,,,,,---
 
 [Highlighting CoffeeScript - Schema kate - Normal]
 Alerts:Alert=10,,,,,,,,,,---
@@ -4042,6 +4088,7 @@ Verilog:Integer=3,,,,,,,,,,---
 Verilog:Keyword=1,,,,,,,,,,---
 Verilog:Normal Text=0,,,,,,,,,,---
 Verilog:Octal=4,,,,,,,,,,---
+Verilog:Port connection=2,,,,,,,,,,---
 Verilog:Port map=2,,,,,,,,,,---
 Verilog:Prep. Lib=5,,,,,,,,,,---
 Verilog:Preprocessor=9,,,,,,,,,,---
@@ -4579,5 +4626,5 @@ yacas:Symbol=9,,,,,,,,,,---
 
 [KateSchema]
 full schema=true
-highlightings=None,Asm6502,AVR Assembler,GNU Assembler,Intel x86 (NASM),MIPS Assembler,Motorola 68k (VASM/Devpac),Motorola DSP56k,PicAsm,.desktop,Apache Configuration,Asterisk,Cisco,fstab,INI Files,mergetag text,WINE Config,x.org Configuration,4GL,4GL-PER,LDIF,progress,SQL,SQL (MySQL),SQL (PostgreSQL),AHDL,Spice,SystemC,SystemVerilog,Vera,Verilog,VHDL,en_US,ASN.1,ASP,BibTeX,ColdFusion,CSS,Django HTML Template,Doxygen,DoxygenLua,DTD,GlossTex,GNU Gettext,HTML,Javadoc,JSON,JSP,Kate File Template,LaTeX,MAB-DB,MediaWiki,Metapost/Metafont,Pango,PostScript,RELAX NG,RelaxNG-Compact,reStructuredText,Roff,Ruby/Rails/RHTML,SGML,SiSU,Texinfo,Troff Mandoc,txt2tags,VRML,Wesnoth Markup Language,XML,XML (Debug),xslt,XUL,YAML,ABC,Alerts,Alerts_indent,ChangeLog,CMake,CSS/PHP,CUE Sheet,Debian Changelog,Debian Control,Diff,Email,GDB Backtrace,Jam,JavaScript/PHP,JavaScript/PlasmaDesktop,LilyPond,M3U,Makefile,Music Publisher,PGN,POV-Ray,QMake,RenderMan RIB,RPM Spec,Valgrind Suppression,Ansys,B-Method,GAP,GDL,Matlab,Maxima,Octave,scilab,TI Basic,yacas,AMPLE,AWK,Bash,CoffeeScript,Erlang,Euphoria,ferite,GNU Linker Script,JavaScript,LSL,Lua,Mason,MEL,MS-DOS Batch,Perl,PHP (HTML),PHP/PHP,Pike,Python,QML,Quake Script,R Script,REXX,Ruby,Scheme,sed,Sieve,Tcl/Tk,Tcsh,UnrealScript,Velocity,Zsh,ABAP,ActionScript 2.0,Ada,ANS-Forth94,ANSI C89,Boo,C,C#,C++,Cg,CGiS,Clipper,Clojure,Common Lisp,Component-Pascal,Crack,D,E Language,Eiffel,Fortran,FreeBASIC,FSharp,GLSL,GNU M4,Go,Haskell,Haxe,IDL,ILERPG,Inform,Java,KBasic,KDev-PG[-Qt] Grammar,Lex/Flex,Literate Haskell,Logtalk,LPC,Modelica,Modula-2,MonoBasic,Nemerle,noweb,Objective Caml,Objective-C,Objective-C++,OORS,OPAL,Pascal,Prolog,PureBasic,RapidQ,RSI IDL,Sather,Scala,SML,Stata,TADS 3,xHarbour,Yacc/Bison,Zonnon
+highlightings=None,Asm6502,AVR Assembler,GNU Assembler,Intel x86 (NASM),MIPS Assembler,Motorola 68k (VASM/Devpac),Motorola DSP56k,PicAsm,.desktop,Apache Configuration,Asterisk,Cisco,fstab,INI Files,mergetag text,WINE Config,x.org Configuration,4GL,4GL-PER,LDIF,progress,SQL,SQL (MySQL),SQL (PostgreSQL),AHDL,Spice,SystemC,Verilog,VHDL,ASN.1,ASP,BibTeX,ColdFusion,CSS,Django HTML Template,Doxygen,DoxygenLua,DTD,GNU Gettext,HTML,Javadoc,JSON,JSP,Kate File Template,LaTeX,MAB-DB,MediaWiki,Metapost/Metafont,Pango,PostScript,Roff,Ruby/Rails/RHTML,SGML,SiSU,Texinfo,Troff Mandoc,txt2tags,VRML,Wesnoth Markup Language,XML,XML (Debug),xslt,XUL,YAML,ABC,Alerts,Alerts_indent,ChangeLog,CMake,CSS/PHP,CUE Sheet,Debian Changelog,Debian Control,Diff,Email,GDB Backtrace,JavaScript/PHP,LilyPond,M3U,Makefile,Music Publisher,PGN,POV-Ray,RenderMan RIB,RPM Spec,Ansys,B-Method,GAP,GDL,Matlab,Maxima,Octave,scilab,TI Basic,yacas,AMPLE,AWK,Bash,CofeeScript,Erlang,Euphoria,ferite,JavaScript,LSL,Lua,Mason,Perl,PHP (HTML),PHP/PHP,Pike,Python,QML,Quake Script,R Script,REXX,Ruby,Scheme,sed,Sieve,Tcl/Tk,UnrealScript,Velocity,ABAP,ActionScript 2.0,Ada,ANSI C89,Boo,C,C#,C++,Cg,CGiS,Clipper,Common Lisp,Component-Pascal,D,E Language,Eiffel,Fortran,FreeBASIC,FSharp,GLSL,Go,Haskell,Haxe,IDL,ILERPG,Inform,Java,KBasic,KDev-PG[-Qt] Grammar,Lex/Flex,Literate Haskell,Logtalk,LPC,Modelica,Modula-2,MonoBasic,Nemerle,noweb,Objective Caml,Objective-C,Objective-C++,OORS,OPAL,Pascal,Prolog,PureBasic,RapidQ,RSI IDL,Sather,Scala,SML,Stata,xHarbour,Yacc/Bison,Zonnon
 schema=kate - Normal
