@@ -141,43 +141,26 @@ mkdir ~/.local/share/gedit/plugins
             Highlight range between selected brackets -> on
             Show line numbers -> on
         Font And Colour
-            
-            in file /usr/share/kde4/apps/katepart/syntax/cpp.xml
-            add size_t and string to types
+            set font to "Efont Fixed Regular 12"
 
-            add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
-            to <contexts> <context attribute="Normal Text">
-            
-            import scheme kate_Normal.kateschema
+ in file /usr/share/kde4/apps/katepart/syntax/bash.xml
+   add zsh to extensions in line 11
+ in file /usr/share/kde4/apps/katepart/syntax/cpp.xml
+   add size_t and string to types
+   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
+   to <contexts> <context attribute="Normal Text">
+   add <itemData name="Function"    defStyleNum="dfFuntion" spellChecking="false"/>
+   to <itemDatas>
+ in file /usr/share/kde4/apps/katepart/syntax/python.xml
+   in <contexts> <context name="Normal">, before the normal regExpr line
+   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
+   in <itemDatas>, after the normal text line,
+   add <itemData name="Function" defStyleNum="dfFuntion" spellChecking="false"/>
 
-1. the font and the color scheme
+	import scheme kate_Normal.kateschema
 
-set font to "Efont Fixed Regular 12"
-
-
-
-in <itemDatas>
-add <itemData name="Function"    defStyleNum="dfFuntion" spellChecking="false"/>
-
-in file /usr/share/kde4/apps/katepart/syntax/python.xml
-in <contexts> <context name="Normal">, before the normal regExpr line
-add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
-in <itemDatas>, after the normal text line,
-add <itemData name="Function" defStyleNum="dfFuntion" spellChecking="false"/>
-
-import the color scheme file kate_Normal.kateschema
-
-2. configure kate options
-
-I want File Templates, Snippets, Symbol viewer, and maybe CTags
-
-Don't auto brackets (especially the default one). The plugin one can be 
-used when the auto insertion of ")","\"" and "]" is switched off.
-Backspace in leading blank space unindents.
-Don't do auto backup.
-
-change the mode of files so the line numbers are shown.
-
-3. added the two snippets files
-0_C++ Snippets-0.6.xml and 0_Python Snippets-0.1.xml from 
-~/.kde4/share/apps/ktexteditor_snippets/data/
+        Editing
+            indentation 4 spaces
+            backspace in leading to unindent
+        Open/Save
+            Don't autosave
