@@ -164,3 +164,23 @@ mkdir ~/.local/share/gedit/plugins
             backspace in leading to unindent
         Open/Save
             Don't autosave
+
+################################################################################
+#                                                                              #
+#                       Or Geany?                                              #
+#                                                                              #
+################################################################################
+
+1. download from 
+http://download.geany.org/geany-1.22.tar.gz
+and
+http://plugins.geany.org/geany-plugins/geany-plugins-1.22.tar.gz
+
+2. configure; make; make install
+
+3. configuration files
+~/.config/geany/geany.conf
+~/.config/geany/keybindings.conf
+~/.config/geany/snippets.conf
+~/.config/geany/filedefs/filetypes.python
+~/.config/geany//colorschemes/green-light.conf
