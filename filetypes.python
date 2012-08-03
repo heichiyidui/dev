@@ -1,3 +1,7 @@
+[styling]
+
+[settings]
+comment_use_indent=false
 
 [build-menu]
 FT_00_LB=_Compile
