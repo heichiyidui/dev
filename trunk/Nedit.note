@@ -152,8 +152,9 @@ mkdir ~/.local/share/gedit/plugins
    add <itemData name="Function"    defStyleNum="dfFuntion" spellChecking="false"/>
    to <itemDatas>
  in file /usr/share/kde4/apps/katepart/syntax/python.xml
-   in <contexts> <context name="Normal">, before the normal regExpr line
-   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
+   in <contexts> <context name="Normal">, 
+   BEFORE the normal regExpr line
+   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" context="#stay"/>
    in <itemDatas>, after the normal text line,
    add <itemData name="Function" defStyleNum="dfFuntion" spellChecking="false"/>
 
