@@ -1,0 +1,41 @@
+[Highlighting C++ - Schema kate - Normal]
+Alerts:Alert=10,ffbf0303,ff9c0e0e,1,0,0,0,fff7e6e6,,,---
+Alerts:Normal Text=0,ff37035c,ff37035c,1,0,0,0,ffe8f5e2,,,---
+C++:Char=6,ffff80e0,ffff80e0,0,0,0,0,ffeaf1ce,,,---
+C++:Comment=8,ff1e285f,ff1e285f,0,0,0,0,fff1eace,,,---
+C++:Data Type=2,ffa40839,ff0068ea,0,1,0,0,ffe8f5e2,,,---
+C++:Decimal=3,ff175b70,ff134c5e,0,1,0,0,ffeaf1ce,,,---
+C++:Error=13,ffbf0303,ff9c0e0e,0,0,0,1,,,,---
+C++:Extensions=1,ff0095ff,ffffffff,1,0,0,0,ffd1efef,,,---
+C++:Float=5,ff175b70,ffffdd00,0,1,0,0,ffeaf1ce,,,---
+C++:Function=0,ffe117e6,ffe117e6,1,0,0,0,ffe8f5e2,,,---
+C++:Hex=4,ff175b70,ffffdd00,0,1,0,0,ffeaf1ce,,,---
+C++:Keyword=1,ffe6721a,ffe6721a,0,0,0,0,ffd1efef,,,---
+C++:Normal Text=0,ff1e1aa0,ff1e1aa0,1,0,0,0,ffe8f5e2,,,---
+C++:Octal=4,ff175b70,ffffdd00,0,1,0,0,ffeaf1ce,,,---
+C++:Prep. Lib=9,ff006e28,ff006e28,0,0,0,0,,,,---
+C++:Preprocessor=9,ff006e28,ff006e28,0,0,0,0,,,,---
+C++:Region Marker=12,ff0057ae,ff00316e,0,0,0,0,ffe0e9f8,,,---
+C++:String=7,ff173370,ff9c0e0e,0,0,0,0,ffeaf1ce,,,---
+C++:String Char=6,ffff80e0,ffff80e0,0,0,0,0,ffeaf1ce,,,---
+C++:Symbol=0,ff582b09,ff21212c,1,0,0,0,ffe3eedc,,,---
+Doxygen:Code=8,ff1e285f,ffded7be,0,0,0,0,fff1eace,,,---
+Doxygen:Comment=8,ff0000ff,ffffffff,0,1,0,0,fff1eace,,,---
+Doxygen:Description=7,ffff0000,ff9c0e0e,0,0,0,0,ffeaf1ce,,,---
+Doxygen:Dot Graph=8,ff00a000,ffffffff,0,1,0,0,fff1eace,,,---
+Doxygen:Formulas=8,ff00a000,ffffffff,0,1,0,0,fff1eace,,,---
+Doxygen:HTML Comment=8,ff1e285f,ffded7be,0,0,0,0,fff1eace,,,---
+Doxygen:HTML Tag=1,ff000000,ffffffff,1,0,0,0,ffd1efef,,,---
+Doxygen:Identifier=9,ff006e28,ff006e28,0,0,0,0,,,,---
+Doxygen:Message Sequence Chart=8,ff00a000,ffffffff,0,1,0,0,fff1eace,,,---
+Doxygen:Normal Text=0,ff37035c,ff37035c,1,0,0,0,ffe8f5e2,,,---
+Doxygen:Region=12,ff0057ae,ff00316e,0,0,0,0,ffe0e9f8,,,---
+Doxygen:Tags=1,ffca60ca,ffffffff,1,0,0,0,ffd1efef,,,---
+Doxygen:Types=2,ffa40839,ff0068ea,0,1,0,0,ffe8f5e2,,,---
+Doxygen:Verbatim=8,ff1e285f,ffded7be,0,0,0,0,fff1eace,,,---
+Doxygen:Word=1,ff0095ff,ffffffff,1,0,0,0,ffd1efef,,,---
+
+[KateHLColors]
+full schema=false
+highlight=C++
+schema=kate - Normal
