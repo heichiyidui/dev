@@ -109,6 +109,14 @@ change c.lang and python.lang
 mkdir ~/.local/share/gedit
 mkdir ~/.local/share/gedit/plugins
 
+# Use gedit to open files it always opens an untitled document as well.
+sudo vi /usr/share/applications/gedit.desktop
+# replace Exec=gedit %U
+# with Exec=gedit $1 < /dev/null
+
+preference: 
+Text Wrapping off
+
 ################################################################################
 #                                                                              #
 #                       Gedit is too slow in KDE? Kate?                        #
