@@ -391,7 +391,7 @@
         </context>
 	
         <context id="function" style-ref="function">
-	  <match>[_a-zA-Z][_a-zA-Z0-9]*[\ ]*[(]</match>
+	  <match>[_a-zA-Z][_a-zA-Z0-9]*[\ ]*(?=\()</match>
 	</context>
         <context id="Identifier" style-ref="Identifier">
 	  <match>[_a-zA-Z][_a-zA-Z0-9]*</match>
