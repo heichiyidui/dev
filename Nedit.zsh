@@ -6,7 +6,15 @@
 ################################################################################
 
 ################################################################################
-# 1. the GtkSourceView style                                                   #
+# 1. The open file problem                                                     #
+################################################################################
+# Use gedit to open files it always opens an untitled document as well.
+sudo vi /usr/share/applications/gedit.desktop
+# replace Exec=gedit %U
+# with Exec=gedit $1 < /dev/null
+
+################################################################################
+# 2. the GtkSourceView style                                                   #
 ################################################################################
 
 mkdir -p ~/.local/share/gtksourceview-3.0/styles/
@@ -19,23 +27,24 @@ cp c.lang python.lang zsh.lang ~/.local/share/gtksourceview-3.0/language-specs/
 # got the regular expression lookahead right there for funtion coloring
 
 ################################################################################
-# 2. the plugins                                                               #
+# 3. the plugins                                                               #
 ################################################################################
 
-# 2.1 install via YaST (I'm a opensuse user) the gedit-plugins package
+# Install via YaST (I'm a opensuse user) the gedit-plugins package
 # for the code comment plugin
 # select the code comment plugin in Edit/Preferences/Plugins
 # the default Ctrl+M and Ctrl+Shift+M shortcuts are difficult to use
 # in /usr/lib64/gedit/plugins/codecomment.py
 # change them to Ctrl+E and Ctrl+Shift+E
 
-# Use gedit to open files it always opens an untitled document as well.
-sudo vi /usr/share/applications/gedit.desktop
-# replace Exec=gedit %U
-# with Exec=gedit $1 < /dev/null
+# use the smart space, word completion plugins as well
 
-preference: 
-Text Wrapping off
+################################################################################
+# 4. preference                                                                #
+################################################################################
+
+# Text Wrapping off
+# tab: 4 spaces
 
 ################################################################################
 #                                                                              #
