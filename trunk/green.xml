@@ -16,21 +16,22 @@
   <_description>Greenish Color scheme for coding</_description>
 
   <!-- Global Settings -->
+  <style name="cursor"             foreground="#FF8000"/> 
 
-  <style name="text"               foreground="#24023C" background="#E8F5E2"/>
-  <style name="selection"          background="#9F99BC"/>
+  <style name="text"               foreground="#1E1EA0" background="#E8F5E8"/>
+  <style name="selection"          background="#C7C7EB"/>
   <style name="current-line"       background="#CCE9B3" />
   <style name="line-numbers"       foreground="#7F9889" background="#F1FAE9"/>
 
   <style name="right-margin"       background="#DEECD3"/>
-  <style name="bracket-match"      background="#81609D" bold="true" />
+  <style name="bracket-match"      background="#FFD500" bold="true" />
   <style name="bracket-mismatch"   background="#FF0000" bold="true"/>
 
   <!-- Search Matching -->
   <style name="search-match"       background="#ECA928"/>
 
   <!-- Comments -->
-  <style name="def:comment"        foreground="#1E285F" background="#F1EACE"/>
+  <style name="def:comment"        foreground="#1E1EA0" background="#F1EACE"/>
   <style name="def:shebang"        use-style="def:comment"/>
   <style name="def:doc-comment"    foreground="#1E285F" background="#F1EACE" bold="true"/>
 
@@ -46,8 +47,8 @@
   <style name="def:builtin"        use-style="def:constant"/>
 
  <!-- Identifiers -->		   
-  <style name="def:identifier"     foreground="#1E1AA0" bold="true"/>
-  <style name="def:function"       foreground="#E117E6" bold="true"/>
+  <style name="def:identifier"     foreground="#1E1EA0" bold="true"/>
+  <style name="def:function"       foreground="#941EB4" bold="true"/>
 				  
   <!-- Types -->		  
   <style name="def:type"           foreground="#A40839" bold="true" italic="true" />

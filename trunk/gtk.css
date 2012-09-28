@@ -1,0 +1,6 @@
+
+GtkTextView  {
+  -GtkWidget-cursor-aspect-ratio : 0.15;
+}
+
+

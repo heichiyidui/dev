@@ -26,6 +26,9 @@ cp c.lang python.lang zsh.lang ~/.local/share/gtksourceview-3.0/language-specs/
 # at last, 
 # got the regular expression lookahead right there for funtion coloring
 
+# for cursor width and color 
+cp gtk.css ~/.config/gtk-3.0/
+
 ################################################################################
 # 3. the plugins                                                               #
 ################################################################################
@@ -91,7 +94,8 @@ cp c.lang python.lang zsh.lang ~/.local/share/gtksourceview-3.0/language-specs/
  in file /usr/share/kde4/apps/katepart/syntax/python.xml
    in <contexts> <context name="Normal">, 
    BEFORE the normal regExpr line
-   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" context="#stay"/>
+   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" \
+        context="#stay"/>
    in <itemDatas>, after the normal text line,
    add <itemData name="Function" defStyleNum="dfFuntion" spellChecking="false"/>
 
