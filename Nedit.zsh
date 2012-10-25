@@ -55,55 +55,46 @@ cp gtk.css ~/.config/gtk-3.0/
 #                                                                              #
 ################################################################################
 
-1. switch off startup help
+#######################################
+# 1. language syntax
 
-2. setting -> show toolbar off
+sudo cp cpp.xml    /usr/share/kde4/apps/katepart/syntax/ 
+sudo cp python.xml /usr/share/kde4/apps/katepart/syntax/ 
 
-3. config kate
-    application
-        general 
-            warn about foreign process modification -> on
-        plugin
-            build plugin -> on
-            kate snippets -> on
-            Tab bar -> on
-            symbol viewer -> on
-        Kate Snippets
-            cp 0_C++ Snippets-0.6.xml and 0_Python Snippets-0.1.xml to \
-            ~/.kde4/share/apps/ktexteditor_snippets/data/        
-            C++ snippets -> on
-            Python Snippets -> on
-        Symbol Viewer
-            Display functions parameters -> on
-    Editor
-        appearance
-            Show indentation lines -> on
-            Highlight range between selected brackets -> on
-            Show line numbers -> on
-        Font And Colour
-            set font to "Efont Fixed Regular 12"
+#######################################
+# 2 kate setting 
 
- in file /usr/share/kde4/apps/katepart/syntax/bash.xml
-   add zsh to extensions in line 11
- in file /usr/share/kde4/apps/katepart/syntax/cpp.xml
-   add size_t and string to types
-   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" />
-   to <contexts> <context attribute="Normal Text">
-   add <itemData name="Function"    defStyleNum="dfFuntion" spellChecking="false"/>
-   to <itemDatas>
- in file /usr/share/kde4/apps/katepart/syntax/python.xml
-   in <contexts> <context name="Normal">, 
-   BEFORE the normal regExpr line
-   add <RegExpr attribute="Function" String="[_a-zA-Z][_a-zA-Z0-9]*\s*[(]" \
-        context="#stay"/>
-   in <itemDatas>, after the normal text line,
-   add <itemData name="Function" defStyleNum="dfFuntion" spellChecking="false"/>
+# switch off startup help
 
-	import scheme kate_Normal.kateschema
+# setting -> show toolbar off
 
-        Editing
-            indentation 4 spaces
-            backspace in leading to unindent
-        Open/Save
-            Don't autosave
+# config kate
+#    application
+#        general 
+#            warn about foreign process modification -> on
+#        plugin
+#            build plugin -> on
+#            kate snippets -> on
+#            symbol viewer -> on
+#        Kate Snippets
+mkdir -p ~/.kde4/share/apps/ktexteditor_snippets/data/
+cp 0_C++\ Snippets-0.6.xml 0_Python\ Snippets-0.1.xml \
+    ~/.kde4/share/apps/ktexteditor_snippets/data/
+#            C++ snippets -> on
+#            Python Snippets -> on
+#        Symbol Viewer
+#            Display functions parameters -> on
+#    Editor
+#        appearance
+#            Show indentation lines -> on
+#            Highlight range between selected brackets -> on
+#            Show line numbers -> on
+#        Font And Colour
+#            set font to "Liberation Mono 11" 
+#            import scheme kate_Normal.kateschema
+#        Editing
+#            using 4 spaces for indentation
+#            backspace in leading blank space unindent on
+#        Open/Save
+#            local backup off
 
