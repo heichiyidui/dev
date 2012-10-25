@@ -1,6 +1,20 @@
 <snippets namespace="" license="BSD" filetypes="Python" snippetlicense="public domain" authors="Kuang Lin" name="Python Snippets">
  <item>
   <displayprefix></displayprefix>
+  <match>ifs</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>ifile=open(${ifileName})${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
+  <match>ifc</match>
+  <displaypostfix></displaypostfix>
+  <displayarguments></displayarguments>
+  <fillin>ifile.close()${cursor}</fillin>
+ </item>
+ <item>
+  <displayprefix></displayprefix>
   <match>whi</match>
   <displaypostfix></displaypostfix>
   <displayarguments></displayarguments>
@@ -9,11 +23,11 @@
  </item>
  <item>
   <displayprefix></displayprefix>
-  <match>foo</match>
+  <match>for</match>
   <displaypostfix></displaypostfix>
   <displayarguments></displayarguments>
   <fillin>for ${condition}:
-	${cursor}</fillin>
+    ${cursor}</fillin>
  </item>
  <item>
   <displayprefix></displayprefix>
@@ -21,7 +35,7 @@
   <displaypostfix></displaypostfix>
   <displayarguments></displayarguments>
   <fillin>def ${name}:
-	${cursor}</fillin>
+    ${cursor}</fillin>
  </item>
  <item>
   <displayprefix></displayprefix>
@@ -29,9 +43,9 @@
   <displaypostfix></displaypostfix>
   <displayarguments></displayarguments>
   <fillin>class ${name}:
-	def __init__(self,${initargs}):
-		${initialization}
-	${cursor}</fillin>
+    def __init__(self,${initargs}):
+        ${initialization}
+    ${cursor}</fillin>
  </item>
  <item>
   <displayprefix></displayprefix>
@@ -61,7 +75,7 @@
  </item>
  <item>
   <displayprefix></displayprefix>
-  <match>prr</match>
+  <match>pri</match>
   <displaypostfix></displaypostfix>
   <displayarguments></displayarguments>
   <fillin>print(${content})${cursor}</fillin>
@@ -94,6 +108,6 @@ ${cursor}</fillin>
   <displaypostfix></displaypostfix>
   <displayarguments></displayarguments>
   <fillin>if __name__=="__main__":
-	${cursor}</fillin>
+    ${cursor}</fillin>
  </item>
 </snippets>
