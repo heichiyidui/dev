@@ -27,6 +27,7 @@ cp c.lang python.lang zsh.lang ~/.local/share/gtksourceview-3.0/language-specs/
 # got the regular expression lookahead right there for funtion coloring
 
 # for cursor width and color 
+mkdir -p  ~/.config/gtk-3.0/
 cp gtk.css ~/.config/gtk-3.0/
 
 ################################################################################
@@ -46,9 +47,13 @@ cp gtk.css ~/.config/gtk-3.0/
 # 4. preference                                                                #
 ################################################################################
 
-# Text Wrapping off
-# tab: 4 spaces
-
+# View: select all 
+# Editor: Tab 4 spaces
+#    insert spaces
+#    enable auto indention
+#    no local backup
+# Colour: Green
+#
 ################################################################################
 #                                                                              #
 #                       Gedit is too slow in KDE? Kate?                        #
