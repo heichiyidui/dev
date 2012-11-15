@@ -41,7 +41,7 @@ cp gtk.css ~/.config/gtk-3.0/
 # in /usr/lib64/gedit/plugins/codecomment.py
 # change them to Ctrl+E and Ctrl+Shift+E
 
-# use the smart space, word completion plugins as well
+# use the smart space, snippet and word completion plugin as well
 
 ################################################################################
 # 4. preference                                                                #
