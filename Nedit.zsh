@@ -103,3 +103,27 @@ cp 0_C++\ Snippets-0.6.xml 0_Python\ Snippets-0.1.xml \
 #        Open/Save
 #            local backup off
 
+################################################################################
+#                                                                              #
+#                             sublime text editor?                             #
+#                                                                              #
+################################################################################
+#
+# It seems to be a damn good one. 
+# $70 is a bit too much?
+# 
+# sublime text editor build 3047 Release Date: 27 June 2013
+#
+# download and unzip it into ~/bin/ 
+ln -s ~/bin/sublime_text_3/sublime_text ~/bin/
+
+# put the line into ~/.alias 
+alias se='sublime_text '
+
+# font larger by 1
+# color scheme
+# 
+cp Python.sublime-settings Green.tmTheme Preferences.sublime-settings \
+    ~/.config/sublime-text-3/Packages/User/Python.sublime-settings
+
+
