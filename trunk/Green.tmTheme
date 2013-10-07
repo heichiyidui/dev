@@ -144,7 +144,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>name</key>
 			<string>Function name</string>
 			<key>scope</key>
-			<string>entity.name.function, meta.function-call</string>
+			<string>meta.function-call - punctuation - meta.function-call.arguments</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
