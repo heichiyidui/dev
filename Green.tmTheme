@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-A Sublime Text 2 / Textmate theme.
+A Sublime Text 3 theme.
 Kuang Lin
 Released under the MIT License <http://opensource.org/licenses/MIT>
 -->
@@ -102,7 +102,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#268BD2</string>
+				<string>#268B8B</string>
 			</dict>
 		</dict>
 		<dict>
@@ -115,7 +115,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 				<key>fontStyle</key>
 				<string>bold</string>
 				<key>foreground</key>
-				<string>#859900</string>
+				<string>#E6721A</string>
 			</dict>
 		</dict>
 		<dict>
@@ -151,6 +151,8 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<dict>
 				<key>foreground</key>
 				<string>#941EB4</string>
+				<key>fontStyle</key>
+				<string>bold</string>
 			</dict>
 		</dict>
 		<dict>
@@ -346,7 +348,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#269186</string>
+				<string>#173370</string>
 			</dict>
 		</dict>
 		<dict>
@@ -364,7 +366,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>name</key>
 			<string>()</string>
 			<key>scope</key>
-			<string>meta.brace.round, punctuation.definition.parameters.begin.js, punctuation.definition.parameters.end.js</string>
+			<string>meta.brace.round, punctuation.definition.parameters.begin, punctuation.definition.parameters.end</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
@@ -735,7 +737,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
-				<string></string>
+				<string>bold</string>
 				<key>foreground</key>
 				<string>#A40839</string>
 			</dict>
@@ -849,7 +851,8 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 				<string>#CD1E1D</string>
 			</dict>
 		</dict>
-<!--		<dict>
+<!--
+		<dict>
 			<key>name</key>
 			<string>Shell: Comment</string>
 			<key>scope</key>
