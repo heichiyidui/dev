@@ -120,10 +120,9 @@ ln -s ~/bin/sublime_text_3/sublime_text ~/bin/
 # put the line into ~/.alias 
 alias se='sublime_text '
 
-# font larger by 1
-# color scheme
-# 
+#############
+
 cp Python.sublime-settings Green.tmTheme Preferences.sublime-settings \
-    ~/.config/sublime-text-3/Packages/User/Python.sublime-settings
+    ~/.config/sublime-text-3/Packages/User/
 
 
