@@ -1,7 +1,10 @@
 {
 	"color_scheme": "Packages/User/Green.tmTheme",
-    "font_face": "Efont Fixed",
-	"font_size": 13 ,
-    "caret_style": "wide",
+    "font_face": "Liberation Mono",
+	"font_size": 11,
+    "caret_style": "phase",
+    "wide_caret": true,
     "highlight_line": true,
+    "line_padding_bottom": 1,
+    "line_padding_top": 1
 }
