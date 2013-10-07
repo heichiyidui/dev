@@ -24,7 +24,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 				<key>invisibles</key>
 				<string>#EAE3C9</string>
 				<key>lineHighlight</key>
-				<string>#EEE8D5</string>
+				<string>#DCF2C3</string>
 				<key>selection</key>
 				<string>#C7C7EB</string>
 			</dict>
@@ -37,9 +37,11 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>background</key>
-				<string>#F1EEEE</string>
+				<string>#EEEEF8</string>
+<!--
 				<key>fontStyle</key>
 				<string>bold</string>
+-->
 				<key>foreground</key>
 				<string>#13A1A1</string>
 			</dict>
@@ -108,6 +110,8 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<string>keyword</string>
 			<key>settings</key>
 			<dict>
+				<key>fontStyle</key>
+				<string>bold</string>
 				<key>foreground</key>
 				<string>#859900</string>
 			</dict>
@@ -140,7 +144,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>name</key>
 			<string>Function name</string>
 			<key>scope</key>
-			<string>entity.name.function</string>
+			<string>entity.name.function, meta.function-call</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
@@ -1276,7 +1280,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#536871</string>
+				<string>#941EB4</string>
 			</dict>
 		</dict>
 		<dict>
