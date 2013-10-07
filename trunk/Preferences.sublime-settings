@@ -1,10 +1,11 @@
 {
 	"color_scheme": "Packages/User/Green.tmTheme",
-    "font_face": "Liberation Mono",
+    "font_face": "Droid Sans Mono",
 	"font_size": 11,
-    "caret_style": "phase",
+    "caret_style": "blink",
     "wide_caret": true,
     "highlight_line": true,
-    "line_padding_bottom": 1,
-    "line_padding_top": 1
+    "overlay_scroll_bars": "enabled",
+    "scroll_speed": 8.0,
+    "always_show_minimap_viewport": true,
 }

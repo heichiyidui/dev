@@ -123,6 +123,7 @@ alias se='sublime_text '
 #############
 
 cp Python.sublime-settings Green.tmTheme Preferences.sublime-settings \
-    ~/.config/sublime-text-3/Packages/User/
+   redbar.sublime-theme \
+   ~/.config/sublime-text-3/Packages/User/
 
 
