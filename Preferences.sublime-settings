@@ -8,5 +8,6 @@
     "overlay_scroll_bars": "enabled",
     "scroll_speed": 8.0,
     "always_show_minimap_viewport": true,
-    "rulers": [80]
+    "rulers": [80],
+    "update_check": false,
 }
