@@ -10,4 +10,7 @@
     "always_show_minimap_viewport": true,
     "rulers": [80],
     "update_check": false,
+    "tab_size": 4,
+    "trim_automatic_white_space": false,
+    "trim_trailing_white_space_on_save": false,
 }
