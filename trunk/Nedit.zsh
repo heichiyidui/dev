@@ -9,9 +9,10 @@
 # 1. The open file problem                                                     #
 ################################################################################
 # Use gedit to open files it always opens an untitled document as well.
-sudo vi /usr/share/applications/gedit.desktop
+# sudo vi /usr/share/applications/gedit.desktop
 # replace Exec=gedit %U
 # with Exec=gedit $1 < /dev/null
+# OK, now with version 3.14.0 it's fixed.
 
 ################################################################################
 # 2. the GtkSourceView style                                                   #
@@ -19,6 +20,7 @@ sudo vi /usr/share/applications/gedit.desktop
 
 mkdir -p ~/.local/share/gtksourceview-3.0/styles/
 cp green.xml ~/.local/share/gtksourceview-3.0/styles/
+# go preference and choose the Green color scheme
 
 mkdir -p ~/.local/share/gtksourceview-3.0/language-specs/
 cp c.lang python.lang zsh.lang ~/.local/share/gtksourceview-3.0/language-specs/
@@ -121,7 +123,7 @@ ln -s ~/bin/sublime_text_3/sublime_text ~/bin/
 alias se='sublime_text '
 
 #############
-
+mkdir -p ~/.config/sublime-text-3/Packages/User/
 cp Python.sublime-settings Green.tmTheme Preferences.sublime-settings \
    ~/.config/sublime-text-3/Packages/User/
 
