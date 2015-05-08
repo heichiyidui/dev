@@ -1,0 +1,18 @@
+#! /usr/bin/env python3  
+import sys 
+
+ifile=open(sys.argv[1])
+
+line=ifile.readline()
+print('<head>')
+print('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">')
+print('<title>'+line.strip()+'</title>')
+print('<style type="text/css">pre{display:inline;}</style>')
+print('</head>')
+
+print('<p>'+line.strip()+'</p>')
+for line in ifile:
+    if len(line.strip()) > 1:
+        print('<p>'+'<pre>  </pre>'+line.strip()+'</p>')
+ifile.close()
+

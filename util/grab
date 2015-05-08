@@ -1,0 +1,72 @@
+#! /usr/bin/env python2.7
+import sys
+import argparse
+
+################################################################################
+# parse arguments
+
+parser = argparse.ArgumentParser(\
+    description='grab a subset of a file according to a list of ids',\
+    epilog=' grab -f id_list_file in_file > subset_file')
+
+parser.add_argument('-f', dest='ls_file',help='obtain ids from LS_FILE')
+parser.add_argument('-c', dest='id_col',default=1,type=int,\
+                    help='match ids in the corresponding column of in_file')
+parser.add_argument('in_file', type=str,help='input file')
+parser.add_argument('-v', action='store_true', default=False,\
+                    dest='invert_select',help='select non-matching lines')
+
+args=parser.parse_args()
+
+################################################################################
+# read the list of ids
+sys.stderr.write('list of id file: \t'+args.ls_file+'\n')
+try:
+    list_file=open(args.ls_file)
+except IOError:
+    sys.stderr.write('Error: can\'t find file '+args.ls_file+\
+                     ' or read ids from it\n')
+    exit(1)
+
+ids=[]
+for line in list_file:
+    ids.append(line.strip())
+list_file.close()
+id_set=set(ids)
+if '' in id_set:
+    id_set.remove('')
+
+sys.stderr.write(str(len(ids))+'\t lines from '+args.ls_file+'\n')
+sys.stderr.write(str(len(id_set))+'\t unique ids\n\n')
+
+if len(id_set) < 1:
+    sys.stderr.write('Failed to read any id from '+args.ls_file+'\n')
+    exit(1)
+
+################################################################################
+# process the input file
+sys.stderr.write('input file: \t'+args.in_file+'\n')
+try:
+    in_file=open(args.in_file)
+except IOError:
+    sys.stderr.write('Error: can\'t find input file '+args.in_file+\
+                     ' or read from it\n')
+    exit(1)
+
+sys.stderr.write('ids in the column '+str(args.id_col)+' of '\
+                 +args.in_file+'\n\n')
+
+id_col=args.id_col-1
+
+if args.invert_select:
+    for line in in_file:
+        if len(line.split()) > id_col:
+            if line.split()[id_col] not in id_set:
+                print(line[:-1])
+else:
+    for line in in_file:
+        if len(line.split()) > id_col:
+            if line.split()[id_col] in id_set:
+                print(line[:-1])
+in_file.close()
+################################################################################

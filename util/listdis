@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+
+################################################################################
+# parse arguments
+
+import sys
+import argparse
+
+parser = argparse.ArgumentParser(\
+    description='listdis get a histogram of a set of numbers',\
+    epilog=' listdis in_file [-bn bin_number]> histogram_file')
+
+parser.add_argument('-bn', dest='bin_number',default=0,type=int,\
+                    help='number of bins, the default is \
+                           the square root of the number of samples')
+parser.add_argument('in_file', type=str,help='input file')
+
+args=parser.parse_args()
+################################################################################
+
+sys.stderr.write('input file: \t'+args.in_file+'\n')
+try:
+    in_file=open(args.in_file)
+except IOError:
+    sys.stderr.write('Error: can\'t find input file '+args.in_file+\
+                     ' or read from it\n')
+    exit(1)
+
+float_list=[]
+for line in in_file:
+    for item in line.split():
+        float_list.append(float(item))
+in_file.close()
+
+if len(float_list) < 10:
+    sys.stderr.write('too few numbers in the file '+args.in_file+'\n')
+    exit(0)
+################################################################################
+
+float_list.sort()
+if float_list[0]==float_list[-1]:
+    sys.stderr.write('All numbers in '+args.in_file+\
+                     ' are '+str(float_list[0])+'\n')
+    exit(0)
+
+import sys
+package_dir_a='/home/klinbrc/.local/lib/python3.2/site-packages'
+sys.path.insert(0, package_dir_a)
+import numpy
+
+size=len(float_list)
+sys.stderr.write('size:      '+str(size)+'\n')
+sys.stderr.write('min:       '+"%.4f"%float_list[0]+'\n'+\
+                 'max:       '+"%.4f"%float_list[-1]+'\n'+\
+                 'mean:      '+"%.4f"%numpy.average(float_list)+'\n'+\
+                 'std:       '+"%.4f"%numpy.std(float_list)+'\n'+\
+                 'quartiles: '+"%.4f"%float_list[0]+' '+\
+    "%.4f"%float_list[size//4]  +' '+"%.4f"%float_list[size//2]+' '+\
+    "%.4f"%float_list[size*3//4]+' '+"%.4f"%float_list[-1]+'\n')
+
+sys.stderr.write('8 tiles:   ')
+for i in range(8):
+    sys.stderr.write("%.4f"%float_list[size*i//8]+' ')
+sys.stderr.write("%.4f"%float_list[-1]+'\n')
+
+
+bin_number=int(numpy.sqrt(size))
+if args.bin_number > 2 and args.bin_number < size-1:
+    bin_number=args.bin_number
+
+bin_width=(float_list[-1]-float_list[0])/(bin_number-1)
+sys.stderr.write('bin_number: '+str(bin_number)+'\n'+\
+                 'bin_width:  '+str(bin_width)+'\n')
+
+bin_start=float_list[0]-bin_width/2
+bins=numpy.zeros(bin_number)
+for f in float_list:
+    bins[int((f-bin_start)/bin_width)]+=1
+
+for i in range(len(bins)):
+    print(str(float_list[0]+bin_width*i)+' '+str(bins[i]/len(float_list)))
+
