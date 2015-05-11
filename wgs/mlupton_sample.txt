@@ -1,0 +1,170 @@
+################################################################################
+# in the directory /project/grouppowell/Autism/
+# the README file says
+Fastq files for whole genome sequencing.
+
+6/12/2010 Whole genome Autism samples run on GAII paired end length 75bp
+michelle_4_2_all.fastq, michelle_4_1_all.fastq: Autism sample BM0120 (in file may be labled BH0
+220!) 
+michelle_3_1_all.fastq, michelle_3_2_all.fastq: Autism sample BM0113
+
+23/02/2011-06/03/2011 Whole genome samples from test run on the Hiseq, paired end.
+flow cell A
+transfered from 110203_SN576_0052_A81DAUABXX_qseq folder
+s_6_read1_sequence.fastq.gz, s_6_read2_sequence.fastq.gz; EB0310 from Mausley family study with
+ schizophrenia and affected family members
+s_7_read1_sequence.fastq.gz, s_7_read2_sequence.fastq.gz; EB0088 from Mausley family study with
+ schizophrenia and affected family members
+flow cell B 
+transfered from 110203_SN576_0051_B81DE6ABXX_qseq folder
+s_4_read2_sequence.fastq.gz, s_4_read1_sequence.fastq.gz; Autism sample BM0120 (in file may be 
+labled BH0220!) -repeat run of previous library
+s_5_read2_sequence.fastq.gz, s_5_read1_sequence.fastq.gz: Autism sample BM0113 -repeat run of p
+revious library
+**note flow cell B did not work well and was told that only read1 was usable.
+
+files sent to archive:
+/home/mlupton/archive/grouppowell/Autism/
+michelle_3_1_all.fastq.gz
+michelle_3_2_all.fastq.gz
+michelle_4_1_all.fastq.gz
+michelle_4_2_all.fastq.gz
+s_4_read1_sequence.fastq.gz
+s_4_read2_sequence.fastq.gz
+s_5_read1_sequence.fastq.gz
+s_5_read2_sequence.fastq.gz
+s_6_read1_sequence.fastq.gz
+s_6_read2_sequence.fastq.gz
+s_7_read1_sequence.fastq.gz
+s_4_read2_sequence.fastq.gz
+################################################################################
+
+################################################################################
+# according to Steve, the reference files should be in 
+/scratch/data/reference_genomes/gatk_resources/
+
+################################################################################
+example scripts whole genome
+
+/share/bin/maq ill2sanger /project/grouppowell/Autism/michelle_3_1_all.fastq /scratch/project/grouppowell/Autism/michelle_3_1_all.fastq
+/share/bin/maq ill2sanger /project/grouppowell/Autism/michelle_3_2_all.fastq /scratch/project/grouppowell/Autism/michelle_3_2_all.fastq
+
+novoalign
+#!/bin/sh
+#$-S /bin/sh
+# Deliver an email when the job Begins and Ends
+#$ -M michelle.2.lupton@kcl.ac.uk
+#$ -m beas
+#$ -N novo1
+# Set the location of the stdout and stderr
+#$ -o /home/mluptonbrc/jump2grouppowell/Autism
+#$ -e /home/mluptonbrc/jump2grouppowell/Autism
+# Choose the queues - this can be one queue, or multiple queues,separated by a comma
+#$ -q 78gb.q,54gb.q
+# Declare how much memory is required PER slot - default is 2Gbytes
+#$ -l h_vmem=8G
+# Declare how many slots/jobs are required - if not busy 100
+#$ -pe mpi 100
+################################################################################
+DATA=/home/mluptonbrc/jump2grouppowell/Autism
+##=============================================================================# 
+/share/mpi/mpich2_1.3.1/bin/mpirun -np 100 \
+/share/apps/novocraft_current/bin/novoalignMPI  \
+-d /scratch/data/reference_genomes/human/human_g1k_v37 -F STDFQ -f \
+$DATA/michelle_3_1_all_sanger.fastq \
+$DATA/michelle_3_2_all_sanger.fastq \
+-a GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG ACACTCTTTCCCTACACGACGCTCTTCCGATCT \
+-a AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT \
+-a ACACTCTTTCCCTACACGACGCTCTTCCGATCT CGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT \
+-a ACACTCTTTCCCTACACGACGCTCTTCCGATCT GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG \
+-a CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT \
+-a CGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT ACACTCTTTCCCTACACGACGCTCTTCCGATCT \
+-g 40 -x 15 -q 2 \
+-r Random \
+-i PE 200,50 \
+-c 1 \
+-p 7,10 0.3,10 \
+-k \
+-K /home/mluptonbrc/jump2grouppowell/Autism/BM0113.test -o SAM \
+$'@RG\tID:Austism\tPL:Illumina\tPU:GUYSIllumina\tSM:BM0113' \
+> /home/mluptonbrc/jump2grouppowell/Autism/michelle_4.stats \
+> /home/mluptonbrc/jump2grouppowell/Autism/BM0113.sam
+
+
+Sort
+
+#!/bin/sh
+#$ -S /bin/sh
+#$ -M michelle.2.lupton@kcl.ac.uk
+#$ -m beas
+#$ -N SortSam
+#$ -q 78gb.q,54gb.q
+#$ -l h_vmem=20G
+/usr/java/latest/bin/java -Xmx6g -jar /share/apps/picard-tools_1.35/jar/SortSam.jar \
+INPUT=/home/mluptonbrc/jump2grouppowell/Autism/BM0113.sam \
+OUTPUT=/home/mluptonbrc/jump2grouppowell/Autism/BM0113sorted.sam \
+SO=coordinate VALIDATION_STRINGENCY=SILENT 
+
+
+remove duplicates
+
+#!/bin/sh
+#$ -S /bin/sh
+#$ -M michelle.2.lupton@kcl.ac.uk
+#$ -m beas
+#$ -N remove_duplicates
+#$ -q 78gb.q,54gb.q
+#$ -l h_vmem=10G
+/usr/java/latest/bin/java -Xmx6g -jar /share/apps/picard-tools_1.35/jar/MarkDuplicates.jar \
+INPUT=/home/mluptonbrc/jump2grouppowell/Autism/BM0113sorted.sam \
+OUTPUT=/home/mluptonbrc/jump2grouppowell/Autism/BM0113dulplicatesremoved.sam \
+METRICS_FILE=/home/mluptonbrc/jump2grouppowell/Autism/michelle_3_markdups_metric.file \
+REMOVE_DUPLICATES=true \
+TMP_DIR=/home/mluptonbrc/jump2grouppowell/Autism/temp \
+ASSUME_SORTED=true VALIDATION_STRINGENCY=SILENT 
+
+
+AlignmentSummaryMetrics
+
+#!/bin/sh
+#$ -S /bin/sh
+#$ -M michelle.2.lupton@kcl.ac.uk
+#$ -m beas
+#$ -N AlignmentSummaryMetrics
+#$ -q 78gb.q,54gb.q
+#$ -l h_vmem=20G
+/usr/java/latest/bin/java -Xmx6g -jar /share/apps/picard-tools_1.35/jar/CollectAlignmentSummaryMetrics.jar \
+INPUT=/home/mluptonbrc/jump2grouppowell/Autism/alignments_duplicates_removed/BM0120dulplicatesremoved.sam \
+OUTPUT=/home/mluptonbrc/jump2grouppowell/Autism/AlignmentSummaryMetrics/BM0120duplicatesremoved.Metrics \
+TMP_DIR=/home/mluptonbrc/jump2grouppowell/Autism/temp \
+ASSUME_SORTED=true VALIDATION_STRINGENCY=SILENT \
+IS_BISULFITE_SEQUENCED=false MAX_INSERT_SIZE=100000 \
+REFERENCE_SEQUENCE=/scratch/data/reference_genomes/human/human_g1k_v37.fasta \
+ADAPTER_SEQUENCE=null
+
+make BAM and index
+
+/share/apps/samtools_0.1.9/bin/samtools view -bS \
+/home/mluptonbrc/jump2grouppowell/Autism/alignments_duplicates_removed/BM0113dulplicatesremoved.sam > \
+/home/mluptonbrc/jump2grouppowell/Autism/alignments_duplicates_removed/BM0113dulplicatesremoved.bam
+
+/share/apps/samtools_0.1.9/bin/samtools index \
+/home/mluptonbrc/jump2grouppowell/Autism/alignments_duplicates_removed/BM0113dulplicatesremoved.bam
+
+
+Depth of coverage
+
+#!/bin/sh
+#$ -S /bin/sh
+#$ -M michelle.2.lupton@kcl.ac.uk
+#$ -m beas
+#$ -N DepthOfCoverage
+#$ -q 78gb.q,54gb.q
+#$ -l h_vmem=20G
+
+/usr/java/latest/bin/java -Xmx5g -jar /share/apps/GenomeAnalysisTK_1.0.3471/GenomeAnalysisTK.jar -T DepthOfCoverage \
+-R /scratch/data/reference_genomes/human/human_g1k_v37.fasta \
+-I /home/mluptonbrc/jump2grouppowell/Autism/alignments_duplicates_removed/BM0120dulplicatesremoved.bam \
+-o /home/mluptonbrc/jump2grouppowell/Autism/DepthOfCoverage/BM0120.DepthOfCoverage \
+--outputFormat csv -ct 1 -ct 2
+

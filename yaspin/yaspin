@@ -1,0 +1,567 @@
+#!/usr/bin/env python3
+
+################################################################################
+#                     Copyright 2014 Kuang Lin                                 #
+################################################################################
+
+################################################################################
+# YASPIN is free software: you can redistribute it and/or modify it under the  #
+# terms of the GNU General Public License as published by the Free Software    #
+# Foundation, either version 3 of the License, or (at your option) any later   #
+# version.                                                                     #
+#                                                                              #
+# YASPIN is distributed in the hope that it will be useful, but WITHOUT ANY    #
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS    #
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more        #
+# details.                                                                     #
+#                                                                              #
+# You can get a copy of the GNU General Public License from                    #
+# http://www.gnu.org/licenses/.                                                #
+################################################################################
+
+################################################################################
+# YASPIN secondary structure and residure exposure predictor                   #
+# 1. initial blast of the fasta query sequence                                 #
+# 2. extract the sequences of the Blast hits                                   #
+# 3. multiple sequence alignment of the query sequences and the Blast hits     #
+# 4. get the consensus sequence                                                #
+# 5. get PSSM from the blast of the consensus sequences                        #
+# 6. YASPIN 7-state secondary structure prediction                             #
+# 7. YASPIN 6-state residue exposure prediction                                #
+# 8. output the results                                                        #
+################################################################################
+
+################################################################################
+# usage:                                                                       #
+# yaspin -fa fasta_file                                                        #
+# or                                                                           #
+# yaspin -pssm pssm_file                                                       #
+################################################################################
+
+################################################################################
+# global parameters and program options                                        #
+################################################################################
+
+WING_SIZE = 8 # 17 residues window as PSSM input 
+IN_SIZE = (WING_SIZE * 2 + 1) * 20 
+WIN_LENGTH=9 # to add 9 extra AAs to the termini in extracting subject sequences
+
+#######################################
+# the BLAST programs 
+blast='blastp '      # the NCBI BLAST program
+psiblast='psiblast ' # the NCBI PSIBlast program
+dbcmd='blastdbcmd '  # BLAST databank command for extracting subject sequences
+
+nr_db=' -db /home/kuang/dev/nr/nr ' # the NCBI non-redundant sequence db
+dbtype=' -dbtype prot '
+ofmt=' -outfmt \"7 sseqid sstart send slen pident\" '
+
+# initial blast output format
+# table: subject seq id, subject seq align start, subject seq align end, 
+# subject seq length, percent identity of align 
+
+#######################################
+# the multiple sequence alignment program 
+ALIGNER='kalign -i '
+
+#######################################
+# the artificial neural networks
+Y7NETS='res/y7_nets/y_7*.net'
+Y6NETS='res/y6_nets/y_6*.net'
+
+################################################################################
+# parse the arguments                                                          #
+################################################################################
+
+import argparse
+
+parser = argparse.ArgumentParser(\
+    description='YASPIN secondary structure and residure exposure predictor')
+
+parser.add_argument('-fa',   dest='fasta_file_name', default='',type=str,\
+                    help='fasta_file_name')
+parser.add_argument('-pssm', dest='pssm_file_name',  default='',type=str,\
+    help='pssm_file_name, if presented the fasta_file_name will be ignored')
+parser.add_argument('-rmt',dest='remove_temp_files',action='store_true',\
+                    help='remove the temp files generated during Blast')
+parser.set_defaults(remove_temp_files=False)
+
+args=parser.parse_args()
+
+################################################################################
+# 1. initial blast of the fasta query sequence                                 #
+################################################################################
+
+cons_seq=''
+temp_file_name_base=''
+
+if args.pssm_file_name == '':
+    import sys
+    if args.fasta_file_name == '':
+        print('Not input file found. Bye.',file=sys.stderr)
+        exit()
+    
+    print('Reading input FASTA file',args.fasta_file_name,file=sys.stderr)
+    import fastaio
+    in_seqs=fastaio.read_fasta(args.fasta_file_name)
+    if len(in_seqs)>1:
+        print('Only the first sequence in file',args.fasta_file_name,\
+              'will be used.',file=sys.stderr)
+
+    if len(in_seqs[0].split('\n')[1]) < 20:
+        print('The input sequence is too short. Abort.',file=sys.stderr)
+        exit()
+
+    ###################################
+    # 1.1 temp files 
+
+    import random
+    temp_file_name_base='t_'+str(random.randrange(10000000,99999999))
+    import os 
+    while os.path.exists(temp_file_name_base+'.fa'):
+        temp_file_name_base='t_'+str(random.randrange(10000000,99999999))
+    # make sure the temp files do exist already
+    # if you had those 90 million files there, the program will loop forever...
+
+    print('Using temp files: \n',
+          temp_file_name_base+'.fa\n',
+          temp_file_name_base+'.bhits\n',
+          temp_file_name_base+'.bseqs\n',
+          temp_file_name_base+'.aln\n',
+          temp_file_name_base+'.cseq\n',
+          temp_file_name_base+'.pssm\n',
+          file=sys.stderr)
+
+    init_seq=[]
+    init_seq.append(in_seqs[0].split('\n')[0]+'\n'\
+                   +in_seqs[0].split('\n')[1].upper())
+    fastaio.write_fasta(temp_file_name_base+'.fa',init_seq)
+
+    ###################################
+    # 1.2 blast it
+    import subprocess
+    print('Initial PSIBlast searching using',temp_file_name_base+'.fa',\
+          file=sys.stderr)
+    subprocess.call(blast+nr_db+ofmt+\
+                    ' -query '+temp_file_name_base+'.fa'+\
+                    ' -out '+temp_file_name_base+'.bhits',
+                    shell=True)
+    
+    try:
+        ifile=open(temp_file_name_base+'.bhits')
+        hits_lines=ifile.read().split('\n')[:-1]
+        ifile.close()
+    except:
+        print('Failed to open initial PSIBlast output file',
+               temp_file_name_base+'.bhits',file=sys.stderr)
+        print('Exiting',file=sys.stderr)
+        exit()
+
+################################################################################
+# 2. extract sequences of hits                                                 #
+################################################################################
+
+    print('Retrieving the Blast hits from',temp_file_name_base+'.bhits',\
+          file=sys.stderr)
+    hits=''
+    for line in hits_lines:
+        if line.startswith('#'):
+            continue;
+        
+        if float(line.split('\t')[4]) < 50 : # alignment sequence identity
+            continue
+        
+        s_id=line.split('|')[1]
+        
+        s_begin=int(line.split()[1])-WIN_LENGTH
+        s_begin=max( (1, s_begin) )
+        
+        s_end=int(line.split()[2])+WIN_LENGTH
+        s_end=min( (s_end, int(line.split()[3]) ) )
+        
+        cmd_line=dbcmd+nr_db+'-entry '+s_id \
+                 +' -range '+str(s_begin)+'-'+str(s_end)
+        # after formatting nrfilt.fasta, got trouble getting sequences of some 
+        # ids such as 449265696. 
+        # using the downloaded nr database instead. 
+        
+        s_seq=subprocess.getoutput(cmd_line).split('\n')
+        if not s_seq[0].startswith('>'):
+            sys.stderr.write('Error in getting subject sequence\n')
+            sys.stderr.write(cmd_line)
+
+        s_seq[0]=s_seq[0][:80]
+        # cut the title line because very long title might be trouble to align 
+        hits+='\n'.join(s_seq)+'\n'
+ 
+    # write the sequences to be aligned.
+    ofile=open(temp_file_name_base+'.bseqs','w')
+    in_seq=open(temp_file_name_base+'.fa').read()
+    ofile.write(in_seq)
+
+    if hits == '': # no Blast hits at all
+        hits += in_seq 
+
+    ofile.write(hits)
+    ofile.close()
+
+################################################################################
+# 3. multiple sequence alignment of the hits and the query sequences           #
+################################################################################
+    print('Multiple sequence alignment of ',temp_file_name_base+'.bseqs',\
+          file=sys.stderr)
+    subprocess.call(ALIGNER + temp_file_name_base+'.bseqs' \
+                    +' > '+temp_file_name_base+'.aln',shell=True)
+
+################################################################################
+# 4. get the consensus sequence                                                #
+################################################################################
+    print('Get the consensus sequence from',temp_file_name_base+'.aln',\
+          file=sys.stderr)
+
+    alned_seqs=fastaio.read_fasta(temp_file_name_base+'.aln')
+
+    # the query sequence should always be the first in the alignment file 
+    (query_header,alned_query_seq) = alned_seqs[0].split('\n')
+
+    # replace the terminal gaps of the aligned subject seqs with 'u' 
+    alned_subj_seqs=[]
+    for alned_subj_seq in alned_seqs[1:]:
+        seq=alned_subj_seq.split('\n')[1]
+        
+        left_u  = 'u' * (len(seq) - len(seq.lstrip('-')))
+        right_u = 'u' * (len(seq) - len(seq.rstrip('-')))
+        u_filled_seq = ''.join((left_u,seq.strip('-'),right_u))
+        alned_subj_seqs.append(u_filled_seq)
+
+    # to get the consensus 
+    if '-' not in alned_query_seq:
+        cons_seq = alned_query_seq
+    else:
+        aln_len  = len(alned_query_seq)
+
+        # transpose the aln_subj_seqs matrices 
+        trans_alned_subj_seqs = \
+            [[row[i] for row in alned_subj_seqs] for i in range(aln_len)]
+
+        for i in range(aln_len):
+            trans_alned_subj_seqs[i] = ''.join(trans_alned_subj_seqs[i])
+            trans_alned_subj_seqs[i] = trans_alned_subj_seqs[i].replace('u','')
+
+        cons_seq = ''
+        for i in range(aln_len):
+            if alned_query_seq[i] != '-':
+                cons_seq += alned_query_seq[i]
+                continue
+
+            aln_depth = len(trans_alned_subj_seqs[i])
+            if aln_depth < 6:
+                continue 
+
+            is_cons_c_found = False
+            for C in 'ARNDCQEGHILKMFPSTWYV':
+                if trans_alned_subj_seqs[i].count(C) > aln_depth * 0.5:
+                    cons_seq += C.lower()
+                    is_cons_c_found = True 
+                    break
+
+            if is_cons_c_found:
+                continue 
+
+            if  aln_depth > len(alned_subj_seqs) * 0.7 \
+                and trans_alned_subj_seqs[i].count('-') < aln_depth * 0.5:
+                cons_seq += 'x'
+
+    out_cons_seq = '\n'.join((query_header,cons_seq))
+    fastaio.write_fasta(temp_file_name_base+'.cseq',[out_cons_seq])
+
+################################################################################
+# 5. get PSSM from the blast of the consensus sequences                        #
+################################################################################
+    print('Second round of PSIBlast with',temp_file_name_base+'.cseq',\
+          file=sys.stderr)
+    subprocess.call(psiblast+nr_db+\
+                    ' -num_iterations 3 -query '+temp_file_name_base+'.cseq'+\
+                    ' -out_ascii_pssm '+temp_file_name_base+'.pssm',
+                    stdout=subprocess.DEVNULL,shell=True)
+
+################################################################################
+# 6. YASPIN 7-state secondary structure prediction                             #
+################################################################################
+
+#######################################
+# 6.1 read the PSSM and consensus sequence
+import sys
+if args.pssm_file_name != '':
+    print('Reading input PSSM file',args.pssm_file_name,file=sys.stderr)
+    ifile=open(args.pssm_file_name)
+
+else:
+    print('Reading input PSSM file',temp_file_name_base+'.pssm',file=sys.stderr)
+    ifile=open(temp_file_name_base+'.pssm')
+
+pssm  = [-2.0] * 20 * WING_SIZE
+t_cons_seq=''
+ifile.readline()
+line=ifile.readline()
+if not line.startswith('Last position-specific scoring matrix'):
+    print('This does not look like a PSIBlast PSSM file. Exit',file=sys.stderr)
+    exit()
+ifile.readline()
+for line in ifile:
+    if line=='\n':break;
+    aa = line[6]
+    t_cons_seq+=aa
+    for i in range(9,69,3):
+        pssm.append(float(line[i:i+3]))
+ifile.close()
+pssm += [-2.0] * 20 * WING_SIZE
+
+if cons_seq != '':
+    if t_cons_seq != cons_seq.upper():
+        print('Wrong consensus sequence? Exit',file=sys.stderr)
+        exit()
+else:
+    cons_seq = t_cons_seq
+
+#######################################
+# 6.2 load the neural networks
+import os
+import glob
+from snn import Snn
+
+print('Loading network files ',os.path.dirname(__file__)+'/'+Y7NETS,
+    file=sys.stderr)
+net_file_names=glob.glob(os.path.dirname(__file__)+'/'+Y7NETS)
+nets=[]
+for file_name in net_file_names:
+    net=Snn()
+    net.read_net(file_name)
+    nets.append(net)
+
+#######################################
+# 6.3 get the emmision probabilities
+from numpy import *
+back_ground=array([0.41084,0.03981,0.14190,0.03981,0.03882,0.29002,0.03879])
+
+emmision_p=[]
+for i in range(0,len(pssm)-IN_SIZE+20,20):
+    out = array([0.0] *7)
+    for net in nets:
+        net.propagate(pssm[i:i+IN_SIZE])
+        out+=net.act_o
+
+    out/=back_ground
+    out/=sum(out)
+    emmision_p.append(out)
+
+#######################################
+# 6.4 forward pass 
+for_trans_p=array([\
+[0.78929107,0.09731962,0.02223813,0.00000004,0.09107164,0.00007945,0.00000004],\
+[0.00000422,0.00000041,0.86055648,0.13943510,0.00000040,0.00000298,0.00000040],\
+[0.06049940,0.00000012,0.69271099,0.24179074,0.00499493,0.00000373,0.00000011],\
+[0.95370564,0.00000041,0.00000146,0.00000041,0.04625785,0.00003383,0.00000040],\
+[0.00000433,0.00000042,0.00000150,0.00000042,0.00000041,0.99999251,0.00000041],\
+[0.00012207,0.00000712,0.00000161,0.00000006,0.00000005,0.86599728,0.13387180],\
+[0.96188940,0.02721482,0.01089148,0.00000042,0.00000041,0.00000306,0.00000041]])
+t_for_trans_p=for_trans_p.transpose()
+forward_p=[]
+f0_p = for_trans_p[0]*emmision_p[0]
+f0_p/= sum(f0_p)
+forward_p.append(f0_p)
+
+for i in range(1,len(emmision_p)):
+    fi_p=[]
+    for j in range(7):
+        p = sum(t_for_trans_p[j]*forward_p[i-1]) * emmision_p[i][j]
+        fi_p.append(p)
+    fi_p /= sum(fi_p)
+    forward_p.append(fi_p)
+
+#######################################
+# 6.5 backward pass 
+back_emmision_p=[]
+for i in range(len(emmision_p)):
+    back_emmision_p.append(emmision_p[-1-i])
+
+back_trans_p=array([\
+[0.78932110,0.00000004,0.02152862,0.09535469,0.00000004,0.00008871,0.09370680],\
+[0.97342516,0.00000041,0.00000146,0.00000041,0.00000040,0.00005439,0.02651777],\
+[0.06249721,0.24178836,0.69272900,0.00000012,0.00000011,0.00000373,0.00298148],\
+[0.00000422,0.13943080,0.86056078,0.00000041,0.00000040,0.00000298,0.00000040],\
+[0.93431352,0.00000042,0.01823547,0.04744671,0.00000041,0.00000306,0.00000041],\
+[0.00010935,0.00000006,0.00000161,0.00000429,0.13394362,0.86594101,0.00000005],\
+[0.00000434,0.00000042,0.00000150,0.00000042,0.00000041,0.99999251,0.00000041]])
+t_back_trans_p=back_trans_p.transpose()
+
+backward_p=[]
+b0_p = back_trans_p[0]*back_emmision_p[0]
+b0_p/= sum(b0_p)
+backward_p.append(b0_p)
+
+for i in range(1,len(back_emmision_p)):
+    bi_p=[]
+    for j in range(7):
+        p = sum(t_back_trans_p[j]*backward_p[i-1]) * back_emmision_p[i][j]
+        bi_p.append(p)
+    bi_p /= sum(bi_p)
+    backward_p.append(bi_p)
+
+#######################################
+# 6.6 get marginal likelihood and print the results
+marginal_like=[]
+for i in range(len(forward_p)):
+    m_p=forward_p[i]*backward_p[-i-1]
+    m_p/=sum(m_p)
+    marginal_like.append(m_p)
+
+y7_lables={0:'C',1:'E',2:'E',3:'E',4:'H',5:'H',6:'H'}
+y7_confi_thres=[0.6387860,0.8110115,0.9248632,0.9761472,\
+                0.9932850,0.9982654,0.9996067,0.9999347,0.9999979]
+y7_results=[]
+for i in range(len(marginal_like)):
+    aa_confidence=0
+    for thres in y7_confi_thres:
+        if thres < marginal_like[i].max():
+            aa_confidence += 1
+    aa_lable=y7_lables[marginal_like[i].argmax()]
+    y7_results.append(aa_lable+' '+str(aa_confidence))
+
+################################################################################
+# 7. YASPIN 6-state residue exposure prediction                                #
+################################################################################
+
+
+#######################################
+# 7.1  PSSM and consensus sequence are loaded 
+
+#######################################
+# 7.2 load the neural networks
+
+print('Loading network files ',os.path.dirname(__file__)+'/'+Y6NETS,
+    file=sys.stderr)
+
+net_file_names=glob.glob(os.path.dirname(__file__)+'/'+Y6NETS)
+nets=[]
+for file_name in net_file_names:
+    net=Snn()
+    net.read_net(file_name)
+    nets.append(net)
+
+#######################################
+# 7.3 get the emmision probabilities
+
+back_ground=array([0.27088, 0.07150, 0.18948, 0.13997, 0.15003, 0.17815])
+
+emmision_p=[]
+for i in range(0,len(pssm)-IN_SIZE+20,20):
+    out = array([0.0] *6)
+    for net in nets:
+        net.propagate(pssm[i:i+IN_SIZE])
+        out+=net.act_o
+
+    out/=back_ground
+    out/=sum(out)
+    emmision_p.append(out)
+
+#######################################
+# 7.4 forward pass 
+for_trans_p=array([\
+    [0.57896799, 0.04558986, 0.05647044, 0.23628717, 0.05206629, 0.03061825],\
+    [0.12622133, 0.31698394, 0.00305619, 0.10868119, 0.43511468, 0.00994266],\
+    [0.07750024, 0.00025082, 0.49159524, 0.04800465, 0.00211254, 0.38053650],\
+    [0.46585700, 0.05452206, 0.05067634, 0.27450794, 0.10630734, 0.04812933],\
+    [0.09137447, 0.19469631, 0.00289129, 0.10719873, 0.59590524, 0.00793397],\
+    [0.04373904, 0.00076784, 0.41511395, 0.03257784, 0.00503461, 0.50276674]])
+
+t_for_trans_p=for_trans_p.transpose()
+forward_p=[]
+f0_p = for_trans_p[0]*emmision_p[0]
+f0_p/= sum(f0_p)
+forward_p.append(f0_p)
+
+for i in range(1,len(emmision_p)):
+    fi_p=[]
+    for j in range(6):
+        p = sum(t_for_trans_p[j]*forward_p[i-1]) * emmision_p[i][j]
+        fi_p.append(p)
+    fi_p /= sum(fi_p)
+    forward_p.append(fi_p)
+
+#######################################
+# 7.5 backward pass 
+back_emmision_p=[]
+for i in range(len(emmision_p)):
+    back_emmision_p.append(emmision_p[-1-i])
+
+back_trans_p=array([\
+    [0.57907551, 0.03464334, 0.05640696, 0.24726086, 0.05267084, 0.02994249],\
+    [0.16612961, 0.31697304, 0.00066511, 0.10543215, 0.40888502, 0.00191507],\
+    [0.07759901, 0.00115245, 0.49157717, 0.03695407, 0.00228976, 0.39042753],\
+    [0.44515754, 0.05618680, 0.06581214, 0.27444203, 0.11639330, 0.04200819],\
+    [0.09034615, 0.20718728, 0.00266752, 0.09789001, 0.59592965, 0.00597939],\
+    [0.04473148, 0.00398604, 0.40455567, 0.03731340, 0.00668018, 0.50273322]])
+
+t_back_trans_p=back_trans_p.transpose()
+
+backward_p=[]
+b0_p = back_trans_p[0]*back_emmision_p[0]
+b0_p/= sum(b0_p)
+backward_p.append(b0_p)
+
+for i in range(1,len(back_emmision_p)):
+    bi_p=[]
+    for j in range(6):
+        p = sum(t_back_trans_p[j]*backward_p[i-1]) * back_emmision_p[i][j]
+        bi_p.append(p)
+    bi_p /= sum(bi_p)
+    backward_p.append(bi_p)
+
+#######################################
+# 7.6 get marginal likelihood and print the results
+marginal_like=[]
+for i in range(len(forward_p)):
+    m_p=forward_p[i]*backward_p[-i-1]
+    m_p/=sum(m_p)
+    marginal_like.append(m_p)
+
+y6_lables    = {0:'E',1:'E',2:'E',3:'B',4:'B',5:'B'}
+y6_ss_lables = {0:'C',1:'E',2:'H',3:'C',4:'E',5:'H'}
+y6_confi_thres=[0.51783,0.60193,0.68635,0.76675,\
+                0.83780,0.89489,0.93645,0.96403,0.98211]
+y6_results=[]
+y6_ss_results=[]
+for i in range(len(marginal_like)):
+    aa_confidence=0
+    for thres in y6_confi_thres:
+        if thres < marginal_like[i].max():
+            aa_confidence += 1
+    aa_lable    = y6_lables   [marginal_like[i].argmax()]
+    aa_ss_lable = y6_ss_lables[marginal_like[i].argmax()]
+    y6_results.append(aa_lable+' '+str(aa_confidence))
+    y6_ss_results.append(aa_ss_lable+' '+str(aa_confidence))
+
+################################################################################
+# 8. output the results                                                        #
+################################################################################
+
+seq_i=0
+for i in range(len(y6_results)):
+    if not cons_seq[i].isupper():
+        continue
+    seq_i +=1
+    # if y6_ss_results is quite more confident, use y6_ss instead of y7
+    ss_result= y7_results[i]
+    y6_conf=int(y6_ss_results[i].split()[1])
+    if y6_conf > int(ss_result.split()[1])+1:
+        ss_result=y6_ss_results[i]
+    
+    print('{:5d}'.format(seq_i),cons_seq[i],ss_result,y6_results[i])
+
+if args.remove_temp_files:
+    if args.pssm_file_name == '' and temp_file_name_base != '':
+        subprocess.call('rm '+temp_file_name_base+'.*', shell=True)
+################################################################################
+# the end                                                                      #
+################################################################################

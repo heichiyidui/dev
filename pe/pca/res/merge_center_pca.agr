@@ -1,0 +1,6885 @@
+# Grace project file
+#
+@version 50122
+@page size 792, 612
+@page scroll 5%
+@page inout 5%
+@link page off
+@map font 0 to "Times-Roman", "Times-Roman"
+@map font 1 to "Times-Italic", "Times-Italic"
+@map font 2 to "Times-Bold", "Times-Bold"
+@map font 3 to "Times-BoldItalic", "Times-BoldItalic"
+@map font 4 to "Helvetica", "Helvetica"
+@map font 5 to "Helvetica-Oblique", "Helvetica-Oblique"
+@map font 6 to "Helvetica-Bold", "Helvetica-Bold"
+@map font 7 to "Helvetica-BoldOblique", "Helvetica-BoldOblique"
+@map font 8 to "Courier", "Courier"
+@map font 9 to "Courier-Oblique", "Courier-Oblique"
+@map font 10 to "Courier-Bold", "Courier-Bold"
+@map font 11 to "Courier-BoldOblique", "Courier-BoldOblique"
+@map font 12 to "Symbol", "Symbol"
+@map font 13 to "ZapfDingbats", "ZapfDingbats"
+@map color 0 to (255, 255, 255), "white"
+@map color 1 to (0, 0, 0), "black"
+@map color 2 to (255, 0, 0), "red"
+@map color 3 to (0, 255, 0), "green"
+@map color 4 to (0, 0, 255), "blue"
+@map color 5 to (255, 255, 0), "yellow"
+@map color 6 to (188, 143, 143), "brown"
+@map color 7 to (220, 220, 220), "grey"
+@map color 8 to (148, 0, 211), "violet"
+@map color 9 to (0, 255, 255), "cyan"
+@map color 10 to (255, 0, 255), "magenta"
+@map color 11 to (255, 165, 0), "orange"
+@map color 12 to (114, 33, 188), "indigo"
+@map color 13 to (103, 7, 72), "maroon"
+@map color 14 to (64, 224, 208), "turquoise"
+@map color 15 to (0, 139, 0), "green4"
+@reference date 0
+@date wrap off
+@date wrap year 1950
+@default linewidth 1.0
+@default linestyle 1
+@default color 1
+@default pattern 1
+@default font 0
+@default char size 1.000000
+@default symbol size 1.000000
+@default sformat "%.8g"
+@background color 0
+@page background fill on
+@timestamp off
+@timestamp 0.03, 0.03
+@timestamp color 1
+@timestamp rot 0
+@timestamp font 0
+@timestamp char size 1.000000
+@timestamp def "Sat Oct 29 11:00:39 2011"
+@r0 off
+@link r0 to g0
+@r0 type above
+@r0 linestyle 1
+@r0 linewidth 1.0
+@r0 color 1
+@r0 line 0, 0, 0, 0
+@r1 off
+@link r1 to g0
+@r1 type above
+@r1 linestyle 1
+@r1 linewidth 1.0
+@r1 color 1
+@r1 line 0, 0, 0, 0
+@r2 off
+@link r2 to g0
+@r2 type above
+@r2 linestyle 1
+@r2 linewidth 1.0
+@r2 color 1
+@r2 line 0, 0, 0, 0
+@r3 off
+@link r3 to g0
+@r3 type above
+@r3 linestyle 1
+@r3 linewidth 1.0
+@r3 color 1
+@r3 line 0, 0, 0, 0
+@r4 off
+@link r4 to g0
+@r4 type above
+@r4 linestyle 1
+@r4 linewidth 1.0
+@r4 color 1
+@r4 line 0, 0, 0, 0
+@g0 on
+@g0 hidden false
+@g0 type XY
+@g0 stacked false
+@g0 bar hgap 0.000000
+@g0 fixedpoint off
+@g0 fixedpoint type 0
+@g0 fixedpoint xy 0.000000, 0.000000
+@g0 fixedpoint format general general
+@g0 fixedpoint prec 6, 6
+@with g0
+@    world -0.005, -0.008, 0.06, 0.07
+@    stack world 0, 0, 0, 0
+@    znorm 1
+@    view 0.150000, 0.150000, 1.150000, 0.850000
+@    title ""
+@    title font 0
+@    title size 1.500000
+@    title color 1
+@    subtitle ""
+@    subtitle font 0
+@    subtitle size 1.000000
+@    subtitle color 1
+@    xaxes scale Normal
+@    yaxes scale Normal
+@    xaxes invert off
+@    yaxes invert off
+@    xaxis  on
+@    xaxis  type zero false
+@    xaxis  offset 0.000000 , 0.000000
+@    xaxis  bar on
+@    xaxis  bar color 1
+@    xaxis  bar linestyle 1
+@    xaxis  bar linewidth 1.0
+@    xaxis  label ""
+@    xaxis  label layout para
+@    xaxis  label place auto
+@    xaxis  label char size 1.000000
+@    xaxis  label font 0
+@    xaxis  label color 1
+@    xaxis  label place normal
+@    xaxis  tick on
+@    xaxis  tick major 0.01
+@    xaxis  tick minor ticks 1
+@    xaxis  tick default 6
+@    xaxis  tick place rounded true
+@    xaxis  tick in
+@    xaxis  tick major size 1.000000
+@    xaxis  tick major color 1
+@    xaxis  tick major linewidth 1.0
+@    xaxis  tick major linestyle 1
+@    xaxis  tick major grid off
+@    xaxis  tick minor color 1
+@    xaxis  tick minor linewidth 1.0
+@    xaxis  tick minor linestyle 1
+@    xaxis  tick minor grid off
+@    xaxis  tick minor size 0.500000
+@    xaxis  ticklabel on
+@    xaxis  ticklabel format general
+@    xaxis  ticklabel prec 5
+@    xaxis  ticklabel formula ""
+@    xaxis  ticklabel append ""
+@    xaxis  ticklabel prepend ""
+@    xaxis  ticklabel angle 0
+@    xaxis  ticklabel skip 0
+@    xaxis  ticklabel stagger 0
+@    xaxis  ticklabel place normal
+@    xaxis  ticklabel offset auto
+@    xaxis  ticklabel offset 0.000000 , 0.010000
+@    xaxis  ticklabel start type auto
+@    xaxis  ticklabel start 0.000000
+@    xaxis  ticklabel stop type auto
+@    xaxis  ticklabel stop 0.000000
+@    xaxis  ticklabel char size 1.000000
+@    xaxis  ticklabel font 0
+@    xaxis  ticklabel color 1
+@    xaxis  tick place both
+@    xaxis  tick spec type none
+@    yaxis  on
+@    yaxis  type zero false
+@    yaxis  offset 0.000000 , 0.000000
+@    yaxis  bar on
+@    yaxis  bar color 1
+@    yaxis  bar linestyle 1
+@    yaxis  bar linewidth 1.0
+@    yaxis  label ""
+@    yaxis  label layout para
+@    yaxis  label place auto
+@    yaxis  label char size 1.000000
+@    yaxis  label font 0
+@    yaxis  label color 1
+@    yaxis  label place normal
+@    yaxis  tick on
+@    yaxis  tick major 0.02
+@    yaxis  tick minor ticks 1
+@    yaxis  tick default 6
+@    yaxis  tick place rounded true
+@    yaxis  tick in
+@    yaxis  tick major size 1.000000
+@    yaxis  tick major color 1
+@    yaxis  tick major linewidth 1.0
+@    yaxis  tick major linestyle 1
+@    yaxis  tick major grid off
+@    yaxis  tick minor color 1
+@    yaxis  tick minor linewidth 1.0
+@    yaxis  tick minor linestyle 1
+@    yaxis  tick minor grid off
+@    yaxis  tick minor size 0.500000
+@    yaxis  ticklabel on
+@    yaxis  ticklabel format general
+@    yaxis  ticklabel prec 5
+@    yaxis  ticklabel formula ""
+@    yaxis  ticklabel append ""
+@    yaxis  ticklabel prepend ""
+@    yaxis  ticklabel angle 0
+@    yaxis  ticklabel skip 0
+@    yaxis  ticklabel stagger 0
+@    yaxis  ticklabel place normal
+@    yaxis  ticklabel offset auto
+@    yaxis  ticklabel offset 0.000000 , 0.010000
+@    yaxis  ticklabel start type auto
+@    yaxis  ticklabel start 0.000000
+@    yaxis  ticklabel stop type auto
+@    yaxis  ticklabel stop 0.000000
+@    yaxis  ticklabel char size 1.000000
+@    yaxis  ticklabel font 0
+@    yaxis  ticklabel color 1
+@    yaxis  tick place both
+@    yaxis  tick spec type none
+@    altxaxis  off
+@    altyaxis  off
+@    legend on
+@    legend loctype view
+@    legend 0.85, 0.8
+@    legend box color 1
+@    legend box pattern 1
+@    legend box linewidth 1.0
+@    legend box linestyle 1
+@    legend box fill color 0
+@    legend box fill pattern 1
+@    legend font 0
+@    legend char size 1.000000
+@    legend color 1
+@    legend length 4
+@    legend vgap 1
+@    legend hgap 1
+@    legend invert false
+@    frame type 0
+@    frame linestyle 1
+@    frame linewidth 1.0
+@    frame color 1
+@    frame pattern 1
+@    frame background color 0
+@    frame background pattern 0
+@    s0 hidden false
+@    s0 type xy
+@    s0 symbol 10
+@    s0 symbol size 0.330000
+@    s0 symbol color 1
+@    s0 symbol pattern 1
+@    s0 symbol fill color 1
+@    s0 symbol fill pattern 0
+@    s0 symbol linewidth 1.0
+@    s0 symbol linestyle 1
+@    s0 symbol char 65
+@    s0 symbol char font 0
+@    s0 symbol skip 0
+@    s0 line type 0
+@    s0 line linestyle 1
+@    s0 line linewidth 1.0
+@    s0 line color 1
+@    s0 line pattern 1
+@    s0 baseline type 0
+@    s0 baseline off
+@    s0 dropline off
+@    s0 fill type 0
+@    s0 fill rule 0
+@    s0 fill color 1
+@    s0 fill pattern 1
+@    s0 avalue off
+@    s0 avalue type 2
+@    s0 avalue char size 1.000000
+@    s0 avalue font 0
+@    s0 avalue color 1
+@    s0 avalue rot 0
+@    s0 avalue format general
+@    s0 avalue prec 3
+@    s0 avalue prepend ""
+@    s0 avalue append ""
+@    s0 avalue offset 0.000000 , 0.000000
+@    s0 errorbar on
+@    s0 errorbar place both
+@    s0 errorbar color 1
+@    s0 errorbar pattern 1
+@    s0 errorbar size 1.000000
+@    s0 errorbar linewidth 1.0
+@    s0 errorbar linestyle 1
+@    s0 errorbar riser linewidth 1.0
+@    s0 errorbar riser linestyle 1
+@    s0 errorbar riser clip off
+@    s0 errorbar riser clip length 0.100000
+@    s0 comment "ause.dat"
+@    s0 legend  "WAFSS"
+@    s1 hidden false
+@    s1 type xy
+@    s1 symbol 1
+@    s1 symbol size 0.330000
+@    s1 symbol color 14
+@    s1 symbol pattern 1
+@    s1 symbol fill color 14
+@    s1 symbol fill pattern 0
+@    s1 symbol linewidth 1.0
+@    s1 symbol linestyle 1
+@    s1 symbol char 65
+@    s1 symbol char font 0
+@    s1 symbol skip 0
+@    s1 line type 0
+@    s1 line linestyle 1
+@    s1 line linewidth 1.0
+@    s1 line color 2
+@    s1 line pattern 1
+@    s1 baseline type 0
+@    s1 baseline off
+@    s1 dropline off
+@    s1 fill type 0
+@    s1 fill rule 0
+@    s1 fill color 1
+@    s1 fill pattern 1
+@    s1 avalue off
+@    s1 avalue type 2
+@    s1 avalue char size 1.000000
+@    s1 avalue font 0
+@    s1 avalue color 1
+@    s1 avalue rot 0
+@    s1 avalue format general
+@    s1 avalue prec 3
+@    s1 avalue prepend ""
+@    s1 avalue append ""
+@    s1 avalue offset 0.000000 , 0.000000
+@    s1 errorbar on
+@    s1 errorbar place both
+@    s1 errorbar color 14
+@    s1 errorbar pattern 1
+@    s1 errorbar size 1.000000
+@    s1 errorbar linewidth 1.0
+@    s1 errorbar linestyle 1
+@    s1 errorbar riser linewidth 1.0
+@    s1 errorbar riser linestyle 1
+@    s1 errorbar riser clip off
+@    s1 errorbar riser clip length 0.100000
+@    s1 comment "edin.dat"
+@    s1 legend  "EDIN"
+@    s2 hidden false
+@    s2 type xy
+@    s2 symbol 1
+@    s2 symbol size 0.330000
+@    s2 symbol color 3
+@    s2 symbol pattern 1
+@    s2 symbol fill color 3
+@    s2 symbol fill pattern 0
+@    s2 symbol linewidth 1.0
+@    s2 symbol linestyle 1
+@    s2 symbol char 65
+@    s2 symbol char font 0
+@    s2 symbol skip 0
+@    s2 line type 0
+@    s2 line linestyle 1
+@    s2 line linewidth 1.0
+@    s2 line color 3
+@    s2 line pattern 1
+@    s2 baseline type 0
+@    s2 baseline off
+@    s2 dropline off
+@    s2 fill type 0
+@    s2 fill rule 0
+@    s2 fill color 1
+@    s2 fill pattern 1
+@    s2 avalue off
+@    s2 avalue type 2
+@    s2 avalue char size 1.000000
+@    s2 avalue font 0
+@    s2 avalue color 1
+@    s2 avalue rot 0
+@    s2 avalue format general
+@    s2 avalue prec 3
+@    s2 avalue prepend ""
+@    s2 avalue append ""
+@    s2 avalue offset 0.000000 , 0.000000
+@    s2 errorbar on
+@    s2 errorbar place both
+@    s2 errorbar color 3
+@    s2 errorbar pattern 1
+@    s2 errorbar size 1.000000
+@    s2 errorbar linewidth 1.0
+@    s2 errorbar linestyle 1
+@    s2 errorbar riser linewidth 1.0
+@    s2 errorbar riser linestyle 1
+@    s2 errorbar riser clip off
+@    s2 errorbar riser clip length 0.100000
+@    s2 comment "heid.dat"
+@    s2 legend  "HEID"
+@    s3 hidden false
+@    s3 type xy
+@    s3 symbol 10
+@    s3 symbol size 0.330000
+@    s3 symbol color 11
+@    s3 symbol pattern 1
+@    s3 symbol fill color 11
+@    s3 symbol fill pattern 0
+@    s3 symbol linewidth 1.0
+@    s3 symbol linestyle 1
+@    s3 symbol char 65
+@    s3 symbol char font 0
+@    s3 symbol skip 0
+@    s3 line type 0
+@    s3 line linestyle 1
+@    s3 line linewidth 1.0
+@    s3 line color 4
+@    s3 line pattern 1
+@    s3 baseline type 0
+@    s3 baseline off
+@    s3 dropline off
+@    s3 fill type 0
+@    s3 fill rule 0
+@    s3 fill color 1
+@    s3 fill pattern 1
+@    s3 avalue off
+@    s3 avalue type 2
+@    s3 avalue char size 1.000000
+@    s3 avalue font 0
+@    s3 avalue color 1
+@    s3 avalue rot 0
+@    s3 avalue format general
+@    s3 avalue prec 3
+@    s3 avalue prepend ""
+@    s3 avalue append ""
+@    s3 avalue offset 0.000000 , 0.000000
+@    s3 errorbar on
+@    s3 errorbar place both
+@    s3 errorbar color 11
+@    s3 errorbar pattern 1
+@    s3 errorbar size 1.000000
+@    s3 errorbar linewidth 1.0
+@    s3 errorbar linestyle 1
+@    s3 errorbar riser linewidth 1.0
+@    s3 errorbar riser linestyle 1
+@    s3 errorbar riser clip off
+@    s3 errorbar riser clip length 0.100000
+@    s3 comment "holl.dat"
+@    s3 legend  "HOLL"
+@    s4 hidden false
+@    s4 type xy
+@    s4 symbol 1
+@    s4 symbol size 0.330000
+@    s4 symbol color 4
+@    s4 symbol pattern 1
+@    s4 symbol fill color 4
+@    s4 symbol fill pattern 0
+@    s4 symbol linewidth 1.0
+@    s4 symbol linestyle 1
+@    s4 symbol char 65
+@    s4 symbol char font 0
+@    s4 symbol skip 0
+@    s4 line type 0
+@    s4 line linestyle 1
+@    s4 line linewidth 1.0
+@    s4 line color 5
+@    s4 line pattern 1
+@    s4 baseline type 0
+@    s4 baseline off
+@    s4 dropline off
+@    s4 fill type 0
+@    s4 fill rule 0
+@    s4 fill color 1
+@    s4 fill pattern 1
+@    s4 avalue off
+@    s4 avalue type 2
+@    s4 avalue char size 1.000000
+@    s4 avalue font 0
+@    s4 avalue color 1
+@    s4 avalue rot 0
+@    s4 avalue format general
+@    s4 avalue prec 3
+@    s4 avalue prepend ""
+@    s4 avalue append ""
+@    s4 avalue offset 0.000000 , 0.000000
+@    s4 errorbar on
+@    s4 errorbar place both
+@    s4 errorbar color 4
+@    s4 errorbar pattern 1
+@    s4 errorbar size 1.000000
+@    s4 errorbar linewidth 1.0
+@    s4 errorbar linestyle 1
+@    s4 errorbar riser linewidth 1.0
+@    s4 errorbar riser linestyle 1
+@    s4 errorbar riser clip off
+@    s4 errorbar riser clip length 0.100000
+@    s4 comment "lond.dat"
+@    s4 legend  "LOND"
+@    s5 hidden false
+@    s5 type xy
+@    s5 symbol 1
+@    s5 symbol size 0.330000
+@    s5 symbol color 15
+@    s5 symbol pattern 1
+@    s5 symbol fill color 15
+@    s5 symbol fill pattern 0
+@    s5 symbol linewidth 1.0
+@    s5 symbol linestyle 1
+@    s5 symbol char 65
+@    s5 symbol char font 0
+@    s5 symbol skip 0
+@    s5 line type 0
+@    s5 line linestyle 1
+@    s5 line linewidth 1.0
+@    s5 line color 6
+@    s5 line pattern 1
+@    s5 baseline type 0
+@    s5 baseline off
+@    s5 dropline off
+@    s5 fill type 0
+@    s5 fill rule 0
+@    s5 fill color 1
+@    s5 fill pattern 1
+@    s5 avalue off
+@    s5 avalue type 2
+@    s5 avalue char size 1.000000
+@    s5 avalue font 0
+@    s5 avalue color 1
+@    s5 avalue rot 0
+@    s5 avalue format general
+@    s5 avalue prec 3
+@    s5 avalue prepend ""
+@    s5 avalue append ""
+@    s5 avalue offset 0.000000 , 0.000000
+@    s5 errorbar on
+@    s5 errorbar place both
+@    s5 errorbar color 15
+@    s5 errorbar pattern 1
+@    s5 errorbar size 1.000000
+@    s5 errorbar linewidth 1.0
+@    s5 errorbar linestyle 1
+@    s5 errorbar riser linewidth 1.0
+@    s5 errorbar riser linestyle 1
+@    s5 errorbar riser clip off
+@    s5 errorbar riser clip length 0.100000
+@    s5 comment "muni.dat"
+@    s5 legend  "MUNI"
+@    s6 hidden false
+@    s6 type xy
+@    s6 symbol 1
+@    s6 symbol size 0.330000
+@    s6 symbol color 10
+@    s6 symbol pattern 1
+@    s6 symbol fill color 10
+@    s6 symbol fill pattern 0
+@    s6 symbol linewidth 1.0
+@    s6 symbol linestyle 1
+@    s6 symbol char 65
+@    s6 symbol char font 0
+@    s6 symbol skip 0
+@    s6 line type 0
+@    s6 line linestyle 1
+@    s6 line linewidth 1.0
+@    s6 line color 7
+@    s6 line pattern 1
+@    s6 baseline type 0
+@    s6 baseline off
+@    s6 dropline off
+@    s6 fill type 0
+@    s6 fill rule 0
+@    s6 fill color 1
+@    s6 fill pattern 1
+@    s6 avalue off
+@    s6 avalue type 2
+@    s6 avalue char size 1.000000
+@    s6 avalue font 0
+@    s6 avalue color 1
+@    s6 avalue rot 0
+@    s6 avalue format general
+@    s6 avalue prec 3
+@    s6 avalue prepend ""
+@    s6 avalue append ""
+@    s6 avalue offset 0.000000 , 0.000000
+@    s6 errorbar on
+@    s6 errorbar place both
+@    s6 errorbar color 10
+@    s6 errorbar pattern 1
+@    s6 errorbar size 1.000000
+@    s6 errorbar linewidth 1.0
+@    s6 errorbar linestyle 1
+@    s6 errorbar riser linewidth 1.0
+@    s6 errorbar riser linestyle 1
+@    s6 errorbar riser clip off
+@    s6 errorbar riser clip length 0.100000
+@    s6 comment "pamp.dat"
+@    s6 legend  "PAMP"
+@    s7 hidden false
+@    s7 type xy
+@    s7 symbol 1
+@    s7 symbol size 0.330000
+@    s7 symbol color 2
+@    s7 symbol pattern 1
+@    s7 symbol fill color 2
+@    s7 symbol fill pattern 0
+@    s7 symbol linewidth 1.0
+@    s7 symbol linestyle 1
+@    s7 symbol char 65
+@    s7 symbol char font 0
+@    s7 symbol skip 0
+@    s7 line type 0
+@    s7 line linestyle 1
+@    s7 line linewidth 2.0
+@    s7 line color 2
+@    s7 line pattern 1
+@    s7 baseline type 0
+@    s7 baseline off
+@    s7 dropline off
+@    s7 fill type 0
+@    s7 fill rule 0
+@    s7 fill color 1
+@    s7 fill pattern 1
+@    s7 avalue off
+@    s7 avalue type 2
+@    s7 avalue char size 1.000000
+@    s7 avalue font 0
+@    s7 avalue color 1
+@    s7 avalue rot 0
+@    s7 avalue format general
+@    s7 avalue prec 3
+@    s7 avalue prepend ""
+@    s7 avalue append ""
+@    s7 avalue offset 0.000000 , 0.000000
+@    s7 errorbar on
+@    s7 errorbar place both
+@    s7 errorbar color 2
+@    s7 errorbar pattern 1
+@    s7 errorbar size 1.000000
+@    s7 errorbar linewidth 1.0
+@    s7 errorbar linestyle 1
+@    s7 errorbar riser linewidth 1.0
+@    s7 errorbar riser linestyle 1
+@    s7 errorbar riser clip off
+@    s7 errorbar riser clip length 0.100000
+@    s7 comment "vald.dat"
+@    s7 legend  "VALD"
+@    s8 hidden false
+@    s8 type xy
+@    s8 symbol 0
+@    s8 symbol size 1.000000
+@    s8 symbol color 2
+@    s8 symbol pattern 1
+@    s8 symbol fill color 2
+@    s8 symbol fill pattern 0
+@    s8 symbol linewidth 1.0
+@    s8 symbol linestyle 1
+@    s8 symbol char 65
+@    s8 symbol char font 0
+@    s8 symbol skip 0
+@    s8 line type 1
+@    s8 line linestyle 1
+@    s8 line linewidth 2.0
+@    s8 line color 2
+@    s8 line pattern 1
+@    s8 baseline type 0
+@    s8 baseline off
+@    s8 dropline off
+@    s8 fill type 0
+@    s8 fill rule 0
+@    s8 fill color 1
+@    s8 fill pattern 1
+@    s8 avalue off
+@    s8 avalue type 2
+@    s8 avalue char size 1.000000
+@    s8 avalue font 0
+@    s8 avalue color 1
+@    s8 avalue rot 0
+@    s8 avalue format general
+@    s8 avalue prec 3
+@    s8 avalue prepend ""
+@    s8 avalue append ""
+@    s8 avalue offset 0.000000 , 0.000000
+@    s8 errorbar on
+@    s8 errorbar place both
+@    s8 errorbar color 2
+@    s8 errorbar pattern 1
+@    s8 errorbar size 1.000000
+@    s8 errorbar linewidth 1.0
+@    s8 errorbar linestyle 1
+@    s8 errorbar riser linewidth 1.0
+@    s8 errorbar riser linestyle 1
+@    s8 errorbar riser clip off
+@    s8 errorbar riser clip length 0.100000
+@    s8 comment ""
+@    s8 legend  "Y=-1.8*X+0.004"
+@target G0.S0
+@type xy
+-0.0039 -0.0016
+-0.0023 -0.0018
+-0.0039 -0.0013
+-0.0027 -0.0012
+-0.0035 -0.001
+-0.0038 -0.0024
+-0.0035 -0.0036
+-0.0035 -0.0012
+-0.003 -0.0026
+-0.0034 -0.0009
+-0.0034 -0.0035
+-0.0036 -0.0028
+-0.003 -0.0019
+-0.0026 0.0003
+-0.003 -0.0012
+-0.0025 -0.0015
+-0.0014 -0.0008
+0.0011 0.0131
+-0.0034 -0.001
+0.0143 0.0031
+-0.0029 -0.0004
+-0.002 -0.0016
+-0.0028 -0
+-0.0006 0.0033
+-0.0046 -0.0034
+-0.0028 -0.003
+-0.0035 -0.0035
+-0.0035 -0.0014
+-0.0032 -0.0014
+-0.0032 0.0001
+-0.001 -0.0019
+-0.0032 -0.0006
+-0.003 -0.0023
+-0.0036 -0.0014
+-0.0035 -0.0028
+-0.0033 -0.0018
+-0.0023 -0.0009
+-0.0033 0.0029
+0.0021 0.0014
+-0.002 -0.0016
+-0.0022 0.0024
+-0.0021 -0.0014
+-0.0036 -0.0019
+-0.0037 -0.0018
+-0.0034 -0.004
+0.0187 0.0056
+-0.003 -0.0003
+-0.0031 -0.0009
+-0.0033 -0.0016
+-0.0024 0.0018
+-0.0043 -0.0019
+-0.0041 -0.0008
+-0.0039 -0.0024
+-0.0029 -0.0005
+-0.002 0.0049
+-0.0033 -0.0027
+-0.0031 -0.0027
+-0.003 -0.0004
+-0.0027 0.0013
+-0.0013 -0.0007
+-0.0043 -0.0021
+0.0009 -0.0007
+-0.0033 -0.0029
+-0.0008 -0.0044
+-0.0032 -0.0016
+-0.0035 -0.0009
+-0.0032 -0.0016
+-0.0032 -0.0013
+0.0004 0.0063
+-0.0048 -0.0011
+-0.0039 -0.0021
+-0.003 -0.0012
+-0.0034 -0.0037
+-0.0007 0.0123
+-0.0039 -0.0026
+-0.0044 -0.002
+-0.003 -0.0016
+-0.0026 -0.0015
+-0.0037 -0.0003
+-0.004 -0.0014
+-0.0019 -0.0003
+-0.004 0.0013
+-0.0033 -0.0028
+-0.0032 -0.0011
+-0.0018 0.0028
+0.0013 0.0004
+-0.0033 -0.0027
+0.0035 0.0213
+0.0132 -0.0022
+-0.0032 -0.0015
+-0.0028 -0.0017
+-0.0034 -0.0015
+-0.0036 -0.003
+-0.0029 -0.0021
+-0.003 -0.0024
+-0.0027 -0.0023
+-0.0033 -0.0013
+-0.0038 -0.001
+-0.0044 -0.002
+-0.003 -0.0032
+-0.0025 -0.0017
+-0.0033 -0.0016
+-0.0028 -0.0017
+-0.0021 -0.0004
+-0.0025 -0.0027
+-0.0029 -0.0021
+-0.0003 0.001
+-0.0036 -0.0016
+-0.0031 -0.0026
+-0.0029 -0.0009
+-0.0036 -0.0009
+-0.0025 -0.001
+-0.0033 -0.0015
+-0.0014 -0.0002
+-0.0033 -0.0029
+-0.0037 -0.0035
+-0.0025 -0.0019
+-0.0037 0.0005
+-0.0033 -0.0018
+-0.0036 -0.002
+-0.0024 -0.0017
+-0.0035 -0.0025
+-0.0024 -0.0021
+-0.0036 -0.0033
+-0.0045 -0.0011
+-0.0031 -0.0008
+-0.0036 -0.0018
+-0.0031 0.0004
+-0.0026 -0.0037
+-0.0038 -0.0024
+-0.0034 -0.0025
+-0.003 -0.0009
+-0.0034 -0.0025
+-0.0022 -0.0022
+-0.004 -0.0019
+-0.0014 -0.0018
+-0.003 -0.001
+-0.0034 -0.0013
+-0.0026 -0.0008
+-0.0032 -0.0009
+-0.0028 -0.0012
+-0.0036 -0.0021
+-0.0036 -0.0019
+-0.0025 -0.0016
+-0.004 -0.0014
+-0.0033 -0.0026
+-0.0039 -0.0009
+0.012 0.0609
+-0.0028 -0.0021
+-0.0036 -0.0013
+-0.0033 -0.0004
+0.0001 0.011
+-0.0033 -0.002
+-0.0026 -0.003
+-0.004 -0.0022
+-0.0028 -0.0023
+-0.0041 -0.0019
+-0.0019 0.0007
+-0.0036 -0.0024
+-0.0036 -0.002
+-0.0034 -0.002
+-0.0044 -0.002
+-0.0036 -0.0013
+-0.0037 -0.002
+-0.0039 -0.0034
+-0.0035 -0.0021
+-0.0035 -0.0019
+-0.0033 -0.0017
+-0.0037 -0.0011
+-0.0004 -0.0031
+-0.0026 -0.0003
+-0.0034 -0.0022
+-0.0031 -0.0023
+-0.0021 0.0017
+-0.0023 0.0001
+0.0038 0.0203
+-0.0035 -0.002
+-0.0027 -0.0011
+-0.0036 -0.0015
+0.0007 -0.0011
+-0.0031 -0.0001
+-0.0035 0.0003
+-0.0026 -0.0022
+-0.0031 -0.002
+-0.0024 0.0007
+-0.0033 -0.0025
+-0.0031 -0.0016
+-0.0039 -0.0022
+-0.0039 -0.0026
+-0.0033 -0.0008
+-0.0037 -0.0026
+-0.0031 -0.0011
+-0.0031 -0.003
+-0.0033 -0.0007
+0.0047 0.0202
+-0.0017 0.0031
+-0.0023 -0.0019
+-0.0036 -0.0035
+-0.0021 -0.0015
+-0.0025 -0.0018
+-0.0038 -0.0004
+-0.003 -0.0019
+-0.0031 -0.0025
+-0.0024 -0.0001
+-0.0043 -0.0018
+-0.003 -0.0019
+-0.0029 -0.0016
+-0.0029 -0.0018
+-0.0032 -0.0029
+-0.0038 -0.0029
+-0.0033 -0.0014
+-0.0033 -0.0002
+-0.0008 0.009
+-0.0038 0.0002
+-0.0039 -0.0017
+-0.0032 -0.0016
+-0.0008 -0.0011
+-0.0031 -0.0016
+-0.0033 -0.0018
+0.0002 0.0006
+-0.0033 -0.0022
+0.0057 0.0445
+-0.0032 -0.0009
+-0.004 -0.0012
+-0.0029 -0.0019
+-0.0013 -0.0008
+-0.0031 -0.0022
+-0.0039 -0.0025
+-0.003 -0.002
+-0.0034 -0.0027
+-0.0031 -0.0008
+-0.0039 -0.0019
+-0.0036 -0.0022
+-0.004 -0.0047
+-0.0022 0.0014
+-0.0034 -0.0011
+-0.0033 -0.0023
+-0.0035 -0.0018
+-0.003 -0.0015
+-0.0042 -0.0018
+-0.0038 -0.0014
+-0.0025 -0.001
+-0.0031 -0.0034
+-0.003 -0.0018
+-0.0038 -0.0016
+-0.0028 -0.0031
+-0.0024 -0.0022
+-0.0027 -0.0005
+-0.0036 -0.0022
+-0.0036 -0.0013
+-0.0032 -0.001
+-0.0035 -0.0026
+0.0018 0.0051
+-0.004 -0.0008
+-0.0033 -0.0027
+-0.0038 -0.0024
+-0.0018 0.0008
+-0.0028 -0.0018
+-0.0035 -0.0011
+-0.0035 -0.0029
+-0.0036 -0.0028
+-0.0025 0.0018
+-0.0038 -0.002
+-0.0024 -0.0001
+-0.0021 -0.0009
+-0.0032 -0.0023
+-0.0037 -0.0012
+-0.0016 -0.0009
+-0.0037 -0.0023
+-0.0019 0.0033
+-0.0038 -0.001
+-0.0023 0.0002
+0.0008 0.0237
+-0.001 0.002
+-0.0036 -0.0006
+-0.0044 -0.0028
+-0.0028 0.0019
+-0.0037 -0.0028
+-0.0031 -0.0023
+-0.0029 -0.0019
+-0.0032 -0.0028
+-0.0026 -0.0007
+-0.0037 -0.0028
+-0.0041 -0.0019
+-0.0029 -0.0007
+-0.0037 -0.0019
+-0.0033 -0.0022
+-0.0038 -0.0011
+-0.0023 -0.0024
+-0.0037 -0.0021
+-0.0014 0.0031
+-0.0025 0.0017
+-0.0037 0.0004
+-0.0022 0.0008
+-0.0036 -0.0022
+-0.0035 -0.0032
+-0.0041 -0.0028
+-0.003 -0.001
+-0.0026 -0.0017
+-0.003 -0.0015
+-0.0029 -0.0016
+-0.0035 -0.0027
+-0.0032 -0.002
+-0.0037 -0.0006
+-0.0038 -0.0011
+-0.0032 -0.0011
+0.0009 0.0111
+-0.0025 -0.0015
+-0.0032 -0.0017
+-0.0041 -0.0014
+-0.0037 -0.0015
+-0.0027 -0.0035
+-0.0034 -0.0029
+-0.0035 -0.0032
+-0.0032 -0.003
+-0.0028 -0.0012
+-0.003 0.0004
+-0.0039 -0.0018
+-0.0032 -0.0013
+-0.001 -0.0003
+-0.0036 -0.0021
+-0.0039 -0.0017
+-0.0038 -0.0004
+-0.0032 -0.0009
+-0.0039 -0.0023
+-0.003 -0.0019
+-0.0032 -0.0017
+-0.0036 -0.0014
+-0.0029 -0.0008
+-0.0033 -0.0016
+-0.0033 -0.0038
+0.0004 0.0001
+-0.0029 -0.0034
+-0.0031 -0.0031
+-0.0037 0.0008
+-0.0033 -0.0017
+-0.0035 -0.0025
+-0.0034 -0.0014
+-0.003 0
+-0.0037 -0.0008
+-0.0031 -0.0028
+-0.0039 -0.0019
+-0.004 -0.0026
+-0.0034 -0.003
+-0.0029 -0.0012
+-0.004 -0.003
+-0.0041 -0.0017
+-0.0032 -0.002
+-0.0026 -0.0017
+-0.0033 -0.0029
+-0.0021 0
+-0.004 -0.0025
+0.0127 0.0073
+-0.0032 -0.0018
+-0.0037 -0.0015
+-0.0028 -0.001
+-0.0031 -0.0009
+-0.0022 0.0004
+-0.003 -0.0021
+-0.0023 -0.0016
+-0.0031 -0.0012
+-0.0034 -0.0016
+-0.0029 -0.0004
+-0.0035 -0.0026
+-0.0038 -0.0029
+-0.0034 -0.0023
+-0.0036 -0.0011
+-0.0037 -0.0015
+-0.004 -0.0021
+-0.002 0.0017
+-0.003 -0.0008
+-0.0027 -0.0017
+-0.0036 -0.0009
+-0.0013 -0.002
+-0.0031 -0.0002
+-0.0035 -0.002
+-0.0037 -0.0019
+-0.0038 -0.0012
+-0.0022 -0.0026
+-0.0039 -0.0012
+-0.0039 -0.0049
+-0.003 -0.002
+-0.003 -0.003
+-0.0022 -0.0011
+-0.004 -0.0022
+-0.0042 -0.0017
+-0.0038 -0.002
+-0.0025 -0.0021
+-0.0034 -0.0019
+-0.0027 -0.002
+-0.0031 -0.0018
+0.0003 -0.0007
+-0.0026 -0.0021
+-0.0033 -0.0012
+-0.0032 -0.0015
+0.0025 0.0064
+-0.0025 -0.0008
+-0.0038 -0.0016
+-0.0034 -0.0016
+-0.0036 -0.0033
+-0.0041 -0.0016
+-0.0027 -0.0014
+-0.0038 -0.0004
+0.0065 0.0415
+-0.003 -0.001
+-0.0028 -0.0009
+-0.0033 -0.0021
+-0.0042 -0.0018
+-0.0022 -0.0012
+-0.0031 -0.002
+-0.0038 -0.0022
+-0.0035 -0.0024
+-0.0041 -0.0026
+-0.0033 -0.0014
+-0.003 -0.0027
+0.0039 0.0335
+-0.0039 0.0001
+-0.0035 -0.002
+-0.0037 -0.0027
+-0.0027 -0.0016
+0.0028 0.0235
+-0.0031 -0.0011
+-0.0036 -0.0024
+-0.0027 -0.001
+0.002 0.0119
+0.0012 0.0073
+-0.0034 -0.004
+-0.0043 -0.0016
+-0.0039 -0.0013
+-0.0032 -0.001
+-0.0024 -0.0006
+-0.0037 -0.002
+-0.0008 -0.003
+-0.003 -0.0016
+-0.0033 -0.0007
+-0.0041 -0.002
+-0.0035 -0.0012
+-0.003 -0.0025
+-0.0037 -0.002
+-0.0004 0.01
+-0.003 0.0018
+-0.0037 -0.0009
+-0.0031 -0.0026
+-0.0037 0.0003
+-0.0037 -0.0007
+-0.004 -0.0021
+-0.0036 -0.0021
+-0.0038 -0.0027
+-0.0034 -0.0014
+-0.0037 -0.0035
+-0.0034 -0.0013
+-0.0029 -0.0011
+-0.003 -0.0025
+-0.0042 -0.0032
+-0.0033 -0.0011
+-0.0035 -0.0026
+-0.0013 -0.0012
+-0.0027 -0.002
+-0.0033 -0.0026
+-0.0038 -0.002
+-0.0027 -0.0011
+-0.0023 -0.003
+-0.0033 -0.0019
+-0.0028 -0.0033
+-0.0038 -0.0028
+0.0253 0.0185
+-0.0031 -0.0018
+-0.0027 -0.0027
+-0.0027 0.0036
+-0.0019 -0.001
+-0.0028 -0.0011
+-0.0031 -0.0005
+-0.0005 0.0008
+0.0126 0.0194
+-0.0037 -0.0025
+-0.0042 -0.0028
+-0.0036 -0.0017
+0.0047 0.0212
+-0.0025 -0.0025
+-0.0035 -0.002
+-0.0037 -0.0033
+-0.003 -0.0021
+-0.0033 -0.0034
+-0.003 -0.002
+-0.0023 -0.0016
+-0.0001 -0.001
+-0.0036 -0.0029
+-0.003 -0.002
+-0.0039 -0.0009
+-0.001 -0.001
+-0.0039 -0.0018
+-0.0035 -0.0003
+-0.0033 -0.0028
+-0.0033 -0.0024
+-0.0036 -0.0028
+-0 -0.001
+-0.0035 -0.0021
+-0.0042 -0.0023
+-0.0025 -0.0013
+-0.0035 -0.0018
+-0.0033 -0.003
+-0.0032 -0.0016
+-0.0034 -0.0014
+-0.0033 -0.0006
+-0.0043 -0.0031
+-0.0033 -0.0027
+-0.0032 -0.0032
+-0.0038 -0.0022
+-0.0034 -0.0016
+-0.0028 -0.0006
+-0.0026 -0.0005
+-0.0033 -0.0019
+-0.0036 -0.002
+-0.0039 -0.0014
+-0.0029 -0.002
+-0.0031 -0.0034
+-0.0033 -0.0021
+-0.0026 -0.0017
+-0.0036 -0.0021
+-0.0034 -0.0018
+-0.0029 -0.0011
+-0.0013 -0.0028
+-0.0016 0.0026
+-0.0031 -0.0025
+-0.003 -0.0001
+-0.003 -0.0011
+-0.0031 -0.0019
+-0.0035 -0.0008
+-0.0037 -0.0026
+-0.002 -0.0011
+-0.0027 -0.0016
+-0.0042 -0.0014
+-0.0038 -0.0028
+-0.0036 -0.0022
+-0.0032 -0.0019
+-0.003 -0.002
+-0.0028 -0.002
+-0.0028 -0.0021
+-0.003 -0.0017
+-0.0036 -0.0023
+-0.0032 -0.0017
+-0.0039 -0.0011
+-0.0029 -0.0013
+-0.0021 -0.0014
+0.0012 0.0003
+-0.0011 0.0104
+-0.0034 -0.0008
+0.0004 0.0072
+-0.0032 -0.0017
+-0.004 -0.0014
+-0.0032 -0.0022
+-0.0038 -0.0021
+-0.0033 -0.0013
+-0.0031 -0.0025
+-0.0036 -0.001
+-0.0035 -0.0032
+-0.0034 -0.0024
+-0.0026 -0.0029
+-0.0026 -0.0016
+-0.0039 -0.0029
+-0.0028 -0.0003
+-0.0027 -0.0029
+-0.0038 -0.0003
+-0.0036 -0.0015
+-0.0036 -0.0015
+0.0001 0.0001
+-0.0037 -0.0028
+-0.0033 -0.0022
+0.0015 0.003
+-0.0039 -0.0031
+-0.0037 -0.0025
+-0.0033 -0.0018
+-0.0027 -0.0015
+-0.0039 -0.0028
+-0.0023 -0.0033
+-0.0033 -0.0013
+-0.0017 -0.0003
+-0.0044 -0.0035
+0.002 0.0011
+-0.004 -0.0011
+-0.0029 -0.0023
+-0.0037 -0.0036
+0.0019 0.0117
+-0.0032 -0.0001
+-0.0037 -0.002
+-0.0033 -0.0008
+-0.0035 -0.0025
+-0.0021 -0.0005
+-0.0037 -0.0022
+-0.0027 -0.0015
+-0.0033 -0.003
+-0.0031 -0.0019
+-0.0032 -0.0015
+-0.0016 -0.0009
+0.0068 0.0414
+-0.0036 -0.0031
+-0.0029 -0.0002
+-0.0025 -0.0009
+-0.0026 -0.0023
+-0.0042 -0.0014
+-0.0036 -0.0014
+-0.0029 -0.0019
+-0.0031 -0.0006
+-0.0028 -0.0017
+-0.0023 -0.0006
+-0.0027 -0.0018
+-0.0032 -0.0032
+-0.0029 -0.0011
+-0.0039 -0.0032
+0.0008 0.0098
+-0.0038 -0.0019
+-0.0039 -0.0032
+-0.0008 -0.0018
+-0.0032 -0.0011
+-0.0024 -0.0014
+-0.0029 -0.0018
+-0.0037 -0.0017
+-0.0028 -0.0014
+-0.0033 -0.0001
+-0.0036 -0.0013
+-0.0028 -0.0019
+-0.0035 -0.0029
+-0.0035 -0.0009
+0.0003 0.009
+-0.0026 -0.0024
+-0.0029 -0.0013
+-0.0042 -0.0007
+-0.0034 -0.0017
+-0.0034 -0.0037
+-0.0039 -0.0012
+-0.0029 -0.003
+-0.0031 -0.0018
+-0.0036 -0.0037
+-0.0032 -0.0024
+-0.0034 -0.0003
+-0.0039 -0.0021
+-0.0037 -0.0026
+-0.0033 -0.0025
+-0.004 -0.0025
+-0.0036 -0.0019
+-0.0042 -0.0025
+-0.0036 -0.0028
+-0.0028 -0.0009
+-0.0033 -0.0025
+-0.0031 -0.0001
+-0.0032 -0.0019
+-0.0001 0.0096
+-0.0038 -0.0014
+-0.0034 -0.0019
+-0.0036 -0.0039
+-0.0034 -0.0026
+-0.0035 -0.0035
+-0.0037 -0.0005
+-0.0038 -0.002
+-0.0029 -0.0023
+-0.0032 -0.0033
+-0.0036 -0.0028
+-0.0021 -0.0014
+-0.0031 -0.0031
+-0.0026 -0.001
+-0.0037 -0.0029
+-0.0005 -0.001
+-0.0029 -0.0008
+-0.0035 -0.0018
+-0.0042 -0.0017
+-0.0036 -0.0011
+-0.0025 -0.0018
+-0.0014 -0.0029
+-0.0041 -0.0024
+-0.0027 -0.0024
+-0.0034 -0.0004
+&
+@target G0.S1
+@type xy
+-0.0028 -0.0027
+-0.0039 -0.0013
+0.001 0.0086
+0.0007 0.0014
+-0.0028 -0.0015
+-0.0031 -0.0015
+0.003 0.004
+-0.0039 -0.0025
+-0.0042 -0.0014
+-0.003 -0.0022
+-0.0032 -0.0021
+-0.0031 -0.0014
+-0.0036 -0.0029
+-0.0032 -0.0009
+-0.0032 -0.0014
+-0.0029 -0.0016
+-0.0028 -0.0008
+-0.0031 -0.0018
+-0.0029 -0.0029
+-0.003 -0.0031
+-0.0037 -0.002
+-0.0037 -0.0028
+-0.0031 -0.0012
+-0.0034 -0.0014
+-0.0036 -0.0027
+-0.0031 -0.0033
+-0.003 -0.0005
+0.0065 0.0191
+-0.0035 -0.0022
+-0.0038 -0.003
+-0.004 -0.0029
+-0.0042 -0.0001
+-0.0029 -0.0011
+-0.0037 -0.0025
+-0.0046 -0.0009
+-0.0037 -0.0012
+-0.0026 -0.0034
+-0.0036 -0.002
+-0.0017 -0.0033
+-0.0026 -0.0013
+-0.0024 -0.0004
+0.0011 0.0118
+-0.0031 -0.0007
+-0.0038 -0.003
+-0.0031 -0.004
+-0.0035 -0.0017
+-0.0043 -0.0013
+-0.0034 -0.0018
+0.0009 0.0115
+-0.0032 -0.0007
+-0.004 -0.0017
+-0.0034 -0.0024
+-0.0035 -0.002
+-0.0038 -0.0022
+-0.0034 -0.0012
+-0.0027 -0.001
+-0.003 -0.002
+&
+@target G0.S2
+@type xy
+-0.0021 -0.0013
+-0.003 -0.0008
+-0.0031 -0.003
+-0.0029 -0.0015
+-0.003 -0.0024
+-0.0032 -0.0021
+-0.0026 -0.0025
+-0.0026 -0.0022
+-0.0039 -0.0023
+-0.0034 -0.0012
+-0.0023 -0.0012
+-0.0028 -0.004
+-0.0033 -0.0015
+-0.003 -0.001
+-0.003 -0.0018
+-0.0028 -0.0016
+-0.0028 0.0003
+-0.0027 -0.0021
+-0.0028 -0.0032
+-0.0028 -0.0023
+-0.0035 -0.0012
+-0.0024 -0.0025
+-0.0029 -0.0004
+-0.0028 -0.0018
+-0.0031 -0.0012
+-0.0026 -0.0016
+-0.0025 -0.0016
+-0.0036 -0.0027
+-0.0032 -0.0005
+-0.0035 -0.0007
+-0.0029 -0.0025
+-0.0035 -0.0017
+-0.0027 -0.0017
+-0.0033 -0.0013
+-0.0026 -0.0017
+-0.0037 -0.0022
+-0.0031 -0.0002
+-0.0027 -0.0018
+-0.0024 -0.0024
+-0.0036 -0.0013
+-0.0019 -0.0006
+-0.0029 -0.0016
+-0.0025 -0.0024
+-0.004 -0.001
+-0.0027 -0.0027
+-0.0017 -0.0023
+-0.0034 -0.0026
+-0.0023 -0.0018
+-0.0028 -0.0021
+-0.0017 -0.0009
+-0.003 -0.0022
+-0.0033 -0.0017
+-0.0036 -0.0031
+-0.0021 -0.0008
+-0.0028 -0.0018
+-0.0025 -0.0016
+&
+@target G0.S3
+@type xy
+-0.0033 -0.0017
+-0.0037 -0.003
+-0.0041 -0.0013
+-0.0042 -0.0018
+-0.0036 -0.0031
+-0.0033 -0.0029
+-0.0032 -0.0024
+-0.003 -0.0019
+-0.0033 -0.0034
+-0.0037 -0.0027
+-0.0038 -0.0025
+-0.0032 -0.0006
+-0.0022 -0.0019
+-0.0035 -0.0014
+-0.0035 -0.0025
+-0.003 -0.0038
+-0.0031 -0.0027
+-0.0024 -0.0043
+-0.0037 -0.0016
+-0.003 -0.0029
+-0.0038 -0.0029
+-0.0034 -0.0026
+-0.0031 -0.0015
+-0.0029 -0.0033
+0.0039 0.0112
+-0.0038 -0.0024
+-0.0034 -0.0022
+-0.003 -0.0008
+-0.0035 -0.0023
+-0.0035 -0.0019
+-0.0029 -0.0007
+-0.0023 -0.0013
+-0.0038 -0.0025
+-0.0031 -0.0009
+-0.0043 -0.0025
+-0.0013 -0.0022
+-0.003 -0.0017
+-0.0046 -0.0018
+-0.0038 -0.0031
+-0.0037 -0.003
+-0.003 -0.0029
+-0.0025 -0.0021
+-0.0031 -0.0034
+-0.0034 -0.0023
+-0.0037 -0.0018
+-0.0038 -0.0035
+-0.0037 -0.0029
+-0.0026 -0.0023
+-0.0041 -0.0026
+-0.0033 -0.0023
+-0.0038 -0.0024
+-0.003 -0.0012
+-0.0031 -0.0023
+-0.0034 -0.0011
+-0.0036 -0.0021
+-0.0031 -0.0022
+-0.0031 -0.0034
+-0.0036 -0.0026
+-0.0033 -0.002
+-0.0033 -0.0016
+-0.0034 -0.0019
+-0.0039 -0.0019
+-0.0033 -0.0028
+-0.0039 -0.0044
+-0.004 -0.0022
+-0.0034 0.0003
+-0.0042 -0.0024
+-0.0031 -0.0002
+-0.0034 -0.0007
+-0.0033 -0.0013
+-0.0037 -0.004
+-0.0035 -0.003
+-0.0027 -0.0014
+-0.0033 -0.0025
+-0.0026 -0.0033
+-0.004 -0.0014
+-0.003 -0.0016
+-0.0033 -0.0003
+-0.0028 -0.0004
+-0.0043 -0.0027
+-0.003 -0.0027
+-0.0039 -0.0022
+-0.0019 -0.0018
+-0.0024 -0.0008
+-0.0031 -0.0029
+-0.0038 -0.002
+-0.003 -0.0017
+-0.0026 -0.0015
+-0.0034 -0.0041
+-0.0033 -0.0023
+-0.0034 -0.0022
+-0.0034 -0.002
+-0.0033 -0.0015
+-0.0026 -0.0024
+-0.0043 -0.0024
+-0.0032 -0.0024
+-0.0035 -0.0018
+-0.003 -0.0023
+-0.0042 -0.0039
+-0.0035 -0.002
+-0.0022 -0.0013
+-0.0045 -0.0022
+-0.0038 -0.0024
+-0.0042 -0.0007
+-0.003 -0.0024
+-0.0025 -0.0018
+-0.0042 -0.0025
+-0.0037 -0.0017
+-0.0036 -0.0015
+-0.0037 -0.0036
+-0.0028 -0.0017
+-0.0028 -0.0007
+-0.0028 -0.003
+-0.0031 -0.0013
+-0.004 -0.0019
+-0.0022 -0.0019
+-0.0037 -0.0018
+-0.0033 -0.0011
+-0.0039 -0.0015
+-0.004 -0.002
+-0.0033 -0.0024
+-0.004 -0.0026
+-0.003 -0.0023
+-0.0035 -0.0019
+-0.0036 -0.0022
+-0.0027 -0.0033
+-0.0047 -0.0029
+-0.0021 -0.0011
+-0.0036 -0.0017
+-0.0023 0
+-0.0034 -0.0021
+-0.004 -0.0027
+-0.0025 -0.0015
+-0.0041 -0.0014
+-0.0036 -0.0016
+-0.0037 -0.0023
+-0.0029 -0.0035
+-0.0037 -0.0025
+-0.0034 -0.0033
+-0.0035 -0.0021
+-0.0033 -0.0015
+-0.0038 -0.0021
+-0.0046 -0.0016
+-0.0036 -0.0012
+-0.0032 -0.0033
+-0.0035 -0.0026
+-0.0033 -0.0014
+-0.0039 -0.0028
+-0.0031 -0.0028
+-0.0036 -0.0023
+-0.0032 -0.0021
+-0.0032 -0.0007
+-0.0034 -0.0009
+-0.0036 -0.0031
+-0.0029 -0.0006
+-0.0034 -0.0026
+-0.0031 -0.0029
+-0.0028 -0.0027
+-0.004 -0.0006
+-0.0032 -0.0018
+-0.0038 -0.0013
+-0.0041 -0.0013
+-0.0021 -0.0025
+-0.0038 -0.0018
+-0.0042 -0.0027
+-0.0033 -0.0015
+-0.0045 -0.0031
+-0.0042 -0.0018
+-0.0025 -0.0013
+-0.0034 -0.0021
+-0.0035 -0.0029
+-0.0047 -0.0032
+-0.0043 -0.0034
+-0.0025 -0.0013
+-0.0039 -0.0031
+-0.0037 -0.0023
+-0.0028 -0.0022
+-0.0045 -0.004
+-0.0029 -0.0017
+-0.0038 -0.0012
+-0.0037 -0.0027
+-0.0028 -0.0025
+-0.0038 -0.0014
+-0.0042 -0.0033
+-0.0034 -0.0014
+-0.0023 -0.0007
+-0.0018 0.0002
+-0.0038 -0.0021
+-0.0033 -0.0006
+-0.003 -0.0019
+-0.0038 -0.0027
+-0.0034 -0.0021
+-0.0037 -0.002
+-0.0042 -0.0018
+-0.0034 -0.0025
+-0.0031 -0.002
+-0.003 -0.0025
+-0.0043 -0.0013
+-0.0032 -0.0027
+-0.0045 -0.0019
+-0.0038 -0.0019
+-0.0039 -0.0033
+-0.0041 -0.0028
+-0.0035 -0.0027
+-0.0036 -0.0019
+-0.0035 -0.0013
+-0.0043 -0.002
+-0.0033 -0.0015
+-0.0033 -0.0015
+-0.0036 -0.0024
+-0.0029 -0.0016
+-0.0031 -0.0025
+-0.0025 -0.0024
+-0.0031 -0.0024
+-0.0038 -0.0021
+-0.0044 -0.0019
+-0.0025 -0.0024
+-0.0031 -0.0003
+-0.0039 -0.0022
+0.009 0.0155
+-0.0001 -0.0002
+0.007 0.0381
+-0.0027 -0.0025
+-0.0028 -0.0009
+-0.0026 -0.0017
+-0.0035 -0.0021
+-0.0033 -0.0028
+-0.0033 -0.0015
+-0.003 -0.0022
+-0.0031 -0.0009
+0.0066 0.037
+-0.0036 -0.0032
+-0.004 -0.0016
+-0.0038 -0.0018
+-0.0029 -0.001
+-0.0025 -0.0012
+-0.0037 -0.003
+-0.0033 -0.0017
+0.0016 0.0237
+-0.0034 -0.0008
+-0.0039 -0.0039
+-0.0035 -0.0009
+-0.0033 -0.0027
+-0.0033 -0.0019
+-0.0036 -0.0027
+-0.0032 -0.0015
+-0.0041 -0.0034
+-0.004 -0.0009
+0.0011 0.0213
+-0.0038 -0.0023
+-0.0039 -0.0024
+-0.0048 -0.0012
+-0.004 -0.0011
+-0.004 -0.0023
+0.0435 0.0225
+-0.0037 -0.0025
+-0.004 -0.0008
+-0.004 -0.0024
+-0.002 -0.0005
+-0.004 -0.0026
+0.0044 0.0323
+-0.0031 -0.0022
+-0.0031 -0.0001
+-0.0039 -0.0017
+-0.0006 0.0097
+-0.0016 -0.0026
+-0.0035 -0.0011
+-0.0031 -0.0007
+-0.0035 -0.0028
+-0.0037 -0.0024
+-0.0039 -0.0016
+0.0007 0.0145
+-0.002 -0.0002
+-0.0027 -0.0027
+0.0106 0.0118
+-0.0039 -0.0025
+-0.0036 -0.0019
+-0.0034 -0.0016
+-0.0034 -0.0017
+-0.0046 -0.0013
+-0.0025 -0.0008
+-0.0035 -0.0019
+-0.0037 -0.0033
+-0.0026 -0.0027
+-0.0028 -0.0022
+-0.0035 -0.0015
+-0.0038 -0.0026
+0.0089 0.0324
+-0.0028 -0.0014
+-0.004 -0.0013
+-0.0042 -0.0008
+-0.004 -0.0018
+-0.0033 -0.0015
+-0.0033 -0.003
+-0.0044 -0.0035
+0.0021 0.014
+-0.0037 -0.0017
+-0.003 -0.0035
+-0.0017 -0.0004
+-0.003 -0.0002
+-0.0039 -0.0024
+-0.0045 -0.0021
+-0.0041 -0.0009
+-0.003 -0.0014
+-0.0032 -0.0004
+-0.003 -0.0007
+-0.0034 -0.0027
+-0.0035 -0.0036
+-0.0041 -0.0031
+-0.0033 -0.0015
+-0.003 -0.003
+-0.0033 -0.003
+-0.0024 -0.0016
+-0.0034 -0.0031
+-0.0025 -0.0024
+-0.003 -0.0014
+-0.0036 -0.0033
+-0.0033 -0.0022
+-0.0036 -0.0024
+-0.0035 -0.0026
+-0.004 -0.0028
+-0.0037 -0.0023
+-0.004 -0.0018
+-0.0032 -0.0022
+-0.0035 -0.0016
+-0.0038 -0.0009
+-0.0034 -0.0032
+-0.0035 -0.0019
+-0.0032 -0.0018
+-0.0038 -0.0026
+-0.0034 -0.0009
+-0.0042 -0.0017
+-0.0033 -0.001
+-0.0028 -0.0024
+-0.0043 -0.0027
+-0.0045 -0.0023
+-0.0031 -0.002
+-0.0033 -0.0024
+-0.0032 -0.0004
+-0.0037 -0.0011
+-0.0021 -0.0017
+-0.0028 -0.0017
+-0.0034 -0.0018
+-0.003 -0.0032
+-0.0022 -0.0018
+-0.0042 -0.0028
+-0.0029 -0.0023
+-0.0036 -0.0021
+-0.004 -0.0041
+-0.0041 -0.0011
+-0.0041 -0.0025
+-0.0034 -0.003
+-0.0032 -0.0022
+-0.0024 -0.0018
+-0.0032 -0.0017
+-0.0037 -0.0023
+-0.0028 -0.0025
+-0.0036 -0.0005
+-0.0037 -0.0008
+-0.0032 -0.0028
+-0.0033 -0.0027
+-0.0029 -0.0017
+-0.0028 -0.0021
+-0.0032 -0.0023
+-0.0029 -0.0037
+-0.0036 -0.0022
+-0.004 -0.0044
+-0.0031 -0.0014
+-0.0039 -0.003
+-0.0036 -0.0026
+-0.0035 -0.0031
+-0.0034 -0.003
+-0.0041 -0.002
+-0.0031 -0.0032
+-0.0035 -0.0018
+-0.0049 -0.0014
+-0.0037 -0.0034
+-0.0031 -0.0028
+-0.0034 -0.0029
+-0.0033 -0.0023
+-0.0035 -0.002
+-0.0037 -0.0015
+-0.0037 -0.0024
+-0.0034 -0.001
+-0.004 -0.0016
+-0.0036 -0.0035
+-0.0032 -0.0029
+-0.004 -0.0031
+-0.0037 -0.0022
+-0.0029 -0.0033
+-0.0035 -0.003
+-0.0037 -0.0024
+-0.0035 -0.0019
+-0.0033 -0.0017
+-0.0036 -0.0005
+-0.0032 -0.002
+-0.0032 -0.002
+-0.0045 -0.0036
+-0.0036 -0.0017
+-0.0042 -0.0013
+-0.0031 -0.0029
+-0.0033 -0.0029
+-0.004 -0.0023
+-0.003 -0.0018
+-0.003 -0.0025
+-0.0029 -0.0018
+-0.0033 -0.0026
+-0.0033 -0.001
+-0.0042 -0.0023
+-0.0037 -0.0023
+-0.0036 -0.0038
+-0.0023 -0.0005
+-0.0044 -0.0015
+-0.0039 -0.0028
+-0.0034 -0.0032
+-0.0024 -0.0028
+-0.0033 -0.0015
+-0.0031 -0.0015
+-0.0034 -0.0005
+-0.0036 -0.0025
+-0.0024 -0.0016
+-0.0035 -0.0019
+-0.0032 -0.0023
+-0.0036 -0.001
+-0.0035 -0.0026
+-0.0038 -0.0022
+0.0003 -0.0005
+-0.0035 -0.0023
+-0.0031 -0.0025
+-0.003 -0.0017
+-0.0036 -0.0014
+-0.003 -0.0029
+-0.0038 -0.0023
+-0.004 -0.0024
+0.0004 -0.0008
+-0.0041 -0.0029
+-0.0035 -0.0033
+-0.0036 -0.0025
+-0.0032 -0.0019
+-0.0038 -0.0025
+-0.0043 -0.0022
+-0.0016 0.0052
+-0.0037 -0.0024
+-0.0031 -0.0026
+-0.0025 -0.0019
+-0.0042 -0.0017
+-0.0042 -0.0025
+-0.0033 -0.0019
+0.0119 -0.0034
+-0.0041 -0.0028
+-0.0043 -0.0023
+-0.0027 -0.002
+-0.002 -0.0009
+-0.0041 -0.0024
+-0.0039 -0.0026
+-0.0026 -0.0019
+-0.0034 -0.0017
+-0.0029 -0.0023
+0.0003 0.0125
+-0.0032 -0.0035
+0.0016 0.0064
+-0.0029 -0.0013
+-0.0031 -0.0006
+-0.0033 -0.002
+-0.0032 -0.0021
+-0.0034 -0.0026
+-0.0014 -0.0021
+-0.0026 -0.0026
+-0.0037 -0.0019
+-0.0041 -0.0026
+-0.0028 -0.0028
+-0.0033 -0.0027
+-0.0032 -0.0013
+-0.0041 -0.0012
+-0.0032 -0.0027
+-0.0039 -0.0028
+-0.0015 -0.001
+-0.0026 0.0004
+-0.0031 -0.0018
+-0.003 -0.0004
+-0.0031 -0.0017
+-0.0039 -0.0018
+-0.0023 -0.0014
+-0.0034 -0.0024
+-0.0031 -0.002
+-0.0033 -0.0021
+-0.0026 -0.0016
+-0.0031 -0.0015
+-0.0038 -0.0023
+-0.0033 -0.0011
+-0.0031 -0.002
+-0.0029 -0.0014
+0.0472 -0.0077
+-0.0034 -0.0022
+-0.0035 -0.0025
+-0.0034 -0.0015
+-0.0041 -0.0012
+-0.0032 -0.0025
+-0.0038 -0.0024
+0.0117 -0.0016
+-0.0031 -0.0017
+-0.0034 -0.0018
+-0.0004 -0.0033
+-0.0031 -0.0016
+-0.0031 -0.001
+-0.0038 -0.0018
+-0.0036 -0.0011
+-0.0035 -0.003
+-0.0031 -0.0025
+-0.0031 -0.0025
+-0.0036 -0.0021
+-0.0039 -0.0016
+-0.0011 -0.0004
+-0.0041 -0.0022
+-0.0041 -0.0015
+-0.0036 -0.0028
+-0.0031 -0.0022
+-0.0035 -0.0013
+-0.0038 -0.0024
+-0.0046 -0.0019
+-0.0037 -0.0009
+-0.0038 -0.0018
+-0.0034 -0.0037
+-0.0028 -0.0007
+-0.0038 -0.0007
+-0.0037 -0.0017
+-0.0034 -0.0029
+-0.0038 -0.0021
+-0.0024 -0.0022
+-0.0029 -0.0014
+-0.0037 -0.0027
+-0.0035 -0.0019
+-0.0029 0.0007
+-0.0018 0.0052
+-0.0031 -0.0028
+-0.0034 -0.0021
+-0.0029 -0.0025
+-0.0028 -0.0014
+-0.0032 -0.0016
+-0.0031 -0.002
+-0.0031 -0.0011
+-0.0039 -0.0019
+-0.0035 -0.0025
+-0.0032 -0.0027
+-0.0029 -0.0015
+-0.0029 -0.0015
+-0.0026 -0.0022
+-0.0028 -0.0031
+0.0114 -0.0017
+0.011 -0.0027
+-0.0032 -0.0017
+-0.0032 -0.0002
+-0.0029 -0.0025
+-0.0036 -0.0012
+-0.0033 -0.0024
+0.0122 -0.0017
+-0.0031 -0.0016
+-0.0033 -0.001
+-0.0045 -0.0017
+-0.003 -0.0028
+-0.0037 -0.0009
+-0.0027 -0.001
+-0.0036 -0.0025
+-0.0037 -0.0016
+-0.0036 -0.0032
+-0.0037 -0.0016
+-0.003 -0.0028
+-0.0038 -0.0026
+-0.0028 -0.0009
+-0.003 -0.0019
+-0.0033 -0.0029
+-0.0025 -0.002
+-0.0035 -0.0019
+0.0118 -0.0028
+0.0093 0.0343
+-0.0034 -0.0015
+-0.0029 -0.0018
+-0.0028 -0.0026
+-0.0033 -0.0019
+-0.0033 -0.0032
+-0.0033 -0.0007
+-0.0034 -0.0021
+-0.0026 -0.0017
+0.0059 0.039
+-0.0035 -0.0017
+-0.0037 -0.0021
+-0.0041 -0.0025
+-0.0032 -0.0015
+-0.0027 -0.0007
+-0.0033 0.0001
+-0.0038 -0.003
+-0.0035 -0.0014
+-0.0031 -0.001
+-0.0034 -0.0014
+-0.0032 -0.002
+-0.0035 -0.001
+-0.0028 -0.0018
+-0.0023 -0.0019
+-0.004 -0.0013
+0.0032 0.0089
+-0.0032 -0.0025
+-0.0027 -0.0032
+-0.0031 -0.0026
+-0.0028 -0.0029
+-0.003 -0.0011
+-0.0035 -0.0018
+0.0083 0.0353
+0.0012 0.0181
+-0.0036 -0.0032
+-0.0032 -0.0021
+-0.0031 -0.0015
+-0.0036 -0.0011
+-0.0034 -0.0023
+-0.0042 -0.0023
+-0.0032 -0.0022
+0.0005 0.0152
+-0.0041 -0.0008
+-0.0036 -0.0015
+-0.0022 -0.0016
+-0.0036 -0.0035
+-0.0035 -0.0013
+-0.0031 -0.001
+-0.0034 -0.0022
+-0.004 -0.0026
+-0.0035 -0.0024
+-0.0033 -0.0017
+-0.0039 -0.0022
+-0.0037 -0.0019
+-0.0038 -0.0005
+0.0024 0.0142
+-0.0036 -0.0022
+-0.0037 -0.0036
+-0.0036 -0.0025
+-0.0036 -0.0024
+-0.0033 -0.0021
+-0.0038 -0.0027
+0.0114 -0.0031
+-0.0032 -0.0001
+-0.0032 -0.0019
+0.0121 -0.0027
+-0.0035 -0.0016
+-0.0045 -0.003
+-0.0038 -0.0031
+-0.0035 -0.001
+-0.0028 -0.0021
+0.0169 -0.004
+-0.0026 0.0002
+-0.0027 -0.0034
+-0.0031 -0.0026
+-0.0036 -0.003
+-0.0036 -0.0014
+-0.0033 -0.0018
+-0.0033 -0.0039
+-0.0026 -0.0003
+-0.0028 -0.0014
+-0.0031 -0.002
+-0.0013 0.0071
+-0.0038 -0.0016
+-0.0036 -0.0025
+-0.0033 -0.0014
+-0.0034 -0.0025
+-0.0034 -0.0018
+-0.0033 -0.0013
+-0.0033 -0.0022
+-0.0036 -0.0019
+-0.003 -0.0002
+0.0028 0.0086
+-0.0024 -0.0019
+0.0148 0.0141
+-0.0029 -0.0023
+-0.0031 -0.0008
+-0.0033 -0.0018
+-0.0033 -0.0017
+-0.0027 -0.0022
+-0.0028 -0.0026
+-0.0037 -0.0009
+-0.0027 -0.0017
+-0.0026 -0.0006
+-0.0036 -0.0015
+-0.0022 -0.001
+-0.0022 -0.001
+-0.0038 -0.0018
+-0.0031 -0.002
+-0.004 -0.0036
+-0.0038 -0.0006
+-0.0035 -0.0018
+-0.0038 -0.0034
+-0.0038 -0.0023
+0.0098 0.0349
+-0.0036 -0.001
+-0.0005 0.01
+-0.0032 -0.0003
+-0.003 -0.0024
+-0.004 -0.0008
+-0.0035 -0.0024
+-0.0029 -0.0013
+-0.0031 -0.0022
+-0.0035 -0.001
+-0.0038 -0.0023
+-0.0015 -0.0016
+-0.0032 -0.0026
+-0.0039 -0.0024
+-0.0033 -0.0017
+-0.0034 -0.0027
+-0.0039 -0.0009
+-0.0039 -0.0017
+-0.0036 -0.0015
+-0.0034 -0.0016
+-0.0046 -0.0027
+-0.0034 -0.0017
+-0.0025 -0.0011
+-0.003 0.0001
+-0.0019 -0.0004
+-0.0034 -0.0027
+-0.0028 -0.0026
+-0.0035 -0.0021
+-0.0028 -0.0011
+-0.0032 -0.0019
+-0.0039 -0.0028
+-0.0027 -0.0021
+-0.0033 -0.0026
+-0.0046 -0.0018
+-0.0031 -0.001
+-0.0043 -0.001
+-0.0029 -0.0024
+-0.0034 -0.0018
+-0.0038 -0.0028
+-0.0025 -0.0005
+-0.0036 -0.003
+-0.0029 -0.0023
+-0.0032 -0.001
+-0.0029 -0.0013
+-0.0034 -0.0023
+-0.0039 -0.0028
+-0.0038 -0.0015
+-0.0038 -0.0021
+-0.0031 -0.0022
+-0.0031 -0.0028
+-0.0039 -0.0023
+-0.0043 -0.0018
+-0.003 -0.0022
+-0.0039 -0.001
+0.0023 0.0024
+-0.0032 -0.0031
+-0.0032 -0.0016
+-0.0031 -0.0027
+-0.0029 -0.0028
+-0.003 -0.0007
+-0.0033 -0.002
+-0.0028 -0.001
+-0.004 -0.0019
+-0.0029 -0.0023
+0.0153 0.0136
+-0.003 -0.001
+-0.0039 -0.002
+-0.0031 -0.0017
+-0.003 -0.0001
+-0.0041 -0.0017
+-0.0036 -0.0003
+-0.0042 -0.0024
+-0.004 -0.0013
+-0.0029 -0.002
+-0.0027 -0.0015
+-0.0033 -0.0016
+0.002 0.0139
+-0.0029 -0.0023
+-0.0035 -0.0018
+-0.0042 -0.0014
+-0.0029 -0.0013
+-0.0031 -0.0028
+-0.0031 -0.0025
+-0.0032 -0.004
+-0.0027 -0.0024
+-0.0026 -0.0036
+-0.0036 -0.0028
+-0.0031 -0.0018
+-0.0038 -0
+-0.0038 -0.0031
+-0.0038 -0.002
+-0.0031 -0.0035
+-0.0031 -0.0028
+-0.0041 -0.0017
+-0.0037 -0.0034
+-0.0038 -0.0017
+-0.0039 -0.0021
+-0.0032 -0.0019
+-0.0033 -0.0018
+0.002 0.0244
+0.0012 0.002
+-0.0035 -0.001
+-0.0032 -0.0027
+-0.0028 -0.0025
+0.0108 -0.0013
+-0.0029 -0.0013
+-0.0038 -0.0029
+-0.0039 -0.0015
+-0.0028 -0.0028
+-0.0039 -0.0005
+-0.0029 -0.0008
+-0.0027 -0.0015
+-0.0032 -0.0017
+-0.0032 -0.0029
+-0.0028 -0.0013
+-0.0033 -0.0018
+-0.0031 -0.0031
+-0.003 -0.0017
+-0.0038 -0.0034
+-0.003 -0.001
+-0.0032 -0.002
+-0.0031 -0.0008
+-0.0037 -0.0022
+-0.0037 -0.0008
+-0.0047 -0.0028
+-0.003 -0.0015
+-0.0041 -0.0038
+-0.0036 -0.0038
+-0.0043 -0.0014
+-0.0035 -0.0017
+-0.0036 -0.0017
+-0.0036 -0.0026
+-0.0034 -0.0007
+0.0123 -0.0023
+-0.0037 -0.0013
+0.0021 0.0086
+-0.0019 -0.0027
+-0.0029 -0.0029
+-0.0033 -0.0022
+-0.0034 -0.0013
+-0.0027 -0.0021
+-0.0024 -0.0015
+-0.0034 -0.0048
+-0.0023 -0.0017
+-0.0035 -0.002
+-0.0036 -0.0034
+-0.0035 -0.0021
+-0.0032 -0.002
+-0.0031 -0.0025
+0.0112 -0.0025
+-0.003 -0.0004
+-0.0037 -0.0021
+-0.0037 -0.0019
+-0.003 -0.0008
+-0.0024 -0.0027
+-0.0033 -0.0023
+-0.0035 -0.0015
+-0.0033 -0.004
+-0.0028 -0.0008
+-0.0033 -0.0021
+0.0053 0.0354
+-0.0035 -0.0026
+-0.0025 -0.0028
+-0.0038 -0.0025
+-0.0031 -0.0031
+-0.0033 -0.0021
+0.0001 -0.0011
+-0.0039 -0.0007
+-0.0037 -0.0029
+-0.0038 -0.0022
+-0.0038 -0.0016
+-0.0035 -0.0001
+0.0037 0.0258
+-0.0031 -0.0016
+-0.0033 -0.0026
+-0.0034 -0.0005
+-0.0025 -0.0023
+-0.0034 -0.0023
+-0.0005 0.0098
+-0.0035 -0.0022
+-0.0028 -0.0003
+-0.003 0.0003
+-0.0035 -0.0028
+-0.0035 -0.0013
+0.012 -0.0027
+-0.002 -0.0014
+0.0359 -0.0049
+-0.0031 -0.0018
+-0.0036 -0.0026
+-0.003 -0.0028
+-0.0024 -0.0025
+-0.003 -0.0022
+-0.0035 -0.0023
+-0.0037 -0.0009
+-0.0039 -0.0017
+-0.0035 -0.003
+-0.0033 -0.0038
+-0.0032 -0.0008
+-0.0028 -0.0039
+-0.0034 -0.0032
+-0.0023 -0.0016
+-0.0032 -0.0014
+-0.0033 -0.002
+-0.0032 -0.0016
+0.0047 0.0076
+-0.0037 -0.0031
+-0.0039 -0.0017
+-0.0034 -0.0017
+-0.0027 -0.0021
+-0.0034 -0.0021
+-0.0027 -0.0002
+-0.0025 -0.0014
+-0.0034 -0.0025
+-0.0036 -0.0028
+-0.0041 -0.0018
+0.0026 0.0001
+0.0033 0.0088
+-0.0037 -0.0038
+-0.0038 -0.0018
+-0.0033 -0.0009
+-0.0031 -0.003
+-0.004 -0.0025
+-0.003 -0.0017
+-0.0027 -0.0026
+-0.0041 -0.0022
+-0.0036 -0.002
+-0.004 -0.0024
+-0.0031 -0.0015
+-0.0034 -0.0014
+-0.0034 -0.001
+-0.0037 -0.0014
+-0.0032 -0.0022
+-0.0034 -0.0013
+-0.0025 -0.0009
+-0.003 -0.0036
+-0.0034 -0.0015
+-0.0038 -0.0024
+0.0125 -0.0015
+-0.0029 -0.001
+-0.0028 -0.0029
+-0.0032 -0.0028
+0.0104 0.0351
+-0.0031 0.0008
+-0.0021 -0.0013
+-0.0027 -0.0018
+-0.0032 -0.002
+-0.0032 -0.0004
+-0.0037 -0.0012
+-0.0037 -0.0007
+-0.0034 -0.002
+-0.0032 -0.0032
+-0.0033 -0.0024
+-0.004 -0.0023
+-0.0031 -0.0018
+-0.0025 -0.0006
+-0.003 -0.0014
+-0.0021 -0.0004
+-0.003 -0.0026
+-0.0042 -0.0026
+-0.0038 -0.0025
+-0.003 -0.0013
+-0.0031 -0.0025
+-0.0027 -0.0016
+-0.0038 -0.0027
+-0.0031 -0.0006
+-0.0036 -0.0019
+-0.0031 -0.0024
+-0.0037 -0.0026
+0.0009 0.0053
+-0.0029 -0.0022
+-0.0032 -0.0019
+-0.0027 -0.0025
+-0.0037 -0.0028
+0.0025 0.0255
+-0.004 -0.0021
+0.0083 0.0298
+-0.0032 -0.0022
+-0.0033 -0.0032
+-0.004 -0.0018
+0.0257 0.02
+-0.0025 -0.0015
+-0.0031 -0.0031
+-0.0043 -0.0027
+-0.0036 -0.003
+-0.0033 -0.0007
+0.0091 0.0339
+-0.0034 -0.002
+-0.0031 -0.003
+-0.0034 -0.0025
+-0.0032 -0.0023
+-0.004 -0.0025
+-0.0033 -0.0023
+-0.0043 -0.0014
+-0.0034 -0.003
+-0.0037 -0.0024
+-0.0025 -0.0025
+-0.0039 -0.0016
+-0.0032 -0.0018
+-0.0044 -0.003
+-0.0032 -0.0016
+-0.0031 -0.0021
+-0.0036 -0.0027
+-0.0044 -0.0026
+0.0132 -0.0026
+-0.0037 -0.0028
+-0.0027 -0.0041
+-0.0032 -0.0027
+-0.0032 -0.003
+-0.0036 -0.0018
+-0.0035 -0.0035
+-0.0034 -0.0023
+0.0039 0.0116
+0.0082 0.0287
+-0.0026 -0.0014
+0.0124 -0.003
+-0.004 -0.0035
+-0.0035 -0.0012
+-0.0031 -0.0027
+-0.0038 -0.002
+-0.0029 -0.0017
+-0.0029 -0.0016
+0.0062 -0.0022
+-0.0029 -0.0031
+-0.0032 -0.0027
+0.0448 -0.0001
+-0.0026 -0.0003
+-0.003 -0.0017
+-0.0042 -0.0032
+-0.0034 -0.0016
+-0.0033 -0.0029
+-0.0044 -0.003
+-0.0034 -0.0014
+-0.003 -0.0019
+-0.0027 -0.0016
+-0.0031 -0.0005
+-0.0034 -0.001
+-0.0017 -0.0023
+-0.0031 -0.0014
+-0.0037 -0.0025
+0.0037 0.0101
+-0.003 -0.0021
+0.0514 0.0041
+-0.0026 -0.0009
+0.0093 0.0337
+-0.0026 -0.0011
+-0.0032 -0.0008
+-0.0028 -0.0024
+-0.003 -0.002
+-0.004 -0.002
+-0.0033 -0.0008
+-0.0041 -0.0004
+-0.0025 -0.0029
+-0.0029 -0.001
+-0.003 -0.0035
+-0.0038 -0.0013
+-0.0041 -0.0012
+-0.0032 -0.0021
+-0.0043 -0.002
+-0.0031 -0.004
+0.0005 0.0176
+-0.0031 -0.0016
+-0.0033 -0.0026
+-0.0023 -0.0002
+-0.0035 -0.0031
+-0.003 -0.0004
+-0.0033 -0.0014
+-0.0026 -0.0023
+-0.0033 -0.001
+-0.0036 -0.0018
+-0.0029 -0.0027
+-0.0031 -0.0021
+0.0037 0.0079
+-0.0038 -0.001
+-0.0039 -0.0006
+-0.0038 -0.0025
+-0.0036 -0.0023
+-0.004 -0.0017
+-0.0032 -0.0011
+0.0136 -0.003
+-0.0034 -0.0023
+-0.0038 -0.0009
+-0.003 -0.0019
+-0.0034 -0.0016
+-0.0039 -0.0018
+-0.0025 -0.0032
+-0.003 -0.0026
+-0.0043 -0.0027
+-0.0031 -0.0017
+0.0015 0.005
+-0.0031 -0.0007
+-0.0032 -0.0019
+-0.0031 -0.0022
+-0.0033 -0.0025
+-0.0031 -0.0025
+-0.0043 -0.0032
+-0.0033 -0.0014
+-0.0027 -0
+-0.0034 -0.0009
+-0.0035 -0.0012
+-0.004 -0.0022
+-0.0033 -0.0005
+-0.0037 -0.0033
+-0.0042 -0.0034
+0.0504 -0.0049
+0.0078 0.029
+-0.0033 -0.0025
+-0.0034 -0.0032
+-0.0036 -0.0021
+-0.0035 -0.0019
+-0.0027 -0.0038
+0.013 0.0299
+-0.0039 -0.0029
+-0.0044 -0.0026
+0.0021 0.0009
+-0.0027 -0.002
+-0.0029 -0.0038
+-0.0043 -0.0002
+0.0042 0.0349
+-0.0039 -0.0023
+-0.0032 -0.0001
+-0.0037 -0.0032
+-0.0041 -0.0015
+-0.0037 -0.0015
+-0.0032 -0.0019
+-0.0037 -0.0035
+-0.0032 -0.0021
+-0.004 -0.0031
+-0.0039 -0.0024
+-0.0046 -0.0032
+-0.0037 -0.0018
+-0.0034 -0.0022
+-0.0046 -0.0018
+0.0367 0.0413
+-0.0029 -0.0024
+-0.0032 -0.0023
+-0.0027 -0.0017
+-0.0031 -0.0025
+-0.0027 0
+-0.0037 -0.0021
+-0.0025 -0.0012
+0.0025 0.0202
+-0.0021 -0.0029
+-0.004 -0.0007
+-0.0025 -0.0018
+-0.0032 -0.0029
+-0.0032 -0.0022
+-0.0036 -0.0015
+-0.0038 -0.0021
+-0.0038 -0.0041
+-0.0036 -0.0018
+0.0024 0.0059
+0.0067 0.0403
+-0.0031 -0.0032
+-0.0031 -0.0014
+-0.0036 -0.0011
+-0.0029 -0.002
+-0.0027 -0.002
+-0.0035 -0.001
+-0.0044 -0.0024
+-0.0038 -0.0029
+-0.0031 -0.0025
+-0.0025 -0.0039
+-0.0038 -0.0021
+-0.0037 -0.0012
+-0.0036 -0.0022
+-0.0031 -0.001
+-0.0028 -0.0023
+-0.002 -0.001
+0.0161 -0.0029
+-0.0038 -0.0013
+-0.0031 -0.0017
+-0.0039 -0.0015
+-0.0033 -0.0028
+-0.0032 -0.0009
+-0.003 -0.0018
+0.0131 -0.0014
+-0.0031 -0.0022
+-0.0029 -0.0024
+-0.0031 -0.0033
+-0.0032 -0.0009
+-0.0024 -0.0021
+-0.0028 -0.003
+-0.003 -0.0009
+0.0123 0.0575
+-0.0037 -0.0016
+-0.0025 -0.0015
+-0.0031 -0.0037
+-0.0034 -0.0005
+-0.0028 -0.0006
+-0.0033 -0.0016
+-0.0038 -0.0019
+-0.0031 -0.0026
+-0.0032 -0.0019
+0.0102 0.059
+-0.0032 -0.0027
+0.0342 0.0064
+-0.0037 -0.0028
+-0.0038 -0.0013
+-0.0029 -0.0016
+-0.0033 -0.0023
+-0.0032 -0.0021
+-0.0038 -0
+-0.0038 -0.002
+-0.0036 -0.0017
+-0.0025 -0.0022
+-0.0024 -0.0006
+-0.0028 -0.0019
+-0.0029 -0.003
+-0.0044 -0.0019
+-0.0019 -0.0022
+-0.0029 -0.0018
+-0.0033 -0.0031
+-0.0035 -0.002
+-0.0041 -0.0027
+-0.0031 -0.0007
+-0.0027 -0.003
+-0.0044 -0.0028
+-0.0027 -0.0017
+-0.004 -0.0021
+-0.0043 -0.0011
+0.0025 0.0061
+0.0286 -0.0049
+-0.004 -0.002
+-0.0031 -0.0017
+-0.0036 -0.0021
+-0.0032 -0.0021
+-0.0034 -0.0015
+-0.0032 -0.0017
+-0.0035 -0.0018
+-0.0041 -0.0038
+-0.0032 -0.0032
+-0.0031 -0.0021
+-0.0024 -0.0028
+0.0465 -0.0046
+-0.0032 -0.002
+-0.0035 -0.0024
+-0.0033 -0.002
+0.0121 -0.0034
+0.0018 0.0198
+-0.0037 -0.0028
+-0.0022 0.0001
+-0.0031 -0.0026
+0.0101 0.0344
+-0.0037 -0.001
+-0.0029 -0.0024
+-0.0042 -0.0018
+-0.0044 -0.0028
+-0.0031 -0.001
+-0.004 -0.0029
+-0.0037 -0.0026
+-0.0028 -0.0009
+-0.0034 -0.0009
+-0.0044 -0.0027
+-0.0041 -0.002
+-0.0035 -0.0034
+-0.0036 -0.0028
+-0.0032 -0.0019
+-0.0038 -0.0027
+-0.0032 -0.0022
+-0.0041 -0.0032
+-0.0042 -0.0035
+-0.0039 -0.0019
+-0.0042 -0.0019
+0.0039 0.0091
+-0.0027 -0.0014
+-0.0002 0.0145
+-0.0041 -0.0001
+-0.0022 -0.0007
+-0.0031 -0.0017
+-0.003 -0.0011
+-0.0034 -0.0022
+-0.0015 0.009
+-0.0037 -0.0017
+-0.0038 -0.0035
+-0.0037 -0.0026
+-0.0026 -0.0025
+-0.0023 -0.0025
+-0.0027 -0.002
+-0.0034 -0.0007
+-0.0036 -0.0026
+-0.0035 -0.0022
+-0.0027 -0.0005
+-0.0029 0.0014
+-0.0032 -0.0019
+0.0024 0.025
+-0.0035 -0.0027
+-0.0035 -0.0021
+0.0115 -0.0024
+-0.0022 -0.0025
+-0.0038 -0.004
+-0.0028 -0.0021
+0.0102 0.0339
+-0.0038 -0.0028
+-0.0035 -0.0024
+-0.0042 -0
+-0.0034 -0.0018
+0.0509 -0.0067
+-0.0038 -0.0024
+-0.004 -0.002
+-0.0025 -0.0022
+-0.0026 -0.0017
+-0.0035 -0.0019
+-0.0033 -0.002
+0.0023 0.0255
+-0.0029 -0.002
+-0.0002 0.0118
+-0.0041 -0.0007
+-0.0029 -0.0013
+-0.0036 -0.002
+-0.0031 -0.0021
+-0.0008 -0.0012
+-0.0035 -0.001
+-0.0032 -0.001
+-0.0044 -0.0032
+-0.0039 -0.0027
+-0.0043 -0.001
+-0.0033 -0.0037
+-0.0039 -0.0031
+-0.0031 0
+-0.0028 -0.0037
+-0.0041 -0.0037
+-0.0029 -0.0022
+-0.004 -0.0031
+-0.0036 -0.0016
+-0.0036 -0.0018
+-0.0032 -0.0036
+-0.003 -0.0022
+-0.0033 -0.0028
+-0.0037 -0.0023
+-0.0031 -0.0029
+-0.0034 -0.0037
+-0.0034 -0.0007
+-0.0038 -0.0016
+-0.0027 -0.0014
+-0.0039 -0.0014
+-0.0029 -0.0015
+-0.0041 -0.0026
+-0.0032 -0.0036
+-0.0015 -0.001
+-0.0036 -0.0028
+-0.0037 -0.0027
+-0.0042 -0.0018
+-0.003 -0.0029
+-0.0046 -0.0021
+-0.0028 -0.0025
+0.0057 0.0375
+-0.0032 -0.0028
+-0.0033 -0.0002
+-0.0037 -0.0023
+-0.0034 -0.0027
+0.0288 -0.0049
+-0.0028 -0.0021
+-0.0037 -0.0015
+-0.0035 -0.0038
+-0.0038 -0.0023
+-0.0034 -0.0014
+-0.0038 -0.0007
+-0.0036 0.0005
+-0.0037 -0.0005
+-0.003 -0.0008
+-0.0032 -0.0039
+-0.0029 -0.0023
+-0.0027 -0.0005
+-0.0029 -0.0022
+-0.0007 -0.0006
+-0.004 -0.002
+-0.0035 -0.0021
+-0.0039 -0.0035
+-0.0039 -0.0026
+-0.0034 -0.0012
+-0.003 -0.003
+-0.0033 -0.0029
+-0.0034 -0.001
+-0.003 -0.0024
+-0.0039 -0.0035
+-0.004 -0.0025
+-0.0038 -0.0029
+-0.0031 -0.0016
+-0.0026 -0.0016
+-0.0028 -0.0027
+-0.0035 -0.0006
+-0.0036 -0.0012
+-0.0032 -0.0022
+-0.0032 -0.0025
+0.0061 0.0409
+-0.0028 -0.0021
+0.0058 0.0465
+-0.0032 -0.0021
+0.0123 -0.0033
+-0.0018 -0.0018
+-0.004 -0.0021
+-0.0034 -0.0018
+-0.0035 -0.0016
+-0.0031 -0.0014
+-0.0031 -0.0014
+-0.0037 -0.0021
+-0.0032 -0.0031
+-0.004 -0.0011
+-0.0019 -0.001
+-0.0029 -0.0035
+-0.0029 -0.0026
+-0.0039 -0.0022
+-0.0023 -0.0029
+-0.0032 -0.0019
+-0.0038 -0.0021
+-0.0026 -0.0032
+-0.0018 -0.0024
+0.0017 0.015
+-0.0029 -0.0016
+-0.0029 -0.0016
+-0.0031 -0.001
+-0.0039 -0.0014
+-0.0034 -0.0008
+-0.0036 -0.0019
+-0.0028 -0.0013
+-0.0033 -0.0029
+-0.0031 -0.0008
+-0.003 -0.0026
+-0.0005 0.0156
+-0.0012 -0.002
+-0.004 -0.0021
+0.0007 0.0071
+-0.0033 -0.0022
+-0.0038 -0.0022
+-0.0042 -0.0035
+-0.0026 -0.0021
+-0.0026 -0.0006
+-0.0036 -0.0025
+-0.0046 -0.0014
+-0.0031 -0.0013
+-0.0035 -0.002
+-0.0042 -0.0016
+-0.003 -0.0023
+-0.0032 -0.0024
+-0.0043 -0.0034
+0.0503 -0.0058
+0.0017 0.0076
+-0.0035 -0.0021
+-0.0029 -0.001
+-0.0026 -0.0043
+-0.0033 -0.0032
+-0.0029 -0.0029
+-0.0008 -0.0013
+-0.0044 -0.0017
+-0.0036 -0.0021
+-0.0032 -0.0028
+-0.0044 -0.0014
+-0.003 -0.0016
+-0.0034 -0.0012
+-0.0046 -0.0038
+-0.0031 -0.0014
+-0.0041 -0.0031
+-0.0042 -0.0029
+-0.0038 -0.0016
+0.0119 -0.0033
+-0.0014 -0.0003
+-0.0032 -0.0022
+-0.0024 -0.0015
+0.0122 -0.0029
+-0.0033 -0.0021
+-0.003 -0.0021
+-0.003 -0.0019
+-0.003 -0.0022
+0.0114 -0.0004
+-0.0034 -0.0031
+-0.0031 -0.0036
+-0.0035 -0.0021
+-0.0041 -0.0017
+-0.0034 -0.0024
+-0.0044 -0.0027
+-0.0035 -0.0019
+-0.0032 -0.0027
+-0.0035 -0.0013
+-0.0036 -0.001
+-0.0024 -0.0014
+-0.001 -0.0009
+-0.003 -0.0011
+0.0017 0.0068
+0.0118 -0.0017
+-0.0029 -0.0015
+-0.0043 -0.0006
+0.0034 0.012
+-0.0024 -0.0006
+-0.0036 -0.0021
+-0.0032 -0.001
+-0.0013 -0.0015
+-0.0035 -0.0022
+-0.0043 -0.0012
+-0.004 -0.0023
+-0.0034 -0.0026
+-0.0043 -0.0015
+-0.003 -0.0026
+-0.0033 -0.0016
+-0.0043 -0.003
+-0.0034 -0.0029
+-0.0043 -0.002
+0.0141 -0.0011
+-0.0035 -0.0022
+-0.0024 -0.002
+-0.0029 -0.0032
+-0.0029 -0.0008
+-0.0031 -0.0017
+-0.0019 -0.0004
+0.0046 -0.0017
+0.0165 -0.0038
+0.0123 -0.0023
+-0.0033 -0.0022
+-0.0029 -0.0018
+-0.0033 -0.0015
+-0.0031 -0.0005
+-0.004 -0.0023
+-0.0036 -0.0028
+-0.0021 -0.0005
+-0.0027 -0.004
+0.0113 0.0641
+-0.003 -0.0015
+-0.0033 -0.0026
+-0.0034 -0.0009
+-0.0027 -0.0031
+-0.0034 -0.0026
+-0.0033 -0.0018
+-0.0027 -0.0016
+-0.0036 -0.0021
+-0.003 -0.0023
+-0.003 -0.0014
+-0.004 -0.0019
+-0.0033 -0.0026
+-0.0033 -0.0035
+-0.003 -0.0029
+-0.0035 -0.0031
+-0.0037 -0.0016
+-0.003 -0.0007
+-0.003 -0.002
+-0.0038 -0.0012
+-0.0036 -0.0016
+-0.0042 -0.0028
+-0.0035 -0.002
+-0.0025 -0.0036
+-0.003 -0.0023
+-0.003 -0.0033
+-0.0045 -0.0036
+-0.0032 -0.0016
+-0.0041 -0.0039
+-0.0032 -0.0024
+-0.0037 -0.0032
+-0.0031 -0.0024
+-0.003 -0.0026
+-0.0039 -0.0015
+-0.0026 -0.0027
+-0.0036 -0.0015
+-0.0025 -0.0019
+-0.0008 -0.0009
+-0.0026 -0.0015
+-0.003 0.0006
+-0.0038 -0.0019
+-0.0028 -0.0025
+-0.0045 -0.0028
+-0.0037 -0.0016
+-0.0038 -0.0012
+-0.0031 -0.0017
+0.009 0.0329
+-0.0038 -0.0017
+-0.0028 -0.0019
+-0.003 0.0034
+-0.0034 -0.0013
+-0.003 -0.0017
+-0.0035 -0.0026
+-0.0033 -0.0022
+-0.0038 -0.002
+-0.0035 -0.0022
+-0.0034 -0.0016
+-0.004 -0.004
+-0.0035 -0.0014
+-0.0041 -0.0014
+-0.0039 -0.0016
+-0.0036 -0.0015
+-0.0035 -0.0014
+-0.0034 -0.002
+-0.0029 -0.0023
+-0.0039 -0.0015
+-0.0036 -0.0019
+-0.0036 -0.0027
+-0.0033 -0.0015
+-0.004 -0.0034
+-0.0038 -0.0019
+-0.0034 0.0002
+-0.0036 -0.0024
+-0.003 -0.0037
+-0.0031 -0.0018
+-0.0033 -0.0014
+-0.0033 -0.0023
+-0.0031 -0.0025
+-0.0043 -0.0028
+-0.0037 -0.0036
+-0.0042 -0.0026
+-0.0044 -0.0026
+-0.0015 0.0002
+-0.003 -0.0008
+-0.0026 -0.0002
+-0.0034 -0.0016
+-0.0034 -0.002
+-0.0037 -0.0027
+-0.0028 -0.0025
+-0.0026 -0.0026
+-0.0028 -0.0018
+-0.0031 -0.0018
+0.012 -0.0029
+-0.0026 -0.0019
+0.0229 0.0089
+-0.0037 -0.0031
+-0.0037 -0.0004
+-0.003 -0.001
+-0.003 -0.0011
+-0.0033 -0.0036
+-0.0041 -0.0043
+-0.0013 -0.0027
+-0.0039 -0.0028
+-0.0038 -0.0033
+0.0025 0.0142
+-0.003 -0.0011
+-0.0001 0.0138
+0.0125 0.0316
+-0.0031 -0.0004
+-0.0034 -0.0016
+-0.0023 -0.0043
+-0.0034 -0.0031
+0.01 0.0354
+-0.003 -0.003
+-0.0026 -0.0026
+-0.0033 -0.003
+-0.0037 -0.0024
+-0.0032 -0.0015
+-0.0029 -0.0011
+-0.003 -0.0018
+0.0066 -0.002
+-0.0036 -0.0021
+-0.0032 -0.0026
+-0.0034 -0.0019
+0.0114 0.0685
+-0.0029 -0.0018
+0.0115 0.012
+-0.0039 -0.0017
+-0.0037 -0.0021
+-0.0038 -0.0008
+-0.0033 -0.0018
+-0.0024 -0.0016
+-0.0031 -0.0017
+0.0108 0.0611
+-0.0039 -0.0001
+0.0025 0.0051
+-0.0036 -0.0019
+0.0289 -0.0036
+-0.0001 0.0125
+-0.0036 -0.0036
+-0.0026 -0.0001
+-0.004 -0.0027
+-0.0037 -0.0027
+-0.0026 -0.0008
+-0.0042 -0.0013
+-0.0028 -0.002
+-0.0029 -0.0026
+0.0082 0.0467
+-0.004 -0.0018
+-0.0035 -0.0013
+-0.0039 -0.0023
+0.0024 0.007
+-0.0031 -0.0017
+-0.0029 -0.0025
+0.0161 -0.0029
+-0.0036 -0.0002
+-0.0033 -0.003
+-0.0032 -0.0025
+-0.0031 -0.0014
+-0.0039 -0.0022
+-0.0023 -0.0016
+-0.0022 -0.0023
+-0.0032 -0.0014
+-0.0032 -0.0015
+-0.003 -0.0022
+-0.0039 -0.0013
+-0.0038 -0.0038
+-0.0036 -0.0007
+-0.0034 -0.0014
+-0.0036 -0.003
+-0.0038 -0.0009
+-0.0035 -0.0006
+-0.0013 -0.0021
+0.0001 -0.0003
+-0.0027 -0.0021
+-0.0025 -0.001
+-0.0028 -0.0023
+-0.0035 -0.0024
+-0.0034 -0.0032
+-0.0024 -0.0035
+-0.0039 -0.001
+-0.0035 -0.0044
+-0.0034 -0.0024
+-0.0028 -0.0016
+0.0017 0.0068
+-0.0029 -0.0019
+0.0068 0.0398
+-0.0031 -0.0012
+-0.0028 -0.0018
+-0.0022 -0
+-0.0032 -0.0022
+-0.0033 -0.0014
+0.0116 -0.0024
+-0.0037 -0.0028
+-0.0027 -0.0016
+-0.0039 -0.0022
+-0.0033 -0.0025
+-0.0031 -0.0009
+-0.0036 -0.0022
+-0.0036 -0.0028
+-0.003 -0.0025
+-0.0034 -0.0023
+0.0456 -0.0031
+0.0393 0.0162
+-0.0029 -0.0015
+-0.0041 -0.003
+-0.0034 -0.0031
+-0.0033 -0.0025
+0.0066 -0.0021
+-0.0037 -0.0016
+0.0023 0.0044
+-0.0032 -0.0001
+-0.0029 -0.0002
+-0.0037 -0.0036
+-0.0031 -0.0024
+-0.0025 -0.0019
+0.0119 -0.0031
+-0.0031 -0.0016
+-0.0039 -0.0026
+-0.0028 -0.002
+0.0114 0.0611
+-0.004 -0.0019
+-0.0033 -0.0011
+-0.0032 -0.0023
+-0.0034 -0.0027
+-0.0038 -0.0016
+-0.0029 -0.0018
+-0.0029 -0.0026
+-0.003 -0.0022
+-0.0032 -0.002
+-0.0033 -0.0009
+-0.0032 -0.0022
+-0.0037 -0.0028
+-0.0029 -0.0016
+-0.0043 -0.0012
+-0.0028 -0.0012
+-0.0029 -0.0029
+-0.0028 -0.0025
+-0.0036 -0.0016
+-0.004 -0.0019
+-0.0036 -0.0024
+-0.0028 -0.0022
+-0.0028 -0.0018
+0.0169 -0.0029
+-0.0033 -0.0016
+-0.0035 -0.0038
+-0.0038 -0.0025
+-0.0043 -0.0018
+-0.0036 -0.0013
+-0.0028 -0.0029
+-0.0046 -0.0035
+-0.003 -0.0036
+-0.003 -0.0033
+-0.0037 -0.0004
+-0.0038 -0.0024
+-0.0035 -0.0021
+-0.0044 -0.0031
+0.0085 -0.0004
+-0.0027 -0.0027
+-0.001 0.0081
+-0.0036 -0.0018
+-0.0037 -0.0013
+0.0039 0.0124
+-0.0035 -0.0015
+0.0047 0.0351
+-0.0035 -0.0017
+0.0019 0.0068
+-0.0025 -0.0031
+-0.0036 -0.0027
+-0.0039 -0.0027
+-0.0036 -0.002
+-0.0009 -0.0018
+-0.0033 -0.0034
+-0.0042 0.0002
+-0.0028 -0.0017
+0.0098 0.0354
+-0.0036 -0.0033
+-0.0038 -0.0012
+-0.0041 -0.0027
+-0.0026 -0.0011
+-0.0034 -0.0021
+-0.0031 -0.0029
+0.0016 0.0176
+-0.0039 -0.0023
+-0.0035 -0.0025
+-0.0038 -0.002
+-0.0036 -0.0016
+-0.0031 -0.0018
+0.0119 -0.0023
+-0.0028 -0.0024
+-0.004 -0.0021
+-0.0029 -0.0012
+-0.0032 -0.0024
+-0.0029 -0.0001
+-0.004 -0.0019
+-0.004 -0.0014
+-0.0029 -0.0023
+-0.0033 -0.0013
+0.0426 -0.0057
+-0.001 0.0074
+-0.0033 -0.0012
+-0.003 -0.0014
+-0.0029 -0.0024
+-0.0029 -0.0034
+-0.0029 -0.0036
+-0.0033 -0.0025
+-0.0029 -0.0017
+-0.0033 -0.0015
+-0.0035 -0.0035
+-0.0041 -0.0023
+-0.0032 -0.0021
+-0.0037 -0.0031
+-0.0035 -0.0013
+-0.0029 -0.0026
+-0.0028 -0.0014
+-0.0028 -0.0016
+-0.0032 -0.003
+-0.0032 -0.0032
+-0.0024 -0.0013
+-0.0013 0.0063
+-0.003 -0.0021
+-0.0037 -0.0019
+0.0187 0.0128
+-0.0033 -0.0014
+-0.0029 -0.0027
+-0.0035 -0.001
+-0.0032 -0.003
+-0.0023 -0.0007
+-0.0035 -0.0007
+-0.0026 -0.0009
+-0.0038 -0.0012
+-0.0032 -0.0019
+-0.0033 -0.003
+-0.003 -0.0015
+-0.0046 -0.0019
+-0.0031 -0.0014
+-0.0038 -0.0028
+-0.0038 -0.0026
+-0.0026 -0.0023
+-0.0033 -0.0027
+-0.0034 -0.002
+-0.0035 -0.0031
+-0.0033 -0.0022
+-0.0033 -0.0005
+-0.0029 -0.0028
+-0.0039 -0.0015
+-0.0037 -0.0022
+-0.0029 -0.0016
+-0.0033 -0.0024
+-0.0037 -0.0027
+-0.0034 -0.0001
+-0.0031 -0.0028
+-0.0034 -0.0019
+-0.0035 -0.0006
+-0.0038 0
+-0.0035 -0.0027
+-0.0032 -0.0022
+-0.0036 -0.0022
+-0.0034 -0.0015
+-0.0032 -0.0027
+-0.0031 -0.0027
+-0.0031 -0.0016
+-0.0035 -0.0012
+-0.0034 -0.0026
+-0.0038 -0.0005
+-0.0035 -0.0012
+-0.0036 -0.0036
+0.0117 -0.0027
+-0.0022 -0.0013
+-0.0039 -0.0007
+-0.0037 -0.0023
+-0.0038 -0.0036
+-0.0034 -0.0016
+-0.0042 -0.0013
+-0.0041 -0.0017
+-0.0032 -0.0029
+-0.0039 -0.0021
+-0.0029 -0.0021
+-0.0032 -0.0024
+-0.004 -0.002
+-0.0011 0.0044
+-0.0036 -0.0023
+-0.0031 -0.0016
+-0.0026 -0.0014
+-0.0041 -0.0026
+-0.0038 -0.003
+-0.0033 -0.0028
+-0.0037 -0.003
+-0.0024 -0.0026
+0.0085 0.0316
+-0.0044 -0.0026
+-0.0038 -0.0018
+-0.0028 -0.003
+-0.003 -0.0014
+-0.0029 -0.0013
+-0.0032 -0.0022
+-0.0025 -0.0032
+0.0011 0.0017
+-0.0033 -0.0012
+-0.004 -0.0008
+-0.0033 -0.0024
+-0.0028 -0.0028
+-0.003 -0.0014
+-0.0035 -0.0018
+-0.0041 -0.0029
+-0.0037 -0.002
+-0.0038 -0.0014
+-0.0032 -0.0026
+-0.003 -0.0024
+-0.003 -0.0032
+-0.0038 -0.0004
+-0.0043 -0.0012
+-0.0031 -0.0025
+-0.0031 -0.0025
+-0.0031 -0.0027
+-0.0027 -0.0012
+0.0013 0.0163
+-0.0034 -0.0024
+-0.0042 -0.0027
+-0.0032 -0.0013
+-0.0037 -0.0021
+-0.0034 -0.0026
+-0.0033 -0.0029
+0.0042 0.0295
+-0.0036 -0.0022
+-0.004 -0.0014
+-0.0033 -0.0024
+-0.0039 -0.0015
+-0.004 -0.0013
+-0.004 -0.0018
+-0.0043 -0.0003
+-0.0035 -0.004
+-0.0038 -0.0024
+-0.0036 -0.002
+-0.004 -0.0028
+-0.0038 -0.0008
+-0.0014 0.0088
+-0.0034 -0.0011
+-0.0035 -0.0033
+-0.0037 -0.0011
+-0.0043 -0.0023
+-0.003 -0.0024
+-0.0031 -0.0016
+-0.0018 -0.0031
+-0.0039 -0.0028
+-0.0034 -0.0027
+-0.0032 -0.002
+-0.0032 -0.0027
+-0.003 -0.0023
+-0.0035 -0.0015
+-0.0023 -0.0025
+-0.0034 -0.0031
+-0.0038 -0.0026
+-0.0034 -0.0019
+-0.0034 -0.0025
+-0.0038 -0.0022
+-0.0038 -0.0031
+-0.0029 -0.0014
+-0.0031 -0.0023
+-0.0018 -0.002
+-0.0031 -0.0018
+-0.0038 -0.0034
+-0.003 -0.0016
+-0.0028 -0.0017
+-0.0035 -0.0022
+-0.0039 -0.0035
+-0.0028 -0.0036
+-0.0024 -0.0017
+-0.0036 -0.0022
+-0.0037 -0.0029
+-0.0041 -0.0025
+-0.0022 -0.0026
+-0.003 -0.0021
+-0.0035 -0.0037
+-0.0033 -0.0024
+-0.0034 -0.0012
+-0.0033 -0.0029
+-0.0028 -0.003
+-0.0044 -0.0012
+-0.0036 -0.0017
+-0.002 -0.0009
+-0.0016 -0.0031
+-0.0034 -0.0012
+-0.0033 -0.0025
+-0.0036 -0.0031
+-0.0022 -0.0022
+-0.0037 -0.0027
+-0.0012 -0.0012
+-0.0031 -0.0033
+-0.0029 -0.003
+-0.0036 -0.0024
+-0.0033 -0.0017
+-0.0016 0.0027
+-0.0031 -0.0003
+-0.0033 -0.0024
+-0.0036 -0.0029
+-0.0035 -0.0011
+-0.0036 -0.0004
+-0.0032 -0.0026
+-0.0036 -0.0021
+-0.0038 -0.0024
+-0.0038 -0.0026
+-0.0038 -0.001
+-0.0041 -0.003
+-0.0035 -0.0023
+-0.0041 -0.0025
+-0.0032 -0.0016
+-0.0027 -0.0023
+-0.003 -0.0003
+-0.0041 -0.0012
+-0.0039 -0.0019
+-0.0022 -0.0006
+-0.003 -0.001
+-0.0034 -0.0029
+-0.0032 -0.0025
+-0.0039 -0.0014
+-0.0023 -0.0016
+-0.0033 -0.001
+-0.0039 -0.003
+-0.0044 -0.003
+-0.0031 -0.0032
+-0.0043 -0.0024
+-0.0026 -0.0016
+-0.0034 -0.0016
+-0.0035 -0.0026
+-0.0041 -0.0027
+-0.0025 -0.0007
+-0.0035 -0.0015
+-0.0028 -0.0018
+-0.003 -0.0027
+-0.003 -0.0005
+-0.0036 0.0004
+-0.003 -0.0003
+-0.0039 -0.0024
+-0.0032 -0.002
+-0.004 -0.0021
+-0.0028 -0.0023
+-0.0036 -0.0015
+-0.0034 -0.001
+-0.0034 -0.0016
+-0.0037 -0.003
+-0.0035 -0.002
+-0.0037 -0.0027
+-0.0034 -0.0036
+-0.0033 -0.002
+-0.0034 -0.0022
+-0.0032 -0.002
+-0.0034 -0.0016
+-0.0035 -0.0023
+-0.003 -0.0003
+-0.0033 -0.0036
+-0.0036 -0.002
+-0.0031 -0.0013
+-0.0041 -0
+-0.0029 -0.0018
+-0.0019 -0
+-0.0035 -0.0024
+-0.0038 -0.0015
+-0.0035 -0.0029
+-0.0039 -0.0033
+-0.0034 -0.0028
+-0.0042 -0.0014
+-0.0042 -0.001
+-0.0028 -0.0018
+-0.0033 -0.0016
+-0.0023 -0.0018
+-0.0038 -0.0022
+-0.0039 -0.003
+-0.0039 -0.0019
+-0.0033 -0.0016
+-0.0033 -0.002
+-0.0035 -0.0032
+-0.0028 -0.0017
+-0.0032 -0.0024
+-0.0034 -0.0024
+-0.0036 -0.0018
+-0.0036 -0.0023
+-0.0033 -0.0012
+-0.0024 -0.0013
+-0.0037 -0.0026
+-0.0044 -0.0019
+-0.0028 -0.0008
+-0.0036 -0.0028
+-0.0036 -0.002
+-0.0038 -0.0031
+-0.0041 -0.0034
+-0.0041 -0.0022
+-0.0035 -0.0021
+-0.0029 -0.0041
+-0.0033 -0.002
+-0.0039 -0.0013
+-0.0037 -0.002
+-0.0022 -0.0013
+-0.0029 -0.0021
+-0.0031 -0.0031
+-0.003 -0.0002
+-0.0028 -0.0025
+-0.0032 -0.0018
+-0.0035 -0.0018
+-0.0036 -0.001
+-0.0033 -0.0029
+-0.0034 -0.001
+-0.0041 -0.0019
+-0.0036 -0.0008
+-0.0035 -0.0035
+-0.0043 -0.0028
+-0.003 -0.0018
+-0.0026 -0.0015
+-0.0035 -0.0026
+-0.0029 -0.0027
+-0.0037 -0.0023
+-0.0032 -0.0017
+-0.0031 -0.0016
+-0.0031 -0.0014
+-0.0032 -0.0034
+-0.0039 -0.0025
+-0.0041 -0.0019
+-0.0038 -0.0019
+-0.0014 0.0081
+-0.0022 -0.002
+-0.0038 -0.0022
+-0.0031 -0.002
+-0.0038 -0.0024
+-0.0035 -0.001
+-0.003 -0.0018
+-0.0031 -0.0001
+-0.0042 -0.0015
+-0.003 -0.0012
+-0.003 -0.002
+-0.0036 -0.0007
+-0.0031 -0.0023
+-0.0032 -0.0017
+-0.0034 -0.0013
+-0.0033 -0.0014
+-0.0037 -0.0027
+-0.0035 -0.0025
+-0.004 -0.0012
+-0.0033 -0.0023
+-0.0026 -0.0017
+-0.0031 -0.0015
+-0.0034 -0.001
+-0.0035 -0.002
+-0.0035 -0.0025
+-0.0032 -0.0011
+-0.0034 -0.0019
+-0.0033 -0.0013
+-0.0037 -0.0022
+-0.0023 -0.0015
+&
+@target G0.S4
+@type xy
+-0.0033 -0.0031
+-0.0003 0.0006
+-0.0036 -0.0015
+-0.0027 -0.002
+-0.0026 -0.0034
+-0.0031 -0.0005
+-0.0038 -0.0018
+-0.0038 -0.0007
+-0.0037 -0.0018
+-0.0036 -0.0023
+-0.0035 -0.0025
+-0.0014 -0.0007
+-0.0031 -0.003
+-0.0034 -0.0012
+-0.0028 -0.0005
+-0.0039 -0.0022
+0.0121 -0.0037
+-0.0024 -0.0025
+-0.0025 -0.0019
+-0.0039 -0.0022
+-0.003 -0.0015
+-0.0036 -0.0015
+-0.0041 -0.0013
+-0.0032 -0.0038
+-0.0025 -0.0022
+-0.0033 -0.0012
+-0.0026 -0.0019
+-0.0027 -0.0024
+-0.0037 -0.0018
+-0.0036 -0.0022
+-0.0033 -0.0024
+-0.0029 0.0003
+-0.003 -0.0007
+-0.0034 -0.0033
+-0.0032 -0.0019
+-0.004 -0.0008
+-0.0033 -0.0022
+-0.0039 -0.0014
+-0.0037 -0.0007
+-0.0032 -0.0027
+-0.0029 -0.0021
+-0.0031 -0.0014
+-0.0031 -0.0018
+-0.0034 -0.0007
+-0.0022 -0.0029
+-0.0043 -0.0008
+-0.004 -0.0016
+-0.0034 -0.0035
+-0.0037 -0.0013
+-0.0036 -0.002
+-0.0032 -0.0016
+-0.0038 -0.0022
+-0.0015 -0.0023
+-0.0034 -0.0015
+-0.0036 -0.0006
+-0.0039 -0.0029
+-0.0027 -0.0004
+-0.0034 -0.0021
+-0.0026 -0.0032
+-0.003 -0.0023
+-0.0035 -0.0022
+-0.0027 -0.0021
+0.0014 0.0033
+-0.0017 -0.0009
+-0.0001 -0.0022
+-0.0037 -0.0026
+-0.0039 -0.0022
+0.0018 0.0004
+-0.0039 -0.0019
+-0.0038 -0.0011
+-0.0033 -0.0011
+0.001 0.0003
+-0.0037 -0.0021
+-0.004 -0.002
+-0.004 -0.0022
+-0.0031 -0.0024
+-0.0004 -0.0003
+-0.003 -0.0028
+-0.0036 -0.0011
+-0.0032 -0.0004
+0.0015 0.0014
+-0.0036 -0.0001
+-0.0016 0.0001
+-0.0031 -0.0023
+-0.0035 -0.0016
+-0.003 -0.0023
+-0.0029 -0.0017
+-0.0039 -0.0024
+-0.0029 -0.0002
+-0.0038 -0.0027
+-0.0036 -0.0016
+-0.0031 -0.0035
+-0.0034 -0.0039
+-0.0019 -0.0023
+-0.0032 -0.0035
+-0.0036 -0.0011
+-0.0029 -0.0026
+-0.0033 -0.0032
+-0.0031 -0.0021
+0.0042 0.003
+0.0005 0.0018
+-0.0023 -0.001
+-0.0037 -0.0017
+-0.0015 -0.0012
+-0.0042 -0.0025
+-0.0037 -0.001
+-0.0031 -0.0018
+-0.0035 -0.0008
+-0.0034 -0.0017
+-0.0024 -0.0017
+-0.004 -0.0024
+-0.003 -0.0022
+-0.0024 -0.0011
+-0.0034 -0.0039
+-0.0037 -0.0022
+-0.0036 -0.0027
+-0.0031 -0.0025
+-0.0035 -0.0035
+-0.0036 -0.001
+-0.0031 -0.0019
+-0.0036 -0.0019
+-0.0037 -0.002
+-0.0034 -0.0013
+-0.0033 -0.0004
+-0.0027 -0.0008
+-0.0035 -0.0015
+-0.003 -0.0009
+-0.0022 -0.0025
+-0.0042 0.0002
+-0.0033 -0.0013
+-0.0033 -0.0035
+-0.0028 -0.0016
+-0.0032 -0.0029
+-0.0034 -0.0011
+-0.0027 -0.0017
+-0.0023 -0.0013
+-0.0035 -0.0011
+-0.0031 -0.0021
+-0.0033 -0.002
+-0.0024 -0.0015
+-0.0029 -0.0021
+-0.0037 -0.0033
+0.0008 0.001
+-0.0029 -0.0026
+-0.0036 -0.0014
+-0.0036 -0.0022
+-0.0035 -0.0015
+-0.0029 -0.0005
+-0.0006 -0.0002
+-0.0039 -0.0023
+-0.0041 -0.0003
+-0.0034 -0.0013
+-0.0032 -0.0032
+-0.0036 -0.0016
+-0.0033 -0.0018
+-0.0043 -0.003
+-0.0043 -0.0013
+-0.0043 -0.0023
+-0.0041 -0.0014
+-0.0037 -0.0021
+0.0012 0.001
+-0.0037 -0.0026
+-0.0024 -0.0015
+-0.0036 -0.0022
+-0.0036 -0.0026
+-0.0029 -0
+-0.0031 -0.0032
+-0.0037 -0.0022
+-0.0025 -0.0013
+-0.0035 -0.0021
+-0.0033 -0.0013
+-0.003 -0.0005
+-0.0043 -0.0027
+-0.0031 -0.0029
+-0.0022 -0.0015
+0.0037 0.0186
+-0.0034 -0.0018
+-0.0037 -0.0028
+-0.0037 -0.0031
+-0.0029 -0.002
+-0.0044 -0.0011
+-0.0028 -0.002
+-0.0026 -0.0013
+-0.0029 -0.0018
+-0.0036 -0.0011
+-0.0024 -0.0004
+-0.004 -0.0019
+-0.0035 -0.0013
+-0.0041 -0.0011
+-0.0033 -0.002
+0.008 0.0293
+-0.0033 -0.0016
+-0.0031 -0.0023
+-0.0018 -0.0012
+-0.0021 -0.0016
+-0.0027 -0.0026
+-0.0031 -0.0026
+-0.0032 0.0002
+-0.0028 -0.0022
+-0.0032 -0.003
+-0.0031 -0.0007
+-0.0043 -0.0011
+-0.0026 -0.002
+-0.0003 -0.002
+-0.0033 -0.0014
+-0.0028 -0.0025
+-0.004 -0.0008
+-0.0032 -0.0039
+-0.0037 -0.0016
+-0.0033 -0.002
+-0.0029 -0.0025
+-0.0031 -0.0024
+-0.004 -0.0018
+-0.0029 -0.001
+-0.0037 -0.0015
+-0.0032 -0.0017
+-0.0034 -0.001
+-0.0031 -0.0024
+0.0009 0.0033
+-0.0038 -0.0017
+-0.0002 -0.0006
+-0.0026 -0.0016
+-0.0032 -0.0005
+-0.0044 -0.0025
+-0.0021 -0.0016
+-0.0038 -0.0021
+-0.0037 -0.0017
+-0.0033 -0.0037
+0.0053 -0.0024
+-0.003 -0.0019
+0.0018 0.0009
+-0.0031 -0.0018
+-0.0036 -0.0025
+-0.0034 -0.0041
+-0.0039 -0.0009
+-0.0035 -0.0013
+-0.0027 -0.0011
+-0.0015 -0.0007
+-0.0018 -0.0009
+-0.0031 -0.0012
+-0.0014 -0.0023
+-0.003 -0.002
+-0.0029 -0.0017
+-0.0029 -0.003
+-0.0042 -0.0033
+-0.003 -0.0015
+0.0012 0.0003
+-0.0032 -0.0015
+-0.0041 -0.0009
+-0.0031 -0.0011
+-0.003 -0.0019
+-0.0043 -0.0005
+-0.0026 -0.0023
+0.0015 0.0003
+-0.0031 -0.0011
+-0.0035 -0.0021
+-0.0035 -0.0038
+-0.0013 -0.0018
+-0.0036 -0.0001
+-0.0024 -0.0006
+-0.0038 -0.0017
+-0.0035 -0.0009
+-0.0041 -0.0015
+-0.0031 -0.0019
+-0.0037 -0.0018
+-0.003 -0.0015
+-0.0037 -0.0013
+-0.002 -0.0023
+-0.0031 -0.0014
+-0.0034 -0.0034
+-0.0021 -0.0006
+-0.0032 -0.0035
+-0.0029 -0.0015
+-0.0035 -0.0027
+-0.0036 -0.0014
+-0.0042 -0.0014
+-0.0043 -0.0021
+-0.0032 -0.0032
+-0.0005 0.0004
+-0.004 -0.0026
+-0.0032 -0.0027
+-0.0029 -0.0027
+-0.0005 -0.0005
+-0.0034 -0.0013
+-0.0013 0.0025
+-0.0031 -0.0014
+-0.0035 -0.0001
+-0.0031 -0.0016
+-0.0034 -0.0014
+-0.0029 -0.0006
+-0.0034 -0.0008
+-0.0027 -0.001
+-0.0049 -0.0023
+-0.0024 -0.0017
+-0.0035 -0.0028
+-0.0041 -0.0012
+-0.0032 -0.0031
+-0.0035 -0.0011
+-0.0029 -0.0022
+-0.0038 -0.0028
+-0.0033 -0.0028
+0.0083 0.0281
+-0.0036 -0.0003
+-0.0036 -0.002
+-0.0032 -0.0017
+-0.0033 -0.0012
+-0.0026 0.0011
+-0.0045 -0.0013
+-0.0027 -0.0021
+-0.0037 -0.0016
+-0.0033 -0.0024
+-0.0027 -0.0018
+0.0294 -0.0006
+-0.0035 -0.0026
+-0.003 -0.0024
+-0.0035 -0.002
+-0.004 -0.001
+0.0005 -0.0009
+-0.0041 -0.0026
+-0.003 -0.0012
+-0.0022 -0.0028
+-0.0036 -0.0041
+-0.0041 -0.0031
+-0.0038 -0.0021
+-0.0006 -0.0036
+-0.0026 -0.0033
+-0.0035 -0.0019
+-0.0036 -0.0002
+-0.0033 -0.0021
+-0.004 -0.0021
+-0.0032 -0.0032
+-0.0038 -0.0015
+-0.0034 -0.0013
+-0.0037 -0.0016
+-0.0012 -0.0019
+-0.0031 -0.0034
+-0.0038 -0.0016
+-0.0029 -0.0016
+0.0011 0.0076
+-0.0037 -0.0019
+-0.0036 -0.0028
+0.0014 0.0006
+-0.0035 -0.0009
+-0.0042 -0.0022
+-0.0035 -0.0012
+-0.0025 -0.0015
+-0.0043 -0.0031
+-0.0035 -0.0018
+-0.0037 -0.0012
+-0.0034 -0.0032
+-0.0023 -0.0021
+-0.0034 -0.0032
+-0.0037 -0.0018
+-0.0034 -0.002
+-0.0028 -0.0026
+0.0006 -0
+-0.004 -0.0015
+-0.0005 -0.0007
+-0.0031 -0.0029
+-0.0027 -0.0008
+-0.0035 -0.0021
+-0.0038 -0.002
+-0.0031 -0.0027
+-0.0022 -0.0019
+-0.0038 -0.0014
+-0.0033 -0.0024
+-0.0039 -0.0019
+-0.0024 -0.0028
+-0.0028 -0.0019
+-0.004 -0.0021
+-0.0025 -0.0013
+-0.0037 -0.0007
+-0.0024 -0.0012
+-0.0003 -0.001
+-0.0039 -0.0029
+-0.0036 -0.0021
+-0.001 -0.0021
+-0.0035 -0.0017
+-0.0039 -0.0026
+-0.0033 -0.003
+-0.0027 -0.0008
+-0.0036 -0.0012
+-0.0035 -0.0028
+-0.003 -0.0024
+-0.0026 -0.002
+-0.0037 -0.0009
+-0.0035 -0.0027
+-0.0037 -0.0023
+-0.003 0.0009
+-0.0031 -0.0033
+-0.0024 -0.0015
+0.0003 -0.0027
+-0.0043 -0.0024
+0.0016 0.002
+-0.0029 -0.0017
+-0.0039 -0.0003
+-0.0039 -0.002
+-0.0034 -0.0021
+-0.0033 -0.0022
+-0.0015 -0.0016
+0.0015 0.0127
+-0.0036 -0.0016
+-0.0022 -0.0023
+-0.0034 -0.0021
+-0.0032 -0.0033
+-0.0015 0.0011
+-0.0038 -0.0024
+-0.0031 0.0011
+-0.0038 -0.0017
+-0.0005 0.0001
+0.0008 -0.0002
+-0.0034 -0.0037
+-0.003 -0.0028
+-0.0032 -0.0029
+-0.0029 -0.003
+-0.0034 -0.0007
+0.0103 0.0061
+-0.0036 -0.0026
+-0.0027 -0.0017
+-0.0031 -0.0011
+-0.0037 -0.0033
+-0.0003 -0.0015
+-0.0031 -0.0012
+-0.003 -0.0023
+-0.0032 -0.0031
+-0.0033 -0.0003
+-0.0024 -0.0018
+-0.0035 -0.001
+-0.0035 -0.0019
+-0.0038 -0.0012
+-0.0031 -0.001
+-0.0028 -0.0025
+-0.0032 -0.0026
+-0.0027 -0.001
+-0.0038 -0.0019
+-0.0038 -0.0025
+-0.0028 -0.0029
+-0.0023 -0.0009
+-0.0035 -0.0018
+0.008 0.01
+-0.0038 -0.0022
+-0.0021 -0.0013
+-0.0045 -0.0022
+-0.0035 -0.0009
+0 -0.0037
+-0.0031 -0.0012
+-0.0042 -0.0025
+-0.0033 -0.0031
+-0.0035 -0.0029
+-0.0018 -0.0009
+-0.0019 0.0007
+-0.0025 -0.0011
+0.0008 0.0126
+-0.0028 -0.0009
+-0.0034 -0.0011
+-0.004 -0.002
+-0.003 -0.0018
+-0.0033 -0
+-0.0027 -0.0009
+-0.0027 -0.0013
+-0.0036 -0.0022
+-0.0025 -0.0005
+-0.0032 -0.001
+-0.0041 -0.0016
+0.0017 0.0025
+-0.0032 -0.0018
+-0.0034 -0.0024
+-0.0004 -0.0018
+-0.0026 -0.0023
+-0.0014 -0.0015
+-0.0012 0.0002
+-0.0033 -0.0025
+-0.0025 0
+-0.0036 -0.0018
+-0.003 -0.0016
+-0.0037 -0.001
+-0.0025 -0.0018
+-0.0029 -0.0029
+-0.0031 -0.0019
+-0.0034 -0.0023
+-0.0029 -0.0016
+-0.0035 -0.001
+-0.0032 -0.0036
+-0.0036 -0.0014
+-0.0036 -0.0013
+-0.0034 -0.0027
+0.0051 -0.0029
+-0.0035 -0.0012
+-0.0031 -0.0024
+-0.002 -0.0021
+-0.0013 0.0009
+-0.0034 -0.0033
+-0.0035 -0.0021
+-0.0039 -0.0021
+-0.0036 -0.0031
+-0.0032 -0.0024
+-0.003 -0.0041
+-0.003 -0.0018
+-0.0035 -0.002
+-0.0039 -0.002
+-0.0033 -0.0003
+-0.0035 -0.0028
+-0.0026 -0.0012
+-0.0036 -0.0017
+-0.003 -0.0006
+-0.002 0.0009
+-0.002 -0.0019
+-0.0033 -0.0027
+-0.0043 -0.0027
+-0.0033 -0.0024
+-0.0022 -0.0001
+-0.004 -0.0003
+-0.0029 -0.0017
+-0.0026 -0
+-0.0035 -0.0009
+-0.0028 -0.003
+-0.0034 -0.0013
+-0.003 -0.0032
+-0.0044 -0.0018
+-0.0027 -0.0021
+-0.0017 -0.0021
+-0.0042 -0.0012
+-0.0033 -0.0015
+-0.0036 -0.0023
+-0.0038 -0.002
+-0.003 0.0006
+-0.0032 -0.0009
+-0.0042 -0.0025
+-0.0032 -0.0009
+-0.0032 -0.0005
+-0.0027 -0.0028
+-0.0034 -0.0009
+-0.0038 -0.0027
+-0.0034 -0.0014
+-0.0036 -0.0032
+-0.0029 -0.0017
+-0.003 -0.0019
+-0.0034 -0.0022
+-0.0014 -0.0025
+-0.0033 -0.0009
+-0.0016 -0.0004
+-0.0033 -0.0008
+0.0005 -0.0017
+-0.0037 -0.0005
+-0.0027 -0.0033
+-0.0026 -0.0016
+-0.0031 -0.0001
+-0.0032 -0.001
+-0.003 -0.0012
+-0.0029 -0.0025
+-0.0025 -0.0013
+-0.0036 -0.0017
+-0.0027 -0.0014
+-0.0022 -0.0019
+0.0011 0.0083
+0.0002 0.0015
+-0.0028 -0.0026
+-0.0026 -0.0018
+-0.0037 -0.0024
+-0.0035 -0.0019
+-0.0037 -0.0022
+-0.0035 -0.0019
+-0.0031 -0.0003
+-0.0026 -0.0017
+-0.0033 -0.0029
+-0.0036 -0.0018
+-0.0041 -0.0023
+-0.0035 -0.0014
+-0.0044 -0.0018
+-0.0033 -0.0028
+-0.0035 -0.0016
+-0.0028 -0.0013
+-0.0031 -0.0012
+-0.0035 -0.0026
+-0.0026 -0.002
+-0.0035 -0.002
+-0.003 -0.0015
+-0.0028 -0.0024
+-0.0034 -0.0025
+-0.0028 -0.0024
+-0.0029 -0.0029
+-0.0041 -0.0029
+-0.0038 -0.0022
+-0.0032 -0.001
+-0.0025 -0.0012
+-0.0018 -0.0036
+-0.0011 -0.0013
+-0.0041 -0.0012
+-0.002 -0.0012
+-0.0039 -0.0011
+-0.0031 -0.0038
+-0.0031 -0.0021
+-0.0012 -0.0011
+-0.0038 -0.0032
+-0.0036 -0.0015
+-0.0029 -0.0012
+-0.0027 -0.0024
+-0.0034 0.0004
+-0.0013 -0.002
+0.0001 0.0016
+-0.0034 0.0006
+-0.0032 -0.0008
+-0.0026 -0.0006
+-0.0037 -0.0015
+-0.0038 -0.0031
+-0.0038 -0.0015
+-0.0029 -0.0046
+-0.0035 -0.002
+-0.0028 -0
+-0.003 -0.0022
+-0.0026 -0.0026
+-0.0028 -0.0035
+-0.0021 -0.0008
+-0.0029 -0.0006
+-0.0033 -0.0025
+-0.003 -0.0027
+-0.0032 -0.0008
+-0.0037 -0.0025
+-0.0033 -0.0008
+-0.003 -0.0024
+-0.003 -0.0017
+-0.0032 -0.0024
+-0.0035 -0.0039
+-0.0029 -0.0008
+-0.0031 -0.0017
+-0.003 -0.0018
+-0.0035 -0.0013
+-0.0027 -0.0006
+-0.0031 -0.0019
+-0.0029 -0.0016
+-0.0035 -0.0018
+-0.0033 -0.0023
+-0.0033 -0.0004
+-0.0033 -0.0016
+-0.0029 -0.0014
+-0.0037 -0.0012
+-0.003 -0.0033
+-0.0029 -0.0032
+-0.0028 -0.0018
+-0.0029 -0.0017
+-0.0037 -0.0017
+-0.0035 -0.0016
+-0.001 -0.0015
+-0.0024 -0.0014
+-0.0035 -0.0038
+-0.004 -0.0011
+-0.003 -0.0009
+-0.0037 -0.0011
+-0.0038 -0.0029
+-0.0028 -0.003
+-0.0034 -0.0006
+-0.0034 -0.0019
+-0.003 -0.0011
+-0.0038 -0.0029
+-0.0005 -0.0015
+0.0377 -0.0007
+-0.0039 -0.0011
+-0.0033 -0.0012
+-0.0035 -0.0032
+-0.0033 -0.0024
+-0.0033 -0.0015
+-0.0012 -0.0005
+0.0086 0.0091
+-0.0037 -0.0031
+-0.0026 -0.0017
+-0.0038 -0.0023
+-0.0025 -0.0011
+-0.0034 -0.0034
+-0.0029 -0.0018
+-0.0033 -0.0014
+-0.0036 -0.0013
+-0.0031 -0.0025
+-0.0039 -0.0033
+-0.0032 -0.0013
+-0.0031 -0.0017
+-0.0032 -0.0018
+-0.0037 -0.0016
+-0.0034 -0.0026
+-0.0033 -0.0014
+-0.0032 -0.0032
+-0.0035 -0.0025
+-0.003 -0.0021
+-0.0033 -0.0018
+-0.0035 -0.0024
+-0.0034 -0.0007
+-0.0031 -0.0029
+-0.0035 -0.0025
+-0.0033 -0.0028
+-0.0031 -0.002
+-0.004 -0.0009
+-0.0016 -0.0032
+0.0104 0.0344
+-0.0026 -0.0031
+-0.004 -0.0029
+-0.0029 -0.0025
+-0.0027 -0.001
+-0.0032 -0.001
+0.0015 0.0013
+-0.0034 -0.0014
+-0.0028 -0.0024
+-0.0035 -0.0024
+-0.0032 -0.0016
+-0.0033 -0.002
+-0.0029 -0.0016
+-0.0027 -0.0021
+-0.0031 -0.001
+-0.0036 -0.0015
+-0.0035 -0.0032
+-0.0024 -0.0021
+-0.0029 -0.0018
+-0.004 -0.0014
+-0.0037 -0.0022
+-0.0036 -0.0024
+-0.0021 -0.0025
+-0.0031 -0.0031
+-0.0032 -0.0008
+-0.0031 -0.0048
+-0.0014 -0.0007
+-0.0026 -0.0028
+-0.0037 -0.002
+-0.0043 -0.003
+-0.0026 -0.0019
+-0.0004 -0.0019
+-0.0034 -0.0019
+-0.0017 -0.0018
+-0.0037 -0.0021
+-0.0038 -0.0005
+-0.004 -0.002
+-0.0034 -0.0013
+-0.0035 -0.0015
+-0.0039 -0.0031
+-0.0034 -0.0021
+-0.0033 -0.0011
+-0.0034 -0.0028
+-0.0036 -0.0024
+-0.0033 -0.0018
+-0.0041 -0.002
+-0.0037 -0.002
+-0.0033 -0.001
+-0.0038 -0.0007
+0.0006 -0.0002
+-0.0015 -0.0009
+-0.0034 -0.0021
+-0.0035 -0.0022
+-0.0029 -0.0027
+-0.0029 -0.0022
+-0.003 -0.0018
+-0.0022 -0.0018
+-0.0034 -0.0015
+-0.0011 -0.0012
+-0.0035 -0.0023
+-0.0035 -0.0009
+-0.0035 -0.002
+-0.0027 -0.0031
+-0.0028 -0.0007
+-0.0005 -0.004
+-0.0024 -0.0017
+-0.0031 -0.0022
+-0.0037 -0.003
+-0.0033 -0.0022
+-0.003 -0.0017
+-0.0034 -0.0021
+-0.0039 -0.0016
+-0.0047 -0.0024
+-0.0027 -0.001
+-0.0033 -0.0012
+-0.0026 -0.0014
+-0.0029 -0.0023
+-0.0034 -0.0023
+0.0008 0.0002
+-0.0034 -0.0011
+-0.0034 -0.0018
+-0.0011 -0.0021
+-0.0034 -0.0006
+-0.0035 -0.0021
+-0.004 -0.001
+-0.003 -0.0007
+-0.0029 -0.0019
+-0.0031 -0.0019
+-0.002 0.0004
+-0.0027 -0.0016
+-0.0029 -0.0017
+-0.003 -0.0019
+-0.0036 -0.0006
+-0.0032 -0.0018
+-0.0031 -0.0017
+-0.0029 -0.0023
+-0.0042 -0.0027
+-0.0026 -0.0017
+-0.0034 -0.0025
+-0.0036 -0.0022
+-0.0031 -0.0022
+0.0028 0.0125
+-0.001 -0.0024
+-0.0035 -0.0019
+-0.0034 -0.0016
+-0.0036 -0.0024
+-0.0031 -0.0018
+0.0006 -0.0039
+-0.0029 -0.0033
+-0.0035 -0.002
+-0.0033 -0.0035
+-0.0036 -0.002
+-0.0024 0.001
+-0.0021 -0.0028
+-0.0033 -0.0013
+-0.0034 -0.0011
+-0.0039 -0.0026
+-0.0025 -0.0022
+-0.003 -0.0033
+-0.0024 -0.0014
+-0.003 -0.0027
+-0.0032 -0.0016
+&
+@target G0.S5
+@type xy
+-0.0036 -0.0014
+-0.0034 -0.0023
+-0.0045 -0.0029
+-0.0033 -0.0008
+-0.0032 -0.0013
+-0.0031 -0.003
+-0.0026 -0.0009
+-0.0031 -0.0013
+-0.0031 -0.002
+-0.003 -0.0005
+-0.0038 -0.0011
+-0.0042 -0.0006
+-0.0033 -0.0024
+-0.004 -0.0017
+-0.0032 -0.0023
+-0.0037 -0.0034
+-0.0022 -0.0012
+-0.0034 -0.0007
+-0.003 -0.0032
+-0.0033 -0.0016
+-0.0031 -0.0018
+-0.0039 -0.001
+-0.0028 -0.0004
+-0.0024 -0.0016
+-0.0043 -0.0024
+-0.0031 -0.0006
+-0.0019 -0.0019
+-0.0033 -0.0029
+-0.0036 -0.002
+-0.0032 -0.0013
+-0.0025 -0.0001
+-0.003 -0.0019
+-0.0031 -0.003
+-0.003 -0.0024
+-0.003 -0.003
+-0.003 -0.0027
+-0.0029 -0.0009
+-0.0025 -0.0014
+-0.0021 -0.0009
+-0.0027 -0.0013
+-0.0034 -0.0014
+-0.0037 -0.0015
+-0.0032 -0.0014
+-0.0022 -0.0008
+-0.0025 -0.0014
+-0.0031 -0.001
+-0.0032 -0.0013
+-0.0035 -0.0028
+-0.0031 -0.0008
+-0.0041 -0.002
+-0.002 -0.0007
+-0.0032 -0.0009
+-0.0032 -0.002
+-0.0027 -0.0015
+-0.0036 -0.0036
+-0.0033 -0.0029
+-0.0035 -0.0008
+-0.0029 0.0002
+-0.0023 -0.0011
+-0.0037 -0.0012
+-0.0035 -0.0029
+-0.0028 -0.0008
+-0.0029 -0.0021
+-0.0027 -0.0028
+-0.0033 -0.0025
+-0.0024 -0.0025
+-0.0028 -0.0015
+-0.003 -0.0016
+-0.0025 0
+-0.0032 -0.0024
+-0.0031 -0.0021
+-0.003 -0.0009
+-0.0032 0.0001
+-0.002 -0.0007
+-0.0036 -0.0014
+-0.0028 -0.0014
+-0.0032 -0.0019
+-0.0034 -0.0011
+-0.0036 -0.0017
+-0.0031 -0.0021
+-0.003 -0.0016
+-0.0027 -0.0016
+-0.0031 -0.0035
+-0.0034 -0.0011
+-0.0029 -0.0029
+-0.003 -0.0011
+-0.0032 -0.001
+-0.0029 -0
+-0.0033 -0.0014
+-0.0027 -0.0009
+-0.0035 -0.0014
+-0.003 -0.0023
+-0.0038 -0.0017
+-0.0028 -0.0007
+-0.0026 -0.0021
+-0.0033 -0.0019
+-0.0034 0.0005
+-0.0033 -0.0013
+-0.0031 -0.0009
+-0.0037 -0.0024
+-0.0035 -0.0014
+-0.0032 -0.0009
+-0.0033 -0.0024
+-0.0027 -0.0018
+-0.0038 -0.0023
+-0.0036 -0.0018
+-0.003 -0.0018
+-0.0035 -0.0005
+-0.0027 -0.0009
+-0.0031 -0.0019
+-0.0034 -0.0031
+-0.0034 -0.0019
+-0.0025 -0.0018
+-0.0026 -0.0026
+-0.0033 -0.0011
+-0.0024 -0.0007
+-0.0026 -0.0021
+-0.0038 -0.0023
+-0.0028 -0.0016
+-0.0019 -0.0003
+-0.0024 -0.0022
+-0.0029 -0.0012
+-0.0032 -0.0009
+-0.0027 -0.0012
+-0.0035 -0.0021
+-0.0025 -0.0029
+-0.0033 -0.0018
+-0.0031 -0.0019
+-0.0029 -0.0009
+-0.0028 -0.0011
+-0.0035 -0.0037
+-0.0018 -0.0017
+-0.0025 -0.0009
+-0.0032 -0.0007
+-0.0034 -0.0013
+-0.0043 -0.0017
+-0.0033 -0.0018
+-0.0025 -0.0022
+-0.0032 -0.0021
+-0.0032 -0.001
+-0.0038 -0.0026
+-0.0035 -0.0007
+-0.0014 -0.0016
+-0.003 -0.0024
+-0.0035 -0.0029
+-0.0028 -0.0023
+-0.0029 -0.0024
+-0.0033 -0.0027
+-0.0028 -0.0011
+-0.0034 -0.0018
+-0.0035 -0.0008
+-0.003 -0.0026
+-0.0033 -0.0022
+-0.0032 -0.0047
+-0.0026 -0.0005
+-0.0035 -0.0004
+-0.0036 -0.0032
+-0.0028 -0.001
+-0.0025 -0.0016
+-0.0019 -0.0017
+-0.0038 -0.001
+-0.0028 -0.0019
+-0.003 -0.001
+-0.0032 -0.0017
+-0.0033 -0.0013
+-0.0026 -0.0026
+-0.0033 -0.0012
+-0.0022 -0.0018
+-0.0022 -0.001
+-0.0034 -0.0002
+-0.0006 -0.0004
+-0.0032 -0.0029
+-0.0019 -0.0018
+-0.0027 -0.003
+-0.004 -0.0031
+-0.0028 -0.0021
+-0.0028 0
+-0.0032 -0.0015
+-0.0037 -0.0007
+-0.0035 -0.0024
+-0.0037 -0.0017
+-0.0027 -0.0019
+-0.0019 0.0004
+-0.0028 -0.0034
+-0.0032 -0.0023
+-0.0024 -0.0016
+-0.0032 -0.0024
+-0.0021 -0.0025
+-0.0032 -0.0008
+-0.0029 -0.0008
+-0.0025 -0.0022
+-0.004 -0.001
+-0.0027 -0.0029
+-0.003 -0.0026
+-0.0028 -0.0016
+-0.0028 -0.0009
+-0.0029 -0.0015
+-0.0026 -0.0028
+-0.0029 -0.0012
+-0.0033 -0.0006
+-0.0032 -0.0007
+-0.0032 -0.0013
+-0.0037 -0.0017
+-0.0034 -0.0012
+-0.0028 -0.0016
+-0.0032 -0.0011
+-0.0041 -0.0029
+-0.0032 -0.0014
+-0.0029 -0.0027
+-0.0028 0.0003
+-0.0034 -0
+-0.0024 -0.0019
+-0.0032 -0.0021
+-0.0034 -0.0024
+-0.0034 -0.0013
+-0.0025 -0.0015
+-0.003 -0.0012
+-0.0025 0
+-0.0032 -0.0017
+-0.0031 -0.0033
+-0.0029 -0.0005
+-0.0021 -0.0031
+-0.0033 -0.0001
+-0.0021 -0.0016
+-0.0029 -0.0014
+-0.0033 -0.0015
+-0.0028 -0.0016
+-0.0027 -0.0025
+-0.0036 -0.0013
+-0.0034 -0.0022
+-0.0034 -0.0018
+-0.0027 -0.0026
+-0.0029 -0.0005
+-0.0035 -0.001
+-0.0039 -0.003
+-0.003 -0.0003
+-0.0033 -0.0019
+-0.0031 -0.0004
+-0.0027 -0.0023
+-0.0023 -0.0027
+-0.0024 -0.0023
+-0.002 -0.0015
+-0.0031 -0.0006
+-0.0029 -0.002
+-0.0029 -0.0014
+-0.0033 -0.0022
+-0.0033 -0.002
+-0.0029 -0.0019
+-0.0033 -0.0011
+-0.0029 -0.0011
+-0.0035 -0.0011
+-0.0029 -0.0014
+-0.0026 -0.0005
+-0.0031 -0.0017
+-0.0026 -0.0031
+-0.0028 -0.0024
+-0.0036 -0.0016
+-0.0025 -0.0031
+-0.0031 -0.0031
+-0.0025 -0.0009
+-0.0036 -0.0021
+-0.0027 -0.0008
+-0.0034 0.0005
+-0.0027 -0.001
+-0.0032 -0.0026
+-0.0026 -0.0022
+-0.003 -0.0006
+-0.0023 -0.001
+-0.0036 -0.0017
+-0.0031 -0.0017
+-0.0027 -0.0025
+-0.0025 -0.0019
+-0.0024 -0.0023
+-0.0034 0.0006
+-0.0029 -0.0018
+-0.0034 -0.0012
+-0.0031 -0.0026
+-0.0033 -0.0024
+-0.0034 -0.0029
+-0.0027 -0.0011
+-0.0029 -0.0033
+-0.0027 -0.0024
+-0.0029 -0.0023
+-0.0028 -0.0018
+-0.0029 -0.0027
+-0.0032 -0.0003
+-0.0036 -0.0005
+-0.0026 -0.001
+-0.0022 -0.0014
+-0.0029 -0.0012
+-0.003 -0.0029
+-0.0034 -0.0017
+-0.0036 0
+-0.0032 -0.002
+-0.003 -0.0024
+-0.0034 -0.0034
+-0.0032 -0.0011
+-0.0032 -0.0012
+-0.0039 -0.0015
+-0.0035 -0.0016
+-0.0031 -0.0001
+-0.0037 -0.0018
+-0.0027 -0.0009
+-0.0026 -0.0007
+-0.004 0.0017
+-0.0033 -0.002
+-0.0027 -0.0023
+-0.0037 -0.0017
+-0.0043 -0.0029
+-0.0006 0
+-0.0032 -0.0015
+-0.0026 -0.0015
+-0.0022 0.0003
+-0.0036 -0.0004
+-0.0037 -0.0011
+-0.0029 -0.0009
+-0.0028 -0.0014
+-0.0031 -0.002
+-0.0032 -0.0015
+-0.0035 -0.0008
+-0.0021 -0.0014
+-0.0034 -0
+-0.0029 -0.0028
+-0.0028 -0.0024
+-0.0021 -0.0024
+-0.0037 -0.0014
+-0.0027 -0.0007
+-0.0033 -0.0012
+-0.0032 -0.001
+-0.0027 -0.002
+-0.0028 -0.0022
+-0.0033 -0.0012
+-0.0036 -0.0008
+-0.0029 -0.0026
+-0.0024 -0.0014
+-0.0033 -0.0022
+-0.0032 -0.0002
+-0.0036 -0.0021
+-0.0027 -0.0027
+-0.0031 -0.002
+-0.0029 -0.0024
+-0.0023 -0.0016
+-0.0039 -0.0026
+-0.0021 -0.0015
+-0.004 -0.0011
+-0.0028 -0.0014
+-0.0032 0.0029
+-0.0024 -0.0009
+-0.0031 -0.0002
+-0.0034 -0.0012
+-0.0039 -0.0023
+-0.0029 -0.0022
+-0.0034 -0.0028
+-0.0042 -0.0019
+-0.0027 -0.0013
+-0.0032 -0.0026
+-0.0025 -0.0033
+-0.0026 -0.0013
+-0.0027 -0.0014
+-0.0024 -0.0025
+-0.0028 -0.0021
+-0.0038 -0.0017
+-0.0031 -0.0036
+-0.0029 -0.0017
+-0.0029 -0.0018
+-0.0027 0.0001
+-0.0033 -0.0022
+-0.0027 -0.0012
+-0.0025 -0.0011
+-0.0024 -0.0025
+-0.0033 -0.0005
+-0.0024 -0.0015
+-0.003 -0.0022
+-0.0029 -0.0009
+-0.0034 -0.0017
+-0.0033 -0.0002
+-0.003 -0.001
+-0.0025 -0.0032
+-0.0037 -0.0033
+-0.0034 -0.0021
+-0.0027 -0.0005
+-0.0027 -0.0014
+-0.0032 -0.0022
+-0.0037 -0.0013
+-0.0037 -0.0031
+-0.003 -0.0016
+-0.0029 -0.0017
+-0.0024 -0.0005
+-0.0035 -0.0026
+-0.0026 -0.0027
+-0.0029 -0.0022
+-0.002 -0.0012
+-0.0028 -0.002
+-0.0024 -0.0016
+-0.0029 -0.0018
+-0.0028 -0.001
+-0.0034 -0.0023
+-0.0031 -0.0036
+-0.0035 -0.0023
+-0.0036 -0.0021
+-0.0033 -0.0025
+-0.0029 -0.0016
+-0.0037 -0.0014
+-0.0019 -0.0024
+-0.0024 -0.0008
+-0.004 -0.0001
+-0.0033 -0.0027
+-0.0026 -0.0012
+-0.0029 -0.0012
+-0.0037 -0.0008
+-0.0032 -0.0026
+-0.0032 0.0002
+-0.0035 0.0001
+-0.0038 0.0002
+-0.0022 -0.0007
+-0.003 -0.0017
+-0.003 0.0004
+-0.0031 -0.0025
+-0.0027 -0.0022
+-0.0028 -0.0029
+-0.0023 -0.0002
+-0.0023 -0.0021
+-0.0039 -0.001
+-0.0028 -0.0017
+-0.0031 -0.0032
+-0.0025 -0.0024
+-0.0017 -0.0018
+-0.0036 -0.0033
+-0.0032 -0.0005
+-0.0031 -0.0023
+-0.0029 -0.0014
+-0.0029 -0.0014
+-0.0038 -0.0022
+-0.0023 -0.003
+-0.003 0.0001
+-0.0033 -0.0018
+-0.0037 -0.0014
+-0.003 -0.0026
+-0.0026 -0.0026
+-0.0034 -0.0012
+-0.0031 0.0001
+-0.0033 -0.0016
+-0.0037 -0.0019
+-0.0025 -0.001
+-0.0023 -0.0015
+-0.0034 -0.0013
+-0.0032 -0.0015
+-0.0027 -0.0018
+-0.0031 -0.0018
+-0.0028 -0.0023
+-0.0028 -0.0017
+-0.0032 -0.002
+-0.0027 -0.0022
+-0.0031 -0.0024
+-0.0024 -0.0027
+-0.0031 -0.0014
+-0.0036 -0.0011
+-0.0033 -0.0023
+-0.0023 -0.0011
+-0.0041 -0.0021
+-0.0033 -0.003
+-0.0039 0.0002
+-0.0035 -0.0033
+-0.0027 -0.0018
+-0.0033 -0.0017
+-0.0034 -0.0028
+-0.0031 -0.0038
+-0.0029 -0.0015
+-0.0032 -0.0015
+-0.0028 -0.0014
+-0.0029 -0.0013
+-0.0032 -0.0014
+-0.0026 -0.0001
+-0.0019 -0.0017
+-0.004 -0.0023
+-0.0024 -0.0001
+-0.004 -0.0031
+-0.0037 -0.0023
+-0.0029 -0.0016
+-0.0031 -0.0009
+-0.0027 -0.0005
+-0.0024 -0.0009
+-0.0039 -0.0007
+-0.0026 -0.0017
+-0.0032 -0.0022
+-0.0032 -0.0025
+-0.0025 -0.0029
+-0.0035 -0.0016
+-0.0038 -0.0017
+-0.0026 -0.0016
+-0.0025 -0.0016
+-0.0033 -0.0032
+-0.0031 -0.0016
+-0.002 -0.0014
+-0.0034 -0.0021
+-0.0026 -0.0015
+-0.0032 -0.0015
+-0.0036 -0.001
+-0.0032 -0.0013
+-0.0038 -0.0008
+-0.0031 -0.0015
+-0.0031 -0.0015
+-0.0033 0.0002
+-0.0027 -0.0021
+-0.0028 -0.0018
+-0.0021 -0.0033
+-0.0033 -0.0023
+-0.0027 -0.0024
+-0.0035 -0.0032
+-0.0024 -0.002
+-0.0027 -0.0002
+-0.0028 -0.0005
+-0.0029 -0.0019
+-0.0029 -0.0005
+-0.0025 -0.002
+-0.0017 -0.0015
+-0.0024 -0.0008
+-0.0039 0.0011
+-0.0027 -0.0029
+-0.0045 -0.0025
+-0.0032 -0.0015
+-0.0022 -0.0028
+-0.0033 -0.0012
+-0.0031 -0.0026
+-0.0032 -0.0024
+-0.0032 -0.0011
+-0.0032 -0.0019
+-0.0029 -0.002
+-0.0032 -0.0016
+-0.0028 -0.0032
+-0.0028 -0.0014
+-0.0035 -0.0025
+-0.0024 -0.0017
+-0.0016 0.0002
+-0.0036 -0.0014
+0.0015 0.0007
+-0.0023 -0.0014
+-0.0027 -0.0029
+-0.0034 -0.0021
+-0.002 -0.0018
+-0.0023 -0.0027
+-0.0028 -0.0013
+-0.003 -0.0014
+-0.003 -0.0013
+-0.0035 -0.0014
+-0.0023 -0.0008
+-0.0032 -0.0021
+-0.0033 -0.0032
+-0.0022 -0.0022
+-0.0031 -0.0019
+-0.0029 -0.0023
+-0.0036 -0.0029
+-0.0032 -0.0008
+-0.0028 -0.0017
+-0.0035 -0.003
+-0.0029 -0.0003
+-0.0032 -0.0031
+-0.0028 -0.0016
+-0.0029 -0.0023
+-0.0028 -0.002
+-0.0032 -0.0017
+-0.0033 -0.0016
+-0.0025 -0.0021
+-0.0026 -0.0003
+-0.0031 -0.0014
+-0.0029 -0.0009
+-0.0022 -0.0014
+-0.0025 -0.0028
+-0.0031 -0.0011
+-0.003 -0.0009
+-0.0026 -0.0017
+-0.0022 0.0003
+-0.0034 -0.0015
+-0.0031 -0.0018
+-0.0027 -0.0013
+-0.0036 -0.0027
+-0.0033 -0.0016
+-0.0031 -0.001
+-0.0021 -0.0019
+-0.0039 -0.0026
+-0.0025 -0.0015
+-0.0035 -0.0014
+-0.0032 -0.0012
+-0.0032 -0.0015
+-0.0026 -0.0014
+-0.0033 -0.0017
+-0.0031 -0.0008
+-0.0028 -0.0016
+-0.0028 0.0001
+-0.0018 -0.0015
+-0.0035 0.0009
+-0.0028 -0.0019
+-0.003 -0.0034
+-0.0038 -0.0025
+-0.0032 -0.0016
+-0.002 -0.0011
+-0.0034 -0.002
+-0.0029 -0.0001
+-0.0024 -0.0016
+-0.004 -0.0018
+-0.0033 -0.0029
+-0.0039 -0.0017
+-0.0035 -0.0032
+-0.003 -0.0013
+-0.0033 -0.001
+-0.0022 -0.0014
+-0.0038 -0.0024
+-0.003 -0.0032
+-0.0036 -0.0017
+-0.003 -0.0032
+-0.003 -0.0018
+-0.0025 -0.002
+-0.0025 -0.0028
+-0.0028 -0.0021
+-0.0038 -0.0011
+-0.0025 -0.0012
+-0.0028 -0.0012
+-0.0024 -0.0001
+-0.0034 -0.0021
+-0.0023 -0.0013
+-0.0027 -0.0011
+-0.003 -0.0005
+-0.0034 -0.0017
+-0.004 -0.0019
+-0.0024 -0.0011
+-0.0028 -0.0003
+-0.0027 -0.0027
+-0.0032 -0.0021
+-0.0035 -0.0021
+-0.0036 -0.0021
+-0.0033 -0.001
+-0.0033 -0.0016
+-0.0036 -0.0021
+-0.0027 -0.0012
+-0.003 -0.0027
+-0.003 -0.0023
+-0.0031 -0.0017
+-0.0033 -0.0026
+-0.0034 0.0001
+-0.0041 0.0005
+-0.0028 -0.0022
+-0.002 -0.0008
+-0.0026 -0.0016
+-0.0029 -0.0011
+-0.003 -0.0016
+-0.0022 -0.002
+-0.0024 -0.0022
+-0.0041 -0.0014
+-0.0028 -0.0028
+-0.0028 -0.0018
+-0.0024 -0.001
+-0.0035 -0.0008
+-0.0033 -0.0015
+-0.0036 -0.0011
+-0.0026 -0.002
+-0.0038 -0.0014
+-0.0025 -0.002
+-0.0027 -0.0011
+-0.0027 -0.0018
+-0.0029 -0.0012
+-0.003 -0.0014
+-0.0033 -0.0022
+-0.0046 -0.0009
+-0.0034 -0.0019
+-0.0028 -0.0023
+-0.0025 -0.0026
+-0.0029 -0.0015
+-0.0032 -0.0026
+-0.0019 -0.0028
+-0.0037 -0.0027
+-0.0036 -0.0026
+-0.0034 -0.0015
+-0.0036 -0.0022
+-0.0038 -0.0015
+-0.0025 -0.0008
+-0.0025 -0.0033
+-0.0041 -0.0022
+-0.0026 -0.0021
+-0.0028 -0.0011
+-0.0026 -0.0014
+-0.0024 -0.0021
+-0.0023 -0.0022
+-0.004 -0.0012
+-0.0036 -0.0025
+-0.003 -0.0028
+-0.0034 -0.0005
+-0.0035 -0.0026
+-0.0032 -0.0011
+-0.0022 -0.0019
+-0.0026 -0.0005
+-0.003 -0.0017
+-0.0029 -0.0019
+-0.0032 -0.0017
+-0.003 -0.0024
+-0.0032 -0.0012
+-0.0021 -0.0013
+-0.0028 -0.0027
+-0.0039 -0.0016
+-0.0037 -0.0031
+-0.0033 -0.0021
+-0.0028 -0.0028
+-0.0033 -0.0021
+-0.0022 -0.0009
+-0.0033 -0.001
+-0.0034 -0.0016
+-0.0023 -0.0018
+-0.0029 -0.002
+-0.0034 -0.0019
+-0.0022 -0.001
+-0.0029 -0.0011
+-0.0028 0.0002
+-0.0033 -0.0025
+-0.0034 -0.0006
+-0.0024 -0.0018
+-0.0029 -0.0027
+-0.0029 -0.0016
+-0.0031 -0.0017
+-0.0033 -0.0018
+-0.0022 -0.0019
+-0.0026 -0.0019
+-0.0029 -0.0005
+-0.0024 -0.0008
+-0.0022 -0.0018
+-0.0028 -0.0016
+-0.0023 -0.0032
+-0.0024 -0.0023
+-0.0036 -0.0008
+-0.003 -0.002
+-0.004 -0.0016
+-0.0022 -0.0012
+-0.0046 -0.003
+-0.0021 0.0007
+-0.0025 -0.0009
+-0.0017 -0.0003
+-0.0028 -0.0012
+-0.0036 -0.0024
+-0.0027 -0.0022
+-0.0023 -0.0017
+-0.0031 -0.001
+-0.0032 -0.0003
+-0.003 -0.0034
+-0.0032 -0.0017
+-0.0029 -0.0015
+-0.0023 -0.0009
+-0.0034 -0.0015
+-0.0029 -0.0009
+-0.0039 -0.0012
+-0.0036 -0.0037
+-0.0023 -0.0017
+-0.0033 -0.0015
+-0.0026 -0.0021
+-0.0026 -0.0024
+-0.0035 -0.0027
+-0.0022 -0.0015
+-0.0027 -0.0037
+-0.003 -0.0016
+-0.0028 -0.0009
+-0.0027 -0.0017
+-0.0043 -0.0026
+-0.003 -0.0019
+-0.0032 -0.0016
+-0.0035 -0.0028
+-0.0035 -0.0014
+-0.003 -0.001
+-0.0025 -0.0014
+-0.0034 -0.0021
+-0.0028 -0.0015
+-0.0043 -0.0018
+-0.0027 -0.0012
+-0.003 -0.001
+-0.0032 -0.0017
+-0.0029 -0.0013
+-0.0027 -0.0013
+-0.0032 -0.0019
+-0.003 -0.0004
+-0.003 -0.0021
+-0.0027 -0.0019
+-0.0032 -0.0027
+-0.0037 -0.002
+-0.0033 -0.0007
+-0.0034 -0.0018
+-0.0025 -0.0002
+-0.0029 -0.0014
+-0.0025 -0.0012
+-0.0032 -0.0015
+-0.0028 -0.0015
+-0.0031 -0.0016
+-0.0032 -0.0008
+-0.0035 -0.0023
+-0.0036 -0.0019
+-0.0031 -0.0022
+-0.0031 -0.0021
+-0.0025 -0.0018
+-0.0026 -0.0014
+-0.0024 -0.0007
+-0.0028 -0.0005
+-0.0029 -0.0022
+-0.0029 -0.0022
+-0.0031 -0.0009
+-0.0039 -0.0025
+-0.0029 -0.0024
+-0.0033 -0.0023
+-0.0029 -0.0023
+-0.003 -0.0021
+-0.0034 -0.0008
+-0.0034 -0.002
+-0.0034 -0.0006
+-0.0038 -0.0017
+-0.0029 -0.0025
+-0.0028 -0.0007
+-0.0029 -0.0035
+-0.0038 -0.0018
+-0.0034 -0.0015
+-0.0028 -0.0001
+-0.0034 -0.0021
+-0.003 -0.0024
+-0.0022 -0.0016
+-0.0031 -0.0011
+-0.0026 -0.0001
+-0.0039 -0.0024
+-0.0032 -0.0035
+-0.0026 0.0003
+-0.0035 -0.0028
+-0.003 -0.0023
+-0.004 -0.0012
+-0.0027 -0.0029
+-0.0032 -0.0015
+-0.0027 -0.0025
+-0.0029 -0.002
+-0.0028 -0.003
+-0.0037 -0.0019
+-0.0033 -0.0022
+-0.0028 -0.0014
+-0.0037 -0.0024
+-0.0026 0.0014
+-0.003 -0.0024
+-0.002 -0.0003
+-0.0032 -0.0011
+-0.0028 -0.0006
+-0.0032 -0.0004
+-0.0025 -0.0006
+-0.0034 -0.0017
+-0.0023 -0.0002
+-0.0037 -0.0021
+-0.0031 -0.0007
+-0.0026 -0.0021
+-0.003 -0.0025
+-0.0028 -0.0016
+-0.0034 -0.002
+-0.0029 -0.0013
+-0.0034 -0.0023
+-0.0041 -0.0019
+-0.0024 -0.0023
+-0.0029 -0.0019
+-0.0025 -0.0029
+-0.0032 -0.0008
+-0.0027 -0.0023
+-0.0026 -0.0005
+-0.0029 0.0003
+-0.0028 -0.0031
+-0.0025 -0.0013
+-0.0027 -0.0008
+-0.0039 -0.0019
+-0.0034 -0.0017
+-0.0027 -0.0011
+-0.0025 -0.0026
+-0.0033 -0.0019
+-0.0033 -0.0017
+-0.0039 -0.0017
+-0.0034 -0.0018
+-0.0036 -0.0007
+-0.0032 -0.0008
+-0.003 -0.0016
+-0.0035 -0.0021
+-0.0027 -0.0009
+-0.0029 -0.0016
+-0.0038 -0.0012
+-0.0024 -0.002
+-0.0019 -0.0019
+-0.004 -0.0013
+-0.0025 -0.0016
+-0.0034 -0.0025
+-0.0035 -0.0008
+-0.0028 -0.0018
+-0.0032 -0.0023
+-0.003 -0.001
+-0.0019 -0.0016
+-0.0038 -0.0005
+-0.0023 -0.002
+-0.0041 -0.0013
+-0.0033 -0.0013
+-0.0029 -0.0024
+-0.0035 -0.001
+-0.0025 -0.0023
+-0.0037 -0.0022
+-0.0026 -0.0016
+-0.0028 -0.0018
+-0.0031 -0.0024
+-0.0024 -0.0015
+-0.0021 -0.0023
+-0.0032 -0.0022
+-0.0035 -0.0018
+-0.0028 -0.0007
+-0.0036 -0.0015
+-0.0038 -0.0013
+-0.0026 -0.001
+-0.0024 -0.0026
+-0.0033 -0.002
+-0.0033 -0.0024
+-0.0027 -0.002
+-0.0032 -0.001
+-0.0024 -0.0024
+-0.0033 -0.0015
+-0.003 -0.0015
+-0.0016 -0.003
+-0.0035 -0.0015
+-0.0023 0.0008
+-0.0022 -0.0012
+-0.0026 -0.0023
+-0.0028 -0.0026
+-0.003 -0.0027
+-0.0027 -0.0016
+-0.0034 -0.0025
+-0.0029 -0.0017
+-0.0031 -0.0002
+-0.003 -0.0014
+-0.0041 -0.0016
+-0.0036 0.0004
+-0.0028 -0.0024
+-0.0034 -0.0004
+-0.0039 -0.0022
+-0.0042 -0.002
+-0.0034 -0.0018
+-0.0032 -0.0024
+-0.003 -0.003
+-0.0036 -0.0014
+-0.0012 -0.0009
+-0.003 -0.001
+-0.0026 -0.0023
+-0.0029 -0.0012
+-0.0035 -0.0024
+-0.0024 -0.0012
+-0.0031 -0.0017
+-0.0028 -0
+-0.0028 -0.0016
+-0.0027 -0.0018
+-0.0028 -0.0013
+-0.0027 -0.0012
+-0.0033 -0.0018
+-0.0028 -0
+-0.0029 -0.0009
+-0.0034 -0.0026
+-0.0029 -0.003
+-0.0031 -0.0009
+-0.0028 -0.0026
+-0.0031 -0.0007
+-0.0031 -0.0001
+-0.0028 -0.0019
+-0.0026 -0.0036
+-0.0037 -0.001
+-0.003 -0.0015
+-0.0027 -0.0011
+&
+@target G0.S6
+@type xy
+-0.0027 -0.0037
+-0.0023 -0.0028
+-0.0009 -0.003
+-0.0001 -0.0017
+-0.0015 -0.0008
+-0.0021 -0.0021
+-0.0011 -0.0027
+-0.0028 -0.0025
+-0.0025 -0.0018
+-0.0028 -0.0034
+-0.0021 -0.0031
+-0.0012 -0.004
+-0.0008 -0.0044
+-0.0026 -0.0016
+-0.0011 -0.002
+-0.0015 -0.0022
+-0.0025 -0.0021
+-0.0023 -0.0028
+-0.0019 -0.0008
+-0.0015 -0.002
+-0.003 -0.0022
+0.0259 -0.0005
+-0.0023 -0.0024
+-0.0021 -0.0019
+-0.0007 -0.0025
+0.0006 -0.0026
+-0.0016 -0.0006
+-0.0017 -0.0025
+-0.0011 -0.0024
+-0.0022 -0.0035
+-0.0021 -0.0019
+-0.0031 -0.0034
+0 -0.002
+-0.0024 -0.0025
+-0.0009 -0.0022
+-0.003 -0.0021
+-0.0025 -0.0035
+-0.0038 -0.004
+-0.0031 -0.0044
+-0.0007 -0.0023
+-0.0021 -0.0035
+-0.0029 -0.0039
+-0.0014 -0.0031
+-0.0024 -0.0027
+-0.001 -0.0022
+&
+@target G0.S7
+@type xy
+-0.001 -0.0024
+-0.0016 -0.0026
+-0.0007 -0.0033
+-0.0026 -0.0039
+-0.0009 -0.0022
+-0.003 -0.0027
+-0.0013 -0.0032
+-0.0023 -0.0022
+-0.0016 -0.0035
+-0.0012 -0.0032
+-0.0011 -0.0031
+-0.0022 -0.002
+-0.0019 -0.0041
+-0.002 -0.0021
+-0.0019 -0.0033
+0.0021 -0.0012
+-0.0008 -0.0035
+-0.0021 -0.0008
+-0.0021 -0.0031
+-0.0009 -0.0032
+-0.0021 -0.0036
+-0.0018 -0.0023
+-0.001 -0.0037
+0.0027 0.0088
+-0.0017 -0.0028
+-0.002 -0.0025
+-0.0017 -0.0051
+-0.0017 -0.002
+-0.0016 -0.0024
+-0.0004 -0.0029
+-0.0006 -0.0035
+-0.0019 -0.002
+-0.0016 -0.0022
+-0.0014 -0.0028
+-0.0019 -0.0034
+-0.0008 -0.0029
+-0.0005 -0.0011
+-0.0021 -0.0029
+-0.0009 -0.0026
+-0.0015 -0.0014
+-0.002 -0.0017
+-0.0002 -0.0011
+0.0168 -0.0034
+-0.0012 -0.0028
+-0.0019 -0.0026
+-0.0011 -0.0019
+-0.0016 -0.0011
+-0.0016 -0.003
+-0.0016 -0.002
+-0.0012 -0.0037
+-0.0019 -0.003
+-0.0011 -0.0027
+0.0122 -0.0019
+-0.0021 -0.002
+0.0048 0.0139
+-0.0011 -0.0029
+-0.0009 -0.0027
+-0.0015 -0.0005
+-0.001 -0.0024
+-0.0021 -0.0042
+-0.0001 -0.0027
+-0.0015 -0.0021
+-0.0015 -0.0019
+-0.0018 -0.0043
+-0.0018 -0.0024
+-0.0021 -0.0016
+-0.0008 -0.0002
+-0.0018 -0.0029
+-0.0014 -0.0033
+-0.0016 -0.0032
+-0.0018 -0.003
+0.0002 -0.0027
+-0.0019 -0.0035
+-0.0012 -0.003
+-0.001 -0.0017
+-0.002 -0.0027
+-0.0018 -0.0029
+-0.0015 -0.0023
+-0.0018 -0.003
+-0.0012 -0.0024
+-0.0015 -0.0032
+0.0003 0.0041
+-0.0014 -0.002
+-0.0022 -0.0008
+-0.0021 -0.0026
+-0.0013 -0.0011
+-0.0009 -0.0028
+-0.0022 -0.002
+-0.0017 -0.0031
+-0.0017 -0.0043
+-0.0021 -0.0024
+-0.0022 -0.0048
+-0.001 -0.0027
+-0.001 -0.0024
+-0.0009 -0.002
+-0.0014 -0.0029
+-0.0022 -0.0029
+-0.0015 -0.0023
+-0.0021 -0.0029
+-0.0022 -0.0037
+-0.0005 -0.0015
+-0.0011 -0.0011
+-0.0023 -0.0026
+-0.0021 -0.0016
+-0.0008 -0.0028
+-0.0015 -0.0033
+-0.0014 -0.0043
+-0.0017 -0.0029
+-0.0002 -0.0019
+-0.0012 -0.0019
+-0.0004 -0.0025
+-0.0007 -0.002
+-0.0032 -0.0031
+0.0189 0.0159
+-0.0026 -0.0036
+-0.0009 -0.0017
+-0.003 -0.0023
+0.0033 -0.0022
+-0.0016 -0.004
+-0.0006 -0.0023
+-0.0023 -0.0025
+-0.0018 -0.0032
+-0.0022 -0.0018
+-0.0018 -0.003
+-0.0015 -0.0021
+-0.0018 -0.0029
+-0.0005 -0.001
+-0.0004 -0.0022
+-0.0021 -0.0026
+-0.0012 -0.004
+-0.002 -0.0028
+-0.0012 -0.0031
+-0.0012 -0.0031
+-0.0022 -0.0009
+-0 -0.0027
+-0.0017 -0.0015
+0.0007 -0.0008
+-0.0016 -0.0029
+-0.0012 -0.0017
+-0.0002 -0.0028
+-0.0006 -0.0033
+-0.0016 -0.0015
+-0.0013 -0.0017
+-0.0017 -0.0009
+-0.0018 -0.0032
+-0.002 -0.0032
+-0.0018 -0.0031
+-0.0017 -0.0027
+-0.002 -0.0025
+-0.0017 0
+-0.0009 -0.0033
+-0.0001 -0.0031
+-0.0006 -0.0016
+-0.0005 -0.0029
+-0.0022 -0.0038
+-0.0014 -0.0016
+-0.0017 -0.001
+-0.0022 -0.0023
+-0.0002 -0.0016
+-0.0011 -0.0019
+-0.0005 -0.0014
+-0.0013 -0.0022
+-0.0034 -0.0026
+-0.0004 -0.0024
+-0.0003 -0.0027
+-0.0007 -0.0032
+-0.0011 -0.0007
+-0.0013 -0.0014
+-0.0025 -0.0033
+-0.0023 -0.0013
+-0.0008 -0.0033
+-0.0008 -0.0016
+-0.0009 -0.0026
+-0.0005 -0.0013
+-0.0018 -0.0014
+-0.0019 -0.001
+-0.0014 -0.0019
+-0.0016 -0.0011
+-0.0011 -0.0021
+-0.0013 -0.0026
+-0.0007 -0.0032
+-0.0018 -0.0037
+-0.0011 -0.0012
+-0.0009 -0.0022
+-0.0004 -0.0025
+-0.0003 -0.0033
+-0.0015 -0.0026
+0.0011 -0.0019
+-0.0016 -0.0029
+-0.001 -0.0029
+-0.0013 -0.0016
+-0.0012 -0.0019
+0.0005 -0.001
+-0.0013 -0.002
+-0.0009 -0.0016
+-0.0025 -0.0025
+-0.0011 -0.0019
+-0.0012 -0.0032
+-0.0031 -0.0024
+-0.0002 0.0043
+-0.0024 -0.0043
+-0.001 -0.0017
+-0.0006 -0.0031
+-0.0012 -0.0006
+-0.0014 -0.003
+-0.0008 -0.0029
+-0.0003 -0.0043
+-0.0016 -0.0023
+-0.0018 -0.0032
+-0.0014 -0.0023
+-0.0006 -0.0023
+-0.0009 -0.0022
+-0.0008 -0.0037
+-0.0011 -0.0035
+-0.0001 -0.002
+-0.0002 -0.0021
+-0.0006 -0.0026
+-0.0011 -0.0037
+-0.0016 -0.0025
+0.0002 -0.0035
+-0.0025 -0.004
+-0.0014 -0.0013
+-0.0016 -0.0033
+-0.0018 -0.0025
+-0.0019 -0.0032
+-0.0012 -0.0016
+-0.0015 -0.0017
+-0.002 -0.0037
+0.0104 0.0219
+-0.0013 -0.0043
+-0.0009 -0.0033
+-0.0014 -0.0025
+-0.0017 -0.0023
+-0.001 -0.0027
+-0.0011 -0.0026
+-0.0018 -0.0007
+-0.0024 -0.0022
+-0.0011 -0.0021
+-0.0022 -0.0038
+-0.0026 -0.0024
+-0.0015 -0.0026
+-0.002 -0.0029
+-0.0021 -0.002
+-0.0028 -0.0027
+-0.002 -0.0025
+-0.0017 -0.0027
+-0.002 -0.0026
+0.0004 -0.0038
+-0.0011 -0.0026
+-0.0016 -0.002
+-0.0019 -0.0026
+-0.0006 -0.0022
+-0.0016 -0.0016
+-0.0001 -0.003
+-0.001 -0.0034
+-0.0003 -0.0022
+-0.0009 -0.002
+-0.001 -0.0027
+-0.0005 -0.0034
+-0.0025 -0.0024
+-0.0021 -0.0034
+-0.0003 -0.0013
+-0.0025 -0.0028
+-0.0023 -0.003
+-0.0007 -0.0021
+-0.0005 -0.0016
+-0.0006 -0.0026
+-0.0026 -0.0029
+-0.0017 -0.0021
+-0.0009 -0.003
+-0.0012 -0.0018
+-0.0017 -0.0029
+-0.0022 -0.0027
+-0.0008 -0.0007
+-0.0018 -0.0037
+-0.0007 -0.0031
+-0.0004 -0.003
+-0.002 -0.0018
+-0.0012 -0.001
+-0.0018 -0.004
+-0.0011 -0.0026
+-0.0021 -0.0028
+-0.0022 -0.0022
+-0.0015 -0.003
+-0.002 -0.0024
+-0.0009 -0.0023
+-0.0015 -0.0032
+-0.0015 -0.0033
+-0.0018 -0.0034
+-0.0027 -0.0035
+0.0022 0.0106
+-0.0019 -0.0027
+-0.0008 -0.0018
+-0.0026 -0.0039
+-0.0002 -0.0009
+-0.0004 -0.003
+-0.0006 -0.0003
+-0.0007 -0.0023
+-0.0023 -0.0038
+-0.0019 -0.0006
+-0.0002 -0.0011
+-0.0016 -0.0031
+-0.0013 -0.003
+-0.0007 -0.0025
+-0.002 -0.0012
+-0.0025 -0.0028
+-0.0011 -0.0001
+-0.0013 -0.0025
+-0.0014 -0.0027
+0.0006 -0.0026
+-0.0013 -0.003
+-0.0023 -0.0028
+-0.0019 -0.0022
+-0.0019 -0.0024
+-0.0017 -0.0032
+-0.002 -0.0021
+-0.0013 -0.0003
+-0.0016 -0.0033
+-0.0012 -0.0032
+-0.0009 -0.0032
+-0.0028 -0.0037
+-0.0016 -0.0045
+-0.0014 -0.0034
+-0.0021 -0.0021
+-0.0017 -0.0018
+-0.0018 -0.0037
+-0.0007 -0.0011
+-0.0006 -0.0024
+-0.0009 -0.0031
+-0.0006 -0.003
+0 -0.003
+-0.0015 -0.0026
+-0.0013 -0.0023
+-0.0017 -0.0016
+-0.0009 -0.0032
+-0.001 -0.0028
+-0.0012 -0.0014
+-0.0011 -0.0026
+-0.0008 -0.003
+-0.0026 -0.0028
+-0.001 -0.0023
+-0.0015 -0.0012
+-0.0004 -0.0005
+-0.0002 -0.0008
+-0.0019 -0.0036
+-0.0006 -0.0029
+-0.0019 -0.0021
+-0.0014 -0.0025
+-0.0023 -0.002
+-0.0017 -0.0028
+-0.0016 -0.0023
+-0.0016 -0.0029
+-0.0005 -0.0017
+-0.0011 -0.0017
+-0.0003 0.0003
+-0.0019 -0.0022
+-0.001 -0.0027
+-0.0013 -0.0015
+-0.0012 -0.0038
+-0.0012 -0.0009
+-0.0013 -0.0026
+0.0027 0.0101
+-0.0022 -0.0042
+-0.0016 -0.0028
+-0.0018 -0.0022
+-0.0016 -0.0031
+-0.0014 -0.0029
+-0.0021 -0.0007
+-0.0024 -0.0031
+-0.0019 -0.0036
+-0.0022 -0.0025
+-0.0019 -0.002
+-0.0014 -0.0033
+-0.0014 -0.0026
+-0.0026 -0.0036
+-0.0014 -0.0024
+-0.0016 -0.002
+-0.0024 -0.0018
+-0.0003 -0.0023
+0.0001 -0.0022
+-0.0021 -0.0034
+-0.001 -0.0018
+-0.0029 -0.0008
+-0.0019 -0.0025
+-0.001 -0.0016
+-0.0014 -0.0028
+-0.0013 -0.0029
+-0.0008 -0.001
+-0.0033 -0.0033
+-0.002 -0.0024
+-0.0023 -0.0033
+-0.0015 -0.003
+-0.0028 -0.0031
+-0.0009 -0.0032
+-0.0026 -0.0023
+-0.0021 -0.003
+0.0008 -0.0011
+-0.0011 -0.0023
+-0.0022 -0.0005
+-0.0014 -0.0031
+-0.0025 -0.0035
+-0.002 -0.004
+-0.0008 -0.0032
+-0.0022 -0.0016
+-0.0016 -0.0023
+-0.0007 -0.0019
+-0.0012 -0.0028
+-0.001 -0.0033
+-0.0016 -0.0029
+0.0246 0.0133
+-0.0015 -0.0021
+-0.0026 0.001
+-0.0022 -0.0036
+0.0021 -0.0015
+-0.0019 -0.0018
+-0.0016 -0.0018
+-0.0021 -0.0027
+&
+@target G0.S8
+@type xy
+-0.01 0.022
+-0.00997998 0.021963964
+-0.00995996 0.021927928
+-0.0099399399 0.021891892
+-0.0099199199 0.021855856
+-0.0098998999 0.02181982
+-0.0098798799 0.021783784
+-0.0098598599 0.021747748
+-0.0098398398 0.021711712
+-0.0098198198 0.021675676
+-0.0097997998 0.02163964
+-0.0097797798 0.021603604
+-0.0097597598 0.021567568
+-0.0097397397 0.021531532
+-0.0097197197 0.021495495
+-0.0096996997 0.021459459
+-0.0096796797 0.021423423
+-0.0096596597 0.021387387
+-0.0096396396 0.021351351
+-0.0096196196 0.021315315
+-0.0095995996 0.021279279
+-0.0095795796 0.021243243
+-0.0095595596 0.021207207
+-0.0095395395 0.021171171
+-0.0095195195 0.021135135
+-0.0094994995 0.021099099
+-0.0094794795 0.021063063
+-0.0094594595 0.021027027
+-0.0094394394 0.020990991
+-0.0094194194 0.020954955
+-0.0093993994 0.020918919
+-0.0093793794 0.020882883
+-0.0093593594 0.020846847
+-0.0093393393 0.020810811
+-0.0093193193 0.020774775
+-0.0092992993 0.020738739
+-0.0092792793 0.020702703
+-0.0092592593 0.020666667
+-0.0092392392 0.020630631
+-0.0092192192 0.020594595
+-0.0091991992 0.020558559
+-0.0091791792 0.020522523
+-0.0091591592 0.020486486
+-0.0091391391 0.02045045
+-0.0091191191 0.020414414
+-0.0090990991 0.020378378
+-0.0090790791 0.020342342
+-0.0090590591 0.020306306
+-0.009039039 0.02027027
+-0.009019019 0.020234234
+-0.008998999 0.020198198
+-0.008978979 0.020162162
+-0.008958959 0.020126126
+-0.0089389389 0.02009009
+-0.0089189189 0.020054054
+-0.0088988989 0.020018018
+-0.0088788789 0.019981982
+-0.0088588589 0.019945946
+-0.0088388388 0.01990991
+-0.0088188188 0.019873874
+-0.0087987988 0.019837838
+-0.0087787788 0.019801802
+-0.0087587588 0.019765766
+-0.0087387387 0.01972973
+-0.0087187187 0.019693694
+-0.0086986987 0.019657658
+-0.0086786787 0.019621622
+-0.0086586587 0.019585586
+-0.0086386386 0.01954955
+-0.0086186186 0.019513514
+-0.0085985986 0.019477477
+-0.0085785786 0.019441441
+-0.0085585586 0.019405405
+-0.0085385385 0.019369369
+-0.0085185185 0.019333333
+-0.0084984985 0.019297297
+-0.0084784785 0.019261261
+-0.0084584585 0.019225225
+-0.0084384384 0.019189189
+-0.0084184184 0.019153153
+-0.0083983984 0.019117117
+-0.0083783784 0.019081081
+-0.0083583584 0.019045045
+-0.0083383383 0.019009009
+-0.0083183183 0.018972973
+-0.0082982983 0.018936937
+-0.0082782783 0.018900901
+-0.0082582583 0.018864865
+-0.0082382382 0.018828829
+-0.0082182182 0.018792793
+-0.0081981982 0.018756757
+-0.0081781782 0.018720721
+-0.0081581582 0.018684685
+-0.0081381381 0.018648649
+-0.0081181181 0.018612613
+-0.0080980981 0.018576577
+-0.0080780781 0.018540541
+-0.0080580581 0.018504505
+-0.008038038 0.018468468
+-0.008018018 0.018432432
+-0.007997998 0.018396396
+-0.007977978 0.01836036
+-0.007957958 0.018324324
+-0.0079379379 0.018288288
+-0.0079179179 0.018252252
+-0.0078978979 0.018216216
+-0.0078778779 0.01818018
+-0.0078578579 0.018144144
+-0.0078378378 0.018108108
+-0.0078178178 0.018072072
+-0.0077977978 0.018036036
+-0.0077777778 0.018
+-0.0077577578 0.017963964
+-0.0077377377 0.017927928
+-0.0077177177 0.017891892
+-0.0076976977 0.017855856
+-0.0076776777 0.01781982
+-0.0076576577 0.017783784
+-0.0076376376 0.017747748
+-0.0076176176 0.017711712
+-0.0075975976 0.017675676
+-0.0075775776 0.01763964
+-0.0075575576 0.017603604
+-0.0075375375 0.017567568
+-0.0075175175 0.017531532
+-0.0074974975 0.017495495
+-0.0074774775 0.017459459
+-0.0074574575 0.017423423
+-0.0074374374 0.017387387
+-0.0074174174 0.017351351
+-0.0073973974 0.017315315
+-0.0073773774 0.017279279
+-0.0073573574 0.017243243
+-0.0073373373 0.017207207
+-0.0073173173 0.017171171
+-0.0072972973 0.017135135
+-0.0072772773 0.017099099
+-0.0072572573 0.017063063
+-0.0072372372 0.017027027
+-0.0072172172 0.016990991
+-0.0071971972 0.016954955
+-0.0071771772 0.016918919
+-0.0071571572 0.016882883
+-0.0071371371 0.016846847
+-0.0071171171 0.016810811
+-0.0070970971 0.016774775
+-0.0070770771 0.016738739
+-0.0070570571 0.016702703
+-0.007037037 0.016666667
+-0.007017017 0.016630631
+-0.006996997 0.016594595
+-0.006976977 0.016558559
+-0.006956957 0.016522523
+-0.0069369369 0.016486486
+-0.0069169169 0.01645045
+-0.0068968969 0.016414414
+-0.0068768769 0.016378378
+-0.0068568569 0.016342342
+-0.0068368368 0.016306306
+-0.0068168168 0.01627027
+-0.0067967968 0.016234234
+-0.0067767768 0.016198198
+-0.0067567568 0.016162162
+-0.0067367367 0.016126126
+-0.0067167167 0.01609009
+-0.0066966967 0.016054054
+-0.0066766767 0.016018018
+-0.0066566567 0.015981982
+-0.0066366366 0.015945946
+-0.0066166166 0.01590991
+-0.0065965966 0.015873874
+-0.0065765766 0.015837838
+-0.0065565566 0.015801802
+-0.0065365365 0.015765766
+-0.0065165165 0.01572973
+-0.0064964965 0.015693694
+-0.0064764765 0.015657658
+-0.0064564565 0.015621622
+-0.0064364364 0.015585586
+-0.0064164164 0.01554955
+-0.0063963964 0.015513514
+-0.0063763764 0.015477477
+-0.0063563564 0.015441441
+-0.0063363363 0.015405405
+-0.0063163163 0.015369369
+-0.0062962963 0.015333333
+-0.0062762763 0.015297297
+-0.0062562563 0.015261261
+-0.0062362362 0.015225225
+-0.0062162162 0.015189189
+-0.0061961962 0.015153153
+-0.0061761762 0.015117117
+-0.0061561562 0.015081081
+-0.0061361361 0.015045045
+-0.0061161161 0.015009009
+-0.0060960961 0.014972973
+-0.0060760761 0.014936937
+-0.0060560561 0.014900901
+-0.006036036 0.014864865
+-0.006016016 0.014828829
+-0.005995996 0.014792793
+-0.005975976 0.014756757
+-0.005955956 0.014720721
+-0.0059359359 0.014684685
+-0.0059159159 0.014648649
+-0.0058958959 0.014612613
+-0.0058758759 0.014576577
+-0.0058558559 0.014540541
+-0.0058358358 0.014504505
+-0.0058158158 0.014468468
+-0.0057957958 0.014432432
+-0.0057757758 0.014396396
+-0.0057557558 0.01436036
+-0.0057357357 0.014324324
+-0.0057157157 0.014288288
+-0.0056956957 0.014252252
+-0.0056756757 0.014216216
+-0.0056556557 0.01418018
+-0.0056356356 0.014144144
+-0.0056156156 0.014108108
+-0.0055955956 0.014072072
+-0.0055755756 0.014036036
+-0.0055555556 0.014
+-0.0055355355 0.013963964
+-0.0055155155 0.013927928
+-0.0054954955 0.013891892
+-0.0054754755 0.013855856
+-0.0054554555 0.01381982
+-0.0054354354 0.013783784
+-0.0054154154 0.013747748
+-0.0053953954 0.013711712
+-0.0053753754 0.013675676
+-0.0053553554 0.01363964
+-0.0053353353 0.013603604
+-0.0053153153 0.013567568
+-0.0052952953 0.013531532
+-0.0052752753 0.013495495
+-0.0052552553 0.013459459
+-0.0052352352 0.013423423
+-0.0052152152 0.013387387
+-0.0051951952 0.013351351
+-0.0051751752 0.013315315
+-0.0051551552 0.013279279
+-0.0051351351 0.013243243
+-0.0051151151 0.013207207
+-0.0050950951 0.013171171
+-0.0050750751 0.013135135
+-0.0050550551 0.013099099
+-0.005035035 0.013063063
+-0.005015015 0.013027027
+-0.004994995 0.012990991
+-0.004974975 0.012954955
+-0.004954955 0.012918919
+-0.0049349349 0.012882883
+-0.0049149149 0.012846847
+-0.0048948949 0.012810811
+-0.0048748749 0.012774775
+-0.0048548549 0.012738739
+-0.0048348348 0.012702703
+-0.0048148148 0.012666667
+-0.0047947948 0.012630631
+-0.0047747748 0.012594595
+-0.0047547548 0.012558559
+-0.0047347347 0.012522523
+-0.0047147147 0.012486486
+-0.0046946947 0.01245045
+-0.0046746747 0.012414414
+-0.0046546547 0.012378378
+-0.0046346346 0.012342342
+-0.0046146146 0.012306306
+-0.0045945946 0.01227027
+-0.0045745746 0.012234234
+-0.0045545546 0.012198198
+-0.0045345345 0.012162162
+-0.0045145145 0.012126126
+-0.0044944945 0.01209009
+-0.0044744745 0.012054054
+-0.0044544545 0.012018018
+-0.0044344344 0.011981982
+-0.0044144144 0.011945946
+-0.0043943944 0.01190991
+-0.0043743744 0.011873874
+-0.0043543544 0.011837838
+-0.0043343343 0.011801802
+-0.0043143143 0.011765766
+-0.0042942943 0.01172973
+-0.0042742743 0.011693694
+-0.0042542543 0.011657658
+-0.0042342342 0.011621622
+-0.0042142142 0.011585586
+-0.0041941942 0.01154955
+-0.0041741742 0.011513514
+-0.0041541542 0.011477477
+-0.0041341341 0.011441441
+-0.0041141141 0.011405405
+-0.0040940941 0.011369369
+-0.0040740741 0.011333333
+-0.0040540541 0.011297297
+-0.004034034 0.011261261
+-0.004014014 0.011225225
+-0.003993994 0.011189189
+-0.003973974 0.011153153
+-0.003953954 0.011117117
+-0.0039339339 0.011081081
+-0.0039139139 0.011045045
+-0.0038938939 0.011009009
+-0.0038738739 0.010972973
+-0.0038538539 0.010936937
+-0.0038338338 0.010900901
+-0.0038138138 0.010864865
+-0.0037937938 0.010828829
+-0.0037737738 0.010792793
+-0.0037537538 0.010756757
+-0.0037337337 0.010720721
+-0.0037137137 0.010684685
+-0.0036936937 0.010648649
+-0.0036736737 0.010612613
+-0.0036536537 0.010576577
+-0.0036336336 0.010540541
+-0.0036136136 0.010504505
+-0.0035935936 0.010468468
+-0.0035735736 0.010432432
+-0.0035535536 0.010396396
+-0.0035335335 0.01036036
+-0.0035135135 0.010324324
+-0.0034934935 0.010288288
+-0.0034734735 0.010252252
+-0.0034534535 0.010216216
+-0.0034334334 0.01018018
+-0.0034134134 0.010144144
+-0.0033933934 0.010108108
+-0.0033733734 0.010072072
+-0.0033533534 0.010036036
+-0.0033333333 0.01
+-0.0033133133 0.009963964
+-0.0032932933 0.0099279279
+-0.0032732733 0.0098918919
+-0.0032532533 0.0098558559
+-0.0032332332 0.0098198198
+-0.0032132132 0.0097837838
+-0.0031931932 0.0097477477
+-0.0031731732 0.0097117117
+-0.0031531532 0.0096756757
+-0.0031331331 0.0096396396
+-0.0031131131 0.0096036036
+-0.0030930931 0.0095675676
+-0.0030730731 0.0095315315
+-0.0030530531 0.0094954955
+-0.003033033 0.0094594595
+-0.003013013 0.0094234234
+-0.002992993 0.0093873874
+-0.002972973 0.0093513514
+-0.002952953 0.0093153153
+-0.0029329329 0.0092792793
+-0.0029129129 0.0092432432
+-0.0028928929 0.0092072072
+-0.0028728729 0.0091711712
+-0.0028528529 0.0091351351
+-0.0028328328 0.0090990991
+-0.0028128128 0.0090630631
+-0.0027927928 0.009027027
+-0.0027727728 0.008990991
+-0.0027527528 0.008954955
+-0.0027327327 0.0089189189
+-0.0027127127 0.0088828829
+-0.0026926927 0.0088468468
+-0.0026726727 0.0088108108
+-0.0026526527 0.0087747748
+-0.0026326326 0.0087387387
+-0.0026126126 0.0087027027
+-0.0025925926 0.0086666667
+-0.0025725726 0.0086306306
+-0.0025525526 0.0085945946
+-0.0025325325 0.0085585586
+-0.0025125125 0.0085225225
+-0.0024924925 0.0084864865
+-0.0024724725 0.0084504505
+-0.0024524525 0.0084144144
+-0.0024324324 0.0083783784
+-0.0024124124 0.0083423423
+-0.0023923924 0.0083063063
+-0.0023723724 0.0082702703
+-0.0023523524 0.0082342342
+-0.0023323323 0.0081981982
+-0.0023123123 0.0081621622
+-0.0022922923 0.0081261261
+-0.0022722723 0.0080900901
+-0.0022522523 0.0080540541
+-0.0022322322 0.008018018
+-0.0022122122 0.007981982
+-0.0021921922 0.0079459459
+-0.0021721722 0.0079099099
+-0.0021521522 0.0078738739
+-0.0021321321 0.0078378378
+-0.0021121121 0.0078018018
+-0.0020920921 0.0077657658
+-0.0020720721 0.0077297297
+-0.0020520521 0.0076936937
+-0.002032032 0.0076576577
+-0.002012012 0.0076216216
+-0.001991992 0.0075855856
+-0.001971972 0.0075495495
+-0.001951952 0.0075135135
+-0.0019319319 0.0074774775
+-0.0019119119 0.0074414414
+-0.0018918919 0.0074054054
+-0.0018718719 0.0073693694
+-0.0018518519 0.0073333333
+-0.0018318318 0.0072972973
+-0.0018118118 0.0072612613
+-0.0017917918 0.0072252252
+-0.0017717718 0.0071891892
+-0.0017517518 0.0071531532
+-0.0017317317 0.0071171171
+-0.0017117117 0.0070810811
+-0.0016916917 0.007045045
+-0.0016716717 0.007009009
+-0.0016516517 0.006972973
+-0.0016316316 0.0069369369
+-0.0016116116 0.0069009009
+-0.0015915916 0.0068648649
+-0.0015715716 0.0068288288
+-0.0015515516 0.0067927928
+-0.0015315315 0.0067567568
+-0.0015115115 0.0067207207
+-0.0014914915 0.0066846847
+-0.0014714715 0.0066486486
+-0.0014514515 0.0066126126
+-0.0014314314 0.0065765766
+-0.0014114114 0.0065405405
+-0.0013913914 0.0065045045
+-0.0013713714 0.0064684685
+-0.0013513514 0.0064324324
+-0.0013313313 0.0063963964
+-0.0013113113 0.0063603604
+-0.0012912913 0.0063243243
+-0.0012712713 0.0062882883
+-0.0012512513 0.0062522523
+-0.0012312312 0.0062162162
+-0.0012112112 0.0061801802
+-0.0011911912 0.0061441441
+-0.0011711712 0.0061081081
+-0.0011511512 0.0060720721
+-0.0011311311 0.006036036
+-0.0011111111 0.006
+-0.0010910911 0.005963964
+-0.0010710711 0.0059279279
+-0.0010510511 0.0058918919
+-0.001031031 0.0058558559
+-0.001011011 0.0058198198
+-0.00099099099 0.0057837838
+-0.00097097097 0.0057477477
+-0.00095095095 0.0057117117
+-0.00093093093 0.0056756757
+-0.00091091091 0.0056396396
+-0.00089089089 0.0056036036
+-0.00087087087 0.0055675676
+-0.00085085085 0.0055315315
+-0.00083083083 0.0054954955
+-0.00081081081 0.0054594595
+-0.00079079079 0.0054234234
+-0.00077077077 0.0053873874
+-0.00075075075 0.0053513514
+-0.00073073073 0.0053153153
+-0.00071071071 0.0052792793
+-0.00069069069 0.0052432432
+-0.00067067067 0.0052072072
+-0.00065065065 0.0051711712
+-0.00063063063 0.0051351351
+-0.00061061061 0.0050990991
+-0.00059059059 0.0050630631
+-0.00057057057 0.005027027
+-0.00055055055 0.004990991
+-0.00053053053 0.004954955
+-0.00051051051 0.0049189189
+-0.00049049049 0.0048828829
+-0.00047047047 0.0048468468
+-0.00045045045 0.0048108108
+-0.00043043043 0.0047747748
+-0.00041041041 0.0047387387
+-0.00039039039 0.0047027027
+-0.00037037037 0.0046666667
+-0.00035035035 0.0046306306
+-0.00033033033 0.0045945946
+-0.00031031031 0.0045585586
+-0.00029029029 0.0045225225
+-0.00027027027 0.0044864865
+-0.00025025025 0.0044504505
+-0.00023023023 0.0044144144
+-0.00021021021 0.0043783784
+-0.00019019019 0.0043423423
+-0.00017017017 0.0043063063
+-0.00015015015 0.0042702703
+-0.00013013013 0.0042342342
+-0.00011011011 0.0041981982
+-9.009009e-05 0.0041621622
+-7.007007e-05 0.0041261261
+-5.005005e-05 0.0040900901
+-3.003003e-05 0.0040540541
+-1.001001e-05 0.004018018
+1.001001e-05 0.003981982
+3.003003e-05 0.0039459459
+5.005005e-05 0.0039099099
+7.007007e-05 0.0038738739
+9.009009e-05 0.0038378378
+0.00011011011 0.0038018018
+0.00013013013 0.0037657658
+0.00015015015 0.0037297297
+0.00017017017 0.0036936937
+0.00019019019 0.0036576577
+0.00021021021 0.0036216216
+0.00023023023 0.0035855856
+0.00025025025 0.0035495495
+0.00027027027 0.0035135135
+0.00029029029 0.0034774775
+0.00031031031 0.0034414414
+0.00033033033 0.0034054054
+0.00035035035 0.0033693694
+0.00037037037 0.0033333333
+0.00039039039 0.0032972973
+0.00041041041 0.0032612613
+0.00043043043 0.0032252252
+0.00045045045 0.0031891892
+0.00047047047 0.0031531532
+0.00049049049 0.0031171171
+0.00051051051 0.0030810811
+0.00053053053 0.003045045
+0.00055055055 0.003009009
+0.00057057057 0.002972973
+0.00059059059 0.0029369369
+0.00061061061 0.0029009009
+0.00063063063 0.0028648649
+0.00065065065 0.0028288288
+0.00067067067 0.0027927928
+0.00069069069 0.0027567568
+0.00071071071 0.0027207207
+0.00073073073 0.0026846847
+0.00075075075 0.0026486486
+0.00077077077 0.0026126126
+0.00079079079 0.0025765766
+0.00081081081 0.0025405405
+0.00083083083 0.0025045045
+0.00085085085 0.0024684685
+0.00087087087 0.0024324324
+0.00089089089 0.0023963964
+0.00091091091 0.0023603604
+0.00093093093 0.0023243243
+0.00095095095 0.0022882883
+0.00097097097 0.0022522523
+0.00099099099 0.0022162162
+0.001011011 0.0021801802
+0.001031031 0.0021441441
+0.0010510511 0.0021081081
+0.0010710711 0.0020720721
+0.0010910911 0.002036036
+0.0011111111 0.002
+0.0011311311 0.001963964
+0.0011511512 0.0019279279
+0.0011711712 0.0018918919
+0.0011911912 0.0018558559
+0.0012112112 0.0018198198
+0.0012312312 0.0017837838
+0.0012512513 0.0017477477
+0.0012712713 0.0017117117
+0.0012912913 0.0016756757
+0.0013113113 0.0016396396
+0.0013313313 0.0016036036
+0.0013513514 0.0015675676
+0.0013713714 0.0015315315
+0.0013913914 0.0014954955
+0.0014114114 0.0014594595
+0.0014314314 0.0014234234
+0.0014514515 0.0013873874
+0.0014714715 0.0013513514
+0.0014914915 0.0013153153
+0.0015115115 0.0012792793
+0.0015315315 0.0012432432
+0.0015515516 0.0012072072
+0.0015715716 0.0011711712
+0.0015915916 0.0011351351
+0.0016116116 0.0010990991
+0.0016316316 0.0010630631
+0.0016516517 0.001027027
+0.0016716717 0.00099099099
+0.0016916917 0.00095495495
+0.0017117117 0.00091891892
+0.0017317317 0.00088288288
+0.0017517518 0.00084684685
+0.0017717718 0.00081081081
+0.0017917918 0.00077477477
+0.0018118118 0.00073873874
+0.0018318318 0.0007027027
+0.0018518519 0.00066666667
+0.0018718719 0.00063063063
+0.0018918919 0.00059459459
+0.0019119119 0.00055855856
+0.0019319319 0.00052252252
+0.001951952 0.00048648649
+0.001971972 0.00045045045
+0.001991992 0.00041441441
+0.002012012 0.00037837838
+0.002032032 0.00034234234
+0.0020520521 0.00030630631
+0.0020720721 0.00027027027
+0.0020920921 0.00023423423
+0.0021121121 0.0001981982
+0.0021321321 0.00016216216
+0.0021521522 0.00012612613
+0.0021721722 9.009009e-05
+0.0021921922 5.4054054e-05
+0.0022122122 1.8018018e-05
+0.0022322322 -1.8018018e-05
+0.0022522523 -5.4054054e-05
+0.0022722723 -9.009009e-05
+0.0022922923 -0.00012612613
+0.0023123123 -0.00016216216
+0.0023323323 -0.0001981982
+0.0023523524 -0.00023423423
+0.0023723724 -0.00027027027
+0.0023923924 -0.00030630631
+0.0024124124 -0.00034234234
+0.0024324324 -0.00037837838
+0.0024524525 -0.00041441441
+0.0024724725 -0.00045045045
+0.0024924925 -0.00048648649
+0.0025125125 -0.00052252252
+0.0025325325 -0.00055855856
+0.0025525526 -0.00059459459
+0.0025725726 -0.00063063063
+0.0025925926 -0.00066666667
+0.0026126126 -0.0007027027
+0.0026326326 -0.00073873874
+0.0026526527 -0.00077477477
+0.0026726727 -0.00081081081
+0.0026926927 -0.00084684685
+0.0027127127 -0.00088288288
+0.0027327327 -0.00091891892
+0.0027527528 -0.00095495495
+0.0027727728 -0.00099099099
+0.0027927928 -0.001027027
+0.0028128128 -0.0010630631
+0.0028328328 -0.0010990991
+0.0028528529 -0.0011351351
+0.0028728729 -0.0011711712
+0.0028928929 -0.0012072072
+0.0029129129 -0.0012432432
+0.0029329329 -0.0012792793
+0.002952953 -0.0013153153
+0.002972973 -0.0013513514
+0.002992993 -0.0013873874
+0.003013013 -0.0014234234
+0.003033033 -0.0014594595
+0.0030530531 -0.0014954955
+0.0030730731 -0.0015315315
+0.0030930931 -0.0015675676
+0.0031131131 -0.0016036036
+0.0031331331 -0.0016396396
+0.0031531532 -0.0016756757
+0.0031731732 -0.0017117117
+0.0031931932 -0.0017477477
+0.0032132132 -0.0017837838
+0.0032332332 -0.0018198198
+0.0032532533 -0.0018558559
+0.0032732733 -0.0018918919
+0.0032932933 -0.0019279279
+0.0033133133 -0.001963964
+0.0033333333 -0.002
+0.0033533534 -0.002036036
+0.0033733734 -0.0020720721
+0.0033933934 -0.0021081081
+0.0034134134 -0.0021441441
+0.0034334334 -0.0021801802
+0.0034534535 -0.0022162162
+0.0034734735 -0.0022522523
+0.0034934935 -0.0022882883
+0.0035135135 -0.0023243243
+0.0035335335 -0.0023603604
+0.0035535536 -0.0023963964
+0.0035735736 -0.0024324324
+0.0035935936 -0.0024684685
+0.0036136136 -0.0025045045
+0.0036336336 -0.0025405405
+0.0036536537 -0.0025765766
+0.0036736737 -0.0026126126
+0.0036936937 -0.0026486486
+0.0037137137 -0.0026846847
+0.0037337337 -0.0027207207
+0.0037537538 -0.0027567568
+0.0037737738 -0.0027927928
+0.0037937938 -0.0028288288
+0.0038138138 -0.0028648649
+0.0038338338 -0.0029009009
+0.0038538539 -0.0029369369
+0.0038738739 -0.002972973
+0.0038938939 -0.003009009
+0.0039139139 -0.003045045
+0.0039339339 -0.0030810811
+0.003953954 -0.0031171171
+0.003973974 -0.0031531532
+0.003993994 -0.0031891892
+0.004014014 -0.0032252252
+0.004034034 -0.0032612613
+0.0040540541 -0.0032972973
+0.0040740741 -0.0033333333
+0.0040940941 -0.0033693694
+0.0041141141 -0.0034054054
+0.0041341341 -0.0034414414
+0.0041541542 -0.0034774775
+0.0041741742 -0.0035135135
+0.0041941942 -0.0035495495
+0.0042142142 -0.0035855856
+0.0042342342 -0.0036216216
+0.0042542543 -0.0036576577
+0.0042742743 -0.0036936937
+0.0042942943 -0.0037297297
+0.0043143143 -0.0037657658
+0.0043343343 -0.0038018018
+0.0043543544 -0.0038378378
+0.0043743744 -0.0038738739
+0.0043943944 -0.0039099099
+0.0044144144 -0.0039459459
+0.0044344344 -0.003981982
+0.0044544545 -0.004018018
+0.0044744745 -0.0040540541
+0.0044944945 -0.0040900901
+0.0045145145 -0.0041261261
+0.0045345345 -0.0041621622
+0.0045545546 -0.0041981982
+0.0045745746 -0.0042342342
+0.0045945946 -0.0042702703
+0.0046146146 -0.0043063063
+0.0046346346 -0.0043423423
+0.0046546547 -0.0043783784
+0.0046746747 -0.0044144144
+0.0046946947 -0.0044504505
+0.0047147147 -0.0044864865
+0.0047347347 -0.0045225225
+0.0047547548 -0.0045585586
+0.0047747748 -0.0045945946
+0.0047947948 -0.0046306306
+0.0048148148 -0.0046666667
+0.0048348348 -0.0047027027
+0.0048548549 -0.0047387387
+0.0048748749 -0.0047747748
+0.0048948949 -0.0048108108
+0.0049149149 -0.0048468468
+0.0049349349 -0.0048828829
+0.004954955 -0.0049189189
+0.004974975 -0.004954955
+0.004994995 -0.004990991
+0.005015015 -0.005027027
+0.005035035 -0.0050630631
+0.0050550551 -0.0050990991
+0.0050750751 -0.0051351351
+0.0050950951 -0.0051711712
+0.0051151151 -0.0052072072
+0.0051351351 -0.0052432432
+0.0051551552 -0.0052792793
+0.0051751752 -0.0053153153
+0.0051951952 -0.0053513514
+0.0052152152 -0.0053873874
+0.0052352352 -0.0054234234
+0.0052552553 -0.0054594595
+0.0052752753 -0.0054954955
+0.0052952953 -0.0055315315
+0.0053153153 -0.0055675676
+0.0053353353 -0.0056036036
+0.0053553554 -0.0056396396
+0.0053753754 -0.0056756757
+0.0053953954 -0.0057117117
+0.0054154154 -0.0057477477
+0.0054354354 -0.0057837838
+0.0054554555 -0.0058198198
+0.0054754755 -0.0058558559
+0.0054954955 -0.0058918919
+0.0055155155 -0.0059279279
+0.0055355355 -0.005963964
+0.0055555556 -0.006
+0.0055755756 -0.006036036
+0.0055955956 -0.0060720721
+0.0056156156 -0.0061081081
+0.0056356356 -0.0061441441
+0.0056556557 -0.0061801802
+0.0056756757 -0.0062162162
+0.0056956957 -0.0062522523
+0.0057157157 -0.0062882883
+0.0057357357 -0.0063243243
+0.0057557558 -0.0063603604
+0.0057757758 -0.0063963964
+0.0057957958 -0.0064324324
+0.0058158158 -0.0064684685
+0.0058358358 -0.0065045045
+0.0058558559 -0.0065405405
+0.0058758759 -0.0065765766
+0.0058958959 -0.0066126126
+0.0059159159 -0.0066486486
+0.0059359359 -0.0066846847
+0.005955956 -0.0067207207
+0.005975976 -0.0067567568
+0.005995996 -0.0067927928
+0.006016016 -0.0068288288
+0.006036036 -0.0068648649
+0.0060560561 -0.0069009009
+0.0060760761 -0.0069369369
+0.0060960961 -0.006972973
+0.0061161161 -0.007009009
+0.0061361361 -0.007045045
+0.0061561562 -0.0070810811
+0.0061761762 -0.0071171171
+0.0061961962 -0.0071531532
+0.0062162162 -0.0071891892
+0.0062362362 -0.0072252252
+0.0062562563 -0.0072612613
+0.0062762763 -0.0072972973
+0.0062962963 -0.0073333333
+0.0063163163 -0.0073693694
+0.0063363363 -0.0074054054
+0.0063563564 -0.0074414414
+0.0063763764 -0.0074774775
+0.0063963964 -0.0075135135
+0.0064164164 -0.0075495495
+0.0064364364 -0.0075855856
+0.0064564565 -0.0076216216
+0.0064764765 -0.0076576577
+0.0064964965 -0.0076936937
+0.0065165165 -0.0077297297
+0.0065365365 -0.0077657658
+0.0065565566 -0.0078018018
+0.0065765766 -0.0078378378
+0.0065965966 -0.0078738739
+0.0066166166 -0.0079099099
+0.0066366366 -0.0079459459
+0.0066566567 -0.007981982
+0.0066766767 -0.008018018
+0.0066966967 -0.0080540541
+0.0067167167 -0.0080900901
+0.0067367367 -0.0081261261
+0.0067567568 -0.0081621622
+0.0067767768 -0.0081981982
+0.0067967968 -0.0082342342
+0.0068168168 -0.0082702703
+0.0068368368 -0.0083063063
+0.0068568569 -0.0083423423
+0.0068768769 -0.0083783784
+0.0068968969 -0.0084144144
+0.0069169169 -0.0084504505
+0.0069369369 -0.0084864865
+0.006956957 -0.0085225225
+0.006976977 -0.0085585586
+0.006996997 -0.0085945946
+0.007017017 -0.0086306306
+0.007037037 -0.0086666667
+0.0070570571 -0.0087027027
+0.0070770771 -0.0087387387
+0.0070970971 -0.0087747748
+0.0071171171 -0.0088108108
+0.0071371371 -0.0088468468
+0.0071571572 -0.0088828829
+0.0071771772 -0.0089189189
+0.0071971972 -0.008954955
+0.0072172172 -0.008990991
+0.0072372372 -0.009027027
+0.0072572573 -0.0090630631
+0.0072772773 -0.0090990991
+0.0072972973 -0.0091351351
+0.0073173173 -0.0091711712
+0.0073373373 -0.0092072072
+0.0073573574 -0.0092432432
+0.0073773774 -0.0092792793
+0.0073973974 -0.0093153153
+0.0074174174 -0.0093513514
+0.0074374374 -0.0093873874
+0.0074574575 -0.0094234234
+0.0074774775 -0.0094594595
+0.0074974975 -0.0094954955
+0.0075175175 -0.0095315315
+0.0075375375 -0.0095675676
+0.0075575576 -0.0096036036
+0.0075775776 -0.0096396396
+0.0075975976 -0.0096756757
+0.0076176176 -0.0097117117
+0.0076376376 -0.0097477477
+0.0076576577 -0.0097837838
+0.0076776777 -0.0098198198
+0.0076976977 -0.0098558559
+0.0077177177 -0.0098918919
+0.0077377377 -0.0099279279
+0.0077577578 -0.009963964
+0.0077777778 -0.01
+0.0077977978 -0.010036036
+0.0078178178 -0.010072072
+0.0078378378 -0.010108108
+0.0078578579 -0.010144144
+0.0078778779 -0.01018018
+0.0078978979 -0.010216216
+0.0079179179 -0.010252252
+0.0079379379 -0.010288288
+0.007957958 -0.010324324
+0.007977978 -0.01036036
+0.007997998 -0.010396396
+0.008018018 -0.010432432
+0.008038038 -0.010468468
+0.0080580581 -0.010504505
+0.0080780781 -0.010540541
+0.0080980981 -0.010576577
+0.0081181181 -0.010612613
+0.0081381381 -0.010648649
+0.0081581582 -0.010684685
+0.0081781782 -0.010720721
+0.0081981982 -0.010756757
+0.0082182182 -0.010792793
+0.0082382382 -0.010828829
+0.0082582583 -0.010864865
+0.0082782783 -0.010900901
+0.0082982983 -0.010936937
+0.0083183183 -0.010972973
+0.0083383383 -0.011009009
+0.0083583584 -0.011045045
+0.0083783784 -0.011081081
+0.0083983984 -0.011117117
+0.0084184184 -0.011153153
+0.0084384384 -0.011189189
+0.0084584585 -0.011225225
+0.0084784785 -0.011261261
+0.0084984985 -0.011297297
+0.0085185185 -0.011333333
+0.0085385385 -0.011369369
+0.0085585586 -0.011405405
+0.0085785786 -0.011441441
+0.0085985986 -0.011477477
+0.0086186186 -0.011513514
+0.0086386386 -0.01154955
+0.0086586587 -0.011585586
+0.0086786787 -0.011621622
+0.0086986987 -0.011657658
+0.0087187187 -0.011693694
+0.0087387387 -0.01172973
+0.0087587588 -0.011765766
+0.0087787788 -0.011801802
+0.0087987988 -0.011837838
+0.0088188188 -0.011873874
+0.0088388388 -0.01190991
+0.0088588589 -0.011945946
+0.0088788789 -0.011981982
+0.0088988989 -0.012018018
+0.0089189189 -0.012054054
+0.0089389389 -0.01209009
+0.008958959 -0.012126126
+0.008978979 -0.012162162
+0.008998999 -0.012198198
+0.009019019 -0.012234234
+0.009039039 -0.01227027
+0.0090590591 -0.012306306
+0.0090790791 -0.012342342
+0.0090990991 -0.012378378
+0.0091191191 -0.012414414
+0.0091391391 -0.01245045
+0.0091591592 -0.012486486
+0.0091791792 -0.012522523
+0.0091991992 -0.012558559
+0.0092192192 -0.012594595
+0.0092392392 -0.012630631
+0.0092592593 -0.012666667
+0.0092792793 -0.012702703
+0.0092992993 -0.012738739
+0.0093193193 -0.012774775
+0.0093393393 -0.012810811
+0.0093593594 -0.012846847
+0.0093793794 -0.012882883
+0.0093993994 -0.012918919
+0.0094194194 -0.012954955
+0.0094394394 -0.012990991
+0.0094594595 -0.013027027
+0.0094794795 -0.013063063
+0.0094994995 -0.013099099
+0.0095195195 -0.013135135
+0.0095395395 -0.013171171
+0.0095595596 -0.013207207
+0.0095795796 -0.013243243
+0.0095995996 -0.013279279
+0.0096196196 -0.013315315
+0.0096396396 -0.013351351
+0.0096596597 -0.013387387
+0.0096796797 -0.013423423
+0.0096996997 -0.013459459
+0.0097197197 -0.013495495
+0.0097397397 -0.013531532
+0.0097597598 -0.013567568
+0.0097797798 -0.013603604
+0.0097997998 -0.01363964
+0.0098198198 -0.013675676
+0.0098398398 -0.013711712
+0.0098598599 -0.013747748
+0.0098798799 -0.013783784
+0.0098998999 -0.01381982
+0.0099199199 -0.013855856
+0.0099399399 -0.013891892
+0.00995996 -0.013927928
+0.00997998 -0.013963964
+0.01 -0.014
+&
