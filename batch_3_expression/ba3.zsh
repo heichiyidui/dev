@@ -142,5 +142,60 @@ cd ba3
 # ba3.R in R
 # source(paste(path_to_scripts, "/sjnewhouse_misc_R.R", sep = ""))
 
+################################################################################
+# 3. CSF measures to AD case/control classification                            #
+################################################################################
 
- 
+# input: Subject_Demographics_with_chip_data_for_processing_April2015_FINAL.xml
+# output: a classifier to tell AD or control from CSF measures
+
+################################################################################
+# 3.1 target
+
+# column S (Status) of the table:
+# 285 AD
+#  64 CTL
+#  10 Fronto-temporal lobe dementia
+#   1 HD
+#  11 HD_Early
+#   7 HD_Moderate
+# 141 MCI
+#   2 Possible dementia with Lewy body
+#   3 Possible vascular dementia
+#   2 Probable dementia with Lewy body
+#   4 Probable vascular dementia
+
+# leave AD as AD, CTL as CTL, everything else as MCI
+# 285 AD, 64 CTL, 181 MCI
+
+################################################################################
+# 3.2 input
+
+# we have 205 CSF measures from the table 
+# column AW, AY and BA
+
+#             ab42              pTau             tTau
+# range:      65.250~776.045    10.86~104.105    35.775~367.345  
+# mean:       390               38.9             120 
+# sdv:        142               19.3             68.9
+# normal (0): 99  (<390)        101 (<35)        86  (<98) 
+# case (1):   106 (>390)        104 (>35)        119 (>98)  
+
+      3 AD000
+      4 AD001
+     11 AD011
+      4 AD100
+     17 AD101
+     29 AD111
+     11 CTL000
+      3 CTL010
+      6 CTL100
+      
+     34 MCI000
+     15 MCI001
+      8 MCI010
+     10 MCI011
+     15 MCI100
+      2 MCI101
+      2 MCI110
+     31 MCI111
