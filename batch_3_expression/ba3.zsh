@@ -172,30 +172,33 @@ cd ba3
 # 3.2 input
 
 # we have 205 CSF measures from the table 
+# After removal of the duplications, left with 113 samples in csf_in.ods
 # column AW, AY and BA
 
 #             ab42              pTau             tTau
 # range:      65.250~776.045    10.86~104.105    35.775~367.345  
-# mean:       390               38.9             120 
-# sdv:        142               19.3             68.9
-# normal (0): 99  (<390)        101 (<35)        86  (<98) 
-# case (1):   106 (>390)        104 (>35)        119 (>98)  
+# mean:       386               37.9             115 
+# sdv:        141               19.4             66.5
+# normal (0): 52 (<390)         62 (<35)         52 (<98) 
+# case (1):   61 (>390)         51 (>35)         61 (>98)  
 
-      3 AD000
-      4 AD001
-     11 AD011
-      4 AD100
-     17 AD101
-     29 AD111
-     11 CTL000
-      3 CTL010
-      6 CTL100
-      
-     34 MCI000
-     15 MCI001
-      8 MCI010
-     10 MCI011
-     15 MCI100
-      2 MCI101
-      2 MCI110
-     31 MCI111
+#       2 AD  0 0 0     6 CTL  0 0 0
+#       
+#       3 AD  1 0 0     4 CTL  1 0 0
+#                       2 CTL  0 1 0
+#       2 AD  0 0 1           
+#         
+#       5 AD  0 1 1           
+#       8 AD  1 0 1           
+#       
+#      16 AD  1 1 1           
+#
+#      19 MCI 0 0 0
+#       6 MCI 0 0 1
+#       4 MCI 0 1 0
+#       6 MCI 0 1 1
+#      10 MCI 1 0 0
+#       2 MCI 1 0 1
+#       2 MCI 1 1 0
+#      16 MCI 1 1 1
+# 
