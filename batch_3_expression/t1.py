@@ -4,7 +4,7 @@
 # read the training and testing set
 
 import random
-random.seed(514)
+random.seed()
 train_set=[]
 test_set=[]
 
