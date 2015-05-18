@@ -168,6 +168,7 @@ cd ba3
 # leave AD as AD, CTL as CTL, everything else as MCI
 # 285 AD, 64 CTL, 181 MCI
 
+# table elements AY86:AZ207 should be AY355:AZ476
 ################################################################################
 # 3.2 input
 
@@ -201,4 +202,11 @@ cd ba3
 #       2 MCI 1 0 1
 #       2 MCI 1 1 0
 #      16 MCI 1 1 1
-# 
+#
+
+# After bpnn.py single hidden unit back-propagation network training,
+# the formula is 
+# ab42/188.7 - pTau/43 - tTau/58 + 0.0921 > 0 (CTL)
+# or ab42/188.7 - pTau/43 - tTau/58 + 0.0921 < 0 (AD)
+
+
