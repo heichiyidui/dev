@@ -21,9 +21,9 @@ for line in ifile:
     input=[ab42, pTau, tTau]
     
     if cols[0]=="AD":
-        target=[1.0 ]
+        target=  1.0 
     else:
-        target=[-1.0 ]
+        target= -1.0 
     
     train_set.append([input,target])
 
@@ -34,17 +34,18 @@ random.shuffle(train_set)
 #######################################
 # train the network 
 
-from bpnn import NN
-net=NN(3,1,1)
-for i in range(5):
+from bpnn import Bpnn
+net=Bpnn(3,1)
+for i in range(150):
     random.shuffle(train_set)
-    net.train(train_set,iterations=1,N=0.001)
     train_err=0;
-    for pat in train_set:
-        prediction = net.update(pat[0])
-        train_err+= 0.5*(prediction[0]-pat[1][0])**2
+    for j in range(len(train_set)):
+        net.propagate     (train_set[j][0])
+        net.back_propagate(train_set[j][1])
+        train_err += net.se_error(train_set[j][1])
     train_err /= len(train_set)
-    print("train_err:",train_err)
+    print(i,train_err)
+    
 
 for pat in train_set:
-    print(pat,net.update(pat[0]))
+    print(pat,net.propagate(pat[0]))

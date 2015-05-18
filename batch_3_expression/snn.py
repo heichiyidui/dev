@@ -137,7 +137,7 @@ class Snn:
         self.chg_i =  self.tmp_chg_i
     
 ################################################################################
-# end of class Bpnn
+# end of class Snn
 # test function
 
 if __name__ == '__main__':
