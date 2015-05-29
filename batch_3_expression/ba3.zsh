@@ -206,7 +206,18 @@ cd ba3
 
 # After bpnn.py single hidden unit back-propagation network training,
 # the formula is 
-# ab42/188.7 - pTau/43 - tTau/58 + 0.0921 > 0 (CTL)
+#    ab42/188.7 - pTau/43 - tTau/58 + 0.0921 > 0 (CTL)
 # or ab42/188.7 - pTau/43 - tTau/58 + 0.0921 < 0 (AD)
 
+################################################################################
+# validation of ba2 random forest                                              #
+################################################################################
 
+# 1. probes 
+ http://www.j-alz.com/issues/33/vol33-3.html#supplementarydata03
+
+# 2. software 
+http://www.imbs-luebeck.de/imbs/taxonomy/term/1
+# It asks for Boost and gsl. 
+
+# switching function locations in TermResult.h to avoid error in compiling.
