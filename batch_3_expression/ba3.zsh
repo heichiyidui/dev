@@ -219,5 +219,23 @@ cd ba3
 # 2. software 
 http://www.imbs-luebeck.de/imbs/taxonomy/term/1
 # It asks for Boost and gsl. 
-
 # switching function locations in TermResult.h to avoid error in compiling.
+
+# the training script from Martina
+# rjungle --file=train_set.dat --treetype=1 --ntree=500 --mtry=500 \
+#     -B 3 --impmeasure=5 --nimpvar=100 --memmode=0 --depvarname=Class \
+#     --seeed=2178 --outprefix=train.result 
+
+# What I did with 200 randomly chosen SNPs from pe19 set
+
+plink --noweb --bfile pe19 --extract t2.ls --recodeA
+cut -d' ' -f6- plink.raw  > t.out
+sed -i 's/-9/NA/' t.out 
+mv t.out plink_raw.data
+
+rjungle --file=plink_raw.data \
+    --treetype=1 --ntree=100 \
+    --mtry=100 -B 3 --impmeasure=5 --nimpvar=100 --memmode=0 \
+    --depvarname=PHENOTYPE --seeed=2178 --outprefix=train.result \
+    --impute=30
+# didn't give me the trained trees? 
