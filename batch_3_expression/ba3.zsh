@@ -214,7 +214,7 @@ cd ba3
 ################################################################################
 
 # 1. probes 
- http://www.j-alz.com/issues/33/vol33-3.html#supplementarydata03
+http://www.j-alz.com/issues/33/vol33-3.html#supplementarydata03
 
 # 2. software 
 http://www.imbs-luebeck.de/imbs/taxonomy/term/1
@@ -238,4 +238,6 @@ rjungle --file=plink_raw.data \
     --mtry=100 -B 3 --impmeasure=5 --nimpvar=100 --memmode=0 \
     --depvarname=PHENOTYPE --seeed=2178 --outprefix=train.result \
     --impute=30
+# takes a few hours
 # didn't give me the trained trees? 
+
