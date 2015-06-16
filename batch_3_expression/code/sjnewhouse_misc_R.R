@@ -5,8 +5,7 @@
 
 removeSamples_eset_lumi <- function(eset, sampleRemove) {
   sample <- sampleNames(eset)
-  samples_to_remove <- sampleRemove
-  samples_to_keep <- (sample %in% samples_to_remove)==FALSE
+  samples_to_keep <- (sample %in% sampleRemove)==FALSE
   sel_samp_names <- sampleNames(eset)[samples_to_keep]
   eset <- eset[,samples_to_keep]
   ControlData <- getControlData(eset)
