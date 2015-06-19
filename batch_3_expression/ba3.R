@@ -379,7 +379,7 @@ cat(" The number of unique Study_Ids=[", n_unique_study_id, "]","\n")
 ########################################
 # 4. check Sample.IDs match in eset_samples, sample & batch info files 
 
-cat(" Megreing pdata, pheno data, batch info and genomestudio samople data. \n") 
+cat(" Megreing pdata, pheno data, batch info and genomestudio samople data.\n")
 
 # 4.1 merge eset_samples with pheno_dat.  Keep ALL overlaps only
 eset_pheno_merge <- merge(eset_samples, pheno_dat, 
@@ -406,7 +406,7 @@ dim(eset_pheno_batch_merge)
 eset_pheno_batch_gs_merge <- merge(eset_pheno_batch_merge, gs_sample_data, 
                                   by.x = "sampleID", by.y = "Sample.ID")
 eset_pheno_batch_gs_merge <- 
-    eset_pheno_batch_gs_merge[order(eset_pheno_batch_gs_merge$chip_order),  ]
+    eset_pheno_batch_gs_merge[order(eset_pheno_batch_gs_merge$chip_order), ]
 
 # final look at numbers in each merged data set
 dim(eset_samples)
@@ -596,7 +596,7 @@ dev.off()
 # "9464921139_H","9464921139_D","9464921139_B","9464921139_J")
 
 # eset_raw <- 
-#     removeSamples_eset_lumi(eset = eset_raw, sampleRemove = samples_to_remove) 
+#     removeSamples_eset_lumi(eset = eset_raw, sampleRemove = samples_to_remove)
 
 #######################################
 # Save eset_raw
@@ -1134,7 +1134,7 @@ for (pheno in c("PC1")) {
     # save summary lm
     write.table(summary_lm_batch, 
         file = paste(out_dir, "/", project_name, ".eset_bg_log2_rsn.",
-                    pheno, ".multivariate_model_batch_variables.csv", sep = ""), 
+                    pheno, ".multivariate_model_batch_variables.csv", sep = ""),
         row.names = FALSE,
         quote = FALSE, sep = ",")
 
@@ -1334,7 +1334,7 @@ for (probe in new_probe_names) {
 
     ### cat(' Progress: ',pn,' : ',round(pn/n_probes,3),'\r')
     sink(file = paste(out_dir, "/", project_name, 
-                      ".eset_bg_log2_rsn.lm_probe_progress_rsq.txt", sep = ""), 
+                      ".eset_bg_log2_rsn.lm_probe_progress_rsq.txt", sep = ""),
          append = TRUE)
     cat(" doing [", probe, "] ~ [", paste(best_model[3]), "].RSQ=",
         rsq, ". Progress:", round(pn/n_probes, 3), "\n")
@@ -1463,7 +1463,7 @@ project_summary <- data.frame(
     mbcb_method = mbcb_method, transform_method = transform_method, 
     norm_method = norm_method,
     analyst_email = analyst_email, analyst_name = analyst_name, 
-    lab_contact_email = lab_contact_email, lab_contact_name = lab_contact_name, 
+    lab_contact_email = lab_contact_email, lab_contact_name = lab_contact_name,
     chip_id = chip_id, chip_species = chip_species,  chip_probes = chip_probes,
     n_expression_chips = n_expression_chips, 
     n_unique_study_id = n_unique_study_id,
@@ -1491,3 +1491,6 @@ write.table(project_summary,
 # looksee
 project_summary
 
+################################################################################
+# THE END                                                                      #
+################################################################################
