@@ -210,34 +210,83 @@ cd ba3
 # or ab42/188.7 - pTau/43 - tTau/58 + 0.0921 < 0 (AD)
 
 ################################################################################
-# validation of ba2 random forest                                              #
+# validation of the random forest                                              #
 ################################################################################
 
-# 1. probes 
+# 1. 50 probes 
 http://www.j-alz.com/issues/33/vol33-3.html#supplementarydata03
 
 # 2. software 
 http://www.imbs-luebeck.de/imbs/taxonomy/term/1
-# It asks for Boost and gsl. 
-# switching function locations in TermResult.h to avoid error in compiling.
+# It asks for Boost gsl and xml  
+# switching function locations in TermResult.h to remove error in compiling.
+# installed at /usr/local/bin/rjungle
+
+# manual at imbs-luebeck.de/imbs/sites/default/files/u38/RJ-manual-2.0.0_0.pdf
 
 # the training script from Martina
 # rjungle --file=train_set.dat --treetype=1 --ntree=500 --mtry=500 \
 #     -B 3 --impmeasure=5 --nimpvar=100 --memmode=0 --depvarname=Class \
 #     --seeed=2178 --outprefix=train.result 
 
-# What I did with 200 randomly chosen SNPs from pe19 set
+# pheno type: 
+# before QC 356 subjects (116 control, 127 MCI, and 113 AD). 
+# column N in track1 file 
+# after QC 326 subjects (104 CTL, 118 MCI and 104 AD) (column L or N?)
 
-plink --noweb --bfile pe19 --extract t2.ls --recodeA
-cut -d' ' -f6- plink.raw  > t.out
-sed -i 's/-9/NA/' t.out 
-mv t.out plink_raw.data
+# the expression profile of each probe to be unified 
+# zero mean unit deviation in each batch. 
 
-rjungle --file=plink_raw.data \
-    --treetype=1 --ntree=100 \
-    --mtry=100 -B 3 --impmeasure=5 --nimpvar=100 --memmode=0 \
-    --depvarname=PHENOTYPE --seeed=2178 --outprefix=train.result \
-    --impute=30
-# takes a few hours
-# didn't give me the trained trees? 
+# sort the probes so the order of probes are the same 
+input_files/ba1_50_probes_std.txt
+input_files/ba2_50_probes_std.txt
+input_files/ba3_50_probes_std.txt
 
+# to train on ba1 : 
+rjungle -f t.in -D AD \
+    --treetype=1 \
+    --ntree=750 --mtry=15 \
+    --memmode=0 --seeed=2178 \
+    -w 2   \
+    --outprefix=ba1_train  -v
+# 20% error 
+
+
+# to test on ba1 test set 
+rjungle -f t.in  -D AD \
+    --treetype=1 \
+    -P ba1_train.jungle.xml \
+    --outprefix=ba1_test -v
+# on the ba2 set,
+    #  44  0 AD
+    # 107  0 CTL
+    #  50  0 MCI
+    #  88  1 AD
+    #  34  1 CTL
+    #  64  1 MCI
+    #   1  1 MCI/OTHER
+
+# on the ba3 set, under-predictions, 482 individuals
+    # 153  0 AD
+    #  48  0 CTL
+    #   5  0 Fronto-temporal lobe dementia
+    #   1  0 HD
+    #  10  0 HD_Early
+    #   5  0 HD_Moderate
+    #  67  0 MCI
+    #   1  0 Possible vascular dementia
+    #   2  0 Probable vascular dementia
+    # 108  1 AD
+    #  11  1 CTL
+    #   2  1 Fronto-temporal lobe dementia
+    #   1  1 HD_Moderate
+    #  62  1 MCI
+    #   2  1 Possible vascular dementia
+    #   2  1 Probable dementia with Lewy body
+    #   2  1 Probable vascular dementia
+
+# results are put into the res/ directory
+
+################################################################################
+# 
+################################################################################

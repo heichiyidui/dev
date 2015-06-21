@@ -1,22 +1,25 @@
 #!/usr/bin/env python3 
-probe_set=[]
 
-ifile=open('50_probes.ls')
-for line in ifile :
-    probe_set.append(line[:-1])
-ifile.close()
+import numpy 
 
-#[11]
-ifile=open('/home/kuang/dev/batch_3_expression/ba3/BA3_lumi_processing_t_out/'+\
-    'BA3.eset_bg_log2_rsn_adj.exprs_matrix.txt')
-line1=ifile.readline()[:-1]
-cols=line1.split('\t')
-print('PROBE_ID ' + ' '.join(cols[30:]))
-
+ifile=open('input_files/ba3_50_probes.txt')
+print(ifile.readline()[:-1])
 for line in ifile:
-    cols=line[:-1].split('\t')
-    if cols[11] not in probe_set:
-        continue
-    print(cols[11],end=' ')
-    print(' '.join(cols[30:]))
+    cols=line[:-1].split()
+    print(cols[0],end=' ')
+    
+    expres_prof=[]
+    for i in range(1,len(cols)):
+        expres_prof.append(float(cols[i]))
+    
+    mean = numpy.average(expres_prof)
+    std  = numpy.std(expres_prof)
+    
+    out_cols=[]
+    for i in range(len(expres_prof)):
+        expres_prof[i] -= mean
+        expres_prof[i] /= std 
+        out_cols.append('{:6.3f}'.format(expres_prof[i]))
+    print(' '.join(out_cols))
+    
 ifile.close()

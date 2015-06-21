@@ -1,0 +1,17 @@
+#!/usr/bin/env python3 
+import sys
+
+row_cols=[]
+ifile=open(sys.argv[1])
+for line in ifile:
+    cols=line[:-1].split()
+    row_cols.append(cols)
+ifile.close()
+
+for i in range(len(row_cols[0])):
+    new_row=[]
+    for row in row_cols:
+        new_row.append(row[i])
+    print(' '.join(new_row))
+    
+
