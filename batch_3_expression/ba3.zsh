@@ -257,6 +257,20 @@ rjungle -f t.in  -D AD \
     --treetype=1 \
     -P ba1_train.jungle.xml \
     --outprefix=ba1_test -v
+
+# on the ba1 test set 
+    #   9   0 AD
+    #  21   0 CTL
+    #   2   0 CTL to MCI
+    #  30   0 MCI
+    #  10   0 MCI to AD
+    #  15   1 AD
+    #   1   1 AD to MCI/CTL
+    #   2   1 CTL
+    #   1   1 CTL to MCI
+    #  46   1 MCI
+    #  32   1 MCI to AD
+
 # on the ba2 set,
     #  44  0 AD
     # 107  0 CTL
