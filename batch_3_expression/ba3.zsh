@@ -251,7 +251,6 @@ rjungle -f t.in -D AD \
     --outprefix=ba1_train  -v
 # 20% error 
 
-
 # to test on ba1 test set 
 rjungle -f t.in  -D AD \
     --treetype=1 \
@@ -300,6 +299,75 @@ rjungle -f t.in  -D AD \
     #   2  1 Probable vascular dementia
 
 # results are put into the res/ directory
+
+########################################
+# try use the 27 probes with good detection in batch 3 only.
+
+# training error increased from 20% to 25%
+
+# on batch 1 test set 
+     #  9 0 AD
+     # 18 0 CTL
+     #  3 0 CTL to MCI
+     # 31 0 MCI
+     # 10 0 MCI to AD
+     # 15 1 AD
+     #  1 1 AD to MCI/CTL
+     #  5 1 CTL
+     # 45 1 MCI
+     # 32 1 MCI to AD
+
+# on batch 2 
+    #  37 0 AD
+    # 106 0 CTL
+    #  48 0 MCI
+    #  95 1 AD
+    #  35 1 CTL
+    #  66 1 MCI
+    #   1 1 MCI/OTHER
+
+# on batch 3 
+    # 136 0 AD
+    #  45 0 CTL
+    #   2 0 Fronto-temporal lobe dementia
+    #   1 0 HD
+    #   9 0 HD_Early
+    #   4 0 HD_Moderate
+    #  57 0 MCI
+    #   1 0 Probable dementia with Lewy body
+    #   1 0 Probable vascular dementia
+    # 125 1 AD
+    #  14 1 CTL
+    #   5 1 Fronto-temporal lobe dementia
+    #   1 1 HD_Early
+    #   2 1 HD_Moderate
+    #  72 1 MCI
+    #   3 1 Possible vascular dementia
+    #   1 1 Probable dementia with Lewy body
+    #   3 1 Probable vascular dementia
+
+# using 27 probes only didn't help batch 3
+# On batch 2, it's slightly better. 
+
+# batch 3 Amsterdam
+     #  7 0 AD
+     #  9 0 CTL
+     #  2 0 Fronto-temporal
+     # 29 0 MCI
+     #  2 0 Probable
+     # 48 1 AD
+     #  9 1 CTL
+     #  5 1 Fronto-temporal
+     # 62 1 MCI
+     #  3 1 Possible
+     #  4 1 Probable
+
+# batch 3 AddNeuromed
+     # 67 0 AD
+     #  7 0 CTL
+     # 10 0 MCI
+     # 45 1 AD
+     #  8 1 MCI
 
 ################################################################################
 # 
