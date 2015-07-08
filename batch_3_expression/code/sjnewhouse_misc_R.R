@@ -557,18 +557,19 @@ pca_plot_lumi <- function(eset) {
   pheno <- pData(eset)
   ## basic colours
   cat(" basic colours","\r","\n")
-  chip_col <- labels2colors( as.character(pData(eset)$tech.Sentrix.Barcode))
-  group_col <- labels2colors( as.character(pData(eset)$GROUPS))
-  pheno_col <- labels2colors( as.character(pData(eset)$PHENOTYPE))
+  chip_col <-   labels2colors( as.character(pData(eset)$tech.Sentrix.Barcode))
+  group_col <-  labels2colors( as.character(pData(eset)$GROUPS))
+  pheno_col <-  labels2colors( as.character(pData(eset)$PHENOTYPE))
   gender_col <- labels2colors( as.character(pData(eset)$SEX))
   tissue_col <- labels2colors( as.character(pData(eset)$TISSUE))
+  study_col <-  labels2colors( as.character(pData(eset)$Study_ID))
   ## batch pheno data
   cat(" batch pheno data","\r","\n")
   sel_tech <- grep("tech",names(pheno))
   batch_pheno <- pheno[,sel_tech]
   ## id what is char/fav versus numerical
   sel_batch <- sapply(batch_pheno ,class) %in% c("character","factor")
-  sel_num_batch <- sapply(batch_pheno ,class) %in% c("numeric")
+  sel_num_batch <- sapply(batch_pheno ,class) %in% c("numeric","integer")
   ## get names
   batch_var_names <- names( batch_pheno[sel_batch])
   batch_var_names_numeric <- names(batch_pheno[sel_num_batch])
@@ -599,11 +600,12 @@ pca_plot_lumi <- function(eset) {
   # PCA MATRIX
   pca_raw <- pca_gx$x;
   ## PCA plots
-  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot coloured by chip ",col="black", pch=21,bg=chip_col)
-  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot  coloured by Group ",col="black", pch=21,bg=group_col)
-  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot  coloured by Phenotype ",col="black", pch=21,bg=pheno_col)
-  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot  coloured by Gender ",col="black", pch=21,bg=gender_col)
-  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot  coloured by Tissue ",col="black", pch=21,bg=tissue_col)
+  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot coloured by chip ",     col="black", pch=21,bg=chip_col)
+  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot coloured by Group ",    col="black", pch=21,bg=group_col)
+  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot coloured by Phenotype ",col="black", pch=21,bg=pheno_col)
+  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot coloured by Gender ",   col="black", pch=21,bg=gender_col)
+  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot coloured by Tissue ",   col="black", pch=21,bg=tissue_col)
+  plot(pca_raw[,"PC1"],pca_raw[,"PC2"], main=" PCA plot coloured by Study ",    col="black", pch=21,bg=study_col)
   ## loop PCA and plot by tech var
   for(tech_var in batch_var_names) {
     cat(" begin looping through batch variable PCA plots ",tech_var,"\r","\n")

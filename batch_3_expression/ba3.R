@@ -866,8 +866,11 @@ system(paste("cat ", out_dir, "/", project_name, ".GROUP",
              "****.detected_probes_nuID.txt | sort | uniq > ",
              out_dir, "/", project_name, ".detected_probes_nuID_final.txt", 
              sep = ""))
-####################
+
 # Complained 'out of memory' here. Did it manually. 
+# cat BA3.GROUP****.detected_probes_nuID.txt | sort | \
+#     uniq > BA3.detected_probes_nuID_final.txt
+####################
 
 good_probes <- read.table(file = 
     paste(out_dir, "/",project_name,".detected_probes_nuID_final.txt",sep = ""), 
@@ -893,6 +896,8 @@ write_expression_files(eset = eset_bg,
 cat(" saving good probe annotations to ", 
     paste(out_dir,"/", project_name,".detected_probes_nuID_final.***",sep = ""),
     "\n")
+# or run in the shell 
+# cat *GROUP*.txt | sort | uniq > BA3.detected_probes_nuID_final.txt
 
 save(good_probes_annotation, 
     file = paste(out_dir,"/", project_name, ".detected_probes_nuID_final.RData",
@@ -969,6 +974,8 @@ pdf(file = paste(out_dir, "/", project_name,
 sampleNetwork_plot_all_lumi(eset_bg_log2_rsn_0, colBy = "chip")
 sampleNetwork_plot_all_lumi(eset_bg_log2_rsn_0, colBy = "group")
 dev.off()
+
+# age and study_id clearly matters
 
 ################################################################################
 # ISA outlier removal                                                          #
@@ -1071,11 +1078,46 @@ GROUPS <- as.numeric(as.factor(toupper(pData(eset_lumiN)$GROUPS)))
 
 pdata <- pData(eset_lumiN)
 pdata <- as.data.frame(pdata[,
-    c("tech.Sentrix.Barcode","tech.SampleSection","SEX",
-      "tech.DOB","tech.DOC","tech.DOE","tech.RIN","tech.RNA_YIELD")])
+    c("tech.Sentrix.Barcode","tech.SampleSection","SEX","Study_ID",
+      "tech.AGE","tech.DOE","tech.RIN","tech.RNA_YIELD")])
 
-# LK: got some 'NA' in RIN and RNA_YIELD
-# replace them with the median (which is close to the mean)
+# LK: got some 'NA' in AGE, RIN and RNA_YIELD
+# replace them with the mean
+pdata$tech.AGE[6  ]=77
+pdata$tech.AGE[15 ]=77
+pdata$tech.AGE[23 ]=77
+pdata$tech.AGE[30 ]=77
+pdata$tech.AGE[37 ]=77
+pdata$tech.AGE[75 ]=77
+pdata$tech.AGE[82 ]=77
+pdata$tech.AGE[110]=77
+pdata$tech.AGE[117]=77
+pdata$tech.AGE[132]=77
+pdata$tech.AGE[140]=77
+pdata$tech.AGE[141]=77
+pdata$tech.AGE[202]=77
+pdata$tech.AGE[213]=77
+pdata$tech.AGE[234]=77
+pdata$tech.AGE[240]=77
+pdata$tech.AGE[271]=77
+pdata$tech.AGE[284]=77
+pdata$tech.AGE[297]=77
+pdata$tech.AGE[298]=77
+pdata$tech.AGE[313]=77
+pdata$tech.AGE[316]=77
+pdata$tech.AGE[321]=77
+pdata$tech.AGE[323]=77
+pdata$tech.AGE[348]=77
+pdata$tech.AGE[355]=77
+pdata$tech.AGE[375]=77
+pdata$tech.AGE[378]=77
+pdata$tech.AGE[398]=77
+pdata$tech.AGE[407]=77
+pdata$tech.AGE[431]=77
+pdata$tech.AGE[439]=77
+pdata$tech.AGE[468]=77
+pdata$tech.AGE[495]=77
+
 pdata$tech.RIN[75]=8.4
 pdata$tech.RIN[323]=8.4
 pdata$tech.RIN[407]=8.4
@@ -1087,10 +1129,10 @@ pdata$tech.DOE[407]='09/01/14'
 
 # used as factors
 pdata$SEX                  <- as.factor(pdata$SEX)
+pdata$Study_ID             <- as.factor(pdata$Study_ID)
 pdata$tech.Sentrix.Barcode <- as.factor(pdata$tech.Sentrix.Barcode)
 pdata$tech.SampleSection   <- as.factor(pdata$tech.SampleSection)
-# pdata$tech.DOB             <- as.factor(pdata$tech.DOB )
-# pdata$tech.DOC             <- as.factor(pdata$tech.DOC )
+
 pdata$tech.DOE             <- as.factor(pdata$tech.DOE )
 
 tech_batch <- pdata
@@ -1098,12 +1140,11 @@ tech_batch <- pdata
 batch_var_names <- names(tech_batch)
 batch_var_names
 
-# multivariate_model_terms <- paste(batch_var_names, collapse = "+")
+multivariate_model_terms <- paste(batch_var_names, collapse = "+")
 
-# Age was tried. It was not significant. 
-multivariate_model_terms <- paste(
-    "tech.Sentrix.Barcode+tech.SampleSection",
-    "tech.RIN+tech.RNA_YIELD+tech.DOE+SEX",sep='+')
+# multivariate_model_terms <- paste(
+#     "tech.Sentrix.Barcode+tech.SampleSection",
+#     "tech.RIN+tech.RNA_YIELD+tech.DOE+SEX",sep='+')
 
 ########################
 # PC1 is run last START LINEAR REGRESSION 
@@ -1117,7 +1158,7 @@ for (pheno in c("PC1")) {
     
     # multivariate lm
     cat(" running full multivariate models ", pheno, " ~ multivariate_model\n")
-    lm_batch <- lm(multivariate_model, data = tech_batch)
+    lm_batch <- lm(multivariate_model, data = tech_batch,na.action=na.fail)
     summary(lm_batch)
     # RSQUARED summary lm
     lm_r2 <- round(summary(lm_batch)$adj.r.squared, 3)
@@ -1254,31 +1295,43 @@ for (pheno in c("PC1")) {
             " ] ~ [ BATCH PHENOTYPES ] \n")
     }
 }
-
-# running full multivariate models  PC1  ~ multivariate_model
 #  WARNING!: SIGNIFICANT ASSOCIATION BETWEEN 
-#  [ PC1 ] ~ [ tech.Sentrix.Barcode + tech.SampleSection + tech.RIN + tech.DOE].
-#   R2= 0.285  [ tech.RIN ] MIN_P= 5.915317e-19 . 
-#   YOU MAY WANT TO CORRECT FOR THIS BEFORE THE FINAL ANLYSIS 
+# [  PC1  ] ~ [ tech.Sentrix.Barcode + tech.SampleSection + Study_ID 
+#             + tech.DOE + tech.RIN  ]. 
+# R2= 0.328  [ Study_ID ]
+# MIN_P= 1.445193e-20 . 
+# YOU MAY WANT TO CORRECT FOR THIS BEFORE THE FINAL ANLYSIS 
 #   Finding a best model by AIC in a Stepwise Algorithm 
+# Start:  AIC=3378.1
+# PC1 ~ tech.Sentrix.Barcode + tech.SampleSection + SEX + Study_ID + 
+#     tech.AGE + tech.DOE + tech.RIN + tech.RNA_YIELD
 
-# Step:  AIC=3351.38
-# PC1 ~ tech.RIN
 #                         Df Sum of Sq    RSS    AIC
-# <none>                               377725 3351.4
-# + tech.SampleSection    11     15076 362649 3352.8
-# + SEX                    1       342 377383 3352.9
-# + tech.RNA_YIELD         1        32 377693 3353.3
-# + tech.DOE             150    156711 221014 3380.2
-# + tech.Sentrix.Barcode  45     38434 339291 3387.1
-# - tech.RIN               1     65211 442936 3430.0
-#  BEST MODEL BASED ON stepAIC [ PC1 ] ~ [ tech.RIN ] 
+# - tech.DOE             150    114361 285945 3336.5
+# - tech.Sentrix.Barcode  45     23920 195505 3354.1
+# - tech.AGE               1        66 171651 3376.3
+# - tech.RNA_YIELD         1        96 171681 3376.4
+# <none>                               171584 3378.1
+# - SEX                    1       706 172290 3378.2
+# - tech.SampleSection    11     11533 183117 3389.0
+# - Study_ID               4     13636 185221 3408.8
+# - tech.RIN               1     17622 189206 3425.6
 
-anova_data
-#          Df   Sum Sq  Mean Sq  F value       Pr(>F)    terms
-# tech.RIN  1 65210.67 65210.67 87.01086 3.405044e-19 tech.RIN
+# Step:  AIC=3301.46
+# PC1 ~ tech.SampleSection + Study_ID + tech.RIN + tech.RNA_YIELD
+#                         Df Sum of Sq    RSS    AIC
+# <none>                               321265 3301.5
+# - tech.RNA_YIELD         1      1700 322965 3302.1
+# + tech.AGE               1       663 320601 3302.4
+# + SEX                    1       311 320954 3303.0
+# - tech.SampleSection    11     17547 338812 3306.4
+# + tech.Sentrix.Barcode  45     35160 286105 3332.8
+# - tech.RIN               1     26452 347717 3339.5
+# + tech.DOE             150    125301 195964 3351.3
+# - Study_ID               4     40964 362229 3354.2
 
-# If we take PHENOTYPE as the target, tech.RNA_YIELD is slightly correlated. 
+#  BEST MODEL BASED ON stepAIC 
+# [ PC1 ] ~ [ tech.SampleSection + Study_ID + tech.RIN + tech.RNA_YIELD ]  
 
 ################################################################################
 # Batch Correction using linear models                                         #
@@ -1308,7 +1361,7 @@ adj_gx[1:10, 1:10]
 # get batch phenos
 batch_pheno <- tech_batch[, anova_data$terms]
 batch_pheno <- data.frame(cbind(batch_pheno, gx))
-names(batch_pheno)[1] <- "tech.RIN"
+# this is the data for the regression
 
 eset_bg_log2_rsn_regression_input <- batch_pheno
 
@@ -1316,6 +1369,7 @@ save(eset_bg_log2_rsn_regression_input,
     file = paste(out_dir, "/", project_name,
                  ".eset_bg_log2_rsn.regression_input.RData", sep = ""))
 
+########################################
 # loop through each probe and adjust for sig batches
 pn <- 1
 #
@@ -1366,6 +1420,7 @@ save(eset_bg_log2_rsn_adj,
 write_expression_files(eset = eset_bg_log2_rsn_adj, 
     outfile = paste(out_dir,"/",project_name,".eset_bg_log2_rsn_adj", sep = ""))
 
+# QC plots of the adjusted eset 
 pdf(file = paste(out_dir, "/", project_name, 
                  ".eset_bg_log2_rsn_adj.basic_qc_plot_lumi.pdf",sep = ""), 
     width = 31, height = 8)
@@ -1392,13 +1447,13 @@ sampleNetwork_plot_all_lumi(eset_bg_log2_rsn_adj, colBy = "chip")
 sampleNetwork_plot_all_lumi(eset_bg_log2_rsn_adj, colBy = "group")
 dev.off()
 
-
 ################################################################################
 # Create Final QC'd Expression data set                                        #
 ################################################################################
-
-eset_final <- eset_bg_log2_rsn_adj 
+# subset to good probes 
+eset_final <- eset_bg_log2_rsn_adj[good_probes,]
 eset_final
+
 
 save(eset_final, file = paste(out_dir, "/", project_name, 
                               ".eset_final.RData", sep = ""), 
@@ -1451,6 +1506,8 @@ system(paste(" mv -v ", out_dir, "/", "*.eset_final.* ",
 # Create and Write Project Summary                                             #
 ################################################################################
 
+n_gender_fails=0
+
 project_summary <- data.frame(
     project_dir = project_dir, 
     project_name = project_name,
@@ -1494,3 +1551,4 @@ project_summary
 ################################################################################
 # THE END                                                                      #
 ################################################################################
+
