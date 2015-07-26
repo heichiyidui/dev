@@ -210,13 +210,13 @@ cd ba3
 # or ab42/188.7 - pTau/43 - tTau/58 + 0.0921 < 0 (AD)
 
 ################################################################################
-# validation of the random forest                                              #
+# 4 validation of the random forest                                            #
 ################################################################################
 
-# 1. 50 probes 
+# 4.1 50 probes 
 http://www.j-alz.com/issues/33/vol33-3.html#supplementarydata03
 
-# 2. software 
+# 4.2 software 
 http://www.imbs-luebeck.de/imbs/taxonomy/term/1
 # It asks for Boost gsl and xml  
 # switching function locations in TermResult.h to remove error in compiling.
@@ -300,14 +300,13 @@ rjungle -f t.in  -D AD \
     #   1 1 Probable_dementia_with_Lewy_body
     #   1 1 Probable_vascular_dementia
 
-
 # results are put into the res/ directory
 
 # LNDADC033           9534190041_J needed to be removed
 # from Subject_Demographics_with_chip_data_for_processing_April2015_FINAL
 
 ########################################
-# replications 
+# 4.3 replications 
 
 chk_replica.py
 
@@ -315,7 +314,7 @@ chk_replica.py
 # 368 samples, 2.73 each replicated subjects
 # 348 comparisons between different samples of same subjects
 
-# 213 identical 
+# 213 identical, 61.2%
 
 # 14 out of 100,000 permutation runs scores larger than or equal to 213
 # min:       139
@@ -327,7 +326,9 @@ chk_replica.py
 # Z score of 213 is 3.86
 
 
-# 81 AD subjects, 232 samples, 233 comparisons, 134 identicals 
+# 81 AD subjects, 232 samples
+# 233 comparisons, 134 identicals, 57.5%
+
 # 1530 out of 100,000 permutation runs scores larger than or equal to 134
 # min 83, max 157, mean 116.3, sdv 7.596
 # Z score of 134 is 2.33
@@ -335,7 +336,8 @@ chk_replica.py
 # 12 CTL subjects, 25 samples, 14 comparisons, 8 identicals
 # 56861 out of 100,000 permutations
 
-# 38 MCI subjects, 103 samples, 95 comparisons, 65 identicals
+# 38 MCI subjects, 103 samples, 
+# 95 comparisons, 65 identicals, 68.4%
 # 187 out of 100,000 permutation runs scores larger than or equal to 65
 # min 32, max 72, mean 49.3, std 4.80
 # Z score of 65 is 3.27
@@ -345,5 +347,6 @@ chk_replica.py
 # Didn't help batch 3. Error increased in batch 1 and batch 2 as well. 
 
 ################################################################################
-# 
+# 5 Linear regression of the expression data                                   #
 ################################################################################
+
