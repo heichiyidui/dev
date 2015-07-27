@@ -326,6 +326,9 @@ chk_replica.py
 # Z score of 213 is 3.86
 
 
+########################################
+# check the consistent of predictions on AD vs MCI vs CTL groups
+
 # 81 AD subjects, 232 samples
 # 233 comparisons, 134 identicals, 57.5%
 
@@ -349,4 +352,10 @@ chk_replica.py
 ################################################################################
 # 5 Linear regression of the expression data                                   #
 ################################################################################
+
+
+
+# linear regression of probes against AD CSF measures
+# log transformation of tTau and pTau ?
+
 
