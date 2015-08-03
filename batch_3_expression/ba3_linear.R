@@ -103,7 +103,9 @@ topTable(fit2, coef=1, adjust="BH")
 results <- decideTests(fit2)
 # not hits at all...
 
-# gene set enrichment of top 50 in http://amp.pharm.mssm.edu/Enrichr/
+########################################
+# gene set enrichment test
+# put top 50 (-1) genes into http://amp.pharm.mssm.edu/Enrichr/
 # cell type works... pretty much nothing else...
 KIR2DL3
 VCAN
