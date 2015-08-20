@@ -1369,6 +1369,9 @@ save(eset_bg_log2_rsn_regression_input,
     file = paste(out_dir, "/", project_name,
                  ".eset_bg_log2_rsn.regression_input.RData", sep = ""))
 
+
+## TODO: run ISA again here to check network outliers!
+
 ########################################
 # loop through each probe and adjust for sig batches
 pn <- 1

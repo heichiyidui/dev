@@ -103,6 +103,9 @@ topTable(fit2, coef=1, adjust="BH")
 results <- decideTests(fit2)
 # not hits at all...
 
+# TODO: check the ranking of the 50/26 probes 
+
+
 ########################################
 # gene set enrichment test
 # put top 50 (-1) genes into http://amp.pharm.mssm.edu/Enrichr/

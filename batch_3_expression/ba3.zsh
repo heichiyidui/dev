@@ -180,29 +180,10 @@ cd ba3
 # range:      65.250~776.045    10.86~104.105    35.775~367.345  
 # mean:       386               37.9             115 
 # sdv:        141               19.4             66.5
-# normal (0): 52 (<390)         62 (<35)         52 (<98) 
-# case (1):   61 (>390)         51 (>35)         61 (>98)  
+# normal (0): 61 (>390)         62 (<35)         52 (<98) 
+# case (1):   52 (<390)         51 (>35)         61 (>98)  
 
-#       2 AD  0 0 0     6 CTL  0 0 0
-#       
-#       3 AD  1 0 0     4 CTL  1 0 0
-#                       2 CTL  0 1 0
-#       2 AD  0 0 1           
-#         
-#       5 AD  0 1 1           
-#       8 AD  1 0 1           
-#       
-#      16 AD  1 1 1           
-#
-#      19 MCI 0 0 0
-#       6 MCI 0 0 1
-#       4 MCI 0 1 0
-#       6 MCI 0 1 1
-#      10 MCI 1 0 0
-#       2 MCI 1 0 1
-#       2 MCI 1 1 0
-#      16 MCI 1 1 1
-#
+
 
 # After bpnn.py single hidden unit back-propagation network training,
 # the formula is 
@@ -300,6 +281,9 @@ rjungle -f t.in  -D AD \
     #   1 1 Probable_dementia_with_Lewy_body
     #   1 1 Probable_vascular_dementia
 
+#TODO: balancing CTL in normalization? 
+#TODO: Ducth samples are trouble? 
+
 # results are put into the res/ directory
 
 # LNDADC033           9534190041_J needed to be removed
@@ -324,7 +308,6 @@ chk_replica.py
 # quartiles: 139 171 177 183 223
 
 # Z score of 213 is 3.86
-
 
 ########################################
 # check the consistent of predictions on AD vs MCI vs CTL groups
@@ -353,9 +336,10 @@ chk_replica.py
 # 5 Linear regression of the expression data                                   #
 ################################################################################
 
-
+ba3_linear.R
 
 # linear regression of probes against AD CSF measures
 # log transformation of tTau and pTau ?
+
 
 
