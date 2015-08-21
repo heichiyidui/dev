@@ -281,13 +281,46 @@ rjungle -f t.in  -D AD \
     #   1 1 Probable_dementia_with_Lewy_body
     #   1 1 Probable_vascular_dementia
 
-#TODO: balancing CTL in normalization? 
-#TODO: Ducth samples are trouble? 
+
+####################
+# Ducth samples are trouble? 
+
+    # 114 0 AD
+    #  30 0 CTL
+    #  32 0 MCI
+    #  92 1 AD
+    #  11 1 CTL
+    #   6 1 MCI
+# without Dutch samples it's not good either
+
 
 # results are put into the res/ directory
 
 # LNDADC033           9534190041_J needed to be removed
 # from Subject_Demographics_with_chip_data_for_processing_April2015_FINAL
+
+####################
+# balancing CTL in normalization ?
+balance_ctl_std.py
+
+input_files/ba3_50_probes_ctl_std.txt
+
+transpos_file input_files/ba3_50_probes_ctl_std.txt \
+    | sed 's/PROBE_ID/AD/' > t.in
+
+trans
+rjungle -f t.in   \
+    --treetype=1 \
+    -P res/ba1_train.jungle.xml \
+    --outprefix=ba1_test -v
+
+    # 123 0    AD
+    #  37 0    CTL
+    #  66 0    MCI
+    # 137 1    AD
+    #  22 1    CTL
+    #  63 1    MCI
+# balancing CTL didn't help
 
 ########################################
 # 4.3 replications 
@@ -331,6 +364,10 @@ chk_replica.py
 ########################################
 # try use the 27 probes with good detection in batch 3 only.
 # Didn't help batch 3. Error increased in batch 1 and batch 2 as well. 
+
+
+
+
 
 ################################################################################
 # 5 Linear regression of the expression data                                   #
