@@ -855,6 +855,9 @@ for (n in group_names) {
 # 3680 good probes in CASE
 # 3962 good probes in CTL
 
+# without Dutch samples
+# 3875 good probes in CASE
+# 4294 good probes in CTL
 #################################
 # writing final good probe list
 
@@ -879,6 +882,7 @@ good_probes <- paste(good_probes[, 1])
 n_good_probes <- length(good_probes)
 cat(" Total number of good probes = ", n_good_probes, "\n")
 # 3976 good probes
+# 4313 good probes without Dutch samples
 
 good_probes_annotation <- fData(eset_bg[paste(good_probes, sep = ""), ])
 head(good_probes_annotation)
@@ -1051,6 +1055,10 @@ ISAoutliers <- basic_sampleNetworkIterate(eset = eset_bg_log2_rsn_0,
 # 9534190110_C
 # 9703789027_H
 # 9703789038_J
+
+
+# without Dutch samples, 
+# stoped after 7 rounds of removal, 67 outliers, 250 samples left. 
 
 ################################################################################
 # PCA Batch Regressions                                                        #
@@ -1333,6 +1341,8 @@ for (pheno in c("PC1")) {
 #  BEST MODEL BASED ON stepAIC 
 # [ PC1 ] ~ [ tech.SampleSection + Study_ID + tech.RIN + tech.RNA_YIELD ]  
 
+# without Dutch samples, the same conclusion
+
 ################################################################################
 # Batch Correction using linear models                                         #
 ################################################################################
@@ -1369,8 +1379,6 @@ save(eset_bg_log2_rsn_regression_input,
     file = paste(out_dir, "/", project_name,
                  ".eset_bg_log2_rsn.regression_input.RData", sep = ""))
 
-
-## TODO: run ISA again here to check network outliers!
 
 ########################################
 # loop through each probe and adjust for sig batches
