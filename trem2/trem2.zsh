@@ -33,5 +33,7 @@
 # 30 probes, 111 subjects, 3330 values
 # 1392 undetected...
 
-# need more than 51 AD detections or more than 17 CTL detections
+########################################
+# 3. T test etc
+trem2.R 
 
