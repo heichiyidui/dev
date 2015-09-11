@@ -109,53 +109,31 @@ results <- decideTests(fit2)
 ########################################
 # gene set enrichment test
 # put top 50 (-1) genes into http://amp.pharm.mssm.edu/Enrichr/
-# cell type works... pretty much nothing else...
-KIR2DL3
-VCAN
-RPL12
-C20orf24
-NUDT1
-PTPRE
-RNF114
-LOC440055
-NAPSB
-FKBP5
-RNASE6
-CETN2
-LOC645688
-SLA
-LOC100132795
-RPS14
-PRMT1
-CCDC12
-TACC1
-LOC100134648
-CD1D
-ATP6V1A
-EIF3D
-LAMP2
-ARPP19
-RPL10A
-CD79B
-ITGAM
-LPP
-IL18RAP
-STAG3L2
-STK4
-PSMD4
-RPL10A
-PSMD4
-CDK2AP1
-CEBPD
-TM9SF2
-CD302
-LOC728554
-TMEM188
-HLA-DRA
-STAG3L3
-LOC729742
-NOP56
-LOC728139
-CRISPLD2
-TP53INP1
-LOC389101
+# cell type works... nothing else...
+
+# KIR2DL3 VCAN RPL12 C20orf24 NUDT1 PTPRE RNF114 LOC440055 NAPSB FKBP5 RNASE6
+# CETN2 LOC645688 SLA LOC100132795 RPS14 PRMT1 CCDC12 TACC1 LOC100134648 CD1D 
+# ATP6V1A EIF3D LAMP2 ARPP19 RPL10A CD79B ITGAM LPP IL18RAP STAG3L2 STK4 PSMD4 
+# RPL10A PSMD4 CDK2AP1 CEBPD TM9SF2 CD302 LOC728554 TMEM188 HLA-DRA STAG3L3 
+# LOC729742 NOP56 LOC728139 CRISPLD2 TP53INP1 LOC389101
+
+################################################################################
+# regression on CSF measures 
+
+# Load libraries
+library(lumi)
+library(annotate)
+library(lumiHumanAll.db)
+library(affy)
+library(cluster)
+library(limma)
+library(lumiHumanIDMapping)
+
+source("code/sjnewhouse_misc_R.R")
+
+#
+load('ba3/BA3_lumi_processing_t_out/eset_final/BA3.eset_final.RData')
+
+eset_final
+
+
