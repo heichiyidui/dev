@@ -109,3 +109,45 @@ res=t.test(exprs$FGF.basic ~ is_AD); res$p.value
 # IL.6      0.9908608
 
 
+########################################
+# T test TREM2- vs 140G>A_R47H_Hardy
+
+pheno$TREM2._variant
+f1 <-  factor(pheno$TREM2._variant,levels=c('TREM2-','140G>A_R47H_Hardy'))
+
+res=t.test(exprs$FGF.basic ~ f1 ) ; res$p.value 
+# ... 
+# probe     p.value 
+# IFN.y     0.0214368
+# IL.17     0.04438396
+# G.CSF     0.04599267
+# VEGF      0.06093905
+# MCP.1     0.07134537
+# IFN.a     0.07585516
+# IL.8      0.08110076
+# IL.7      0.09054079
+# EGF       0.09628497
+# IL.5      0.1255056
+# GM.CSF    0.1329183
+# MIP.1a    0.1342651
+# TNF.a     0.1524458
+# IL.4      0.1718852
+# IL.6      0.1830897
+# IL.2R     0.2394553
+# Eotaxin   0.2526601
+# FGF.basic 0.2540692
+# IL.13     0.2630358
+# MIP.1b    0.295966
+# IL.15     0.3019291
+# IL.10     0.3084335
+# IL.1b     0.3298444
+# IP.10     0.3403181
+# IL.1RA    0.3793772
+# MIG       0.3945722
+# HGF       0.4066752
+# IL.12     0.4329994
+# IL.2      0.4438556
+# Rantes    0.5280287
+
+# Slightly better. Still not significant after multiple teset correction.
+################################################################################

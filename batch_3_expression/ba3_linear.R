@@ -81,7 +81,8 @@ pData(eset)$GROUPS = c(
  "CTL","AD" ,"AD" ,"AD" ,"AD" ,"AD" ,"AD" ,"MCI","AD" ,"AD" ,"MCI","MCI",
  "MCI","AD" ,"AD" ,"CTL","MCI" )
 
-
+#######################################
+# all against all linear regression
 f <- factor(pData(eset)$GROUPS, levels=c("AD","MCI","CTL"))
 design <- model.matrix(~0+f)
 colnames(design) <- c("AD","MCI","CTL")
@@ -103,6 +104,7 @@ topTable(fit2, coef=1, adjust="BH")
 results <- decideTests(fit2)
 # not hits at all...
 
+
 ########################################
 # gene set enrichment test
 # put top 50 (-1) genes into http://amp.pharm.mssm.edu/Enrichr/
@@ -113,6 +115,57 @@ results <- decideTests(fit2)
 # ATP6V1A EIF3D LAMP2 ARPP19 RPL10A CD79B ITGAM LPP IL18RAP STAG3L2 STK4 PSMD4 
 # RPL10A PSMD4 CDK2AP1 CEBPD TM9SF2 CD302 LOC728554 TMEM188 HLA-DRA STAG3L3 
 # LOC729742 NOP56 LOC728139 CRISPLD2 TP53INP1 LOC389101
+
+########################################
+# control vs AD linear regression
+
+f <- factor(pData(eset)$GROUPS, levels=c("AD","MCI","CTL"))
+design <- model.matrix(~0+f)
+colnames(design) <- c("AD","MCI","CTL")
+
+fit <- lmFit(eset, design)
+contrast.matrix <- makeContrasts(CTL-AD, levels=design)
+
+fit2 <- contrasts.fit(fit, contrast.matrix)
+fit2 <- eBayes(fit2)
+
+# 
+topTable(fit2, coef=1, adjust="BH")
+#                         logFC   AveExpr         t      P.Value adj.P.Val
+# KBVEl_OkmXbfQf_59c  1.0818860  7.416249  3.914995 0.0001043906 0.1037568
+# cXS4CS030k.1JXMlFU  0.1679272 11.643231  3.792217 0.0001696494 0.1037568
+# fNrt557tVK37urpEjc -0.1784256  7.471547 -3.761283 0.0001913390 0.1037568
+# B4rSS.s4hMn11PlVHU -0.1062970 10.486157 -3.760960 0.0001915784 0.1037568
+# 02tiuhr_lsCu6c8E64  0.1345540 10.521494  3.708073 0.0002348803 0.1037568
+# Q0R16neBERlJ13eCYc -0.3762454  9.920894 -3.700400 0.0002418800 0.1037568
+# lc17u5c4j6uS7Ne8nU -0.1857746  7.564012 -3.697792 0.0002443030 0.1037568
+# 3fSd576nru6EgoOgJQ -0.3010411  9.953082 -3.684038 0.0002574673 0.1037568
+# feTnq95EnpdWb6kE_c -0.2334693  8.360775 -3.669752 0.0002718438 0.1037568
+# QS_tNBz.V_Hnteo6Xk -0.1872415  8.342425 -3.619981 0.0003280508 0.1037568
+
+# no significant hits
+
+results <- decideTests(fit2)
+# not hits at all...
+
+#######################################
+# gene set enrichment at http://amp.pharm.mssm.edu/Enrichr
+
+# top 50 probes, top 50 genes 
+
+# One hit with GO Biological Process
+
+# Term:
+# adaptive immune response based on somatic recombination of immune receptors 
+# built from immunoglobulin superfamily domains (GO:0002460)
+
+# Overlap	P-value	Adjusted P-value	Z-score	Combined Score	Genes
+# 4/57	0.00002438	0.0217	-2.162	8.28	BCL6;SLC11A1;CTSH;TLR8
+
+# Several hits with GO Cellular Component
+# Term	Overlap	P-value	Adjusted P-value	
+# late endosome membrane (GO:0031902)	4/29	0.0000022011	0.0002971
+# endosome membrane (GO:0010008)	6/175	0.00001137	0.000767
 
 ################################################################################
 # regression on CSF measures                                                   #
