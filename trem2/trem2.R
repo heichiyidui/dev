@@ -3,6 +3,13 @@ source('../batch_3_expression/code/sjnewhouse_misc_R.R')
 # read the protein activity data 
 exprs   <- read.csv("t_exprs.csv", header = TRUE)
 
+# basic dendrogram
+hc = hclust(dist(t(exprs)))
+pdf('dendrogram')
+plot(hc)
+dev.off()
+
+
 # histogram 
 pdf('hist.pdf',width=12)
 hist(exprs)

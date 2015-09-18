@@ -14,9 +14,10 @@ library(lumiHumanIDMapping)
 source("code/sjnewhouse_misc_R.R")
 
 #
-load('ba3/BA3_lumi_processing_t_out/eset_final/BA3.eset_final.RData')
+load(
+'ba3/BA3_lumi_processing_t_out/eset_bg_log2_rsn/BA3.eset_bg_log2_rsn_adj.RData')
 
-eset_final
+eset_bg_log2_rsn_adj
 
 # using Subject_Demographics_with_chip_data_for_processing_April2015_FINAL
 # column I and S 
@@ -38,7 +39,7 @@ samples_to_remove=c(
 "9534190085_H","9534190085_L","9534190110_D","9534190110_F","9534190110_H",
 "9534190112_L","9703789038_A")
 
-eset=removeSamples_eset_lumi(eset_final,samples_to_remove)
+eset=removeSamples_eset_lumi(eset_bg_log2_rsn_adj,samples_to_remove)
 # 449 samples, 3976 probes
 
 pData(eset)$GROUPS = c(
@@ -130,6 +131,8 @@ fit2 <- contrasts.fit(fit, contrast.matrix)
 fit2 <- eBayes(fit2)
 
 # 
+# a = topTable(fit2, coef=1, adjust="BH",number=47231)
+# write.csv(a,file='CTL_vs_AD.csv')
 topTable(fit2, coef=1, adjust="BH")
 #                         logFC   AveExpr         t      P.Value adj.P.Val
 # KBVEl_OkmXbfQf_59c  1.0818860  7.416249  3.914995 0.0001043906 0.1037568
@@ -292,6 +295,7 @@ design <- model.matrix(~f)
 fit <- lmFit(eset, design)
 fit <- eBayes(fit)
 topTable(fit,  adjust="BH")
+
 
 # nothing significant
 
