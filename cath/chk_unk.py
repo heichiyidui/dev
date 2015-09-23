@@ -17,16 +17,8 @@ for id in domain_ids:
     for line in ifile:
         if line[17:20] not in STA_AA_NAME:
             unk_found_ls.append(id)
+            print(line[:-1])
             print(id)
             break;
     ifile.close()
-
-for id in unk_found_ls:
-    ifile=open('dompdb/'+id)
-    ofile=open('pdb2/'+id,'w')
-    for line in ifile:
-        if line[17:20]  in STA_AA_NAME:
-            ofile.write(line)
-    ifile.close()
-    ofile.close()
 

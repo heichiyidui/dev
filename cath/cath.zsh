@@ -24,14 +24,14 @@
 # 1.1 get the pdb and index files
 
 # the pdb files, 	01-Jul-2013 13:55 	376M
-wget http://release.cathdb.info/v4.0.0/CathDomainPdb.S35.tgz
+wget http://release.cathdb.info/v4.1.0/CathDomainPdb.S35.tgz
 tar xvzf CathDomainPdb.S35.tgz
 rm CathDomainPdb.S35.tgz
-# 16933 domain files in the dompdb directory
+# 21155 domain files in the dompdb directory
 
 # the index file
 mkdir index
-wget http://release.cathdb.info/v4.0.0/CathDomainList.S35
+wget http://release.cathdb.info/v4.1.0/CathDomainList.S35
 mv CathDomainList.S35 index/
 
 awk '{print $1}' index/CathDomainList.S35 | sort  > t1.ls
@@ -40,31 +40,30 @@ diff t1.ls t2.ls
 # all domains have corresponding CATH classification
 
 awk '{print $2 "." $3 "." $4 "." $5}' index/CathDomainList.S35| sort | uniq | wc
-# 2738 H classes 
+# 2737 H classes 
 
 ########################################
 # 1.2 remove the transmembrane domains 
 # The page http://www.cathdb.info/sfam/membrane/ was long gone... 
-# Searching keyword 'membrane' on CATH gives 570 H families. Way too much. 
+# Searching keyword 'membrane' on CATH gives 348 H families. Way too much. 
 
 # Search 'membrane' from the CATH domain description file.
 # Searching 'transmembrane' won't pick enough. 
 
-wget http://release.cathdb.info/v4.0.0/CathDomainDescriptionFile
+wget http://release.cathdb.info/v4.1.0/CathDomainDescriptionFile
 grab_description.py | grep membrane | awk '{print $1}' > t1.ls 
 rm CathDomainDescriptionFile
+wc t1.ls 
+# 308999 domains, 5692 domains with 'membrane' in NAME or SOURCE. 
+# 316 of them in CATH s35
 
-awk '{print $1}' index/CathDomainList.S35 > t2.ls 
-grab -f t1.ls t2.ls > t.ls
-# 275 domains to remove 
-
-grab -v -f t.ls index/CathDomainList.S35 > t.out
+grab -f t1.ls index/CathDomainList.S35 | awk '{print "rm dompdb/" $1}' > t.out
+source t.out 
+grab -f t1.ls -v index/CathDomainList.S35  > t.out
 mv t.out index/CathDomainList.S35
+# remove the 316 domains
 
-awk '{print "rm dompdb/" $1}' t.ls > t.sh 
-source t.sh 
-
-# 16658 domains left 
+# 20839 domains left 
 
 ################################################################################
 # 2. QC the CATH files                                                         #
@@ -72,11 +71,23 @@ source t.sh
 
 ########################################
 # 2.1 check residue names are of the standard types 
-# UNK, PCA, ASX etc residues are removed.
+# UNK, PCA, ASX etc residues are to be fixed.
 
-mkdir pdb2
+chk_unk.py
 
-rmUnk.py
+# 9 domains 
+# use psiblast for them.
+# 3e2oA02 seq lptXysl -> lptDysl 
+# 3ze9B00 SEC -> CYS
+# 3tguV00 too small, too many UNK, too many breaks, remove 
+# 3jxvA02 VLKEX -> VLKEG
+# 1nthA00 MGVO  -> MGVK 
+# 2yhxA02 too many UNK, remove
+# 1kqfA03 SEC -> CYS
+# 2iv2X03 SEC -> CYS
+# 2yhxA03 too many UNK, remove 
+
+
 # 4 pdb domain files need to be fixed ... 
 # using psiblast for it. 
 # 3e2oA02 seq lptXysl -> lptDysl 
@@ -84,15 +95,13 @@ rmUnk.py
 # 3ed7A00 seq LXXXXPPHG -> -----PPHG
 # 2yhxA03 too many UNK, remove 
 
-rm -r pdb2 
-rm dompdb/2yhxA03
-grep -v 2yhxA03 index/CathDomainList.S35 > t.out
-mv t.out index/CathDomainList.S35
+# 20836 domains left
 
 ########################################
-# 2.2 check the atoms with negative occupancy
+# 2.2 check atoms with negative occupancy
 
-chkOccu.py
+chk_occu.py
+
 # nothing found this time 
 
 ########################################

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3 
 
 ifile=open('CathDomainDescriptionFile')
-membrane_ids=set([])
+
 for line in ifile:
     if line.startswith('DOMAIN'):
         id=line.split()[1]
