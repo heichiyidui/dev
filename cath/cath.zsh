@@ -107,35 +107,60 @@ chk_occu.py
 ########################################
 # 2.3 multiple locations of the same atom 
 
-chkMultiLoc.py > t.out 
-sort -g -k 2  t.out > t.in
-# 916 domains needed to be fixed. 
-# 152 of them have more that 10 residues with multiloc atoms 
+chk_multiloc.py > t.in
+
+# 1304 domains with multiple locations of the same atoms 
+
+# remove 218 domains with more than 10 atoms with multiloc
+# 20618 domains left
+
+chk_multiloc.py > t.in
+
+# 1086 domains to be fixed now. 
 
 # download the original PDB files in case...
 mkdir rcsb 
 awk '{print "wget http://www.rcsb.org/pdb/files/" substr($1,1,4) ".pdb"}' t.in \
     > t.out 
 sort t.out | uniq > t.sh 
-# 769 pdb files to be downloaded from RCSB 
+# 880 pdb files to be downloaded from RCSB 
 cd rcsb 
 source ../t.sh 
-for ifile in *.pdb; do grep "^ATOM " $ifile > t.out; mv t.out $ifile ; done
+
+for ifile in *.pdb; do 
+    grep "^ATOM " $ifile > t.out; mv t.out $ifile ; 
+done
+
 cd ..
 
 # for atoms with multiloc atoms, the smallest altCode wins.
 mkdir pdb2 
-rmMultiLoc.py
+rm_multiloc.py
 mv pdb2/* dompdb/
 rm -r pdb2 
 
 ########################################
-# 2.4 check the atoms are not too close to each other
+# 2.4 domain size
+
+# check domain sizes
+rm t2.out 
+for ifile in dompdb/* ; do 
+    echo $ifile >> t2.out ; 
+    grep " CA " $ifile | wc  >> t2.out ; 
+done
+
+# then remove 748 domains with > 500 or < 50 residues
+# 19870 domains left
+
+########################################
+# 2.5 check the atoms are not too close to each other
 
 ls dompdb > t.ls 
-chkAtomDis.py t.ls > t.in
+chk_atom_dis.py t.ls > t.in
+# it takes some 80 hours. Use the C++ version
 
-# it takes some 80 hours. better do it with a cluster. 
+g++ -O4 chk_atom_dis.cpp 
+
 
 # 30 files to fix. 
 
