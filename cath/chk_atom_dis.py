@@ -33,7 +33,7 @@ for id in domain_ids:
             dis_ij = numpy.linalg.norm(atom_xyzs[i]-atom_xyzs[j])
             if dis_ij < 0.5 :
                 print(atom_lines[i]+atom_lines[j],end='')
-                print('distant:','%6.3f' % dis_ij)
+                print('distance: ','%6.3f' % dis_ij)
                 has_close_atoms=True
     
     if has_close_atoms:

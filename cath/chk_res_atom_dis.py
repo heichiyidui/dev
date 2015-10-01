@@ -1,9 +1,10 @@
 #!/usr/bin/env python3 
-##!/home/klinbrc/bin/python3
-import sys
 
-package_dir_a='/home/klinbrc/.local/lib/python3.2/site-packages'
-sys.path.insert(0, package_dir_a)
+##!/home/klinbrc/bin/python3
+# package_dir_a='/home/klinbrc/.local/lib/python3.2/site-packages'
+# sys.path.insert(0, package_dir_a)
+
+import sys
 import numpy
 
 ifile=open(sys.argv[1])

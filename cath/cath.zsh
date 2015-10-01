@@ -160,58 +160,88 @@ chk_atom_dis.py t.ls > t.in
 # it takes some 80 hours. Use the C++ version
 
 g++ -O4 chk_atom_dis.cpp 
+a.out t.ls > t.in 
+# it takes about 0.8 hours. 
 
-
-# 30 files to fix. 
+# 27 files to fix. 
+# removed 4 domains: 2es7A00 1gjjA00 3zxaC01 2h41A00
 
 ########################################
-# 2.5 check the alternative residue names with the same chain number id
+# 2.6 check the alternative residue names with the same chain number id
 
 ls dompdb > t.ls  
-chkResName.py t.ls 
+chk_res_name.py t.ls 
 # nothing found 
 
 ########################################
-# 2.6 check atoms in the same residue should be close to each other
+# 2.7 check atoms in the same residue should be close to each other
 
-chkResDis.py t.ls 
-# slow. used cluster. 
-# two domains fixed . 
-# OXT GLU A 135 in 1dqgA00
-# OE1 GLN B 240 in 2vqeB01
+chk_res_atom_dis.py t.ls 
+
+# slow. used cluster or the C++ version
+g++ -O4 chk_res_atom_dis.cpp
+a.out t.ls > t.out 
+# mostly are HH22 
 
 ########################################
-# 2.7 check residues (missing CA, N or C atoms)
+# 2.8 check residues (missing CA, N or C atoms)
 
 mkdir pdb2 
 chkCANC.py t.ls > t.out 
-# 259 out of 16657 domains have some broken residues
+
+# 270 of 19866 domains have missing CA, N or C residues
+
 # remove the two domains with many breaks
 # 1epaA00 160 9 0 9 9
 # 1ml9A00 260 10 0 10 10
 
 mv pdb2/* dompdb/
 rm -r pdb2
-# 16655 domains left
+
+# 19864 domains left
 
 ########################################
-# 2.8 check for distances between CA and N, CA and C within the same residue
+# 2.9 check for distances between CA and N, CA and C within the same residue
 
+ls dompdb > t.ls
 chkResBrk.py t.ls > t.out
-# 
-# 6 domains to be fixed
+
+# 8 domains fixed
 # mostly are terminal residues or alternatively located atoms 
 
-########################################
-# 2.9 check for segments and breaks of the mainchain. 
+awk '{print $2 "_" $3 "_" $4 "_" $5 }' index/CathDomainList.S35 \
+    | sort | uniq | wc
+# 2515 H classes so far
+# 19864 domains
 
-#    The distance between the C and the N atoms of the next residue is mostly
-#    between 0 and 2.5A (99%) (jumped from 1.67 to 2.68). 
-#    That's why I use 2.5A as a threshold here. 
+########################################
+# 2.10 check for segments and breaks of the mainchain. 
+
+#  The distance between the C atom and the N atom of the next residue is mostly
+#  between 0 and 2.5A (99%) 
+#  I use 2.5A as the threshold here.
     
-chkChainBrk.py t.ls > t.out 
-grep file t.out | awk '{print $2,$3,$4,$4/$3}' > t.in 
-awk '{print $3}' t.in | sort -g | uniq -c
+ls dompdb > t.ls
+chk_seg_size.py t.ls > t.out 
+awk '{print $3}' t.out | sort -g | uniq -c
+
+# 10699 domains are fine.
+# 4140 domains have 1 break.
+# 1844 have 2.
+# 3181 domains have 3 or more. 
+
+
+
+
+awk '{if ($3>2) print $1}' t.in > t.ls
+# 3181 domains to remove
+grab -f t.ls -v index/CathDomainList.S35 \
+    | awk '{print $2 "_" $3 "_" $4 "_" $5 }' | sort | uniq | wc
+# 16683 domains left, 2331 H classes
+
+
+
+
 awk '{print $1,$2 "_" $3 "_" $4 "_" $5 "_" $6}' index/domain.ls > class.in
 
 # 16655 domains, 9357 are fine. 

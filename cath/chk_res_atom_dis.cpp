@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     string ts,domName;
     PdbAtom atom;
     for (;index>>domName;){
-        string domFileName="pdb/"+domName;
+        string domFileName="dompdb/"+domName;
         getline(index,ts);
         
         vector <PdbAtom> atoms;

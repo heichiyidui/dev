@@ -8,6 +8,7 @@ wget -r -nd -A "nr.??.tar.gz" ftp://ftp.ncbi.nlm.nih.gov/blast/db
 # 17 files at 11/05/2014
 # 26 files at 06/10/2014
 # 28 files at 10/01/2015 
+# 40 files at 30/09/2015 
 
 for nfile in nr.??.tar.gz; do 
     tar xvzf $nfile
