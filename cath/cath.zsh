@@ -205,9 +205,7 @@ rm -r pdb2
 
 ls dompdb > t.ls
 chkResBrk.py t.ls > t.out
-
-# 8 domains fixed
-# mostly are terminal residues or alternatively located atoms 
+# distances should be less than 2.5A and more than 1.0A
 
 awk '{print $2 "_" $3 "_" $4 "_" $5 }' index/CathDomainList.S35 \
     | sort | uniq | wc
@@ -230,79 +228,28 @@ awk '{print $3}' t.out | sort -g | uniq -c
 # 1844 have 2.
 # 3181 domains have 3 or more. 
 
+# 2.18 segments per domain on average
+# mean segment length 70, median 50
 
+# remove domains with segments less than 20 residues
+# 14776 domains left.
+# removed 5088 domains. 
 
-
-awk '{if ($3>2) print $1}' t.in > t.ls
-# 3181 domains to remove
-grab -f t.ls -v index/CathDomainList.S35 \
-    | awk '{print $2 "_" $3 "_" $4 "_" $5 }' | sort | uniq | wc
-# 16683 domains left, 2331 H classes
-
-
-
-
-awk '{print $1,$2 "_" $3 "_" $4 "_" $5 "_" $6}' index/domain.ls > class.in
-
-# 16655 domains, 9357 are fine. 
-# 7298 have breaks
-# of which 3311 have 1, 1473 have 2, 818 have 3, 1696 have 4 or more
-
-grep file t.out | awk '{if ($4/$3 > 0.05) print $0}' | wc
-# 259 domains have breaks number larger then 5% of domain length. 
-grep file t.out | awk '{if ($4/$3 > 0.06) print $0}' | wc
-# 99  domains have breaks number larger then 6% of domain length. 
-grep file t.out | awk '{if ($4/$3 > 0.08) print $0}' | wc 
-# 32  domains have breaks number larger then 8% of domain length. 
-
-# remove the 99 domains 
-grep file t.out | awk '{if ($4/$3 > 0.06) print $2}' | \
-    awk '{print "rm dompdb/" $1}' > t.sh 
-source t.sh 
-rm t.sh 
-ls dompdb > t.ls 
-grab -f t.ls index/CathDomainList.S35 > t2.out
-mv t2.out index/CathDomainList.S35
-# 16556 domains left 
-
-awk '{print $2 "_" $3 "_" $4 "_" $5 }' index/CathDomainList.S35| \
-    sort | uniq | wc   
-# of the 2700 H families, 21 are removed, 2679 left 
+awk '{print  $2 "_" $3 "_" $4 "_" $5 }'  index/CathDomainList.S35 \
+    | sort | uniq -c  | wc
+# 2191 H classes 
 
 ########################################
-# 2.10 check the altloc of C, N and CA atoms of the same residue 
+# 2.11 check the altloc of C, N and CA atoms of the same residue 
 
+ls dompdb > t.ls
 chkCNCAaltloc.py t.ls > t.out
-# 34 domains to be fixed
 
-chkResAltLoc.py t.ls > t.out
-# 205 domains have residues with atoms of different altloc codes
-mkdir pdb2
-grep pdb2 t.out | awk '{print $(NF-1)}' | \
-    awk '{print "cp dompdb/" substr($1,6,7), $1}' | sort | uniq > t.sh
-source t.sh
+# 25 domains to be fixed
 
-# download the 190 corresponding pdb files from rscb 
-# http://www.rcsb.org/pdb/files/1234.pdb
-
-grep "nedit rcsb" t.out | \
-    awk '{print "wget  http://www.rcsb.org/pdb/files/" substr($2,6,8)}' | \
-    sort | uniq > t.sh 
-mkdir rcsb 
-cd rcsb
-source ../t.sh 
-for ifile in *.pdb; do grep "^ATOM " $ifile > t.out; mv t.out $ifile ; done
-cd ..
-
-# lots of 'HA A' ... '1.00'
-# some    'HB2A' or 'HB3A' ... '1.00'
-
-# after manually fixed the 205 domains 
-mv pdb2/* dompdb/
-rm -r pdb2 rcsb 
 
 ########################################
-# 2.11 mapping residue number 
+# 2.12 mapping residue number 
 
 # The QC is almost done here. 
 
@@ -310,36 +257,29 @@ rm -r pdb2 rcsb
 # chain id changing and alt_loc are troubles to programs like STRIDE and SAP. 
 # Give them the uniformed numbering without insert or chain id or altloc.
 # 
-# However, need to keep a back up copy of this mapping, so that we can get the 
-# real residue numbering back if we want.
 
-mkdir res_num_map
 ls dompdb > t.ls 
-dumpResId.py t.ls 
-# pickle dump the residue id mapping
-# the residure id mapping is aslo saved into 
-index/cath_s35.res_num_map
+res_id_map.py t.ls > index/cath_s35.res_num_map
+# save a copy of the residue id mapping 
 
 mkdir pdb2 
 
 chgResId.py t.ls
 rm -r dompdb 
 mv pdb2 dompdb 
-
-# 16556 domains, 2679 H classes left 
-# of the 2679 H classes, 1252 have 1 domain, 460 have 2, 242 3 etc.
-# class 2_60_40_10 has 441 member domains. 
+# 14776 domains, 2191 H classes left. 
 
 ################################################################################
 # 3. blast the sequences                                                       #
 ################################################################################
 
-# We need to blast the domain sequences to get PSSMs and fill the gaps between 
-# break points.
+# We need to blast the domain sequences to get PSSMs and multiple sequence 
+# alignments. 
 
 #######################################
 # 3.1 get the initial sequences
 mkdir seq   
+ls dompdb > t.ls
 writeSeq.py t.ls
 
 #######################################
@@ -358,12 +298,56 @@ nrformat.zsh
 # pfilt.c is from David Jones 
 
 cd ../cath 
-#######################################
-# 3.3 initial blast of sequences
 
-# download kalign from http://msa.sbc.su.se/downloads/kalign/current.tar.gz
-# version 2.04
-# install to ~/bin
+#######################################
+# 3.3 get PSSMs 
+
+mkdir pssm 
+
+# try run blast locally? 
+ls seq > t.ls 
+awk '{print "~/bin/psiblast -db ../nr/nr -num_iterations 2 -query seq/" $1\
+     " -out_ascii_pssm pssm/" $1}' t.ls > t.out 
+# 10 mins a job, about 50 or 100 days to finish 14776 jobs on my computer. 
+
+init_blast.py t.ls
+# 100 sequences done in 8.5 hours. Not too bad. But that's only the first round.
+# To get PSSMs, at least two iterations. 
+# Possible to run on the cluster. But I don't have the cluster access now. 
+
+################################################################################
+# now we are in trouble...                                                     #
+################################################################################
+
+# try remote ncbi blast 
+mkdir bl_out 
+ls seq > t.ls 
+awk '{print "~/bin/blastp -db nr -query seq/" $1 " -out bl_out/" $1 \
+    " -max_target_seqs 5000 " \
+    " -outfmt \"7 qstart qend qseq sseq \" -remote"}' t.ls > t.sh 
+
+# 20 mins per sequence 
+
+# Better to try batch searching. 5 sequences in a query file. 
+# Too many sequences leads to SIGXCPU (24) error. NCBI wants jobs to be finished
+# in less than one combined CPU time. 
+
+ls bl_in > t.ls 
+awk '{print "~/bin/blastp -db nr -query bl_in/" $1 " -out bl_out/" $1 \
+    " -max_target_seqs 5000 " \
+    " -outfmt \"7 qstart qend qseq sseq \" -remote"}' t.ls > t.sh 
+
+# submit 5 jobs simultaneously. 
+# 1.1 mins per sequences. About 1300 sequences per day. 
+# Need 12 Days to finish 14776 sequences. 
+
+# Run psiblast and get PSSM from NCBI is problematic. 
+# The " -num_iterations " option is not compatible with "-remote "
+# The PSSM from NCBI is different and got '-I -I ... -I' lines. 
+
+################################################################################
+
+
 
 init_blast.py t.ls
 # sometime got 
