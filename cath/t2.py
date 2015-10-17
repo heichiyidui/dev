@@ -1,28 +1,16 @@
 #!/usr/bin/env python3 
+import sys 
 
-PATTERN_WID = 5
+ifile=open(sys.argv[1])
 
-ofile_name='t00.dat'
-ofile=open(ofile_name,'w')
-for i in range(PATTERN_WID):
-    for j in range(PATTERN_WID):
-        ofile.write('0 ')
-    ofile.write('\n')
-ofile.close()
-
-ifile=open('t.in')
-clu_num=0
 for line in ifile:
-    clu_num +=1
-    ofile_name = 't%02d.dat' % clu_num
-    cols=line.split()
+    if line.startswith('# Query:'):
+        dom_id =  line.split()[2]
+        ifile.readline()
+        ifile.readline()
+        ifile.readline()
+        line = ifile.readline()
+        no_hits = line.split()[1]
+        print(dom_id,no_hits)
     
-    ofile=open(ofile_name,'w')
-    col_num = 0
-    for i in range(PATTERN_WID):
-        for j in range(PATTERN_WID):
-            ofile.write(cols[col_num]+' ')
-            col_num += 1
-        ofile.write('\n')
-    ofile.close()
 ifile.close()

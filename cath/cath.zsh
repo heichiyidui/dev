@@ -344,8 +344,21 @@ awk '{print "~/bin/blastp -db nr -query bl_in/" $1 " -out bl_out/" $1 \
 # Run psiblast and get PSSM from NCBI is problematic. 
 # The " -num_iterations " option is not compatible with "-remote "
 # The PSSM from NCBI is different and got '-I -I ... -I' lines. 
+# It's likely that the PSSM direct from NCBI is using the query sequence only. 
 
 ################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
