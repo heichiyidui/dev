@@ -215,15 +215,15 @@ awk '{print $2 "_" $3 "_" $4 "_" $5 }' index/CathDomainList.S35 \
 ########################################
 # 2.10 check for segments and breaks of the mainchain. 
 
-#  The distance between the C atom and the N atom of the next residue is mostly
-#  between 0 and 2.5A (99%) 
+#  The distance between the C atom and the N atom of the next residue 
+#  is mostly (>99%) between 0 and 2.5A.
 #  I use 2.5A as the threshold here.
-    
+
 ls dompdb > t.ls
 chk_seg_size.py t.ls > t.out 
 awk '{print $3}' t.out | sort -g | uniq -c
 
-# 10699 domains are fine.
+# 10699 domains are single-segment-domains.
 # 4140 domains have 1 break.
 # 1844 have 2.
 # 3181 domains have 3 or more. 
@@ -245,8 +245,8 @@ awk '{print  $2 "_" $3 "_" $4 "_" $5 }'  index/CathDomainList.S35 \
 ls dompdb > t.ls
 chkCNCAaltloc.py t.ls > t.out
 
-# 25 domains to be fixed
-
+# Want them to be of the same altloc. 
+# 25 domains to be fixed. 
 
 ########################################
 # 2.12 mapping residue number 
@@ -348,6 +348,16 @@ awk '{print "~/bin/blastp -db nr -query bl_in/" $1 " -out bl_out/" $1 \
 
 ################################################################################
 
+# All sequences have hits, often around 5000. 
+# We asked for '-max_target_seqs 5000', but sometime we got more than 5000 hits. 
+# Those hits are often very duplicated. 
+# All aligned segments have capital letters. In addition to 'B', 'Z' and 'X',
+# some are 'J', 'U' and 'O'. 
+
+# De-duplication. Stack the pairwise alignments together. 
+# Randomly select 5000 hits if more are left. 
+
+mkdir bl_out2 
 
 
 
