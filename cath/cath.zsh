@@ -330,7 +330,7 @@ awk '{print "~/bin/blastp -db nr -query seq/" $1 " -out bl_out/" $1 \
 
 # Better to try batch searching. 5 sequences in a query file. 
 # Too many sequences leads to SIGXCPU (24) error. NCBI wants jobs to be finished
-# in less than one combined CPU time. 
+# in less than one hour (?) combined CPU time. 
 
 ls bl_in > t.ls 
 awk '{print "~/bin/blastp -db nr -query bl_in/" $1 " -out bl_out/" $1 \
@@ -350,17 +350,21 @@ awk '{print "~/bin/blastp -db nr -query bl_in/" $1 " -out bl_out/" $1 \
 
 # All sequences have hits, often around 5000. 
 # We asked for '-max_target_seqs 5000', but sometime we got more than 5000 hits. 
-# Those hits are often very duplicated. 
+# In these cases, the hits are often very duplicated. 
 # All aligned segments have capital letters. In addition to 'B', 'Z' and 'X',
 # some are 'J', 'U' and 'O'. 
 
 # De-duplication. Stack the pairwise alignments together. 
-# Randomly select 5000 hits if more are left. 
+# Replaced leading and ending '-'s with '.'s. 
+# Top 5000 hits if more are found.
 
 mkdir bl_out2 
 
+parse_blast_out.py
 
-
+# 14776 domains blasted. 2237849 residues. 
+# The average residue reading depth is 2311. 
+# 365 residues reading depths are zero. 
 
 
 

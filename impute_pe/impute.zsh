@@ -63,8 +63,8 @@ ifile.close()
 t1.py > t.out
 mv t.out pe19.bim 
 
-# because of the Implicit order changed from re-mapping 
-# rewrite the files
+# because of the implicit order changed from re-mapping 
+# need to rewrite the files
 plink --noweb --bfile pe19 --make-bed --out pe19
 
 # check SNPs sorted by position
@@ -661,7 +661,7 @@ for fam in pe24_??.fam; do
 done
 
 ################################################################################
-# 5. assoc
+# 5. plink assoc
 
 chr=$1
 
@@ -678,3 +678,6 @@ grep -v CHR t.out | grep -v MERGED_DEL > t.end
 cat t.head t.end > pe24_log.assoc
 R --vanilla --slave --args table=pe24_log.assoc fig=pe24 < ~/bin/qqman.r 
 
+################################################################################
+# the end                                                                      #
+################################################################################
