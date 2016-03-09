@@ -82,7 +82,8 @@ qq.plot <- function(x, alpha=0.05, datatype="pvalue", scaletype="pvalue", df=1,
   if (nmissing>0)
     warning(nmissing, " missing values (excluded)")
   if ((nzero>0)&(datatype=="pvalue")) {
-    warning(nzero, " zero values (plotted with same value as lowest non-zero p-value)")
+    warning(nzero, 
+    "zero values (plotted with same value as lowest non-zero p-value)")
     x[x==0] <- min(x[x>0])
   }
   if (datatype=="stdnorm") {df=0; scaletype="ordinal"}
@@ -111,13 +112,13 @@ qq.plot <- function(x, alpha=0.05, datatype="pvalue", scaletype="pvalue", df=1,
     if (datatype=="pvalue") O <- -2*log(sort(x)[a2])
   } else {
     # invnorm-transformed  expected U(0,1) order statistics (high scores first)
-    if (datatype=="stdnorm") E <- qnorm(a2/(n+1),lower.tail=FALSE)   
+    if (datatype=="stdnorm") E <- qnorm(a2/(n+1),lower.tail=FALSE) 
     
     # invchisq-transformed expected U(0,1) order statistics (high scores first)
-    if (datatype!="stdnorm") E <- qchisq(a2/(n+1),df=df,lower.tail=FALSE)   
+    if (datatype!="stdnorm") E <- qchisq(a2/(n+1),df=df,lower.tail=FALSE) 
     
     #Take lowest pvalues, transform to chisq (highest interesting values first)
-    if (datatype=="pvalue") O <- qchisq(sort(x)[a2],df=df,lower.tail=FALSE)   
+    if (datatype=="pvalue") O <- qchisq(sort(x)[a2],df=df,lower.tail=FALSE) 
   }
   # Sort x (chisq or norm), highest (most interesting) values first
   if (datatype!="pvalue") O <- sort(x, decreasing=TRUE)[a2] 

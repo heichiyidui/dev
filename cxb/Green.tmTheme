@@ -17,16 +17,16 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<dict>
 				<key>background</key>
 				<string>#E8F5E8</string>
+				<key>foreground</key>
+				<string>#2300FF</string>
 				<key>caret</key>
 				<string>#FF8000</string>
-				<key>foreground</key>
-				<string>#3E3EC0</string>
 				<key>invisibles</key>
 				<string>#EAE3C9</string>
 				<key>lineHighlight</key>
 				<string>#DCF2C3</string>
 				<key>selection</key>
-				<string>#C7C7EB</string>
+				<string>#F5F2B3</string>
 			</dict>
 		</dict>
 		<dict>
@@ -37,9 +37,9 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>background</key>
-				<string>#F1EACE</string>
+				<string>#CFF8E2</string>
 				<key>foreground</key>
-				<string>#1E1EA0</string>
+				<string>#530362</string>
 			</dict>
 		</dict>
 		<dict>
@@ -49,32 +49,10 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<string>string</string>
 			<key>settings</key>
 			<dict>
-				<key>fontStyle</key>
-				<string>bold</string>
+				<key>background</key>
+				<string>#E0F8E0</string>
 				<key>foreground</key>
-				<string>#2AA198</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>StringNumber</string>
-			<key>scope</key>
-			<string>string</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#586E75</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Regexp</string>
-			<key>scope</key>
-			<string>string.regexp</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#D30102</string>
+				<string>#2A0068</string>
 			</dict>
 		</dict>
 		<dict>
@@ -98,7 +76,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#268B8B</string>
+				<string>#0AB7EC</string>
 			</dict>
 		</dict>
 		<dict>
@@ -111,7 +89,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 				<key>fontStyle</key>
 				<string>bold</string>
 				<key>foreground</key>
-				<string>#E6721A</string>
+				<string>#EC0A46</string>
 			</dict>
 		</dict>
 		<dict>
@@ -124,7 +102,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 				<key>fontStyle</key>
 				<string>bold</string>
 				<key>foreground</key>
-				<string>#073642</string>
+				<string>#BD7161</string>
 			</dict>
 		</dict>
 		<dict>
@@ -134,8 +112,6 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<string>entity.name.class, entity.name.type.class</string>
 			<key>settings</key>
 			<dict>
-				<key>foreground</key>
-				<string>#268BD2</string>
 			</dict>
 		</dict>
 		<dict>
@@ -146,33 +122,35 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#941EB4</string>
+				<string>#E20B44</string>
+			</dict>
+		</dict>
+		<!-- the R part starts here -->
+		<dict>
+			<key>name</key>
+			<string>R Other Variable</string>
+			<key>scope</key>
+			<string>variable.other.r </string>
+			<key>settings</key>
+			<dict>
+				<key>foreground</key>
+				<string>#DC00DC</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>R language constant</string>
+			<key>scope</key>
+			<string>constant.language.r </string>
+			<key>settings</key>
+			<dict>
 				<key>fontStyle</key>
 				<string>bold</string>
 			</dict>
 		</dict>
-		<dict>
-			<key>name</key>
-			<string>Variable start</string>
-			<key>scope</key>
-			<string>punctuation.definition.variable</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#859900</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Embedded code markers</string>
-			<key>scope</key>
-			<string>punctuation.section.embedded.begin, punctuation.section.embedded.end</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#D30102</string>
-			</dict>
-		</dict>
+		<!-- the R part ends here -->
+		
+
 		<dict>
 			<key>name</key>
 			<string>Built-in constant</string>
@@ -181,104 +159,10 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#B58900</string>
+				<string>#1D5130</string>
 			</dict>
 		</dict>
-		<dict>
-			<key>name</key>
-			<string>Support.construct</string>
-			<key>scope</key>
-			<string>support.function.construct, keyword.other.new</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#D30102</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>User-defined constant</string>
-			<key>scope</key>
-			<string>constant.character, constant.other</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#CB4B16</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Inherited class</string>
-			<key>scope</key>
-			<string>entity.other.inherited-class</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Function argument</string>
-			<key>scope</key>
-			<string>variable.parameter</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Tag name</string>
-			<key>scope</key>
-			<string>entity.name.tag</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string>bold</string>
-				<key>foreground</key>
-				<string>#268BD2</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Tag start/end</string>
-			<key>scope</key>
-			<string>punctuation.definition.tag.html, punctuation.definition.tag.begin, punctuation.definition.tag.end</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#93A1A1</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Tag attribute</string>
-			<key>scope</key>
-			<string>entity.other.attribute-name</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#93A1A1</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Library function</string>
-			<key>scope</key>
-			<string>support.function</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#268BD2</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Continuation</string>
-			<key>scope</key>
-			<string>punctuation.separator.continuation</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#D30102</string>
-			</dict>
-		</dict>
+		
 		<dict>
 			<key>name</key>
 			<string>Library constant</string>
@@ -335,17 +219,6 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<string>invalid</string>
 			<key>settings</key>
 			<dict/>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Quoted String</string>
-			<key>scope</key>
-			<string>string.quoted.double, string.quoted.single</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#173370</string>
-			</dict>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -547,7 +420,7 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
-				<string></string>
+				<string>bold</string>
 				<key>foreground</key>
 				<string>#269186</string>
 			</dict>
@@ -847,7 +720,6 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 				<string>#CD1E1D</string>
 			</dict>
 		</dict>
-<!--
 		<dict>
 			<key>name</key>
 			<string>Shell: Comment</string>
@@ -855,74 +727,6 @@ Released under the MIT License <http://opensource.org/licenses/MIT>
 			<string>comment.line.number-sign.shell</string>
 			<key>settings</key>
 			<dict>
-				<key>fontStyle</key>
-				<string>italic</string>
-			</dict>
-		</dict>
--->
-		<dict>
-			<key>name</key>
-			<string>Java: import</string>
-			<key>scope</key>
-			<string>keyword.other.import.java</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string></string>
-				<key>foreground</key>
-				<string>#BD3800</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Java: meta-import</string>
-			<key>scope</key>
-			<string>storage.modifier.import.java</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string></string>
-				<key>foreground</key>
-				<string>#586E75</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Java: Class</string>
-			<key>scope</key>
-			<string>meta.class.java storage.modifier.java</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string></string>
-				<key>foreground</key>
-				<string>#A57800</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Java: /* comment */</string>
-			<key>scope</key>
-			<string>source.java comment.block</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string></string>
-				<key>foreground</key>
-				<string>#536871</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Java: /* @param */</string>
-			<key>scope</key>
-			<string>comment.block meta.documentation.tag.param.javadoc keyword.other.documentation.param.javadoc</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string></string>
-				<key>foreground</key>
-				<string>#536871</string>
 			</dict>
 		</dict>
 		<dict>

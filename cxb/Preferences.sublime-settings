@@ -1,6 +1,6 @@
 {
 	"color_scheme": "Packages/User/Green.tmTheme",
-    "font_face": "Droid Sans Mono",
+    "font_face": "Monospace",
 	"font_size": 11,
     "caret_style": "blink",
     "wide_caret": true,
