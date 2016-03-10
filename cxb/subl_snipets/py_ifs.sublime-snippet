@@ -1,0 +1,5 @@
+<snippet>
+    <content><![CDATA[ifile=open('${1:t.in}') ]]></content>
+    <tabTrigger>ifs</tabTrigger>
+    <scope>source.python</scope>
+</snippet>

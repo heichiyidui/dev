@@ -1,10 +1,11 @@
 {
-	"color_scheme": "Packages/User/Green.tmTheme",
+    "color_scheme": "Packages/User/Green.tmTheme",
     "font_face": "Monospace",
-	"font_size": 11,
+    "font_size": 11,
     "caret_style": "blink",
-    "wide_caret": true,
+    "caret_extra_width": 2,
     "highlight_line": true,
+    "match_brackets": true,
     "overlay_scroll_bars": "enabled",
     "scroll_speed": 8.0,
     "always_show_minimap_viewport": true,
@@ -12,5 +13,6 @@
     "update_check": false,
     "tab_size": 4,
     "trim_automatic_white_space": false,
-    "trim_trailing_white_space_on_save": false,
+    "trim_trailing_white_space_on_save": true,
 }
+

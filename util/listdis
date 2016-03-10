@@ -3,9 +3,6 @@
 ################################################################################
 # parse arguments
 
-import sys
-import argparse
-
 parser = argparse.ArgumentParser(\
     description='listdis get a histogram of a set of numbers',\
     epilog=' listdis in_file [-bn bin_number]> histogram_file')

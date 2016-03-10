@@ -3,107 +3,107 @@
 # http://StephenTurner.us/
 # http://GettingGeneticsDone.blogspot.com/
 #' Creates a manhattan plot
-#' 
-#' Creates a manhattan plot from PLINK assoc output (or any data frame with 
+#'
+#' Creates a manhattan plot from PLINK assoc output (or any data frame with
 #' chromosome, position, and p-value).
-#' 
+#'
 #' @param x A data.frame with columns "BP," "CHR," "P," and optionally, "SNP."
-#' @param chr A string denoting the column name for the chromosome. Defaults to 
-#'   PLINK's "CHR." Said column must be numeric. If you have X, Y, or MT 
+#' @param chr A string denoting the column name for the chromosome. Defaults to
+#'   PLINK's "CHR." Said column must be numeric. If you have X, Y, or MT
 #'   chromosomes, be sure to renumber these 23, 24, 25, etc.
-#' @param bp A string denoting the column name for the chromosomal position. 
+#' @param bp A string denoting the column name for the chromosomal position.
 #'   Defaults to PLINK's "BP." Said column must be numeric.
-#' @param p A string denoting the column name for the p-value. Defaults to 
+#' @param p A string denoting the column name for the p-value. Defaults to
 #'   PLINK's "P." Said column must be numeric.
-#' @param snp A string denoting the column name for the SNP name (rs number). 
+#' @param snp A string denoting the column name for the SNP name (rs number).
 #'   Defaults to PLINK's "SNP." Said column should be a character.
 #' @param col A character vector indicating which colors to alternate.
 #' @param chrlabs A character vector equal to the number of chromosomes
 #'   specifying the chromosome labels (e.g., \code{c(1:22, "X", "Y", "MT")}).
-#' @param suggestiveline Where to draw a "suggestive" line. Default 
+#' @param suggestiveline Where to draw a "suggestive" line. Default
 #'   -log10(5e-6). Set to FALSE to disable.
-#' @param genomewideline Where to draw a "genome-wide sigificant" line. Default 
+#' @param genomewideline Where to draw a "genome-wide sigificant" line. Default
 #'   -log10(5e-8). Set to FALSE to disable.
-#' @param highlight A character vector of SNPs in your dataset to highlight. 
+#' @param highlight A character vector of SNPs in your dataset to highlight.
 #'   These SNPs should all be in your dataset.
-#' @param logp If TRUE, the -log10 of the p-value is plotted. It isn't very 
+#' @param logp If TRUE, the -log10 of the p-value is plotted. It isn't very
 #'   useful to plot raw p-values, but plotting the raw value could be useful for
-#'   other genome-wide plots, for example, peak heights, bayes factors, test 
+#'   other genome-wide plots, for example, peak heights, bayes factors, test
 #'   statistics, other "scores," etc.
-#' @param annotatePval If set, 
+#' @param annotatePval If set,
 #'    SNPs below this p-value will be annotated on the plot.
-#' @param annotateTop If TRUE, 
-#'    only annotates the top hit on each chromosome 
-#'    that is below the annotatePval threshold. 
+#' @param annotateTop If TRUE,
+#'    only annotates the top hit on each chromosome
+#'    that is below the annotatePval threshold.
 #' @param ... Arguments passed on to other plot/points functions
-#'   
+#'
 #' @return A manhattan plot.
-#'   
+#'
 #' @keywords visualization manhattan
-#'   
+#'
 #' @examples
 #' manhattan(gwasResults)
-#'   
-#' @importFrom calibrate textxy  
-#'   
+#'
+#' @importFrom calibrate textxy
+#'
 #' @export
 
 library(calibrate)
 
-manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP", 
+manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP",
                       col=c("gray10", "gray60"), chrlabs=NULL,
-                      suggestiveline=-log10(5e-6), genomewideline=-log10(5e-8), 
-                      highlight=NULL, logp=TRUE, annotatePval = NULL, 
+                      suggestiveline=-log10(5e-6), genomewideline=-log10(5e-8),
+                      highlight=NULL, logp=TRUE, annotatePval = NULL,
                       annotateTop = TRUE, ...) {
 
     # Not sure why, but package check will warn without this.
     CHR=BP=P=index=NULL
-    
+
     # Check for sensible dataset
     ## Make sure you have chr, bp and p columns.
     if (!(chr %in% names(x))) stop(paste("Column", chr, "not found!"))
     if (!(bp %in% names(x)))  stop(paste("Column", bp,  "not found!"))
     if (!(p %in% names(x)))   stop(paste("Column", p,   "not found!"))
     ## warn if you don't have a snp column
-    if (!(snp %in% names(x))) 
+    if (!(snp %in% names(x)))
         warning(paste("No SNP column found.\n",
                       "OK unless you're trying to highlight."))
     ## make sure chr, bp, and p columns are numeric.
-    if (!is.numeric(x[[chr]])) 
+    if (!is.numeric(x[[chr]]))
         stop(paste(chr, "column should be numeric.\n",
                    "Do you have 'X', 'Y', 'MT', etc?\n",
                    "If so change to numbers and try again."))
     if (!is.numeric(x[[bp]])) stop(paste(bp, "column should be numeric."))
     if (!is.numeric(x[[p]]))  stop(paste(p,  "column should be numeric."))
-    
+
     # Create a new data.frame with columns called CHR, BP, and P.
-    d=data.frame(CHR=x[[chr]], BP=x[[bp]], P=x[[p]])
-    
-    # If the input data frame has a SNP column, 
+    d <- data.frame(CHR=x[[chr]], BP=x[[bp]], P=x[[p]])
+
+    # If the input data frame has a SNP column,
     # add it to the new data frame you're creating.
     if (!is.null(x[[snp]])) d=transform(d, SNP=x[[snp]])
-    
+
     # Set positions, ticks, and labels for plotting
     ## Sort and keep only values where is numeric.
     d <- subset(d, (is.numeric(CHR) & is.numeric(BP) & is.numeric(P)))
     d <- d[order(d$CHR, d$BP), ]
-    
+
     if (logp) {
         d$logp <- -log10(d$P)
     } else {
         d$logp <- d$P
     }
     d$pos=NA
-    
-    # Fixes the bug where one chromosome is missing 
+
+    # Fixes the bug where one chromosome is missing
     # by adding a sequential index column.
     d$index=NA
-    ind = 0
+    ind <- 0
     for (i in unique(d$CHR)){
         ind = ind + 1
         d[d$CHR==i,]$index = ind
     }
-    
+
     # This section sets up positions and ticks. Ticks should be placed in the
     # middle of a chromosome. The a new pos column is added that keeps a running
     # sum of the positions of each successive chromsome. For example:
@@ -113,7 +113,7 @@ manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP",
     # 2   1  3
     # 2   2  4
     # 3   1  5
-    nchr = length(unique(d$CHR))
+    nchr <- length(unique(d$CHR))
     if (nchr==1) { ## For a single chromosome
         ## Uncomment the next two linex to plot single chr results in Mb
         #options(scipen=999)
@@ -133,19 +133,19 @@ manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP",
                 d[d$index==i, ]$pos=d[d$index==i, ]$BP+lastbase
             }
             # New way: does NOT assumes SNPs evenly distributed
-            ticks = c(ticks, 
+            ticks = c(ticks,
                  (min(d[d$index == i,]$pos) + max(d[d$index == i,]$pos))/2 + 1)
         }
         xlabel = 'Chromosome'
         labs <- unique(d$CHR)
     }
-    
+
     # Initialize plot
-    xmax = ceiling(max(d$pos) * 1.01)
-    xmin = floor(max(d$pos) * -0.01)
-    ymax = max(ceiling(max(d$logp)), genomewideline)
-    ymin = 0
-    
+    xmax <- ceiling(max(d$pos) * 1.01)
+    xmin <- floor(max(d$pos) * -0.01)
+    ymax <- max(ceiling(max(d$logp)), genomewideline)
+    ymin <- 0
+
     # The new way to initialize the plot.
     # See http://stackoverflow.com/q/23922130/654296
     # First, define your default arguments
@@ -157,10 +157,10 @@ manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP",
     dotargs <- list(...)
     # And call the plot function passing NA, your ... arguments, and the default
     # arguments that were not defined in the ... arguments.
-    do.call("plot", 
+    do.call("plot",
             c(NA, dotargs, def_args[!names(def_args) %in% names(dotargs)]))
-    
-    # If manually specifying chromosome labels, 
+
+    # If manually specifying chromosome labels,
     # ensure a character vector and number of labels matches number chrs.
     if (!is.null(chrlabs)) {
         if (is.character(chrlabs)) {
@@ -175,44 +175,44 @@ manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP",
                         "chrlabs must be a character vector"))
         }
     }
-    
-    # Add an axis. 
+
+    # Add an axis.
     if (nchr==1) { #If single chromosome, ticks and labels automatic.
         axis(1, ...)
     } else { # if multiple chrs, use the ticks and labels you created above.
         axis(1, at=ticks, labels=labs, ...)
     }
-    
+
     # Create a vector of alternatiting colors
-    col=rep(col, max(d$CHR))
+    col <- rep(col, max(d$CHR))
 
     # Add points to the plot
     if (nchr==1) {
         with(d, points(pos, logp, pch=20, col=col[1], ...))
     } else {
-        # if multiple chromosomes, need to alternate colors 
+        # if multiple chromosomes, need to alternate colors
         # and increase the color index (icol) each chr.
         icol=1
         for (i in unique(d$index)) {
-            with(d[d$index==unique(d$index)[i], ], 
+            with(d[d$index==unique(d$index)[i], ],
                  points(pos, logp, col=col[icol], pch=20, ...))
             icol=icol+1
         }
     }
-    
+
     # Add suggestive and genomewide lines
     if (suggestiveline) abline(h=suggestiveline, col="blue")
     if (genomewideline) abline(h=genomewideline, col="red")
-    
+
     # Highlight snps from a character vector
     if (!is.null(highlight)) {
-        if (any(!(highlight %in% d$SNP))) 
+        if (any(!(highlight %in% d$SNP)))
             warning(paste("You're trying to highlight SNPs",
                           "that don't exist in your results."))
         d.highlight=d[which(d$SNP %in% highlight), ]
-        with(d.highlight, points(pos, logp, col="green3", pch=20, ...)) 
+        with(d.highlight, points(pos, logp, col="green3", pch=20, ...))
     }
-    
+
     # Highlight top SNPs
     if (!is.null(annotatePval)) {
         # extract top SNPs at given p-val
@@ -220,56 +220,56 @@ manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP",
         par(xpd = TRUE)
         # annotate these SNPs
         if (annotateTop == FALSE) {
-            with(subset(d, P <= annotatePval), 
-                 textxy(pos, -log10(P), offset = 0.625, 
+            with(subset(d, P <= annotatePval),
+                 textxy(pos, -log10(P), offset = 0.625,
                         labs = topHits$SNP, cex = 0.45), ...)
         }
         else {
             # could try alternative, annotate top SNP of each sig chr
             topHits <- topHits[order(topHits$P),]
             topSNPs <- NULL
-            
+
             for (i in unique(topHits$CHR)) {
-                
+
                 chrSNPs <- topHits[topHits$CHR == i,]
                 topSNPs <- rbind(topSNPs, chrSNPs[1,])
-                
+
             }
-            textxy(topSNPs$pos, -log10(topSNPs$P), offset = 0.625, 
+            textxy(topSNPs$pos, -log10(topSNPs$P), offset = 0.625,
                    labs = topSNPs$SNP, cex = 0.5, ...)
         }
-    }  
+    }
     par(xpd = FALSE)
-} 
+}
 # end of function manhattan()
 ################################################################################
 
-# two examples: 
-# 
+# two examples:
+#
 # source('~/bin/R/qqman.R')
-# 
-# cbPalette  <- c("#666666", "#E69F00", "#56B4E9", "#009E73", 
+#
+# cbPalette  <- c("#666666", "#E69F00", "#56B4E9", "#009E73",
 #                 "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-# 
+#
 # cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
 #                 "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-# 
+#
 # data = read.table('t.in',header=TRUE)
-# 
+#
 # png('manh_ich.png',width=1700)
 # manhattan(data,col=cbPalette)
 # dev.off()
-# 
+#
 # pdf('manh_ich.pdf',width=23)
 # manhattan(data,col=cbPalette)
 # dev.off()
-# 
+#
 # data = read.table('t2.in',header=TRUE)
-# 
+#
 # pdf('manh_mce.pdf',width=23, height=7.5)
 # manhattan(data,col=cbPalette)
 # dev.off()
-# 
+#
 # png('manh_mce.png',width=1700,height=520)
 # manhattan(data,col=cbPalette)
 # dev.off()
@@ -277,12 +277,14 @@ manhattan <- function(x, chr="CHR", bp="BP", p="P", snp="SNP",
 ################################################################################
 ## Make a pretty QQ plot of p-values
 qq <- function(pvector, ...) {
-	if (!is.numeric(pvector)) stop("D'oh! P value vector is not numeric.")
+	if (!is.numeric(pvector))
+	    stop("D'oh! P value vector is not numeric.")
+
 	pvector <- pvector[!is.na(pvector) & pvector<1 & pvector>0]
 	o = -log10(sort(pvector,decreasing=F))
 	e = -log10( ppoints(length(pvector) ))
-	plot(e,o,pch=19,cex=1, xlab=expression(Expected~~-log[10](italic(p))), 
-                           ylab=expression(Observed~~-log[10](italic(p))), 
+	plot(e,o,pch=19,cex=1, xlab=expression(Expected~~-log[10](italic(p))),
+                           ylab=expression(Observed~~-log[10](italic(p))),
          xlim=c(0,max(e)), ylim=c(0,max(o)), ...)
 	abline(0,1,col="red")
 }

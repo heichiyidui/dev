@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[for line in ifile:
+	cols = line[:-1].split() ]]></content>
+    <tabTrigger>coll</tabTrigger>
+    <scope>source.python</scope>
+</snippet>
