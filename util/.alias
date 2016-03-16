@@ -18,11 +18,5 @@ alias m='make'
 alias se='sublime_text '
 alias ge='gedit '
 
-alias sbrc='ssh -X klinbrc@80.0.251.37'
-alias sbig='ssh -X brc-bignode'
-alias qt='qstat'
-alias qu='qstat -u "*"'
-alias qj='qstat -j '
+alias nc2='ssh -X kuangl@nc2.ndph.ox.ac.uk'
 
-alias sos2='ssh -X 194.83.139.100'
-alias sos1='ssh -X 194.83.141.128' 
