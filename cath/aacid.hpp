@@ -1,1 +1,1 @@
-/home/kuang/dev/util/aacid.hpp
+../util/aacid.hpp

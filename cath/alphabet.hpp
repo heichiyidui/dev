@@ -1,1 +1,1 @@
-/home/kuang/dev/util/alphabet.hpp
+../util/alphabet.hpp

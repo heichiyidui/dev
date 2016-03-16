@@ -1,1 +1,1 @@
-/home/kuang/dev/util/pdbatom.hpp
+../util/pdbatom.hpp

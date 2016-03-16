@@ -1,1 +1,1 @@
-/home/kuang/dev/util/seq.hpp
+../util/seq.hpp
