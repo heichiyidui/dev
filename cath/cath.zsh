@@ -359,6 +359,20 @@ contact_number_counts.py
 
 simul_contact_number.py
 
+# With this simulation using residue specific distributions of contact number,
+# the domain size is even more linearly correlated to the sum contact number.
+# And the intercept is very close to zero.
+
+# The z score is linear to domain length.
+# Z = -4.8251 + 0.028153 * domain_length
+#
+
+# So, let's correct the Z score by
+# Z' = Z + 4.8251 - 0.028153 * domain_length
+# Now it's roughly normal. Let's check Z' > 6 or Z' < 6
+
+
+
 
 
 

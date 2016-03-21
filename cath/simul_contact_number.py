@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 
 # to simulate how many contacts a sequence should have
 
@@ -40,13 +41,16 @@ residue_contact_counts = {
                          }
 
 # for random choosing of a contact number, given the residue type
-residue_contact_number_distribution={}
-for AA in residue_contact_counts.keys():
-    residue_contact_number_distribution[AA] = [0]*residue_contact_counts[AA][0]
+import numpy as np
 
+resi_cont_num_distr={}
+for AA in residue_contact_counts.keys():
+    resi_cont_num_distr[AA] = [0]*residue_contact_counts[AA][0]
     for i in range(1,len(residue_contact_counts[AA])):
-        residue_contact_number_distribution[AA]\
-            .extend([i]*residue_contact_counts[AA][i])
+        resi_cont_num_distr[AA].extend([i]*residue_contact_counts[AA][i])
+
+    np.random.shuffle(resi_cont_num_distr[AA])
+
 
 # read the sequences
 seqs = {}
@@ -69,17 +73,29 @@ ifile.close()
 #######################################
 # simulate possible contact number give the sequence
 
-import numpy as np
-
 for dom_id in seqs.keys():
     simu_cont_sums = []
     for l in range(10):
+        local_res_cont_num_distr={}
+        for AA in resi_cont_num_distr.keys():
+            rand_start = np.random.randint(0,len(resi_cont_num_distr[AA])-1000)
+
+            local_res_cont_num_distr[AA] = \
+                resi_cont_num_distr[AA][rand_start:rand_start+1000]
+
+
         simu_cont_sum = 0
         for AA in seqs[dom_id]:
             simu_cont_sum += \
-                np.random.choice(residue_contact_number_distribution[AA])
+                np.random.choice(local_res_cont_num_distr[AA])
         simu_cont_sum *= 0.5
         simu_cont_sums.append(simu_cont_sum)
 
-    print(dom_id,np.mean(simu_cont_sums),contact_nums[dom_id])
-    break;
+    print(
+        dom_id, \
+        len(seqs[dom_id]), \
+        np.mean(simu_cont_sums), \
+        np.std(simu_cont_sums), \
+        contact_nums[dom_id]
+         )
+
