@@ -116,7 +116,7 @@ chk_multiloc.py > t.in
 
 chk_multiloc.py > t.in
 
-# 1086 domains to be fixed now.
+# 1086 domains need to be fixed now.
 
 # download the original PDB files in case...
 mkdir rcsb
@@ -181,7 +181,7 @@ chk_res_atom_dis.py t.ls
 # slow. used cluster or the C++ version
 g++ -O4 chk_res_atom_dis.cpp
 a.out t.ls > t.out
-# mostly are HH22
+# Mostly are HH22 atoms popping warning messages.
 
 ########################################
 # 2.8 check residues (missing CA, N or C atoms)
@@ -191,7 +191,7 @@ chkCANC.py t.ls > t.out
 
 # 270 of 19866 domains have missing CA, N or C residues
 
-# remove the two domains with many breaks
+# remove the two domains with too many breaks
 # 1epaA00 160 9 0 9 9
 # 1ml9A00 260 10 0 10 10
 
@@ -231,7 +231,7 @@ awk '{print $3}' t.out | sort -g | uniq -c
 # 2.18 segments per domain on average
 # mean segment length 70, median 50
 
-# remove domains with segments less than 20 residues
+# remove domains with segments of less than 20 residues
 # 14776 domains left.
 # removed 5088 domains.
 
@@ -269,6 +269,104 @@ rm -r dompdb
 mv pdb2 dompdb
 # 14776 domains, 2191 H classes left.
 
+
+################################################################################
+# 3. Contact definition                                                        #
+################################################################################
+
+#######################################
+# 3.1 get residue side-chain and backbone centers.
+
+# For residues with all side-chain heavy atoms, just use the weight center.
+# For residues with many missing side-chain heavy atoms, use the projection
+# from the C, CA and N atoms.
+
+mkdir ccbc
+ls dompdb > t.ls
+g++ getCb.cpp -O4
+a.out
+
+# 2219103 Cb centers calculated
+# 18746 guessed. (less than 1%)
+
+#######################################
+# 3.2 get the Delaunay tetrahedralization contact definitions.
+
+# The Delaunay tetrahedralization was performed using TetGen v1.4.
+# Use only contacts between side-chain centers, which are not blocked by
+# the main-chain to main-chain or side-chain to main-chain contacts.
+# Set the distance threshold to 8 A.
+
+mkdir conDef
+g++ -c predicates.cxx -O2
+g++ -c tetgen.cxx -O2
+g++ getTet.cpp predicates.o tetgen.o -O2
+
+ls ccbc > t.ls
+a.out
+
+parse_condef.py t.ls > index/cath_s35.condef
+
+rm -r conDef ccbc
+
+#######################################
+# 3.3 collect domain sequences
+ls dompdb  > t.ls
+writeSeq.py > index/cath_s35.seq
+
+#######################################
+# 3.4 contact number statistics
+
+contact_number_counts.py
+
+# pretty linear between contact number and domain size
+# contact_number = -59.7 + 3.4207 * domain_size
+# correlation coefficient is 0.995
+
+# 2237849 residues, 6772808 contacts
+# considering one contact involves two residues,
+# 6.053 contacts per residue
+
+# contact number per residue:
+# max 17, min 0, median 6, mean 6.053
+# stddv 2.2753, pretty normal
+
+# residue   avg_number_of_contacts
+# 'G'       4.563524
+# 'K'       4.908375
+# 'E'       5.102626
+# 'D'       5.227688
+# 'N'       5.282160
+# 'R'       5.292399
+# 'P'       5.347199
+# 'S'       5.377228
+# 'Q'       5.385786
+# 'T'       5.826501
+# 'H'       5.881748
+# 'A'       5.889850
+# 'C'       6.724250
+# 'Y'       6.997959
+# 'M'       7.087242
+# 'V'       7.107942
+# 'W'       7.606361
+# 'I'       7.723948
+# 'L'       7.740654
+# 'F'       7.771821
+
+# It seems more related with hydrophobicity than size.
+# T-test and chi-squired test say the different residues have different
+# number-of-contacts distributions.
+
+simul_contact_number.py
+
+
+
+
+
+
+
+
+
 ################################################################################
 # 3. blast the sequences                                                       #
 ################################################################################
@@ -280,7 +378,7 @@ mv pdb2 dompdb
 # 3.1 get the initial sequences
 mkdir seq
 ls dompdb > t.ls
-writeSeq.py t.ls
+
 
 #######################################
 # 3.2 download the nr database
@@ -590,47 +688,6 @@ rm -r stride_ss
 
 #
 
-################################################################################
-# 5. Contact definition                                                        #
-################################################################################
-
-#######################################
-# 5.1 get residue side-chain and backbone centers.
-
-# For residues with all side-chain heavy atoms, just use the weight center.
-# For residues with many missing side-chain heavy atoms, use the projection
-# from the C, CA and N atoms.
-
-mkdir ccbc
-ls dompdb > t.ls
-g++ getCb.cpp -O4
-a.out
-
-# 2434427 Cb centers calculated
-# 22388 guessed. (less than 1%)
-
-#######################################
-# 5.2 get the Delaunay tetrahedralization contact definitions.
-
-# The Delaunay tetrahedralization was performed using TetGen v1.4.
-# Use only contacts between side-chain centers, which are not blocked by
-# the main-chain to main-chain or side-chain to main-chain contacts.
-# Set the distance threshold to 8 A.
-
-mkdir conDef
-g++ -c predicates.cxx -O2
-g++ -c tetgen.cxx -O2
-g++ getTet.cpp predicates.o tetgen.o -O2
-
-ls dompdb > t.ls
-a.out
-
-parse_condef.py t.ls > index/cath_s35.condef
-# 50-7984 contacts per domain
-# mean 894, median 756, sdv 551
-# average 6.02 contacts per residue
-
-rm -r ccbc conDef seq
 
 ################################################################################
 # Done                                                                         #

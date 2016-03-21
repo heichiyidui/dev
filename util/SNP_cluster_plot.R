@@ -2,70 +2,62 @@
 library(SNPolisher)
 library(methods)
 
+# AxiomGT1.calls.txt
+# AxiomGT1.confidences.txt
+# AxiomGT1.snp-posteriors.txt
+# AxiomGT1.summary.txt
+
 ################################################################################
 # calculating metrics etc
 
+# ps_file   = "AxiomGT1.snp-posteriors.txt"
+# call_file = "AxiomGT1.calls.txt"
+# conf_file = "AxiomGT1.confidences.txt"
+# summ_file = "AxiomGT1.summary.txt"
+
+ps_file   = "example_1_buffalo/AxiomGT1.snp-posteriors.txt"
+call_file = "example_1_buffalo/AxiomGT1.calls.txt"
+conf_file = "example_1_buffalo/AxiomGT1.confidences.txt"
+summ_file = "example_1_buffalo/AxiomGT1.summary.txt"
+snp_file  = 'snp.ls'
+
+temp.dir  = '.'
+keep.temp.dir = TRUE
+
+refFile = call_file
+
+matr_file = "metrics.txt"
+
 # Ps_Metrics
 Ps_Metrics(
-    posteriorFile="example_1_buffalo/AxiomGT1.snp-posteriors.txt",
-    callFile="example_1_buffalo/AxiomGT1.calls.txt",
-    output.metricsFile="example_1_buffalo/Output/metrics.txt"
-)
+    posteriorFile      = ps_file,
+    callFile           = call_file,
+    output.metricsFile = matr_file
+          )
 
 # Ps_Classification
 Ps_Classification(
-    metricsFile="example_1_buffalo/Output/metrics.txt",
-    ps2snpFile="example_1_buffalo/ps2snp.txt",
-    output.dir="example_1_buffalo/Output",
-    SpeciesType="Diploid", GTC=FALSE
-)
-
-ps.performance <- read.table(
-    "example_1_buffalo/Output/Ps.performance.txt",
-    header=T
-)
-
-ps.performance[1:5,]
-ps.performance[1:5,c(1:2,16:17)]
-
-# pulling out SNPs for PolyHighRes and MonoHighRes
-ps.performance$ConversionType[1:5]
-ps.performance[1:5,16]
-
-names(ps.performance)
-unique(ps.performance$ConversionType)
-
-converted <- ps.performance[
-    ps.performance$ConversionType %in%
-        c("PolyHighResolution","MonoHighResolution"),1
-]
-
-write.table(
-    converted,
-    file="example_1_buffalo/Output/converted.txt",
-    sep="\t",
-    row.names=FALSE,
-    col.names="probeset_id",
-    quote=FALSE
-)
+    metricsFile = matr_file,
+    output.dir  = '.',
+    SpeciesType = "Diploid", GTC = FALSE
+                 )
 
 ################################################################################
 # start plotting now
 
-pidFile="example_1_buffalo/Output/PolyHighResolution.ps"
-summaryFile="example_1_buffalo/AxiomGT1.summary.txt"
-callFile="example_1_buffalo/AxiomGT1.calls.txt"
-confidenceFile="example_1_buffalo/AxiomGT1.confidences.txt"
-posteriorFile="example_1_buffalo/AxiomGT1.snp-posteriors.txt"
-sampFile="example_1_buffalo/sample_list.txt"
-temp.dir="example_1_buffalo/Output/Temp"
-keep.temp.dir=FALSE
-refFile="example_1_buffalo/ref.txt"
+pidFile= snp_file
+summaryFile=summ_file
+callFile=call_file
+confidenceFile=conf_file
+posteriorFile=ps_file
+
+sampFile=NULL
+
 plot.prior=FALSE
 match.cel.file.name=FALSE
 priorFile=NULL
 
-geno.col=c("red","dodgerblue2","blue","gray",
+geno.col=c("red","yellow","blue","gray",
            "cyan","green", "darkgreen","purple")
 
 
@@ -103,7 +95,7 @@ dd <- lapply(1:l, function(i) {
                                match.cel.file.name, geno.col[6])
 })
 
-inlist <- read.delim(pidFile, header = T)[, 1]
+inlist <- read.delim(pidFile, header = F)[, 1]
 cat("Found ", nrow(dd[[1]]$call), " of ", length(inlist),
     " requested probesets\n", sep = "")
 pid <- inlist[is.element(inlist, dd[[1]]$call[, 1])]
@@ -112,9 +104,8 @@ postdata <- SNPolisher:::read.post_prior2d(
     paste(temp.dir[i],"/posterior.txt", sep = "")
                                           )
 
-nclus = 3
 # s = 'ps100'
-for (s in pid[1:10]) {
+for (s in pid) {
     for (i in 1:l) {
         d <- dd[[i]]
         g <- data.frame(
@@ -141,12 +132,12 @@ for (s in pid[1:10]) {
             }
         }
 
-        p <- SNPolisher:::prior.for.pid(postdata, s, nclus)
+        p <- SNPolisher:::prior.for.pid(postdata, s, nclus=3)
 
         png(paste(s,'.png',sep=''))
         SNPolisher:::plot.cluster(
-            s, g, p, "called", "AvM",
-            geno.col = geno.col, nclus = nclus
+            s, g, p,
+            geno.col = geno.col, nclus = 3
                                  )
 
         dev.off()
