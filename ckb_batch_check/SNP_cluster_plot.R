@@ -2,24 +2,19 @@
 library(SNPolisher)
 library(methods)
 
-# AxiomGT1.calls.txt
-# AxiomGT1.confidences.txt
-# AxiomGT1.snp-posteriors.txt
-# AxiomGT1.summary.txt
 
 ################################################################################
 # calculating metrics etc
 
-# ps_file   = "AxiomGT1.snp-posteriors.txt"
-# call_file = "AxiomGT1.calls.txt"
-# conf_file = "AxiomGT1.confidences.txt"
-# summ_file = "AxiomGT1.summary.txt"
-
-ps_file   = "example_1_buffalo/AxiomGT1.snp-posteriors.txt"
-call_file = "example_1_buffalo/AxiomGT1.calls.txt"
-conf_file = "example_1_buffalo/AxiomGT1.confidences.txt"
-summ_file = "example_1_buffalo/AxiomGT1.summary.txt"
 snp_file  = 'snp.ls'
+batch_dir = 'plates1-53/'
+call_dir  = paste('/kuser/shared/data/GWAS_backup/',batch_dir,sep='')
+
+ps_file   = paste(call_dir,'AxiomGT1.snp-posteriors.txt',sep='')
+call_file = paste(call_dir,'AxiomGT1.calls.txt',         sep='')
+conf_file = paste(call_dir,'AxiomGT1.confidences.txt',   sep='')
+summ_file = paste(call_dir,'AxiomGT1.summary.txt',       sep='')
+
 
 temp.dir  = '.'
 keep.temp.dir = TRUE
