@@ -9,6 +9,8 @@
 # and manual removal of SNPs with bad calling.                                 #
 ################################################################################
 
+cd /kuser/kuangl/dev/ckb_batch_check
+
 ################################################################################
 # 1. Input files
 
@@ -48,4 +50,21 @@ AxiomGT1.snp-posteriors.txt
 AxiomGT1.summary.txt
 
 ################################################################################
+# 2. temp metrices and plot files
+
+mkdir b01 b02 b03 b04 b05 b06 b07
+
+tail -n +2 /kuser/shared/data/GWAS_backup/full_data/batch_test/\
+variant_batch_effects.txt | awk '{print $2}' | sort | uniq > snp.ls
+# 4048 SNPs with potential batch effects to be examed.
+
+# on the nc2 server
+
+nohup SNP_cluster_plot.R b01 plates1-53/     &
+nohup SNP_cluster_plot.R b02 plates54-105/   &
+nohup SNP_cluster_plot.R b03 plates106-156/  &
+nohup SNP_cluster_plot.R b04 plates157-209/  &
+nohup SNP_cluster_plot.R b05 plates210-261/  &
+nohup SNP_cluster_plot.R b06 plates262-318/  &
+nohup SNP_cluster_plot.R b07 plates319-367/  &
 
