@@ -6,7 +6,7 @@ library(methods)
 # batch_id  = 'b01'
 # call_dir  = 'example_1_buffalo/'
 
-# snp_file  = 'snp.ls'
+snp_file  = 'snp.ls'
 # batch_dir = 'plates1-53/'
 # batch_id  = 'b01'
 
