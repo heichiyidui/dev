@@ -105,7 +105,6 @@ SNP_class_squares.R
 #######################################
 # Now, combine the square plot and the clustering plots.
 
-
 IFS=$'\n'  snps=($(cat snp.ls))
 # in bash
 # readarray snps < ./snp.ls
@@ -117,4 +116,28 @@ for snp in ${snps[@]} ; do
     convert b06/$snp.png b07/$snp.png ${snp}_class.png  +append r3.png
     convert r1.png r2.png r3.png -append ${snp}_comb.png
 done
+
+mkdir batch_eff_png
+mv *comb.png batch_eff_png
+
+#######################################
+# for the plate effect SNPs, do the same
+cp snp.ls snp_ls.bak
+
+tail -n +2 /kuser/shared/data/GWAS_backup/full_data/plate-effect/\
+variant_plate_effects_v2.txt | awk '{print $3}' | sort | uniq > t.ls
+# 30570 SNPs
+
+grab -v -f snp_ls.bak t.ls > snp.ls
+# 29903 SNPs not plotted yet
+
+nohup SNP_cluster_plot.R b01 plates1-53/     &
+nohup SNP_cluster_plot.R b02 plates54-105/   &
+nohup SNP_cluster_plot.R b03 plates106-156/  &
+nohup SNP_cluster_plot.R b04 plates157-209/  &
+nohup SNP_cluster_plot.R b05 plates210-261/  &
+nohup SNP_cluster_plot.R b06 plates262-318/  &
+nohup SNP_cluster_plot.R b07 plates319-367/  &
+
+
 ################################################################################
