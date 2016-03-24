@@ -1,45 +1,42 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 import sys
 
-ifile=open(sys.argv[1])
-domain_ids=[]
+ifile=open('index/cath_s35.seq')
+seqs={}
 for line in ifile:
-    domain_ids.append(line.split()[0])
+    dom_id = line[1:-1]
+    line = ifile.readline()[:-1]
+    seqs[dom_id] = line
 ifile.close()
 
-for dom_id in domain_ids:
-    #########################
-    # read consensus sequence
-    ifile = open('cseq/'+dom_id)
-    cseq=''.join(ifile.read().split('\n')[1:])
-    ifile.close()
-
-    dom_num_2_seq_num={}
-    j=0
-    for i in range(len(cseq)):
-        if cseq[i].isupper():
-            dom_num_2_seq_num[j]=i
-            j+=1
-
-    #########################
-    # read DSSP file 
-
-    dssp_ss=['X']* len(cseq)
+for dom_id in seqs.keys():
+    dssp_ss  = ['X'] * len(seqs[dom_id])
+    dssp_acc = ['NA'] * len(seqs[dom_id])
 
     ifile=open('dssp_ss/'+dom_id)
     for line in ifile:
         if line.startswith('  #  RESIDUE AA'):
             break;
-    
+
     for line in ifile:
         if line[6:10] =='    ':
             continue
-        res_num=int(line[6:10])-1
-        ss=line[16]
-        if ss==' ':
-            ss='C'
-        dssp_ss[dom_num_2_seq_num[res_num]]=ss 
+
+        res_num = int(line[6:10]) - 1
+
+        res_AA = line[13]
+        if res_AA != seqs[dom_id][res_num]:
+            print('What? Sequence mismatching at:',dom_id,line[:-1])
+
+        ss = line[16]
+        if ss == ' ':   ss='C'
+        dssp_ss[res_num]=ss
+
+        acc = line[35:38]
+        dssp_acc[res_num] = acc
+
     ifile.close()
 
-    print('>'+dom_id)
-    print(''.join(dssp_ss))
+    print('>'+dom_id )
+    # print(''.join(dssp_ss))
+    # print(' '.join(dssp_acc))

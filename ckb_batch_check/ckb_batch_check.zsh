@@ -19,13 +19,13 @@ cd /kuser/kuangl/dev/ckb_batch_check
 
 # on the nc2 server:
 # plate effect:
-head /kuser/shared/data/GWAS_backup/full_data/\
-plate-effect/variant_plate_effects_v2.txt
+/kuser/shared/data/GWAS_backup/full_data/plate-effect/\
+variant_plate_effects_v2.txt
 # 33621 entries, 30570 uniq SNPs
 
 # batch effect:
-head /kuser/shared/data/GWAS_backup/full_data/\
-batch_test/variant_batch_effects.txt
+/kuser/shared/data/GWAS_backup/full_data/batch_test/\
+variant_batch_effects.txt
 # 6407 entries, 4048 uniq SNPs
 
 #######################################
@@ -50,7 +50,7 @@ AxiomGT1.snp-posteriors.txt
 AxiomGT1.summary.txt
 
 ################################################################################
-# 2. temp metrices and plot files
+# 2. SNP cluster plots
 
 mkdir b01 b02 b03 b04 b05 b06 b07
 
@@ -74,7 +74,7 @@ nohup SNP_cluster_plot.R b07 plates319-367/  &
 
 # counting classes:
 tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
-# ...
+# b02, b03 etc ...
 
 #                           b01     b02     b03     b04     b05     b06     b07
 # PolyHighResolution     521250  519578  518984  513339  516908  516373  515777
@@ -103,10 +103,10 @@ SNP_class_pie.R
 SNP_class_squares.R
 
 #######################################
-# Now, combine the square plot and the clustering plots.
+# Now, combine the square plots and the clustering plots.
 
 IFS=$'\n'  snps=($(cat snp.ls))
-# in bash
+# or in bash, it can also be
 # readarray snps < ./snp.ls
 
 for snp in ${snps[@]} ; do
@@ -139,5 +139,6 @@ nohup SNP_cluster_plot.R b05 plates210-261/  &
 nohup SNP_cluster_plot.R b06 plates262-318/  &
 nohup SNP_cluster_plot.R b07 plates319-367/  &
 
+SNP_class_squares.R
 
 ################################################################################

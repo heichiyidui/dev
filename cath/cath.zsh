@@ -251,8 +251,6 @@ chkCNCAaltloc.py t.ls > t.out
 ########################################
 # 2.12 mapping residue number
 
-# The QC is almost done here.
-
 # The residue numbers are messy in PDB files. Different insertion codes,
 # chain id changing and alt_loc are troubles to programs like STRIDE and SAP.
 # Give them the uniformed numbering without insert or chain id or altloc.
@@ -269,6 +267,8 @@ rm -r dompdb
 mv pdb2 dompdb
 # 14776 domains, 2191 H classes left.
 
+# The QC is almost done here.
+# But not yet.
 
 ################################################################################
 # 3. Contact definition                                                        #
@@ -358,35 +358,124 @@ contact_number_counts.py
 # number-of-contacts distributions.
 
 simul_contact_number.py
-
-# With this simulation using residue specific distributions of contact number,
-# the domain size is even more linearly correlated to the sum contact number.
-# And the intercept is very close to zero.
-
-# The z score is linear to domain length.
-# Z = -4.8251 + 0.028153 * domain_length
+# We collected the number of contacts each residue could have.
+# Now, given a sequence we can randomly draw a set of contact numbers, from the
+# distributions we collected. Then a sum contact number can be acquired.
+# For the same sequence we run the summing 50 times. With the 50 sum contact
+# numbers we can calculate a mean and a standard deviation. The observed domain
+# sum contact number gives a Z score, calculated according to this mean and
+# standard deviation combination.
 #
 
-# So, let's correct the Z score by
-# Z' = Z + 4.8251 - 0.028153 * domain_length
-# Now it's roughly normal. Let's check Z' > 6 or Z' < 6
+# The Z score of domains tends to be normally distributed, with a mean of -0.56
+# and a standard deviation of 3.04
+
+# It is linearly correlated to domain length.
+# Z = -4.8251 + 0.028153 * domain_length
+# The correlation coefficient is 0.723.
+
+# After some manual check, any domain with Z score less than -6 will be regarded
+# too 'loose' and removed.
+# 355 domains to be removed. They are often small domains.
+
+# 14421 domains left.
+
+# update file:
+
+# index/CathDomainList.S35
+# index/cath_s35.condef
+# index/cath_s35.seq
+# index/cath_s35.res_num_map
+
+################################################################################
+# 4. DSSP and STRIDE secondary structure definitions                           #
+################################################################################
+
+#######################################
+# 4.1 run STRIDE and DSSP
+
+# to install STRIDE
+# wget http://webclu.bio.wzw.tum.de/stride/stride.tar.gz
+# tar xvzf stride.tar.gz
+# make
+# mv stride ~/bin
+#
+# and clean the files
+
+# to install DSSP
+# wget ftp://ftp.cmbi.ru.nl/pub/software/dssp/dssp-2.0.4-linux-i386
+# mv dssp-2.0.4-linux-i386 ~/bin/dssp
+
+mkdir stride_ss
+awk '{print $1}' index/CathDomainList.S35  > t.ls
+awk '{print "stride dompdb/" $1 " > stride_ss/" $1}' t.ls > t.out
+source ./t.out
+
+mkdir dssp_ss
+awk '{print "dssp dompdb/" $1 " > dssp_ss/" $1}' t.ls > t2.out
+source ./t2.out
+
+#######################################
+# 4.2 Parse the DSSP and STRIDE definitions
+
+# 89 residues in 87 domains were not assigned any secondary structures by DSSP.
+# (double missing assigments in 2 domains.)
+# Just treat as their secondary structure are 'X' and their ACC are 'NA'.
+# STRIDE has no such problem.
+
+parse_dssp.py > index/cath_s35.dssp
+# after change a line, get ACC
+parse_dssp.py > index/cath_s35_dssp.acc
 
 
+parse_stride.py  > index/cath_s35.stride
+# or change a line, get ACC
+parse_stride.py  > index/cath_s35_stride.acc
 
+rm -r dssp_ss
+rm -r stride_ss
 
+#######################################
+# to get 3-states definitions:
+# H and G can be considered as helix (H), E and B(b) as strand (E)
+# and all others as coil (C).
 
+#######################################
+# to get 7-states definitions
 
+# Neither STRIDE or DSSP want to assign secondary structures to the begin/end of
+# a domain. Most are coil, a few begins (5.9%) are assigned to Helix according
+# to STRIDE.
 
-
-
+# From 3 states to 7 states:
+# C -> C
+# H -> H
+# E -> E
+# CHH -> Hb -> G
+# EHH -> Hb -> G
+# HHC -> He -> I
+# HHE -> He -> I
+# HEE -> Eb -> D
+# CEE -> Eb -> D
+# EEC -> Ee -> F
+# EEH -> Ee -> F
 
 
 ################################################################################
-# 3. blast the sequences                                                       #
+# 5. blast the sequences                                                       #
 ################################################################################
 
 # We need to blast the domain sequences to get PSSMs and multiple sequence
 # alignments.
+
+#######################################
+# 5.1 download the NCBI nr and the Uniprot uniref 90 databases
+
+nrformat.zsh
+
+
+
+
 
 #######################################
 # 3.1 get the initial sequences
@@ -606,101 +695,6 @@ rm -r pssm
 # 53921360 values
 # min -16, max 13, mean -1.86, sdv 2.98, median -2
 # sounds like -2 +- 3
-
-################################################################################
-# 4. DSSP and STRIDE secondary structure definitions                           #
-################################################################################
-
-#######################################
-# 4.1 run STRIDE and DSSP
-
-# STRIDE
-# wget http://webclu.bio.wzw.tum.de/stride/stride.tar.gz
-# tar xvzf stride.tar.gz
-# make
-# move stride ~/bin
-
-# DSSP
-# wget ftp://ftp.cmbi.ru.nl/pub/software/dssp/dssp-2.0.4-linux-i386
-# mv dssp-2.0.4-linux-i386 ~/bin/dssp
-
-mkdir stride_ss
-ls dompdb > t.ls
-awk '{print "stride dompdb/" $1 " > stride_ss/" $1}' t.ls > t.out
-source ./t.out
-
-mkdir dssp_ss
-awk '{print "dssp dompdb/" $1 " > dssp_ss/" $1}' t.ls > t2.out
-source ./t2.out
-
-#######################################
-# 4.2 Parse the DSSP and STRIDE definitions
-
-# 110 residues in 107 domains were not assigned by DSSP.
-# (double missing assigments in 3 domains.)
-# Just treat them as missing.
-# STRIDE has no such problem.
-# Gap-fill residues in the consensus sequences are obviously missing.
-
-ls dssp_ss > t.ls
-parse_dssp.py t.ls > index/cath_s35.dssp
-#rm -r dssp_ss
-
-ls stride_ss > t.ls
-parse_stride.py t.ls > index/cath_s35.stride
-rm -r stride_ss
-
-# mostly STRIDE and DSSP definitions are similar.
-# average 81% identity
-# 40 domains got less than 50% identity
-# The mostly dissimilar one is 2kdcA00 (15% identity).
-# DSSP thinks it's mostly H, while STRIDE thinks it's mostly G.
-# I agree with DSSP.
-# Similar story happens on 1hciA04.
-
-#######################################
-# to get 3-states definitions:
-# H and G can be considered as helix (H), E and B(b) as strand (E)
-# and all others as coil (C).
-
-#######################################
-# to get 7-states definitions
-
-# Neither STRIDE or DSSP want to assign secondary structures to the begin/end of
-# a domain. Most are coil, a few begins (5.9%) are assigned to Helix according
-# to STRIDE.
-
-# From 3 states to 7 states:
-# C -> C
-# H -> H
-# E -> E
-# CHH -> Hb -> G
-# EHH -> Hb -> G
-# HHC -> He -> I
-# HHE -> He -> I
-# HEE -> Eb -> D
-# CEE -> Eb -> D
-# EEC -> Ee -> F
-# EEH -> Ee -> F
-
-################################################################################
-# 4.3 Residue exposure
-
-# the DSSP solvent accessibility ACC
-# modify the parse_dssp.py script a bit
-parse_dssp_acc.py t.ls > index/cath_s35_dssp.acc
-rm -r dssp_ss
-
-# 2456705 residues with ACC calculated
-# min 0, max 379, mean 56.1, sdv 50.7, median 46
-
-# the STRIDE solvent accessibility ACC (EISENHABER et al. 1995)
-parse_stride_acc.py t.ls > index/cath_s35_stride.acc
-rm -r stride_ss
-# 2456815 residues assigned
-# min 0, max 438.6, mean 56.2, sdv 50.3, median 46.4
-
-#
 
 
 ################################################################################

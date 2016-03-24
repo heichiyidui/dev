@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-# to simulate how many contacts a sequence should have
+# To simulate how many contacts a sequence should have, based on residue types.
 
 #######################################
 # contact number counts with residue type
@@ -51,7 +51,6 @@ for AA in residue_contact_counts.keys():
 
     np.random.shuffle(resi_cont_num_distr[AA])
 
-
 # read the sequences
 seqs = {}
 ifile=open('index/cath_s35.seq')
@@ -75,7 +74,8 @@ ifile.close()
 
 for dom_id in seqs.keys():
     simu_cont_sums = []
-    for l in range(10):
+    for l in range(50): # 50 simulations on a sequence
+        # use local array of 1000 numbers to increase the speed
         local_res_cont_num_distr={}
         for AA in resi_cont_num_distr.keys():
             rand_start = np.random.randint(0,len(resi_cont_num_distr[AA])-1000)
