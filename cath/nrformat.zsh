@@ -56,6 +56,16 @@ gunzip uniref90.fasta.gz
     -out uniref90 \
     -dbtype prot
 
+# or
+~/bin/ncbi-blast-2.3.0+/bin/makeblastdb \
+    -title uniref90 \
+    -in uniref90.fasta \
+    -dbtype prot \
+    -parse_seqids \
+    -out uniref90
+
+-parse_seqids
+
 # 40253516 sequences
 # about 48% of the 83476574 sequences of the nr database
 ################################################################################

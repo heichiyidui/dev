@@ -473,9 +473,38 @@ rm -r stride_ss
 
 nrformat.zsh
 
+#######################################
+# 5.2 blast for PSSM
 
+mkdir seq
+# Then write domain sequence files there.
 
+mkdir pssm
 
+# to get one PSSM
+
+~/bin/ncbi-blast-2.3.0+/bin/psiblast \
+    -db ../nr/uniref90 \
+    -num_iterations 2 \
+    -save_pssm_after_last_round \
+    -query seq/1ul4A01 \
+    -out_ascii_pssm pssm/1ul4A01
+
+# do it for 14421 sequences
+
+#######################################
+# 5.3 blast for multiple sequence alignments
+
+mkdir bl_out
+
+~/bin/ncbi-blast-2.3.0+/bin/blastp \
+    -db ../nr/uniref90 \
+    -max_target_seqs 5000 \
+    -outfmt "7 qstart qend qseq sseq sseqid"\
+    -query seq/1ul4A01 \
+    -out bl_out/1ul4A01
+
+# do it for 14421 sequences
 
 #######################################
 # 3.1 get the initial sequences

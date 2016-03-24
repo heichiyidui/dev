@@ -141,4 +141,15 @@ nohup SNP_cluster_plot.R b07 plates319-367/  &
 
 SNP_class_squares.R
 
+
+IFS=$'\n'  snps=($(cat snp.ls))
+
+for snp in ${snps[@]} ; do
+    echo $snp
+    convert ${snp}_class.png b01/$snp.png b02/$snp.png  +append r1.png
+    convert b03/$snp.png b04/$snp.png b05/$snp.png      +append r2.png
+    convert b06/$snp.png b07/$snp.png ${snp}_class.png  +append r3.png
+    convert r1.png r2.png r3.png -append ${snp}_comb.png
+done
+
 ################################################################################
