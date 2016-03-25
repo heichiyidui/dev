@@ -38,11 +38,12 @@ rm nr.??.tar.gz
 ################################################################################
 # UniRef 90 database
 
-# maybe uniref90 is more appropriate.
+# Maybe the uniref90 set is more appropriate.
 # A. It's smaller. Jobs are faster.
 # B. It has taxonomy. Multiple alignment mapping for prediction of protein
 # interactions might be much easier.
 # Downloaded uniref90 17/02/16
+
 wget \
 ftp://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz
 
@@ -53,18 +54,9 @@ gunzip uniref90.fasta.gz
 ~/bin/ncbi-blast-2.3.0+/bin/makeblastdb \
     -title uniref90 \
     -in uniref90.fasta \
-    -out uniref90 \
-    -dbtype prot
-
-# or
-~/bin/ncbi-blast-2.3.0+/bin/makeblastdb \
-    -title uniref90 \
-    -in uniref90.fasta \
     -dbtype prot \
     -parse_seqids \
     -out uniref90
-
--parse_seqids
 
 # 40253516 sequences
 # about 48% of the 83476574 sequences of the nr database

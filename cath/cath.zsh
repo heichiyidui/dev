@@ -506,56 +506,19 @@ mkdir bl_out
 
 # do it for 14421 sequences
 
-#######################################
-# 3.1 get the initial sequences
-mkdir seq
-ls dompdb > t.ls
+################################################################################
+#
 
 
-#######################################
-# 3.2 download the nr database
-
-# Downloaded the nr database from ncbi (ftp://ftp.ncbi.nlm.nih.gov/blast/db/).
-# Date: 05/10/12
-# It was then filtered to remove various non-globular/biased regions using
-# the program pfilt (v1.4) by David T. Jones.
-
-cd ../nr
-nrformat.zsh
-# had some warnings from pfilt
-# WARNING - description line truncated - increase BUFLEN!
-# so... change BUFLEN from 1048576 (2**20) to 2097152 (2**21) in pfilt.c
-
-cd ../cath
-
-#######################################
-# 3.3 get PSSMs
-
-mkdir pssm
-
-# try run blast locally?
-ls seq > t.ls
-awk '{print "~/bin/psiblast -db ../nr/nr -num_iterations 2 -query seq/" $1\
-     " -out_ascii_pssm pssm/" $1}' t.ls > t.out
-# 10 mins a job, about 50 or 100 days to finish 14776 jobs on my computer.
 
 init_blast.py t.ls
+
 # 100 sequences done in 8.5 hours. Not too bad. But that's only the first round.
 # To get PSSMs, at least two iterations.
 # Possible to run on the cluster. But I don't have the cluster access now.
 
-################################################################################
-# now we are in trouble...                                                     #
-################################################################################
 
-# try remote ncbi blast
-mkdir bl_out
-ls seq > t.ls
-awk '{print "~/bin/blastp -db nr -query seq/" $1 " -out bl_out/" $1 \
-    " -max_target_seqs 5000 " \
-    " -outfmt \"7 qstart qend qseq sseq \" -remote"}' t.ls > t.sh
 
-# 20 mins per sequence
 
 # Better to try batch searching. 5 sequences in a query file.
 # Too many sequences leads to SIGXCPU (24) error. NCBI wants jobs to be finished
