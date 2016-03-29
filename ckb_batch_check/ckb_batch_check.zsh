@@ -68,13 +68,13 @@ nohup SNP_cluster_plot.R b05 plates210-261/  &
 nohup SNP_cluster_plot.R b06 plates262-318/  &
 nohup SNP_cluster_plot.R b07 plates319-367/  &
 
-# It takes about 8~9 hours classifying the SNP callings for each batch,
-# 1 hour to grab sub-tables for 4000 SNPs
+# It takes about 8~9 hours to classify the SNP callings of each batch,
+# about 1 hour to grab sub-tables for 4000 SNPs,
 # and 1.5 hours to plot 4000 SNPs.
 
 # counting classes:
 tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
-# b02, b03 etc ...
+# and b02, b03 etc ...
 
 #                           b01     b02     b03     b04     b05     b06     b07
 # PolyHighResolution     521250  519578  518984  513339  516908  516373  515777
@@ -93,7 +93,7 @@ tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
 # Other                  10.4 +- 0.31 %
 # CallRateBelowThreshold  0.4 +- 0.03 %
 
-# use
+# Use
 SNP_class_pie.R
 # to get a pie plot of different SNP classes.
 
@@ -152,4 +152,7 @@ for snp in ${snps[@]} ; do
     convert r1.png r2.png r3.png -append ${snp}_comb.png
 done
 
+mkdir plate_eff_png
+mv *_comb.png plate_eff_png
+# about 12G of files
 ################################################################################

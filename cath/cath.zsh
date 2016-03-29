@@ -367,15 +367,15 @@ simul_contact_number.py
 # standard deviation combination.
 #
 
-# The Z score of domains tends to be normally distributed, with a mean of -0.56
-# and a standard deviation of 3.04
-
-# It is linearly correlated to domain length.
-# Z = -4.8251 + 0.028153 * domain_length
+# The expected sum contact number is linearly correlated to the domain length.
+# C = -4.8251 + 0.028153 * domain_length
 # The correlation coefficient is 0.723.
 
-# After some manual check, any domain with Z score less than -6 will be regarded
-# too 'loose' and removed.
+# The Z scores of real sum contact numbers tend to be normally distributed,
+#  with a mean of -0.56 and a standard deviation of 3.04 .
+
+# After some manual check, we decided that domains with Z scores less than -6
+# are to be regarded as too 'loose' and removed.
 # 355 domains to be removed. They are often small domains.
 
 # 14421 domains left.
@@ -473,9 +473,6 @@ rm -r stride_ss
 
 nrformat.zsh
 
-#######################################
-# 5.2 blast for PSSM
-
 mkdir seq
 # Then write domain sequence files there.
 
@@ -492,6 +489,8 @@ mkdir pssm
 
 # do it for 14421 sequences
 
+# 50 jobs, each has 289 sequences. All are finished in 4 days, on NC2.
+
 #######################################
 # 5.3 blast for multiple sequence alignments
 
@@ -506,37 +505,39 @@ mkdir bl_out
 
 # do it for 14421 sequences
 
-################################################################################
-#
+# 10 jobs, each has 1443 sequences. Most are finished in 4.5 days, on NC2.
 
 
+#######################################
+# 5.4 via NCBI remote blast
 
-init_blast.py t.ls
+# It can also be done with the NCBI blast server
+# ls seq > t.ls
+# awk '{print "~/bin/blastp -db nr -query seq/" $1 " -out bl_out/" $1 \
+#     " -max_target_seqs 5000 " \
+#     " -outfmt \"7 qstart qend qseq sseq sseqid \" -remote"}' t.ls > t.sh
 
-# 100 sequences done in 8.5 hours. Not too bad. But that's only the first round.
-# To get PSSMs, at least two iterations.
-# Possible to run on the cluster. But I don't have the cluster access now.
-
-
-
+# 20 mins per sequence
 
 # Better to try batch searching. 5 sequences in a query file.
 # Too many sequences leads to SIGXCPU (24) error. NCBI wants jobs to be finished
 # in less than one hour (?) combined CPU time.
 
-ls bl_in > t.ls
-awk '{print "~/bin/blastp -db nr -query bl_in/" $1 " -out bl_out/" $1 \
-    " -max_target_seqs 5000 " \
-    " -outfmt \"7 qstart qend qseq sseq \" -remote"}' t.ls > t.sh
+# Can submit 5 jobs simultaneously.
+# It takes 1.1 mins per sequences, about 1300 sequences per day.
+# We need 12 Days to finish 14776 sequences.
 
-# submit 5 jobs simultaneously.
-# 1.1 mins per sequences. About 1300 sequences per day.
-# Need 12 Days to finish 14776 sequences.
-
-# Run psiblast and get PSSM from NCBI is problematic.
+# To run psiblast and get PSSM from NCBI is problematic.
 # The " -num_iterations " option is not compatible with "-remote "
 # The PSSM from NCBI is different and got '-I -I ... -I' lines.
 # It's likely that the PSSM direct from NCBI is using the query sequence only.
+
+
+
+
+
+
+
 
 ################################################################################
 
@@ -566,65 +567,6 @@ parse_blast_out.py
 
 
 
-
-
-init_blast.py t.ls
-# sometime got
-
-split -l 100 t.ls
-# put the commandline into t.sh
-# init_blast.py $1
-
-# t.sh:
-#-----------------------------
-# #!/bin/sh
-# #$-S /bin/sh
-# #$ -cwd
-# #$ -q bignode.q,long.q,short.q
-# #################################################
-#
-# id_ls=$1
-# ./init_blast.py $id_ls
-#-----------------------------
-
-for lsfile in x?? ; do
-    qsub -l h_vmem=10G t.sh $lsfile
-done
-
-# It takes 8.5 hours to blast 100 sequences
-
-mkdir cseq
-calign.py t.ls
-# was using kalign
-# got error messages in kalign such as
-# 25504 Bus error  ~/bin/kalign c_align_in/1avvA00 > c_align/1avvA00
-# Failed about 100 times out of 16,556 domains.
-# Used MUSCLE instead.
-# MUSCLE is faster, but the output order is not stable.
-
-# anyway, got the c-seq
-
-# for comparisons, get the domain sequences with segments seperated with 'x'
-mkdir bseq
-ls dompdb > t.ls
-
-writeBseq.py t.ls
-
-# 16556 domains, 1-26 breaks per domain
-# 9357 have no break, 3310 have 1, 1471 have 2, etc.
-# domain length 14-1146, average 148, median 130
-
-# 34624 segments, length 1-779, average 71, median 50
-# 18068 breaks
-
-######
-# from cseq,  1-25 breaks per domain, average 0.94
-# 9690 no break, 3344 1, 1502 2 etc.
-# 32144 segments, length 1-759, average 76, median 57
-# Of the 16556 domain sequences, 15832 were modified with added residues.
-# That's 95.6%.
-
-compBreaks.py t.ls
 # with default 0.5 cuts
 # (The query sequence has a gap at the point, and the most occuring amino acid
 # is more than half in the column of the alignment)
