@@ -1,38 +1,40 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 
-domain_ids=open('t.ls').read().split()
+seqs = {}
+ifile=open('index/cath_s35.seq')
+for line in ifile:
+    dom_id = line[1:-1]
+    seq = ifile.readline()[:-1]
+    seqs[dom_id] = seq
+ifile.close()
 
-for dom_id in domain_ids:
-    #########################
-    # read consensus sequence
-    ifile = open('cseq/'+dom_id)
-    cseq=''.join(ifile.read().split('\n')[1:])
-    ifile.close()
-
-    Cseq=cseq.upper()
-
-    #########################
-    # read PSSM file 
+for dom_id in seqs.keys():
     pssm=[]
 
     ifile=open('pssm/'+dom_id)
-    for line in ifile:
-        if line.startswith('           A  R  N  D  C  Q  E  G'):
-            break;
-    
+    for i in range(3):
+        ifile.readline()
+
+    sum_pssm_aa = 0
     for line in ifile:
         if line=='\n':
             break;
-        res_num=int(line[0:5])-1
-        aa = line[6]
-        if Cseq[res_num] != aa:
-            print(dom_id,res_num)
-        pssm_aa=[]
-        for i in range(9,69,3):
-            pssm_aa.append(line[i:i+3].strip())
-        pssm.append('|'.join(pssm_aa))
+        cols = line.split()
+
+        res_num = int(cols[0]) - 1
+        aa = cols[1]
+
+        if seqs[dom_id][res_num] != aa:
+            print('mismatch at:',dom_id,res_num)
+
+        pssm_aa = cols[2:22]
+        sum_pssm_aa += 1
+
+        pssm.append(' '.join(pssm_aa))
     ifile.close()
 
-    print(">"+dom_id)
-    print(' '.join(pssm))
+    if sum_pssm_aa != len(seqs[dom_id]) :
+        print('missing PSSM assignment at:',dom_id)
 
+    print('>'+dom_id)
+    print('|'.join(pssm))

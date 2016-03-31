@@ -9,8 +9,8 @@
 #                                                                              #
 # I need CATH for my protein structure prediction projects.                    #
 # I need:                                                                      #
-#   1. non-redundant domains                                                   #
-#   2. residue PSIBlast PSSM                                                   #
+#   1. non-redundant, QCed domains                                             #
+#   2. residue PSIBlast PSSM and multiple alignments of them                   #
 #   3. residue secondary structure definitions                                 #
 #   4. residue exposure                                                        #
 #   5. residue contact definitions                                             #
@@ -530,16 +530,19 @@ mkdir bl_out
 # To run psiblast and get PSSM from NCBI is problematic.
 # The " -num_iterations " option is not compatible with "-remote "
 # The PSSM from NCBI is different and got '-I -I ... -I' lines.
-# It's likely that the PSSM direct from NCBI is using the query sequence only.
+# It's likely that the PSSM from NCBI is built using the query sequence only.
 
-
-
-
-
-
-
+# With the version 2.3.0+, PSIBlast can now store the PSSM after the first
+# iteration. The PSSM might be more useful now.
 
 ################################################################################
+
+parse_pssm.py > index/cath_s35.pssm
+# gzip it to save some space
+
+
+
+
 
 # All sequences have hits, often around 5000.
 # We asked for '-max_target_seqs 5000', but sometime we got more than 5000 hits.
@@ -623,7 +626,6 @@ done
 
 # 2696068 PSSM for 2696068 residues in cseq
 ls pssm > t.ls
-parse_pssm.py > index/cath_s35.pssm
 rm -r pssm
 
 # 53921360 values
