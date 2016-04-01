@@ -540,6 +540,15 @@ mkdir bl_out
 parse_pssm.py > index/cath_s35.pssm
 # gzip it to save some space
 
+# PSSM values:
+# min:       -16.0000
+# max:        13.0000
+# mean:       -2.1046
+# std:         3.2161
+# median and mode:     -2
+
+# The histogram is roughly normal, with a bit positive skewness.
+# Can be normalized like (x + 2) / 4
 
 
 
@@ -581,56 +590,6 @@ parse_blast_out.py
 # 11703 of them are corresponding to real breaks in domains (75%).
 # a lot of them are 'm' (5088) and 'x' (2360)
 rm -r bseq
-
-#######################################
-# 3.4 get PSSM with the second round of Blast
-
-# use mostly default parameters.
-# 3 iterations
-
-ls cseq > t.ls
-awk '{print "~/bin/psiblast -db ../nr/nr -num_iterations 3 -query cseq/" $1\
-     " -out_ascii_pssm pssm/" $1}' t.ls > t.out
-split -l 100 t.out
-
-# header ...
-head -n 4 t.sh > t.header
-for ifile in x?? ; do
-    cat t.header $ifile > t.out;
-    mv t.out $ifile
-done
-
-for psifile in x?? ; do
-    qsub -l h_vmem=10G $psifile
-done
-
-getPssm.py t.ls
-# or
-split -l 100 t.ls
-for lsfile in x?? ; do
-    qsub -l h_vmem=6G t.sh $lsfile
-done
-
-# 100 blast jobs took some 18-22 hours
-
-# two short cseq (1g3iW02 and 1kyiS02) got not blast hits
-# Using ncbi blast web server
-# It automatically adjust parameters for short input sequences to get some hits.
-# So, add options of our psiblast searches for the two
-# -evalue 200000 \
-# -word_size 2 \
-# -matrix PAM30 \
-# -gapopen 9 -gapextend 1 \
-# -comp_based_stats 0 \
-# -inclusion_ethresh 0.005 \
-
-# 2696068 PSSM for 2696068 residues in cseq
-ls pssm > t.ls
-rm -r pssm
-
-# 53921360 values
-# min -16, max 13, mean -1.86, sdv 2.98, median -2
-# sounds like -2 +- 3
 
 
 ################################################################################

@@ -1,28 +1,17 @@
-library(bclust)
+#!/usr/bin/Rscript
 
-cx <- as.matrix(read.table('t2.in'))
+dom_ids = read.table('t.ls',header=FALSE,as.is=1)
 
-mc.cx <- meancss(cx)
+for (dom_id in dom_ids$V1){
+    mat_file_name = paste('cont_map/',dom_id,sep='')
+    mat = read.table(mat_file_name, header=FALSE)
+    mat = as.matrix(mat)
 
-optimfunc<-function(theta)
-{
--loglikelihood(x.mean=mc.cx$mean,x.css=mc.cx$css,
-repno=mc.cx$repno,transformed.par=theta)#compute - log likelihood
+    png_file_name = paste('cont_map_png/',dom_id,'.png',sep='')
+    png(png_file_name)
+
+    heatmap(-mat, Rowv = NA, Colv = NA, labRow=NA, labCol=NA,
+            margins = c(0.5, 0.5) , scale='none' ,col = topo.colors(5) )
+
+    dev.off()
 }
-
-transpar<-optim(rep(0,6),optimfunc,method="BFGS")$par
-
-bhc=bclust(cx,transformed.par=transpar)
-
-tree_cut=cutree(tree=bhc,h=bhc$cut)
-
-write.table(file='t.out',tree_cut,col.names = FALSE,quote = FALSE)
-
-
-# ulimit -s unlimited
-
-x   <- as.matrix(read.table('fxf.in'))
-clu <- as.matrix(read.table('t.clu'))
-
-kc <- kmeans(x,clu,iter.max = 100)
-
