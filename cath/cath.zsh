@@ -552,7 +552,8 @@ mkdir bl_out
 # With the version 2.3.0+, PSIBlast can now store the PSSM after the first
 # iteration. The PSSM might be more useful now.
 
-################################################################################
+#######################################
+# 5.5 parsing PSSM files
 
 parse_pssm.py > index/cath_s35.pssm
 # gzip it to save some space
@@ -567,22 +568,32 @@ parse_pssm.py > index/cath_s35.pssm
 # The histogram is roughly normal, with a bit positive skewness.
 # Can be normalized like (x + 2) / 4
 
-
+#######################################
+# 5.6 parsing blast output
 
 
 # All sequences have hits, often around 5000.
 # We asked for '-max_target_seqs 5000', but sometime we got more than 5000 hits.
-# In these cases, the hits are often very duplicated.
+# In these cases, the hits are often very duplicated, multiple hits from the
+# same sequences.
+
 # All aligned segments have capital letters. In addition to 'B', 'Z' and 'X',
 # some are 'J', 'U' and 'O'.
 
-# De-duplication. Stack the pairwise alignments together.
-# Replaced leading and ending '-'s with '.'s.
-# Top 5000 hits if more are found.
+
+# De-duplication (use the first hit of the same sequence only).
+# Stack the pairwise alignments together.
 
 mkdir bl_out2
 
 parse_blast_out.py
+
+
+
+
+
+
+
 
 # 14776 domains blasted. 2237849 residues.
 # The average residue reading depth is 2311.
