@@ -420,7 +420,6 @@ source ./t2.out
 
 # 89 residues in 87 domains were not assigned any secondary structures by DSSP.
 # (double missing assigments in 2 domains.)
-# Just treat as their secondary structure are 'X' and their ACC are 'NA'.
 # STRIDE has no such problem.
 
 parse_dssp.py > index/cath_s35.dssp
@@ -432,12 +431,30 @@ parse_stride.py  > index/cath_s35.stride
 # or change a line, get ACC
 parse_stride.py  > index/cath_s35_stride.acc
 
+# Eventually used STRIDE assignments for those 'X's and 'NA's in DSSP.
+
 rm -r dssp_ss
 rm -r stride_ss
 
+# DSSP       STRIDE        DSSP_vs_STRIDE
+# H 735171   H 766522      HH 720327
+# G 79946    G 81348       GG 66905
+# E 476838   E 495802      EE 471225
+# B 22740    B 22321       BB 17564
+# C 450516   C 395994      CC 288656
+# T 248147   T 441881      TT 173017
+# S 190393
+# I 437      I 320         II 192
+
+# DSSP_ACC                STRIDE_ACC
+# min:       0.0000       min:       0.0000
+# max:       379.0000     max:       404.1000
+# mean:      55.0408      mean:      55.1434
+# std:       50.5024      std:       49.9600
+
 #######################################
 # to get 3-states definitions:
-# H and G can be considered as helix (H), E and B(b) as strand (E)
+# H and G can be considered as helix (H), E and B as strand (E)
 # and all others as coil (C).
 
 #######################################

@@ -156,3 +156,17 @@ mkdir plate_eff_png
 mv *_comb.png plate_eff_png
 # about 12G of files
 ################################################################################
+
+
+cat plate_chk_res.ls batch_v2_chk_res.ls | awk '{print $1}' | \
+    sort | uniq > examed.ls
+
+rm to_exam_png/*
+awk '{print $1}' to_exam/xaf | sort > t1.ls
+grab -f examed.ls -v t1.ls > to_exam.ls
+
+awk '{print "cp plate_eff_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls \
+    > t.out
+
+source t.out
+
