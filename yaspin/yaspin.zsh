@@ -45,7 +45,7 @@
 # 2204188 residues
 # for QC steps, see ../cath/cath.zsh
 
-
+# for CAO matrices, see ../caojd/caojd.zsh
 
 
 
