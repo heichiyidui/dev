@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import sys
 
 seqs={}
 ifile=open('index/cath_s35.seq')

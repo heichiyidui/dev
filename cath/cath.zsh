@@ -379,6 +379,9 @@ simul_contact_number.py
 # 355 domains to be removed. They are often small domains.
 
 # 14421 domains left.
+# 2204188 residues
+# Median domain length 133, mean domain length 153.
+# 6695153 contacts, 6.07 contacts per residue
 
 # update file:
 
@@ -571,54 +574,38 @@ parse_pssm.py > index/cath_s35.pssm
 #######################################
 # 5.6 parsing blast output
 
-
 # All sequences have hits, often around 5000.
 # We asked for '-max_target_seqs 5000', but sometime we got more than 5000 hits.
-# In these cases, the hits are often very duplicated, multiple hits from the
-# same sequences.
+# In these cases, there are multiple hits from the same sequences.
 
 # All aligned segments have capital letters. In addition to 'B', 'Z' and 'X',
 # some are 'J', 'U' and 'O'.
 
-
 # De-duplication (use the first hit of the same sequence only).
 # Stack the pairwise alignments together.
+# Replace non-standard residues with '-'.
+# Only include subject sequences which are less than 100% identical.
+#
+# The median of the number of hits is 2960.
 
 mkdir bl_out2
 
 parse_blast_out.py
 
+# 14421 domains, 2204188 residues
+# 38248057 subject sequences have been aligned to the domains.
+# After parsing, the median per domain is 2544.
+# The mean is 2652.
+# reading depth of residue:
+# min 0, max 5000, mean 2311, median 1931, std 1816
 
+# alignment coverage: (the portion of domain been aligned to)
+# min 0.038, max 1    , mean 0.7924, median 0.845
+# alignment percent identity: (in the aligned part)
+# min 0.111, max 0.998, mean 0.3936, median 0.3697, std 0.108
 
-
-
-
-
-
-# 14776 domains blasted. 2237849 residues.
-# The average residue reading depth is 2311.
-# 365 residues reading depths are zero.
-
-
-
-
-
-
-
-
-
-# with default 0.5 cuts
-# (The query sequence has a gap at the point, and the most occuring amino acid
-# is more than half in the column of the alignment)
-
-# Of the 18068 real domain breaks,
-# 6365 have not been assigned (35%)
-# 11703 were assgined via calign.py
-# calign.py found 15588 gaps to be filled.
-# 11703 of them are corresponding to real breaks in domains (75%).
-# a lot of them are 'm' (5088) and 'x' (2360)
-rm -r bseq
-
+rm -r bl_out
+mv bl_out2 bl_out
 
 ################################################################################
 # Done                                                                         #
