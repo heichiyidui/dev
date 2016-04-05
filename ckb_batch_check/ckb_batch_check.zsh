@@ -156,13 +156,13 @@ mkdir plate_eff_png
 mv *_comb.png plate_eff_png
 # about 12G of files
 ################################################################################
-
+# 3. manual check of the clustering plots
 
 cat plate_chk_res.ls batch_v2_chk_res.ls | awk '{print $1}' | \
     sort | uniq > examed.ls
 
 rm to_exam_png/*
-awk '{print $1}' to_exam/xaf | sort > t1.ls
+awk '{print $1}' to_exam/xax | sort > t1.ls
 grab -f examed.ls -v t1.ls > to_exam.ls
 
 awk '{print "cp plate_eff_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls \
@@ -170,3 +170,5 @@ awk '{print "cp plate_eff_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls \
 
 source t.out
 
+ls to_exam_png | sed 's/_comb.png//' > t.in
+t1.py > t.out

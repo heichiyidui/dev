@@ -41,7 +41,7 @@ match.cel.file.name = FALSE
 # Note we didn't use the pidFile options here.
 # All SNPs are to be classified.
 
-to_classify_SNPs = FALSE
+to_classify_SNPs = TRUE
 
 if (to_classify_SNPs){
 
