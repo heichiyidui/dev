@@ -6,15 +6,17 @@ import argparse
 # parse arguments
 
 parser = argparse.ArgumentParser(\
-    description='grab a subset of a file according to a list of ids',\
+    description='grab a subset of a table according to a list of ids',\
     epilog=' grab -f id_list_file in_file > subset_file')
 
 parser.add_argument('-f', dest='ls_file',help='obtain ids from LS_FILE')
 parser.add_argument('-c', dest='id_col',default=1,type=int,\
                     help='match ids in the corresponding column of in_file')
 parser.add_argument('in_file', type=str,help='input file')
-parser.add_argument('-v', action='store_true', default=False,\
+parser.add_argument('-v', action='store_true',  default=False,\
                     dest='invert_select',help='select non-matching lines')
+parser.add_argument('-sh', action='store_true', default=False,\
+                    dest='skip_header',help='skip the header of the table')
 
 args=parser.parse_args()
 
@@ -55,6 +57,10 @@ except IOError:
 
 sys.stderr.write('ids in the column '+str(args.id_col)+' of '\
                  +args.in_file+'\n\n')
+if args.skip_header:
+    sys.stderr.write('To skip the header line of '\
+                 +args.in_file+'\n\n')
+    print(in_file.readline(),end='')
 
 id_col=args.id_col-1
 

@@ -2,13 +2,10 @@
 library(SNPolisher)
 library(methods)
 
-# snp_file  = 'a_snp.ls'
-# batch_id  = 'b01'
-# call_dir  = 'example_1_buffalo/'
-
 snp_file  = 'snp.ls'
-# batch_dir = 'plates1-53/'
+
 # batch_id  = 'b01'
+# batch_dir = 'plates1-53/'
 
 args = commandArgs(trailingOnly=TRUE)
 batch_id  = args[1]
@@ -38,10 +35,10 @@ match.cel.file.name = FALSE
 # calculating metrics and perform classification
 
 #######################################
-# Note we didn't use the pidFile options here.
-# All SNPs are to be classified.
+# Note we do not use the pidFile options here.
+# ALL SNPs are to be classified.
 
-to_classify_SNPs = TRUE
+to_classify_SNPs = FALSE
 
 if (to_classify_SNPs){
 

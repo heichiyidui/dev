@@ -54,12 +54,19 @@ AxiomGT1.summary.txt
 
 mkdir b01 b02 b03 b04 b05 b06 b07
 
-tail -n +2 /kuser/shared/data/GWAS_backup/full_data/batch_test/\
-variant_batch_effects.txt | awk '{print $2}' | sort | uniq > snp.ls
-# 4048 SNPs with potential batch effects to be examed.
+# lets just plot all SNPs!
+cat /kuser/shared/data/GWAS_backup/full_data/*stage1.bim | awk '{print $2'} | \
+    sort | uniq > snp.ls
+
+# To generate the clustering plots:
+#
+# If it is the first time, you might want to turn on 'to_classify_SNPs'
+# in SNP_cluster_plot.R
+# It takes about 8~9 hours to classify all SNP callings of each batch,
+# Then It takes about 1 hour to grab sub-tables for 4000 SNPs,
+# and 1.5 hours to plot 4000 SNPs.
 
 # on the nc2 server
-
 nohup SNP_cluster_plot.R b01 plates1-53/     &
 nohup SNP_cluster_plot.R b02 plates54-105/   &
 nohup SNP_cluster_plot.R b03 plates106-156/  &
@@ -68,10 +75,7 @@ nohup SNP_cluster_plot.R b05 plates210-261/  &
 nohup SNP_cluster_plot.R b06 plates262-318/  &
 nohup SNP_cluster_plot.R b07 plates319-367/  &
 
-# It takes about 8~9 hours to classify the SNP callings of each batch,
-# about 1 hour to grab sub-tables for 4000 SNPs,
-# and 1.5 hours to plot 4000 SNPs.
-
+#######################################
 # counting classes:
 tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
 # and b02, b03 etc ...
@@ -85,13 +89,13 @@ tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
 # Other                   77710   80636   79786   82277   85380   79715   81393
 # CallRateBelowThreshold   2723    2439    2886    2972    2564    3007    2591
 
-# PolyHighResolution     66.2 +- 0.34 %
-# NoMinorHom             13.5 +- 0.48 %
-# MonoHighResolution      9.0 +- 0.53 %
-# Hemizygous              0.2 +- 0    %
-# OTV                     0.5 +- 0.04 %
-# Other                  10.4 +- 0.31 %
-# CallRateBelowThreshold  0.4 +- 0.03 %
+# PolyHighResolution      66.2 +- 0.34 %
+# NoMinorHom              13.5 +- 0.48 %
+# MonoHighResolution       9.0 +- 0.53 %
+# Hemizygous               0.2 +- 0    %
+# OTV                      0.5 +- 0.04 %
+# Other                   10.4 +- 0.31 %
+# CallRateBelowThreshold   0.4 +- 0.03 %
 
 # Use
 SNP_class_pie.R
@@ -100,7 +104,8 @@ SNP_class_pie.R
 #######################################
 # For each SNP, in addition to its clustering plots, we also want a square plot
 # to show us the calling classes across the 7 batches.
-SNP_class_squares.R
+
+nohup SNP_class_squares.R &
 
 #######################################
 # Now, combine the square plots and the clustering plots.
@@ -158,17 +163,26 @@ mv *_comb.png plate_eff_png
 ################################################################################
 # 3. manual check of the clustering plots
 
+# plate_chk_res.ls and batch_v2_chk_res.ls are the manual check result tables,
+# where '0' in the column two means 'failed manual check'.
+
 cat plate_chk_res.ls batch_v2_chk_res.ls | awk '{print $1}' | \
     sort | uniq > examed.ls
 
-rm to_exam_png/*
-awk '{print $1}' to_exam/xax | sort > t1.ls
+rm  to_exam_png/*.png
+
+awk '{print $1}' to_exam/xab | sort > t1.ls
 grab -f examed.ls -v t1.ls > to_exam.ls
 
 awk '{print "cp plate_eff_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls \
     > t.out
-
 source t.out
+
+# now check the png pictures in the to_exam_png directory
+# delete pictures of bad snps
 
 ls to_exam_png | sed 's/_comb.png//' > t.in
 t1.py > t.out
+e batch_v2_chk_res.ls t.out &
+
+################################################################################
