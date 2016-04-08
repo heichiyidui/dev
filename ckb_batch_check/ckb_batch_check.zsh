@@ -221,7 +221,13 @@ nohup get_avm.py b07 &
 # 720 SNP avm files per min per job
 # that's better than 1 or 2 SNPs per min per job
 
-SNP_cluster_plot_v2.R b01
+nohup SNP_cluster_plot_v2.R b01 &
+nohup SNP_cluster_plot_v2.R b02 &
+nohup SNP_cluster_plot_v2.R b03 &
+nohup SNP_cluster_plot_v2.R b04 &
+nohup SNP_cluster_plot_v2.R b05 &
+nohup SNP_cluster_plot_v2.R b06 &
+nohup SNP_cluster_plot_v2.R b07 &
 
 ################################################################################
 # 3. manual check of the clustering plots
