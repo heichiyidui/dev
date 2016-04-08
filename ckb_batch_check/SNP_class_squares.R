@@ -55,7 +55,7 @@ for (snp in snps)
     s_cls = c(t(s_cls))    # SNP classes
     fills = col_map[s_cls] # filling colours
 
-    png(paste(snp,'_class.png',sep=''))
+    png(paste('class_png/',snp,'_class.png',sep=''))
 
     p <- ggplot(data=rec_location, aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2) ) +
         geom_rect(fill=fills) +
@@ -68,4 +68,6 @@ for (snp in snps)
     dev.off()
 }
 
+# the end
+################################################################################
 

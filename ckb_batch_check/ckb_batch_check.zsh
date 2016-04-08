@@ -105,6 +105,8 @@ SNP_class_pie.R
 # For each SNP, in addition to its clustering plots, we also want a square plot
 # to show us the calling classes across the 7 batches.
 
+mkdir class_png
+
 nohup SNP_class_squares.R &
 
 #######################################
@@ -160,6 +162,24 @@ done
 mkdir plate_eff_png
 mv *_comb.png plate_eff_png
 # about 12G of files
+
+#######################################
+# want to plot ALL snps, found the script tooooo slow (about 1 png per min)
+
+# double check the orders of chips are the same between the
+# call and summary files
+for batch in b01 b02 b03 b04 b05 b06 b07 ; do
+    h -n 1 $batch/calls.txt > t.ls
+    transpos_file t.ls > t1.ls
+    h -n 1 $batch/summary.txt > t.ls
+    transpos_file t.ls > t2.ls
+    diff t1.ls t2.ls | wc
+done
+# no difference found, all consistent
+
+
+
+
 
 ################################################################################
 # 3. manual check of the clustering plots
