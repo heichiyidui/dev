@@ -2,7 +2,9 @@
 library(ggplot2)
 library(methods)
 
-batch_id  = 'b01'
+args = commandArgs(trailingOnly=TRUE)
+batch_id  = args[1]
+# batch_id  = 'b01'
 
 #######################################
 # a funtion to calculate posterior ellipse border coordinates
