@@ -169,6 +169,7 @@ mv *_comb.png plate_eff_png
 #######################################
 # want to plot ALL snps, found the script tooooo slow (about 1 png per min)
 
+###################
 # double check the orders of chips are the same between the
 # call and summary files
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
@@ -181,7 +182,7 @@ for batch in b01 b02 b03 b04 b05 b06 b07 ; do
 done
 # no difference found, all consistent
 
-
+###################
 # double check the summary file has the order of A and B of the same SNP
 # say, 'AX-100002645-A' followed by 'AX-100002645-B'
 # then 'AX-100002667-A' followed by 'AX-100002667-B'
@@ -197,15 +198,29 @@ for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     # all 1, 'A' and 'B' are never consecutive
 done
 
+###################
 # Python script to generate a avm files per SNP
 # The avm file should have the a and b signals,
 # in the format of A <- (log(a) + log(b))/2 and M <- log(a) - log(b)
 # calls, should be included into the avm file, are 0, 1, 2 and -1 for missing
 # We want 3 for missing?
 
-get_posterior.py
-get_avm.py
+for batch in b01 b02 b03 b04 b05 b06 b07 ; do
+    get_posterior.py $batch > ${batch}.posterior
+done
 
+nohup get_avm.py b01 &
+nohup get_avm.py b02 &
+nohup get_avm.py b03 &
+nohup get_avm.py b04 &
+nohup get_avm.py b05 &
+nohup get_avm.py b06 &
+nohup get_avm.py b07 &
+
+# 720 SNP avm files per min per job
+# that's better than 1 or 2 SNPs per min per job
+
+SNP_cluster_plot_v2.R b01
 
 ################################################################################
 # 3. manual check of the clustering plots
