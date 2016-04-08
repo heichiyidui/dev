@@ -208,6 +208,7 @@ done
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     get_posterior.py $batch > ${batch}.posterior
 done
+# 687236 SNPs
 
 nohup get_avm.py b01 &
 nohup get_avm.py b02 &

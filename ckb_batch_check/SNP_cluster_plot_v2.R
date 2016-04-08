@@ -5,7 +5,7 @@ library(methods)
 batch_id  = 'b01'
 
 #######################################
-# a funtion to calculate posterior ellipse coordinates
+# a funtion to calculate posterior ellipse border coordinates
 pos.ellipse <- function(x0, vx, y0, vy, cov)
 {
     theta <- 0.5 * atan2(cov * 2, vx - vy)
@@ -36,7 +36,6 @@ snp_pos <- read.table(ps_file, header = TRUE, as.is =1 )
 rownames(snp_pos) <- snp_pos$id
 snp_ids <- snp_pos$id
 
-# snp_id = 'ps100'
 for (snp_id in snp_ids)
 {
     el_1 = pos.ellipse(x0  = snp_pos[snp_id,  'x1'],

@@ -11,7 +11,8 @@ in_summ_file = open(batch_id+'/summary.txt')
 in_call_file.readline()
 in_summ_file.readline()
 for line in in_call_file:
-    cols = line[:-1].replace('-1','3').split() # wants '3' for missing call
+    cols = line[:-1].replace('\t-1','\t3').split()
+    # want '3' for missing calls, not '-1'
     snp_id = cols[0]
     snp_calls = cols[1:]
     line_a = in_summ_file.readline()[:-1]
