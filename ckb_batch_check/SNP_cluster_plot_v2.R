@@ -70,7 +70,7 @@ for (snp_id in snp_ids)
     p <- ggplot() +
         geom_point(data=snp_avm,
                    aes(x=M, y=A, shape=called, color=called, fill=called),
-                   alpha=0.5, size=3) +
+                   alpha=0.5, size=2) +
         scale_colour_manual(values=c('red','#999900','blue','#660066')) +
         scale_fill_manual  (values=c('red','#999900','blue','#660066')) +
         scale_shape_manual (values=c(24,21,25,22) ) +
