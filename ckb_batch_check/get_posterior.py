@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import sys
+batch_id = sys.argv[1]
+# batch_id = 'b01'
 
-ifile=open('b01'+'/posterior.txt')
+ifile=open(batch_id+'/posterior.txt')
 ifile.readline()
 print('id x1 vx1 y1 vy1 cov1 x2 vx2 y2 vy2 cov2 x3 vx3 y3 vy3 cov3')
 

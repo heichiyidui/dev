@@ -108,6 +108,9 @@ SNP_class_pie.R
 mkdir class_png
 
 nohup SNP_class_squares.R &
+# more than 200 SNPs per min
+# 300,000 per day
+# fast enough
 
 #######################################
 # Now, combine the square plots and the clustering plots.
@@ -169,16 +172,39 @@ mv *_comb.png plate_eff_png
 # double check the orders of chips are the same between the
 # call and summary files
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
-    h -n 1 $batch/calls.txt > t.ls
+    echo $batch
+    head -n 1 $batch/calls.txt > t.ls
     transpos_file t.ls > t1.ls
-    h -n 1 $batch/summary.txt > t.ls
+    head -n 1 $batch/summary.txt > t.ls
     transpos_file t.ls > t2.ls
     diff t1.ls t2.ls | wc
 done
 # no difference found, all consistent
 
 
+# double check the summary file has the order of A and B of the same SNP
+# say, 'AX-100002645-A' followed by 'AX-100002645-B'
+# then 'AX-100002667-A' followed by 'AX-100002667-B'
 
+for batch in b01 b02 b03 b04 b05 b06 b07 ; do
+    echo $batch
+    awk '{print $1}' $batch/summary.txt | tail -n +2 > t.ls
+    awk -F"-" '{print $2}' t.ls | uniq -c | awk '{print $1}' | uniq -c
+    # all 2
+    awk -F"-" '{print $3}' t.ls | sort | uniq -c
+    # 'A' or 'B', nothing else
+    awk -F"-" '{print $3}' t.ls | uniq -c | awk '{print $1}' | uniq -c
+    # all 1, 'A' and 'B' are never consecutive
+done
+
+# Python script to generate a avm files per SNP
+# The avm file should have the a and b signals,
+# in the format of A <- (log(a) + log(b))/2 and M <- log(a) - log(b)
+# calls, should be included into the avm file, are 0, 1, 2 and -1 for missing
+# We want 3 for missing?
+
+get_posterior.py
+get_avm.py
 
 
 ################################################################################

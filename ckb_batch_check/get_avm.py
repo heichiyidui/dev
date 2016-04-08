@@ -2,6 +2,7 @@
 import math
 import sys
 batch_id = sys.argv[1]
+# batch_id = 'b01'
 
 in_call_file = open(batch_id+'/calls.txt')
 in_summ_file = open(batch_id+'/summary.txt')
