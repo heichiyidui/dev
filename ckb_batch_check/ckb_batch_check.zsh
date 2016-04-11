@@ -221,6 +221,7 @@ nohup get_avm.py b07 &
 
 # 720 SNP avm files per min per job
 # that's better than 1 or 2 SNPs per min per job
+# Finished making all 687236 avm files in 17 hours.
 
 nohup SNP_cluster_plot_v2.R b01 &
 nohup SNP_cluster_plot_v2.R b02 &
@@ -233,6 +234,8 @@ nohup SNP_cluster_plot_v2.R b07 &
 # 100,000 png files per job over the weekend.
 # One job produces 26 pictures per minute, about 1 per two second.
 
+# Still pretty slow.
+# It might be the huge number of avm files slowing the system.
 
 ################################################################################
 # 3. manual check of the clustering plots

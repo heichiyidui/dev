@@ -36,7 +36,9 @@ ps_file <- paste(batch_id,'.posterior',sep='')
 
 snp_pos <- read.table(ps_file, header = TRUE, as.is =1 )
 rownames(snp_pos) <- snp_pos$id
-snp_ids <- snp_pos$id
+
+# snp_ids <- snp_pos$id
+snp_ids <- scan('snp.ls', what='')
 
 for (snp_id in snp_ids)
 {
