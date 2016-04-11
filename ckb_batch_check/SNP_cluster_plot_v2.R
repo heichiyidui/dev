@@ -2,9 +2,9 @@
 library(ggplot2)
 library(methods)
 
-args = commandArgs(trailingOnly=TRUE)
-batch_id  = args[1]
-# batch_id  = 'b01'
+# args = commandArgs(trailingOnly=TRUE)
+# batch_id  = args[1]
+batch_id  = 'b01'
 
 #######################################
 # a funtion to calculate posterior ellipse border coordinates
@@ -67,16 +67,21 @@ for (snp_id in snp_ids)
 
     xtemp <- max(abs(c(x3 + 2*sqrt(vx3), x1 - 2*sqrt(vx1), snp_avm$M) ))
 
+    snp_cols   = c('0'='red','1'='#999900','2'='blue','3'='#A0A0A0')
+    snp_shapes = c('0' = 24, '1' = 21, '2' = 25, '3' = 22)
+                    # AA AB BB missing
+
     p <- ggplot() +
         geom_point(data=snp_avm,
                    aes(x=M, y=A, shape=called, color=called, fill=called),
-                   alpha=0.5, size=3) +
-        scale_colour_manual(values=c('red','#999900','blue','#660066')) +
-        scale_fill_manual  (values=c('red','#999900','blue','#660066')) +
-        scale_shape_manual (values=c(24,21,25,22) ) +
-        geom_path(data=el_1,aes(x=x,y=y),color='blue') +
-        geom_path(data=el_2,aes(x=x,y=y),color='#999900') +
-        geom_path(data=el_3,aes(x=x,y=y),color='red') +
+                   alpha=0.9, size=1.5) +
+        scale_colour_manual(values=snp_cols) +
+        scale_fill_manual  (values=snp_cols) +
+        scale_shape_manual (values=snp_shapes) +
+
+        geom_path(data=el_1,aes(x=x,y=y),color='#000099') +
+        geom_path(data=el_2,aes(x=x,y=y),color='#666600') +
+        geom_path(data=el_3,aes(x=x,y=y),color='#CC0000') +
         xlim(c(-xtemp,xtemp)) + xlab(NULL) + ylab(NULL) +
         guides(colour=FALSE,fill=FALSE,shape=FALSE) +
         theme_bw() +

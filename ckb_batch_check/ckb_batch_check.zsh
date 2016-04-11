@@ -148,9 +148,10 @@ nohup SNP_cluster_plot.R b04 plates157-209/  &
 nohup SNP_cluster_plot.R b05 plates210-261/  &
 nohup SNP_cluster_plot.R b06 plates262-318/  &
 nohup SNP_cluster_plot.R b07 plates319-367/  &
+# 1 or 2 SNPs per min per job...
 
 SNP_class_squares.R
-
+# It produces about 100 pictures per minute.
 
 IFS=$'\n'  snps=($(cat snp.ls))
 
@@ -202,8 +203,8 @@ done
 # Python script to generate a avm files per SNP
 # The avm file should have the a and b signals,
 # in the format of A <- (log(a) + log(b))/2 and M <- log(a) - log(b)
-# calls, should be included into the avm file, are 0, 1, 2 and -1 for missing
-# We want 3 for missing?
+# The calls are included into the avm file, are 0, 1, 2 and -1 for missing
+# Here we changed '-1' to '3' for missing.
 
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     get_posterior.py $batch > ${batch}.posterior
@@ -228,6 +229,10 @@ nohup SNP_cluster_plot_v2.R b04 &
 nohup SNP_cluster_plot_v2.R b05 &
 nohup SNP_cluster_plot_v2.R b06 &
 nohup SNP_cluster_plot_v2.R b07 &
+
+# 100,000 png files per job over the weekend.
+# One job produces 26 pictures per minute, about 1 per two second.
+
 
 ################################################################################
 # 3. manual check of the clustering plots
