@@ -59,7 +59,7 @@ for (snp_id in snp_ids)
                        cov = snp_pos[snp_id,'cov3'])
 
     avm_file = paste(batch_id,'/',snp_id,'.avm',sep='')
-    snp_avm = read.table(avm_file, header = TRUE)
+    snp_avm  = read.table(avm_file, header = TRUE)
     snp_avm$called = factor(snp_avm$called)
 
     x3  = snp_pos[snp_id, 'x3']
@@ -69,12 +69,14 @@ for (snp_id in snp_ids)
 
     xtemp <- max(abs(c(x3 + 2*sqrt(vx3), x1 - 2*sqrt(vx1), snp_avm$M) ))
 
-    snp_cols   = c('0'='red','1'='#999900','2'='blue','3'='#A0A0A0')
-    snp_shapes = c('0' = 24, '1' = 21, '2' = 25, '3' = 22)
-                    # AA AB BB missing
+    snp_cols   = c('0' = 'red', '1' = '#999900', '2' = 'blue', '3' = '#A0A0A0')
+    snp_shapes = c('0' = 24,    '1' = 21,        '2' = 25,     '3' = 22)
+                    # 'AA', 'AB', 'BB' and 'missing'
+                    # must be specific, otherwise if one of 'AA' etc is not
+                    # presented, 'missing' will be in a different colour.
 
     p <- ggplot() +
-        geom_point(data=snp_avm,
+        geom_point(data = snp_avm,
                    aes(x=M, y=A, shape=called, color=called, fill=called),
                    alpha=0.9, size=1.5) +
         scale_colour_manual(values=snp_cols) +
@@ -84,6 +86,7 @@ for (snp_id in snp_ids)
         geom_path(data=el_1,aes(x=x,y=y),color='#000099') +
         geom_path(data=el_2,aes(x=x,y=y),color='#666600') +
         geom_path(data=el_3,aes(x=x,y=y),color='#CC0000') +
+
         xlim(c(-xtemp,xtemp)) + xlab(NULL) + ylab(NULL) +
         guides(colour=FALSE,fill=FALSE,shape=FALSE) +
         theme_bw() +
