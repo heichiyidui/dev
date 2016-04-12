@@ -238,6 +238,22 @@ nohup SNP_cluster_plot_v2.R b07 &
 # Still pretty slow.
 # It might be the huge number of avm files slowing the system.
 
+#######################################
+# 2.6.4 combine plots
+
+IFS=$'\n'  snps=($(cat snp.ls))
+
+for snp in ${snps[@]} ; do
+    echo $snp
+    convert class_png/$snp.png b01/$snp.png b02/$snp.png  +append r1.png
+    convert b03/$snp.png b04/$snp.png b05/$snp.png        +append r2.png
+    convert b06/$snp.png b07/$snp.png class_png/$snp.png  +append r3.png
+    convert r1.png r2.png r3.png -append ${snp}_comb.png
+done
+
+mkdir batch_eff_png
+mv *comb.png batch_eff_png
+
 ################################################################################
 # 3. manual check of the clustering plots                                      #
 ################################################################################

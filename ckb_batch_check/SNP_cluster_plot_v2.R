@@ -69,7 +69,7 @@ for (snp_id in snp_ids)
 
     xtemp <- max(abs(c(x3 + 2*sqrt(vx3), x1 - 2*sqrt(vx1), snp_avm$M) ))
 
-    snp_cols   = c('0' = 'red', '1' = '#999900', '2' = 'blue', '3' = '#A0A0A0')
+    snp_cols   = c('0' = 'red', '1' = '#999900', '2' = 'blue', '3' = '#606060')
     snp_shapes = c('0' = 24,    '1' = 21,        '2' = 25,     '3' = 22)
                     # 'AA', 'AB', 'BB' and 'missing'
                     # must be specific, otherwise if one of 'AA' etc is not
@@ -78,7 +78,7 @@ for (snp_id in snp_ids)
     p <- ggplot() +
         geom_point(data = snp_avm,
                    aes(x=M, y=A, shape=called, color=called, fill=called),
-                   alpha=0.9, size=1.5) +
+                   alpha=0.9, size=3) +
         scale_colour_manual(values=snp_cols) +
         scale_fill_manual  (values=snp_cols) +
         scale_shape_manual (values=snp_shapes) +
