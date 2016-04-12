@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import math
 import sys
+
 batch_id = sys.argv[1]
 # batch_id = 'b01'
+snp_ids = set(open('snp.ls').read().split())
 
 in_call_file = open(batch_id+'/calls.txt')
 in_summ_file = open(batch_id+'/summary.txt')
@@ -14,9 +16,13 @@ for line in in_call_file:
     cols = line[:-1].replace('\t-1','\t3').split()
     # want '3' for missing calls, not '-1'
     snp_id = cols[0]
+
     snp_calls = cols[1:]
     line_a = in_summ_file.readline()[:-1]
     line_b = in_summ_file.readline()[:-1]
+
+    if snp_id not in snp_ids:
+        continue
 
     log_a = [math.log(float(x),2) for x in line_a.split()[1:]]
     log_b = [math.log(float(x),2) for x in line_b.split()[1:]]

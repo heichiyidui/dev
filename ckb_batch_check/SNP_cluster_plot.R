@@ -59,6 +59,7 @@ if (to_classify_SNPs){
 # getting sub-tables for the listed SNPs only
 
 # start reading files now
+
 options(stringsAsFactors = FALSE)
 
 l  <- length(summ_file)

@@ -12,12 +12,14 @@
 cd /kuser/kuangl/dev/ckb_batch_check
 
 ################################################################################
-# 1. Input files
+# 1. Input files                                                               #
+################################################################################
 
-#######################################
+################################################################################
 # 1.1 SNP lists:
 
 # on the nc2 server:
+
 # plate effect:
 /kuser/shared/data/GWAS_backup/full_data/plate-effect/\
 variant_plate_effects_v2.txt
@@ -27,8 +29,11 @@ variant_plate_effects_v2.txt
 /kuser/shared/data/GWAS_backup/full_data/batch_test/\
 variant_batch_effects.txt
 # 6407 entries, 4048 uniq SNPs
+/kuser/shared/data/GWAS_backup/full_data/batch_test/\
+variant_batch_norel_effects.txt
+# 4154 entries, 2876 uniq SNPs
 
-#######################################
+################################################################################
 # 1.2 calling files:
 
 # on the nc2 server again:
@@ -43,26 +48,32 @@ plates210-261
 plates262-318
 plates319-367
 
-# From each batch, we need four files:
+# From each batch, we need the four files:
 AxiomGT1.calls.txt
 AxiomGT1.confidences.txt
 AxiomGT1.snp-posteriors.txt
 AxiomGT1.summary.txt
 
 ################################################################################
-# 2. SNP cluster plots
+# 2. SNP cluster plots                                                         #
+################################################################################
+
+################################################################################
+# 2.1 To generate the clustering plots using the SNPolisher library
 
 mkdir b01 b02 b03 b04 b05 b06 b07
 
-# lets just plot all SNPs!
 cat /kuser/shared/data/GWAS_backup/full_data/*stage1.bim | awk '{print $2'} | \
     sort | uniq > snp.ls
 
-# To generate the clustering plots:
-#
-# If it is the first time, you might want to turn on 'to_classify_SNPs'
-# in SNP_cluster_plot.R
-# It takes about 8~9 hours to classify all SNP callings of each batch,
+################################################################################
+# FOR THE FIRST TIME,
+# YOU NEED TO TURN ON 'TO_CLASSIFY_SNPS' IN SNP_CLUSTER_PLOT.R
+# TO GET the 'metrics.txt' and 'Ps.performance.txt' FILES.
+# They are the affy SNP calling metrices and performance classifications.
+
+# It takes about 8~9 hours to classify all SNP callings of each batch.
+
 # Then It takes about 1 hour to grab sub-tables for 4000 SNPs,
 # and 1.5 hours to plot 4000 SNPs.
 
@@ -75,8 +86,9 @@ nohup SNP_cluster_plot.R b05 plates210-261/  &
 nohup SNP_cluster_plot.R b06 plates262-318/  &
 nohup SNP_cluster_plot.R b07 plates319-367/  &
 
-#######################################
-# counting classes:
+################################################################################
+# 2.2 counting SNP calling classes
+
 tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
 # and b02, b03 etc ...
 
@@ -101,9 +113,11 @@ tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
 SNP_class_pie.R
 # to get a pie plot of different SNP classes.
 
-#######################################
+################################################################################
+# 2.3 calling class square plots
+
 # For each SNP, in addition to its clustering plots, we also want a square plot
-# to show us the calling classes across the 7 batches.
+# to show the calling classes across the 7 batches.
 
 mkdir class_png
 
@@ -112,8 +126,8 @@ nohup SNP_class_squares.R &
 # 300,000 per day
 # fast enough
 
-#######################################
-# Now, combine the square plots and the clustering plots.
+################################################################################
+# 2.4 combine the square plot and the clustering plots.
 
 IFS=$'\n'  snps=($(cat snp.ls))
 # or in bash, it can also be
@@ -130,45 +144,15 @@ done
 mkdir batch_eff_png
 mv *comb.png batch_eff_png
 
-#######################################
-# for the plate effect SNPs, do the same
-cp snp.ls snp_ls.bak
+################################################################################
+# 2.5 for the plate effect SNPs, do the same
 
-tail -n +2 /kuser/shared/data/GWAS_backup/full_data/plate-effect/\
-variant_plate_effects_v2.txt | awk '{print $3}' | sort | uniq > t.ls
-# 30570 SNPs
 
-grab -v -f snp_ls.bak t.ls > snp.ls
-# 29903 SNPs not plotted yet
+################################################################################
+# 2.6 using ggplot2 and python for plotting
 
-nohup SNP_cluster_plot.R b01 plates1-53/     &
-nohup SNP_cluster_plot.R b02 plates54-105/   &
-nohup SNP_cluster_plot.R b03 plates106-156/  &
-nohup SNP_cluster_plot.R b04 plates157-209/  &
-nohup SNP_cluster_plot.R b05 plates210-261/  &
-nohup SNP_cluster_plot.R b06 plates262-318/  &
-nohup SNP_cluster_plot.R b07 plates319-367/  &
-# 1 or 2 SNPs per min per job...
-
-SNP_class_squares.R
-# It produces about 100 pictures per minute.
-
-IFS=$'\n'  snps=($(cat snp.ls))
-
-for snp in ${snps[@]} ; do
-    echo $snp
-    convert ${snp}_class.png b01/$snp.png b02/$snp.png  +append r1.png
-    convert b03/$snp.png b04/$snp.png b05/$snp.png      +append r2.png
-    convert b06/$snp.png b07/$snp.png ${snp}_class.png  +append r3.png
-    convert r1.png r2.png r3.png -append ${snp}_comb.png
-done
-
-mkdir plate_eff_png
-mv *_comb.png plate_eff_png
-# about 12G of files
-
-#######################################
-# want to plot ALL snps, found the script tooooo slow (about 1 png per min)
+# wanted to plot ALL snps, found the script tooooo slow (about 1 png per min).
+# ggplot2 library gives more freedom for manipulating the pictures.
 
 ###################
 # double check the orders of chips are the same between the
@@ -200,7 +184,7 @@ for batch in b01 b02 b03 b04 b05 b06 b07 ; do
 done
 
 ###################
-# Python script to generate a avm files per SNP
+# Python script to generate an avm files per SNP
 # The avm file should have the a and b signals,
 # in the format of A <- (log(a) + log(b))/2 and M <- log(a) - log(b)
 # The calls are included into the avm file, are 0, 1, 2 and -1 for missing

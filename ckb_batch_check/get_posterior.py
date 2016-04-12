@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import sys
+
 batch_id = sys.argv[1]
 # batch_id = 'b01'
+
+snp_ids = set(open('snp.ls').read().split())
 
 ifile=open(batch_id+'/posterior.txt')
 ifile.readline()
@@ -10,6 +13,9 @@ print('id x1 vx1 y1 vy1 cov1 x2 vx2 y2 vy2 cov2 x3 vx3 y3 vy3 cov3')
 for line in ifile:
     cols = line[:-1].split('\t')
     snp_id = cols[0]
+    if snp_id not in snp_ids:
+        continue
+
     bb_cols = cols[1].split(',')
     ab_cols = cols[2].split(',')
     aa_cols = cols[3].split(',')
