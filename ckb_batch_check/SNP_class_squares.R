@@ -1,32 +1,16 @@
 #!/usr/bin/Rscript
 library(ggplot2)
 
-options(stringsAsFactors = FALSE)
+#######################################
+# read class data
+
+data=read.table('t.in', header=FALSE)
+
+colnames(data)=c('snp_id','b01','b02','b03','b04','b05','b06','b07')
+rownames(data)=data$snp_id
 
 #######################################
-# read classifications
-snps = read.table('snp.ls',header=FALSE)
-snps = c(snps[,1])
-
-snp_classes <- data.frame(snps)
-colnames(snp_classes) <- c('probeset_id')
-
-batches = c('b01','b02','b03','b04','b05','b06','b07')
-
-for (batch in batches)
-{
-    data=read.table(paste(batch,'/Ps.performance.txt',sep=''),header=TRUE)
-    sub_data = data[data$probeset_id %in% snps,]
-    sub_data = subset(sub_data,select = c(probeset_id,ConversionType))
-    snp_classes = merge(snp_classes,sub_data,by='probeset_id')
-
-    colnames(snp_classes)[
-        which(names(snp_classes) == "ConversionType")] <-
-            paste(batch,'class',sep='_')
-}
-
-#######################################
-# plot the SNPs
+# class colour map
 
 col_map = vector(mode='list',length=7)
 names(col_map) = c("PolyHighResolution", "NoMinorHom", "MonoHighResolution",
@@ -47,27 +31,27 @@ rec_location = data.frame(
         y2 = c(0.96,0.96,0.63,0.63,0.63,0.30,0.30)
     )
 
-# snp = 'AX-100004419'
-for (snp in snps)
+#######################################
+# plot the SNPs
+
+for ( snp_id in data$snp_id )
 {
-    s_cls = snp_classes[snp_classes$probeset_id==snp,]
-    s_cls$probeset_id <- NULL
+    s_cls = data[snp_id,]
+    s_cls$snp_id <- NULL
     s_cls = c(t(s_cls))    # SNP classes
     fills = col_map[s_cls] # filling colours
 
-    png(paste('class_png/',snp,'_class.png',sep=''))
+    png(paste('class_png/',snp_id,'.png',sep=''))
 
     p <- ggplot(data=rec_location, aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2) ) +
         geom_rect(fill=fills) +
         xlab('') + ylab('') +
         scale_x_continuous(breaks=NULL) +
         scale_y_continuous(breaks=NULL) +
-        theme_bw()
+        theme_bw() +
+        theme(plot.margin = unit(c(0.5,0.5,0.5,0.5), "in"))
 
-    print(p)
-    dev.off()
+    png_file = paste('class_png/',snp_id,'.png',sep='')
+    ggsave(p,file=png_file, dpi=100)
 }
-
-# the end
-################################################################################
 

@@ -121,6 +121,19 @@ SNP_class_pie.R
 
 mkdir class_png
 
+awk '{print $1,$16}' b01/Ps.performance.txt > t.out
+grab -f snp.ls t.out > t.in
+
+for batch in  b02 b03 b04 b05 b06 b07 ; do
+    awk '{print $1,$16}' $batch/Ps.performance.txt > t.out
+    grab -f snp.ls t.out > t2.in
+    paste t.in t2.in > t.out
+    awk '{if ($1 != $(NF-1) ) print "WAT"}' t.out
+    awk '{print $2}' t2.in > t3.in
+    paste t.in t3.in > t2.in
+    mv t2.in t.in
+done
+
 nohup SNP_class_squares.R &
 # more than 200 SNPs per min
 # 300,000 per day
@@ -130,8 +143,6 @@ nohup SNP_class_squares.R &
 # 2.4 combine the square plot and the clustering plots.
 
 IFS=$'\n'  snps=($(cat snp.ls))
-# or in bash, it can also be
-# readarray snps < ./snp.ls
 
 for snp in ${snps[@]} ; do
     echo $snp
@@ -183,18 +194,22 @@ for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     # all 1, 'A' and 'B' are never consecutive
 done
 
-###################
-# Python script to generate an avm files per SNP
-# The avm file should have the a and b signals,
-# in the format of A <- (log(a) + log(b))/2 and M <- log(a) - log(b)
-# The calls are included into the avm file, are 0, 1, 2 and -1 for missing
-# Here we changed '-1' to '3' for missing.
-
+#######################################
+# 2.6.1 get the sub-table for posterior files
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     get_posterior.py $batch > ${batch}.posterior
 done
 # 687236 SNPs
 
+
+#######################################
+# 2.6.2 script to generate an avm files per SNP
+# The avm file should have the a and b signals,
+# in the format of A <- (log2(a) + log2(b))/2 and M <- log2(a) - log2(b)
+# The calls are included into the avm file, are 0, 1, 2 and -1 for missing.
+# Here we changed '-1' to '3' for missing.
+
+# use the calls.txt and summary.txt
 nohup get_avm.py b01 &
 nohup get_avm.py b02 &
 nohup get_avm.py b03 &
@@ -206,6 +221,10 @@ nohup get_avm.py b07 &
 # 720 SNP avm files per min per job
 # that's better than 1 or 2 SNPs per min per job
 # Finished making all 687236 avm files in 17 hours.
+# DON'T DO IT. 4.8 million files make the system very slow.
+
+#######################################
+# 2.6.3 plotting
 
 nohup SNP_cluster_plot_v2.R b01 &
 nohup SNP_cluster_plot_v2.R b02 &
@@ -222,7 +241,9 @@ nohup SNP_cluster_plot_v2.R b07 &
 # It might be the huge number of avm files slowing the system.
 
 ################################################################################
-# 3. manual check of the clustering plots
+# 3. manual check of the clustering plots                                      #
+################################################################################
+
 
 # plate_chk_res.ls and batch_v2_chk_res.ls are the manual check result tables,
 # where '0' in the column two means 'failed manual check'.
