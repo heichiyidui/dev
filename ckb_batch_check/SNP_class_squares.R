@@ -41,8 +41,6 @@ for ( snp_id in data$snp_id )
     s_cls = c(t(s_cls))    # SNP classes
     fills = col_map[s_cls] # filling colours
 
-    png(paste('class_png/',snp_id,'.png',sep=''))
-
     p <- ggplot(data=rec_location, aes(xmin=x1, xmax=x2, ymin=y1, ymax=y2) ) +
         geom_rect(fill=fills) +
         xlab('') + ylab('') +
