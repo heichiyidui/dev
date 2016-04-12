@@ -128,7 +128,7 @@ for batch in  b02 b03 b04 b05 b06 b07 ; do
     awk '{print $1,$16}' $batch/Ps.performance.txt > t.out
     grab -f snp.ls t.out > t2.in
     paste t.in t2.in > t.out
-    awk '{if ($1 != $(NF-1) ) print "WAT"}' t.out
+    awk '{if ($1 != $(NF-1) ) print "WAT?"}' t.out
     awk '{print $2}' t2.in > t3.in
     paste t.in t3.in > t2.in
     mv t2.in t.in
@@ -146,9 +146,9 @@ IFS=$'\n'  snps=($(cat snp.ls))
 
 for snp in ${snps[@]} ; do
     echo $snp
-    convert ${snp}_class.png b01/$snp.png b02/$snp.png  +append r1.png
-    convert b03/$snp.png b04/$snp.png b05/$snp.png      +append r2.png
-    convert b06/$snp.png b07/$snp.png ${snp}_class.png  +append r3.png
+    convert class_png/$snp.png b01/$snp.png b02/$snp.png  +append r1.png
+    convert b03/$snp.png b04/$snp.png b05/$snp.png        +append r2.png
+    convert b06/$snp.png b07/$snp.png class_png/$snp.png  +append r3.png
     convert r1.png r2.png r3.png -append ${snp}_comb.png
 done
 
@@ -195,12 +195,10 @@ for batch in b01 b02 b03 b04 b05 b06 b07 ; do
 done
 
 #######################################
-# 2.6.1 get the sub-table for posterior files
+# 2.6.1 get the sub-tables for posterior files
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     get_posterior.py $batch > ${batch}.posterior
 done
-# 687236 SNPs
-
 
 #######################################
 # 2.6.2 script to generate an avm files per SNP
@@ -218,8 +216,8 @@ nohup get_avm.py b05 &
 nohup get_avm.py b06 &
 nohup get_avm.py b07 &
 
-# 720 SNP avm files per min per job
-# that's better than 1 or 2 SNPs per min per job
+# 500 SNP avm files per min per job
+# That's far better than 1 or 2 SNPs per min per job
 # Finished making all 687236 avm files in 17 hours.
 # DON'T DO IT. 4.8 million files make the system very slow.
 
@@ -243,7 +241,6 @@ nohup SNP_cluster_plot_v2.R b07 &
 ################################################################################
 # 3. manual check of the clustering plots                                      #
 ################################################################################
-
 
 # plate_chk_res.ls and batch_v2_chk_res.ls are the manual check result tables,
 # where '0' in the column two means 'failed manual check'.
