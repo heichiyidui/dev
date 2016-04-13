@@ -238,6 +238,8 @@ nohup SNP_cluster_plot_v2.R b07 &
 # Still pretty slow.
 # It might be the huge number of avm files slowing the system.
 
+# 70 pictures per minute per job on a smaller set
+
 #######################################
 # 2.6.4 combine plots
 
@@ -251,8 +253,10 @@ for snp in ${snps[@]} ; do
     convert r1.png r2.png r3.png -append ${snp}_comb.png
 done
 
-mkdir batch_eff_png
-mv *comb.png batch_eff_png
+rm r1.png r2.npg r3.png
+
+mkdir to_exam_png.bak
+mv *_comb.png to_exam_png.bak/
 
 ################################################################################
 # 3. manual check of the clustering plots                                      #
@@ -266,10 +270,10 @@ cat plate_chk_res.ls batch_v2_chk_res.ls | awk '{print $1}' | \
 
 rm  to_exam_png/*.png
 
-awk '{print $1}' to_exam/xad | sort > t1.ls
+awk '{print $1}' to_exam/xag | sort > t1.ls
 grab -f examed.ls -v t1.ls > to_exam.ls
 
-awk '{print "cp plate_eff_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls \
+awk '{print "cp to_exam_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls \
     > t.out
 source t.out
 
