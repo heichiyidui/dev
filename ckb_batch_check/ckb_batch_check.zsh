@@ -270,7 +270,7 @@ cat plate_chk_res.ls batch_v2_chk_res.ls | awk '{print $1}' | \
 
 rm  to_exam_png/*.png
 
-awk '{print $1}' to_exam/xag | sort > t1.ls
+awk '{print $1}' to_exam/xah | sort > t1.ls
 grab -f examed.ls -v t1.ls > to_exam.ls
 
 awk '{print "cp to_exam_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls \
