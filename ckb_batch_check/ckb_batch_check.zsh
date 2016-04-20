@@ -38,15 +38,15 @@ variant_batch_norel_effects.txt
 
 # on the nc2 server again:
 # 7 batches of calling files at
-/kuser/shared/data/GWAS_backup
+/kuser/shared/data/GWAS_backup/
 
-plates1-53
-plates54-105
-plates106-156
-plates157-209
-plates210-261
-plates262-318
-plates319-367
+plates1-53/
+plates54-105/
+plates106-156/
+plates157-209/
+plates210-261/
+plates262-318/
+plates319-367/
 
 # From each batch, we need the four files:
 AxiomGT1.calls.txt
