@@ -23,7 +23,6 @@ dat <- data.frame(cnts=snp_cnts,type=snp_labs)
 
 cols = c('#F36303','#5795FF','#18C4B0','#1874C4','#C418C1','#C41865','#18C45A')
 
-png('SNP_class_pie.png')
 
 p <- ggplot(dat, aes(x = '', y = cnts, fill = type, label=type ) ) +
     geom_bar(stat="identity", position = 'fill', width=1 , colour='black')  +
@@ -33,6 +32,7 @@ p <- ggplot(dat, aes(x = '', y = cnts, fill = type, label=type ) ) +
     scale_x_discrete(breaks=NULL) +
     ggtitle("SNP classes") +
     theme_bw()
-print(p)
 
+png('SNP_class_pie.png')
+print(p)
 dev.off()

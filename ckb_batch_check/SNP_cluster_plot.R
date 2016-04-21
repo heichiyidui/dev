@@ -1,168 +1,100 @@
 #!/usr/bin/Rscript
-library(SNPolisher)
+library(ggplot2)
 library(methods)
-
-snp_file  = 'snp.ls'
-
-# batch_id  = 'b01'
-# batch_dir = 'plates1-53/'
 
 args = commandArgs(trailingOnly=TRUE)
 batch_id  = args[1]
-batch_dir = args[2]
-
-call_dir  = paste('/kuser/shared/data/GWAS_backup/',batch_dir,sep='')
-
-ps_file   = paste(call_dir,'AxiomGT1.snp-posteriors.txt',sep='')
-call_file = paste(call_dir,'AxiomGT1.calls.txt',         sep='')
-conf_file = paste(call_dir,'AxiomGT1.confidences.txt',   sep='')
-summ_file = paste(call_dir,'AxiomGT1.summary.txt',       sep='')
-
-temp.dir  = batch_id
-keep.temp.dir = TRUE
-matr_file = paste(batch_id,'/',"metrics.txt",sep='')
-
-geno_col=c("red","yellow","blue","gray",
-           "cyan","green", "darkgreen","purple")
-
-refFile    = NULL
-sampFile   = NULL
-plot.prior = FALSE
-priorFile  = NULL
-match.cel.file.name = FALSE
-
-################################################################################
-# calculating metrics and perform classification
+# batch_id  = 'b01'
 
 #######################################
-# Note we do not use the pidFile options here.
-# ALL SNPs are to be classified.
+# a funtion to calculate posterior ellipse border coordinates
+pos.ellipse <- function(x0, vx, y0, vy, cov)
+{
+    theta <- 0.5 * atan2(cov * 2, vx - vy)
+    sint <- sin(theta)
+    cost <- cos(theta)
 
-to_classify_SNPs = FALSE
+    a <- 2 * sqrt(vx * cost * cost + vy * sint * sint +
+                  cov * 2 * sint * cost)
+    b <- 2 * sqrt(vx * sint * sint + vy * cost * cost -
+                  cov * 2 * sint * cost)
 
-if (to_classify_SNPs){
+    np = 100
+    alpha <- 2 * pi * (0:np)/np
 
-    Ps_Metrics(
-        posteriorFile      = ps_file,
-        callFile           = call_file,
-        output.metricsFile = matr_file
-              )
+    sina <- sin(alpha)
+    cosa <- cos(alpha)
+    x <- x0 + a * cosa * cost - b * sina * sint
+    y <- y0 + a * cosa * sint + b * sina * cost
 
-    Ps_Classification(
-        metricsFile = matr_file ,
-        output.dir  = temp.dir  ,
-                     )
+    return (data.frame(x,y))
 }
 
-################################################################################
-# Use a perl script to do some grab job:
-# getting sub-tables for the listed SNPs only
+#######################################
 
-# start reading files now
+ps_file <- paste(batch_id,'.posterior',sep='')
 
-options(stringsAsFactors = FALSE)
+snp_pos <- read.table(ps_file, header = TRUE, as.is =1 )
+rownames(snp_pos) <- snp_pos$id
 
-l  <- length(summ_file)
-l1 <- length(temp.dir)
-l2 <- length(call_file)
-if (l != l1 || l != l2)
-    stop("input files need to be of the same length")
-for (i in 1:l) {
-    dir.create(temp.dir[i], showWarnings = F, recursive = T)
+# snp_ids <- snp_pos$id
+snp_ids <- scan('snp.ls', what='')
+
+for (snp_id in snp_ids)
+{
+    el_1 = pos.ellipse(x0  = snp_pos[snp_id,  'x1'],
+                       vx  = snp_pos[snp_id, 'vx1'],
+                       y0  = snp_pos[snp_id,  'y1'],
+                       vy  = snp_pos[snp_id, 'vy1'],
+                       cov = snp_pos[snp_id,'cov1'])
+    el_2 = pos.ellipse(x0  = snp_pos[snp_id,  'x2'],
+                       vx  = snp_pos[snp_id, 'vx2'],
+                       y0  = snp_pos[snp_id,  'y2'],
+                       vy  = snp_pos[snp_id, 'vy2'],
+                       cov = snp_pos[snp_id,'cov2'])
+    el_3 = pos.ellipse(x0  = snp_pos[snp_id,  'x3'],
+                       vx  = snp_pos[snp_id, 'vx3'],
+                       y0  = snp_pos[snp_id,  'y3'],
+                       vy  = snp_pos[snp_id, 'vy3'],
+                       cov = snp_pos[snp_id,'cov3'])
+
+    avm_file = paste(batch_id,'/',snp_id,'.avm',sep='')
+    snp_avm  = read.table(avm_file, header = TRUE)
+    snp_avm$called = factor(snp_avm$called)
+
+    x3  = snp_pos[snp_id, 'x3']
+    vx3 = snp_pos[snp_id,'vx3']
+    x1  = snp_pos[snp_id, 'x1']
+    vx1 = snp_pos[snp_id,'vx1']
+
+    xtemp <- max(abs(c(x3 + 2*sqrt(vx3), x1 - 2*sqrt(vx1), snp_avm$M) ))
+
+    snp_cols   = c('0' = 'red', '1' ='#999900', '2' ='#0080FF', '3' ='#9933FF')
+    snp_shapes = c('0' = 24,    '1' = 21,       '2' = 25,       '3' = 22)
+                    # 'AA', 'AB', 'BB' and 'missing'
+                    # must be specific, otherwise if one of 'AA' etc is not
+                    # presented, 'missing' will be in a different colour.
+
+    p <- ggplot() +
+        geom_point(data = snp_avm,
+                   aes(x=M, y=A, shape=called, color=called, fill=called),
+                   alpha=0.6, size=3) +
+        scale_colour_manual(values=snp_cols) +
+        scale_fill_manual  (values=snp_cols) +
+        scale_shape_manual (values=snp_shapes) +
+
+        geom_path(data=el_1,aes(x=x,y=y),color='#000099') +
+        geom_path(data=el_2,aes(x=x,y=y),color='#666600') +
+        geom_path(data=el_3,aes(x=x,y=y),color='#CC0000') +
+
+        xlim(c(-xtemp,xtemp)) + xlab(NULL) + ylab(NULL) +
+        guides(colour=FALSE,fill=FALSE,shape=FALSE) +
+        theme_bw() +
+        theme(axis.text.x=element_blank(),
+              axis.text.y=element_blank(),
+              plot.margin = unit(c(0.5,0.5,0.5,0.5), "in"))
+
+    png_file = paste(batch_id,'/',snp_id,'.png',sep='')
+    ggsave(p,file=png_file, dpi=100)
 }
 
-cmd_pidFile        <- paste("\"", snp_file,  "\"", sep = "")
-cmd_summaryFile    <- paste("\"", summ_file, "\"", sep = "")
-cmd_callFile       <- paste("\"", call_file, "\"", sep = "")
-cmd_confidenceFile <- paste("\"", conf_file, "\"", sep = "")
-cmd_posteriorFile  <- paste("\"", ps_file,   "\"", sep = "")
-
-cmd_temp.dir       <- paste("\"", temp.dir,  "\"", sep = "")
-
-if (is.null(refFile)) {
-    cmd_refFile = "NULL"
-} else {
-    cmd_refFile    <- paste("\"", refFile,   "\"", sep = "")
-}
-if (is.null(priorFile) ||  !plot.prior ){
-    cmd_priorFile = "NULL"
-} else {
-    cmd_priorFile  <- paste("\"", priorFile, "\"", sep = "")
-}
-
-cmd_script <-paste("\"", path.package("SNPolisher"),
-                   "/Perl/visualization.pl", "\"", sep = "")
-
-cmd <- paste(
-    "perl", cmd_script,
-    cmd_pidFile, cmd_summaryFile, cmd_callFile,
-    cmd_confidenceFile, cmd_posteriorFile,
-    cmd_temp.dir, cmd_refFile, cmd_priorFile, sep = " "
-            )
-
-sapply(cmd, system)
-
-################################################################################
-# read the sub-tables
-
-dd <- lapply(1:l, function(i) {
-    SNPolisher:::read.snp.data(temp.dir[i], sampFile, !is.null(refFile),
-                               match.cel.file.name, geno.col[6])
-})
-
-inlist <- read.delim(snp_file, header = F)[, 1]
-
-cat("Found ", nrow(dd[[1]]$call), " of ", length(inlist),
-    " requested probesets\n", sep = "")
-
-pid <- inlist[is.element(inlist, dd[[1]]$call[, 1])]
-
-postdata <- SNPolisher:::read.post_prior2d(
-    paste(temp.dir[i],"/posterior.txt", sep = "")
-                                          )
-
-################################################################################
-# start plotting now
-
-# s = 'ps100'
-for (s in pid) {
-    for (i in 1:l) {
-        d <- dd[[i]]
-        g <- data.frame(
-            called   = as.numeric(d$call[d$call[, 1] == s, -1]),
-            a_signal = as.numeric(d$summary.a[d$summary.a[, 1] == s, -1]),
-            b_signal = as.numeric(d$summary.b[d$summary.b[, 1] == s, -1]),
-            sample = names(d$call)[-1], samps.highlight = d$samps
-                       )
-
-        if (is.null(refFile)) {
-            g$reference <- rep(-1, (ncol(d$summary.a) - 1))
-        } else {
-            tref <- d$ref[d$ref[, 1] == s, -1]
-            if (is.null(tref)) {
-              g$reference <- rep(-1, (ncol(d$summary.a) - 1))
-            }
-            else {
-              tref <- data.frame(
-                         sample = names(d$ref)[-1],
-                         reference = as.numeric(tref)
-                                )
-              g <- merge(g, tref, all.x = T)
-              g$reference[is.na(g$reference)] <- -9
-            }
-        }
-
-        p <- SNPolisher:::prior.for.pid(postdata, s, nclus=3)
-
-        png(paste(temp.dir,'/',s,'.png',sep=''))
-        SNPolisher:::plot.cluster(
-            s, g, p,
-            geno.col = geno_col, nclus = 3, type = "AvM"
-                                 )
-        dev.off()
-    }
-}
-
-################################################################################
-# the end                                                                      #
-################################################################################
