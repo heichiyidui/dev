@@ -9,6 +9,7 @@
 # and manual removal of SNPs with bad calling.                                 #
 ################################################################################
 
+# on the nc2 server:
 cd /kuser/kuangl/dev/ckb_batch_check
 
 ################################################################################
@@ -18,20 +19,30 @@ cd /kuser/kuangl/dev/ckb_batch_check
 ################################################################################
 # 1.1 SNP lists:
 
-# on the nc2 server:
-
 # plate effect:
 /kuser/shared/data/GWAS_backup/full_data/plate-effect/\
 variant_plate_effects_v2.txt
+# batch   plate   probeset p-value
 # 33621 entries, 30570 uniq SNPs
 
 # batch effect:
 /kuser/shared/data/GWAS_backup/full_data/batch_test/\
 variant_batch_effects.txt
+# batch   probeset        P-val
 # 6407 entries, 4048 uniq SNPs
 /kuser/shared/data/GWAS_backup/full_data/batch_test/\
 variant_batch_norel_effects.txt
+# batch   probeset        P-val
 # 4154 entries, 2876 uniq SNPs
+
+awk '{print $3}' /kuser/shared/data/GWAS_backup/full_data/plate-effect/\
+variant_plate_effects_v2.txt    >  t.ls
+awk '{print $2}' /kuser/shared/data/GWAS_backup/full_data/batch_test/\
+variant_batch_effects.txt       >> t.ls
+awk '{print $2}' /kuser/shared/data/GWAS_backup/full_data/batch_test/\
+variant_batch_norel_effects.txt >> t.ls
+sort t.ls | uniq | grep -v probeset > snp.ls
+# 44183 entries, 34394 unique SNPs
 
 ################################################################################
 # 1.2 calling files:
