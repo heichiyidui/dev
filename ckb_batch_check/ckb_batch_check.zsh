@@ -273,6 +273,8 @@ done
 
 mkdir to_exam_png.bak/
 mv *comb.png to_exam_png.bak/
+# tgz of the directory 'to_exam_png.bak/' is available as
+# '/kuser/kuangl/backup/snp_clust_plot_manual_exam_png.tgz'
 
 ################################################################################
 # 3. manual check of the clustering plots                                      #
@@ -316,4 +318,36 @@ ls to_exam_png | sed 's/_comb.png//' > t.in
 get_chk_res.py >> manual_chk_res.table
 
 ################################################################################
+# 4. checking the missing rates and MAF againt failing manual QC               #
+################################################################################
 
+ped_dir=/kuser/shared/data/GWAS_backup/full_data
+
+plink --bfile $ped_dir/1-53_stage1     --missing --freq  --out b01
+plink --bfile $ped_dir/54-105_stage1   --missing --freq  --out b02
+plink --bfile $ped_dir/106-156_stage1  --missing --freq  --out b03
+plink --bfile $ped_dir/157-209_stage1  --missing --freq  --out b04
+plink --bfile $ped_dir/210-261_stage1  --missing --freq  --out b05
+plink --bfile $ped_dir/262-318_stage1  --missing --freq  --out b06
+plink --bfile $ped_dir/319-367_stage1  --missing --freq  --out b07
+
+# get the sub_tables
+for batch in b01 b02 b03 b04 b05 b06 b07 ; do
+    grab -f snp.ls -c 2 $batch.lmiss | awk '{print $2,$5}' > t.lmiss
+    sort_table -f snp.ls t.lmiss > t_$batch.lmiss
+done
+
+for batch in b01 b02 b03 b04 b05 b06 b07 ; do
+    grab -f snp.ls -c 2 $batch.frq | awk '{print $2,$5}' > t.frq
+    sort_table -f snp.ls t.frq > t_$batch.frq
+done
+
+# into manual_chk_res.table
+# add batch_min_p batch_norel_min_p plate_min_p
+# add batch_num_detected batch_norel_num_detected plate_num_detected
+
+# add 7 missing-call-rates
+# add 7 maf
+
+
+################################################################################
