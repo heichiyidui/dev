@@ -352,7 +352,7 @@ done
 # add max_miss and mean_miss
 # add min_maf and mean_maf
 
-# AX-105017241 batch_norel_min_p 8.35 -> NA
+# AX-105017241 batch_norel_min_p 8.35 -> 8.35e-06
 
 plot_man_qc.R
 
