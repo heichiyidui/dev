@@ -352,8 +352,50 @@ done
 # add max_miss and mean_miss
 # add min_maf and mean_maf
 
-# AX-105017241 batch_norel_min_p 8.35 -> 8.35e-06
+# save manual_chk_res.xlsx into text file t.in
+tail -n +2 t.in | awk '{print $2,$5,$9}' | grep -v NA > t2.in
+get_plate_p_miss_hm.py > t3.in
 
 plot_man_qc.R
+# produces p1.png p2.png ... p9.png
 
 ################################################################################
+# 5. plate effect plotting                                                     #
+################################################################################
+
+# modify the get_avm.py
+nohup get_highlight_avm.py b01 &
+nohup get_highlight_avm.py b02 &
+nohup get_highlight_avm.py b03 &
+nohup get_highlight_avm.py b04 &
+nohup get_highlight_avm.py b05 &
+nohup get_highlight_avm.py b06 &
+nohup get_highlight_avm.py b07 &
+
+# 33620 avm files to be generated
+# done in 45 minutes
+ls b0?/*avm > t.ls
+split -l 1682 t.ls
+
+# simplify the SNP_cluster_plot.R script
+# SNP_highlight_cluster_plot.R
+
+for ifile in x?? ; do
+    nohup SNP_highlight_cluster_plot.R $ifile  &
+done
+
+# much faster... not posterior eclipses to plot this time.
+# about 100 png files per minute per job
+# all done in 22 minutes
+
+rm x??
+
+mkdir -p to_exam_png.bak/
+# after proper backup
+rm to_exam_png.bak/*.png
+
+mv b0?/*.png to_exam_png.bak/
+rm b0?/*.avm
+
+################################################################################
+

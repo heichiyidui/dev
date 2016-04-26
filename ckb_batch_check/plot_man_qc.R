@@ -2,9 +2,9 @@
 library(ggplot2)
 library(methods)
 
-# data = read.table('t.in',header=TRUE)
-require(gdata)
-data = read.xls('manual_chk_res.xls')
+data = read.table('t.in',header=TRUE)
+# require(gdata)
+# data = read.xls('manual_chk_res.xlsx')
 
 data$pass_man_qc[data$pass_man_qc==0] <- 'fail'
 data$pass_man_qc[data$pass_man_qc==1] <- 'pass'
