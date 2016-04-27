@@ -398,4 +398,37 @@ mv b0?/*.png to_exam_png.bak/
 rm b0?/*.avm
 
 ################################################################################
+# 6. plate effect plots manual check                                           #
+################################################################################
 
+mkdir to_exam_png
+mkdir to_exam
+
+tail -n +2 manual_chk_res.table| \
+    awk '{if ($2==0) print $1}' > failed_clustering_QC_snp.ls
+
+ls to_exam_png.bak > t.ls
+awk -F"_" '{print $1,$2}' t.ls > t.in
+grab -f failed_clustering_QC_snp.ls -v t.in | awk '{print $1 "_" $2}' > t.ls
+# in the list of 33621 png files, 20490 left
+
+random_shuffle_lines.py t.ls > t2.ls
+
+split -l 800 t2.ls
+mv x?? to_exam
+
+#######################################
+
+awk '{print $1}' plate_man_qc.table > examed.ls
+rm to_exam_png/*.png
+
+grab -f examed.ls -v  to_exam/xac  > to_exam.ls
+
+awk '{print "cp to_exam_png.bak/" $1 " to_exam_png/"}' to_exam.ls | sh
+geeqie to_exam_png/
+# after two passes
+
+ls to_exam_png  > t.in
+get_chk_res.py >> plate_man_qc.table
+
+################################################################################
