@@ -422,7 +422,7 @@ mv x?? to_exam
 awk '{print $1}' plate_man_qc.table > examed.ls
 rm to_exam_png/*.png
 
-grab -f examed.ls -v  to_exam/xac  > to_exam.ls
+grab -f examed.ls -v  to_exam/xah  > to_exam.ls
 
 awk '{print "cp to_exam_png.bak/" $1 " to_exam_png/"}' to_exam.ls | sh
 geeqie to_exam_png/
@@ -430,5 +430,12 @@ geeqie to_exam_png/
 
 ls to_exam_png  > t.in
 get_chk_res.py >> plate_man_qc.table
+
+# the first 4000 SNP-plates, with the SNPs past the manual clustering QC,
+# 57 failed plate clustering QC.
+# 80 failed in 6400
+# 1.25 %
+# I tried 800 SNP-plates, with SNPs failed manual clustering QC,
+# 460 out of 800 failed plate clustering Qc.
 
 ################################################################################
