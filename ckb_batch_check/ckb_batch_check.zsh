@@ -419,10 +419,10 @@ mv x?? to_exam
 
 #######################################
 
-awk '{print $1}' plate_man_qc.table > examed.ls
+awk '{print $1}' plate_man_qc.table | sort | uniq > examed.ls
 rm to_exam_png/*.png
 
-grab -f examed.ls -v  to_exam/xah  > to_exam.ls
+grab -f examed.ls -v  to_exam/xas  > to_exam.ls
 
 awk '{print "cp to_exam_png.bak/" $1 " to_exam_png/"}' to_exam.ls | sh
 geeqie to_exam_png/

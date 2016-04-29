@@ -14,7 +14,7 @@ for (avm_file in avm_files){
 
     xtemp <- max(abs(snp_avm$M) )
 
-    snp_cols   = c('0'='#FFCCCC', '1'='#CCCC00', '2'='#0080FF', '3'='#D4A8FF',
+    snp_cols   = c('0'='#FFCCCC', '1'='#CCCC00', '2'='#00BCFF', '3'='#D4A8FF',
                    '4'='#FF4343', '5'='#949400', '6'='#0058B0', '7'='#A54CFF')
     snp_shapes = c('0' = 16, '1' = 16, '2' = 16, '3' = 16,
                    '4' = 19, '5' = 19, '6' = 19, '7' = 19)

@@ -47,29 +47,43 @@ plink --bfile /kuser/shared/data/GWASphase12/stage3 \
 
 plink  --bfile ckb_ph12_s3_qc1 \
     --autosome \
-    --geno 0.05 \
+    --geno 0.01 \
     --hwe 1e-4 midp \
     --maf 0.05 \
     --indep-pairwise 1500 150 0.2 \
     --make-bed --out ckb_ph12_s3_qc1_ldfree
 
-# 636670 SNPs loaded(?), 32435 subjects
-#  51983 variants removed due to missing genotype data (--geno).
-#  23102 variants removed due to Hardy-Weinberg exact test (--hwe).
-# 210458 variants removed due to minor allele threshold(s)
+# 636670 SNPs loaded(autosome), 32435 subjects
+#  73412 variants removed due to missing genotype data (--geno).
+#  17297 variants removed due to Hardy-Weinberg exact test (--hwe).
+# 208608 variants removed due to minor allele threshold(s)
 
-# 351127 SNPs in, 229250 removed, 121877 left
+# 337353 SNPs in, 217191 pruned, 120162 left
 
 plink --bfile ckb_ph12_s3_qc1_ldfree \
     --extract ckb_ph12_s3_qc1_ldfree.prune.in \
     --make-bed --out  ckb_ph12_s3_qc1_ldfree
-# 121877 SNPs, 32435 people
+# 120162 SNPs, 32435 people
 
+#######################################
+# 1.3 First PCA
+
+
+
+
+# GSL is missing on the NC2! Emailed the administrator.
 # Mike Weale's script of running EIGENSOFT
 # EIGENSOFTplus_v12.r
 wget https://raw.githubusercontent.com/KHP-Informatics/chip_gt/master/\
 protocols_and_QC/exome_chip_QC/EIGENSOFTplus_v12.r
 
-R --vanilla --slave --args stem=ckb_ph12_s3_qc1_ldfree \
-    ESOFTdir=/kuser/shared/bin/EIG/ \
+R --vanilla --slave --args stem=t100 \
+    ESOFTdir=/kuser/shared/bin/EIG \
     < EIGENSOFTplus_v12.r
+
+R --vanilla --slave --args stem=ckb_ph12_s3_qc1_ldfree \
+    ESOFTdir=/home/kuang/bin/EIG \
+    < EIGENSOFTplus_v12.r
+
+# get a random set of 100 subjects
+plink --bfile t100 --pca
