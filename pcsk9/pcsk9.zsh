@@ -19,7 +19,6 @@
 #######################################
 # 1.1 the original set
 
-# stage4.fam ? where is it?
 # 32435 subjects in GWAS_sample_ascertainment.txt
 # let's start from the stage3 set at
 /kuser/shared/data/GWASphase12
@@ -33,6 +32,9 @@ grab -f t.ls -c 2 /kuser/shared/data/GWASphase12/stage3.fam | \
 # 'NOR15122311 CK30556316 0 0 2 -9' is to be removed
 
 tail -n +2 GWAS_sample_ascertainment.txt | awk '{print $2}' > t.ls
+sort t.ls | uniq -d
+# no repeat in ck_id
+
 grab -f t.ls -c 2 /kuser/shared/data/GWASphase12/stage3.fam | \
     grep -v "NOR15122311 CK30556316" > t.fam
 # 32435 subjects
@@ -68,8 +70,44 @@ plink --bfile ckb_ph12_s3_qc1_ldfree \
 #######################################
 # 1.3 First PCA
 
+tail -n +2 GWAS_sample_ascertainment.txt | awk '{print $3}' | sort | uniq -d
+# no repeat in study ids
+tail -n +2 GWAS_sample_ascertainment.txt | awk '{print substr($3,1,2)}' | \
+    sort | uniq -c
+# 1388 12 Qingdao
+# 3310 16 Harbin
+# 1174 26 Haikou
+# 1705 36 Suzhou
+# 2459 46 Liuzhou
+# 4106 52 Sichuan
+# 4705 58 Gansu
+# 4343 68 Henan
+# 3363 78 Zhejiang
+# 5882 88 Hunan
+# all from the 10 regions
 
 
+
+
+
+random_shuffle_lines.py ckb_ph12_s3_qc1_ldfree.fam | h -n 100 > t.fam
+
+plink --bfile ckb_ph12_s3_qc1_ldfree --keep t.fam --make-bed --out t100
+
+
+
+/kuser/shared/bin/EIG/bin/smartpca.perl \
+    -i t100.bed \
+    -a t100.bim \
+    -b t100.fam \
+    -o t100_o   \
+    -p t100_o.plot \
+    -e t100_o.eval \
+    -l t100_o.log
+
+601.57s user 65.66s system 180% cpu 6:10.50 total
+# 6 min for 2000 individuals
+# about 5 hours on 32435 individuals
 
 # GSL is missing on the NC2! Emailed the administrator.
 # Mike Weale's script of running EIGENSOFT
