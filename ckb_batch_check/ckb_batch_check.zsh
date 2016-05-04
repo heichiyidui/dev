@@ -431,11 +431,14 @@ geeqie to_exam_png/
 ls to_exam_png  > t.in
 get_chk_res.py >> plate_man_qc.table
 
-# the first 4000 SNP-plates, with the SNPs past the manual clustering QC,
-# 57 failed plate clustering QC.
-# 80 failed in 6400
-# 1.25 %
-# I tried 800 SNP-plates, with SNPs failed manual clustering QC,
-# 460 out of 800 failed plate clustering Qc.
+# Of the 20490 SNP-plate pairs, 20266 passed, 224 (1.1%) failed.
+#
+
+# 800 SNP-plate pairs, with SNPs failed manual clustering QC, were also checked.
+# 460 out of 800 failed.
+
+plot_man_qc.R
+# added p10.png
+# The Plate p-values and the plate missingness are important here.
 
 ################################################################################
