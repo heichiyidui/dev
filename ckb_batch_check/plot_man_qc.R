@@ -283,4 +283,8 @@ png('p10.png',width=595,height=842)
     multiplot(p1, p2, p3, cols=1)
 dev.off()
 
+pdf('p10.pdf',width=8.3, height = 11.7)
+    multiplot(p1, p2, p3, cols=1)
+dev.off()
+
 ################################################################################

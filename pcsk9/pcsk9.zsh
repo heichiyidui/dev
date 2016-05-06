@@ -162,8 +162,11 @@ done
 # 88 Hunan    5881     12 in the lastest family
 
 # put the 129 ids of the Suzhou family into 'suzhou_fam.ls'
+# edit the last column of ckb_ph12_pca_rc36.fam
+# so that we have 'fam_1' or 'no_rel' in the last column
 
-
+echo "no_rel" > t.pop
+# population list file for smartpca on rc36
 
 # for rc in 12 16 26 36 46 52 58 68 78 88 ; do
 #     plink --bfile ckb_ph12_pca_rc$rc \
@@ -175,42 +178,56 @@ done
 # Should be some way to tweak it.
 
 #######################################
-# 1.6 First PCA
+# 1.6 first round region PCA
 
-rc=36
-~/bin/EIG/bin/smartpca.perl \
-    -i ckb_ph12_pca_rc$rc.bed \
-    -a ckb_ph12_pca_rc$rc.bim \
-    -b ckb_ph12_pca_rc$rc.fam \
-    -o t100_o.pca  \
-    -p t100_o.plot \
-    -e t100_o.eval \
-    -l t100_o.log
+# no rc36
+for rc in 12 16 26 46 52 58 68 78 88 ; do
+    ~/bin/EIG/bin/smartpca.perl \
+        -i ckb_ph12_pca_rc$rc.bed \
+        -a ckb_ph12_pca_rc$rc.bim \
+        -b ckb_ph12_pca_rc$rc.fam \
+        -o rc$rc.pca  \
+        -p rc$rc.plot \
+        -e rc$rc.eval \
+        -l rc$rc.log
+done
 
+for rc in 36 ; do
+    ~/bin/EIG/bin/smartpca.perl \
+        -i ckb_ph12_pca_rc$rc.bed \
+        -a ckb_ph12_pca_rc$rc.bim \
+        -b ckb_ph12_pca_rc$rc.fam \
+        -w t.pop \
+        -o rc$rc.pca  \
+        -p rc$rc.plot \
+        -e rc$rc.eval \
+        -l rc$rc.log
+done
 
-
-grab -v -f suzhou_fam.ls -c 2  ckb_ph12_pca_rc36.fam | \
-    awk '{print  $2, $5}' | \
-    awk '{if ($2=="1") $2="M"; if ($2=="2") $2="F"; print $1,$2,"Control"}' | \
-    sed 's/\ /\t/g'    > suzhou_no_fam.indiv
-
-echo -e "suzhou_no_fam.indiv" > suzhou.pop
-
-rc=36
-~/bin/EIG/bin/smartpca.perl \
-    -i ckb_ph12_pca_rc$rc.bed \
-    -a ckb_ph12_pca_rc$rc.bim \
-    -b ckb_ph12_pca_rc$rc.fam \
-    -w suzhou_no_fam.indiv \
-    -o t101_o.pca  \
-    -p t101_o.plot \
-    -e t101_o.eval \
-    -l t101_o.log
-
-
-# 601.57s user 65.66s system 180% cpu 6:10.50 total
 # 6 min for 2000 individuals
 # about 5 hours on 32435 individuals
 # But out of memory on a PC with 12G memory.
 
 # The GSL library is missing on the NC2! Emailed the administrator.
+
+for rc in 46 52 58  ; do
+    ~/bin/EIG/bin/smartpca.perl \
+        -i ckb_ph12_pca_rc$rc.bed \
+        -a ckb_ph12_pca_rc$rc.bim \
+        -b ckb_ph12_pca_rc$rc.fam \
+        -o rc$rc.pca  \
+        -p rc$rc.plot \
+        -e rc$rc.eval \
+        -l rc$rc.log
+done
+
+for rc in 68 78 88 ; do
+    ~/bin/EIG/bin/smartpca.perl \
+        -i ckb_ph12_pca_rc$rc.bed \
+        -a ckb_ph12_pca_rc$rc.bim \
+        -b ckb_ph12_pca_rc$rc.fam \
+        -o rc$rc.pca  \
+        -p rc$rc.plot \
+        -e rc$rc.eval \
+        -l rc$rc.log
+done
