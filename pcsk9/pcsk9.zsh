@@ -71,31 +71,31 @@ tail -n +2 /kuser/kuangl/dev/ckb_batch_check/plate_man_qc.table | \
 
 plink --bfile ckb_ph12_s3_qc01 \
       --exclude to_rm_snp.ls   \
+      --autosome \
       --geno 0.05 \
       --maf  0.001 \
       --hwe 1e-8 midp \
       --make-bed --out ckb_ph12_s3_qc02
 
-# 659231 SNPs, 32109 subjects in
-#  13220 SNPs removed using the list 'to_rm_snp.ls'
-#  49611 SNPs removed due to '--geno 0.05'
-#  13099 SNPs removed due to '--hwe 1e-8 midp'
-#  43128 SNPs removed due to '--maf  0.001'
+# 636670 SNPs loaded (autosome), 32109 subjects
+#  12346 SNPs removed using the list 'to_rm_snp.ls'
+#  47053 SNPs removed due to '--geno 0.05'
+#  12947 SNPs removed due to '--hwe 1e-8 midp'
+#  41478 SNPs removed due to '--maf  0.001'
 
-# 540173 SNPs x 32109 people left
+# 522846 SNPs x 32109 people left
 
 #######################################
 # 1.3 LD-based pruning
 
 plink  --bfile ckb_ph12_s3_qc02 \
-    --autosome \
     --geno 0.01 \
     --hwe 1e-4 midp \
     --maf 0.05 \
     --indep-pairwise 1500 150 0.2
 
-# 522460 SNPs loaded(autosome), 32109 subjects
-#  15026 SNPs removed due to missing genotype data (--geno).
+# 522846 SNPs loaded, 32109 subjects
+#  15412 SNPs removed due to missing genotype data (--geno).
 #   7298 SNPs removed due to Hardy-Weinberg exact test (--hwe).
 # 164073 SNPs removed due to minor allele threshold(s)
 
@@ -210,24 +210,21 @@ done
 
 # The GSL library is missing on the NC2! Emailed the administrator.
 
-for rc in 46 52 58  ; do
-    ~/bin/EIG/bin/smartpca.perl \
-        -i ckb_ph12_pca_rc$rc.bed \
-        -a ckb_ph12_pca_rc$rc.bim \
-        -b ckb_ph12_pca_rc$rc.fam \
-        -o rc$rc.pca  \
-        -p rc$rc.plot \
-        -e rc$rc.eval \
-        -l rc$rc.log
-done
+# So far only rc 46 PCA shows some internal structure there.
+# Use the first 10 global PCs, from stage4_pca.xlsx
 
-for rc in 68 78 88 ; do
-    ~/bin/EIG/bin/smartpca.perl \
-        -i ckb_ph12_pca_rc$rc.bed \
-        -a ckb_ph12_pca_rc$rc.bim \
-        -b ckb_ph12_pca_rc$rc.fam \
-        -o rc$rc.pca  \
-        -p rc$rc.plot \
-        -e rc$rc.eval \
-        -l rc$rc.log
-done
+ckb_global_pca.txt
+
+################################################################################
+# 2 LDL-C measurements
+
+# from
+# file://K:\kadoorie\Groups\CKB-Statistics\Biochemistry Data\20160419_final_data
+# 20160426_101958_biochemistry_result_grid.xls
+
+# about 20K subjects
+# removed the 'diluted'
+# removed the 'Result may be affected by lipemia' etc
+
+pheno.ods
+# we need their DOB.

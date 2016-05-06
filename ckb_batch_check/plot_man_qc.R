@@ -76,7 +76,7 @@ p2 <- ggplot() +
     theme_bw() +
     theme(legend.position="none")
 
-png('p1.png',width=595,height=842)
+png('p1.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=2)
 dev.off()
 
@@ -96,7 +96,7 @@ p2 <- ggplot() +
     theme_bw() +
     theme(legend.position="none")
 
-png('p2.png',width=595,height=842)
+png('p2.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=2)
 dev.off()
 
@@ -137,7 +137,7 @@ p2 <- ggplot() +
     theme_bw() +
     theme(legend.position="none")
 
-png('p3.png',width=595,height=842)
+png('p3.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=2)
 dev.off()
 
@@ -160,7 +160,7 @@ p2 <- ggplot() +
     theme_bw() +
     theme(legend.position="none")
 
-png('p4.png',width=595,height=842)
+png('p4.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=2)
 dev.off()
 
@@ -175,7 +175,7 @@ p2 <- ggplot(data, aes(x=plate_min_p, colour=pass_man_qc)) +
     geom_density() + theme_bw() +
     theme(legend.position="none")
 
-png('p5.png',width=595,height=842)
+png('p5.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=1)
 dev.off()
 
@@ -188,7 +188,7 @@ p2 <- ggplot(subset(data,plate_min_p!='NA'),
              aes(x=max_miss, colour=pass_man_qc) ) +
     geom_density() +xlim(c(0,0.1)) + theme_bw() +
     theme(legend.position="none")
-png('p6.png',width=595,height=842)
+png('p6.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=1)
 dev.off()
 
@@ -201,7 +201,7 @@ p2 <- ggplot(subset(data,plate_min_p!='NA'),
              aes(x=min_maf, colour=pass_man_qc) ) +
     geom_density() +xlim(c(0,0.1)) + theme_bw() +
     theme(legend.position="none")
-png('p7.png',width=595,height=842)
+png('p7.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=1)
 dev.off()
 
@@ -226,7 +226,7 @@ p2 <- ggplot() +
     theme(legend.position="none")
 # SNPs failed 4 or more plates failed all
 
-png('p8.png',width=595,height=842)
+png('p8.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=1)
 dev.off()
 
@@ -237,7 +237,7 @@ dev.off()
 
 # heatmap_data = read.table('t3.in',header=TRUE)
 
-# png('p9.png',width=595,height=842)
+# png('p9.png', width=8.3, height=11.7, unit='in', res=288)
 #     ggplot(heatmap_data,aes(x=max_miss,y=plate_min_p,fill=pass_man_qc)) +
 #         geom_tile(colour = "white") +
 #         scale_fill_gradient(low = "#CDCDFF", high = "#0000FF") +
@@ -279,7 +279,7 @@ p3<- ggplot() +
 # missing is the key, plate_p somewhat matters
 
 
-png('p10.png',width=595,height=842)
+png('p10.png', width=8.3, height=11.7, unit='in', res=288)
     multiplot(p1, p2, p3, cols=1)
 dev.off()
 
