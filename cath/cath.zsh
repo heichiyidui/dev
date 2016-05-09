@@ -625,7 +625,14 @@ mkdir sap_aln
 # ...
 
 parse_sap_aln.py > index/cath_s35.sap_aln
+# 2923 pairs past
+# on average, there are 141 residues in the smaller domains,
+# and 100 aligned residue pairs in each alignment
 
+# the mean sequence identity is 20%
+# the medean is 17.7%.
+
+# 22 alignments have 100% identity. But that shouldn't matter.
 
 ################################################################################
 # Done                                                                         #
