@@ -2,6 +2,7 @@
 
 ################################################################################
 # parse arguments
+import argparse
 
 parser = argparse.ArgumentParser(\
     description='listdis get a histogram of a set of numbers',\
@@ -14,6 +15,7 @@ parser.add_argument('in_file', type=str,help='input file')
 
 args=parser.parse_args()
 ################################################################################
+import sys
 
 sys.stderr.write('input file: \t'+args.in_file+'\n')
 try:
@@ -40,9 +42,6 @@ if float_list[0]==float_list[-1]:
                      ' are '+str(float_list[0])+'\n')
     exit(0)
 
-import sys
-package_dir_a='/home/klinbrc/.local/lib/python3.2/site-packages'
-sys.path.insert(0, package_dir_a)
 import numpy
 
 size=len(float_list)

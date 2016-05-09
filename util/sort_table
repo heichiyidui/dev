@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-import sys
-import argparse
 
 ################################################################################
 # parse arguments
+import argparse
 
 parser = argparse.ArgumentParser(\
     description='sort a table file according to a list of ids',\
@@ -18,6 +17,8 @@ args=parser.parse_args()
 
 ################################################################################
 # read the list of ids
+import sys
+
 sys.stderr.write('list of id file: \t'+args.ls_file+'\n')
 try:
     list_file=open(args.ls_file)
@@ -62,12 +63,12 @@ for line in in_file:
     line=line.strip()
     if len(line.split()) > id_col:
         if line.split()[id_col] in id_set:
-            id_line[line.split()[id_col]]=line 
+            id_line[line.split()[id_col]]=line
 
 in_file.close()
 
 ################################################################################
-# output 
+# output
 for id in ids:
     if id in id_line.keys():
         print(id_line[id])
