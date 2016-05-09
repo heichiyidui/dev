@@ -9,7 +9,16 @@
 ################################################################################
 
 ################################################################################
-# 1. select H class representative domains
+# 1. CAO contact clustering
+
+# To reduce the dimension of our problems, we need to further classify the
+# residue contacts into groups?
+
+
+
+
+################################################################################
+# 2. select H class representative domains
 
 mkdir index
 
