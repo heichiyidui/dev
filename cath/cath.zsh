@@ -608,5 +608,25 @@ rm -r bl_out
 mv bl_out2 bl_out
 
 ################################################################################
+# 6. SAP structure alignments                                                  #
+################################################################################
+
+# We need some domain structure alignments for the clustering of residue-residue
+# contacts or local structure.
+
+select_sap_pairs.py
+
+# 2099 different CATH H classes
+# 1221 H classes with two or more domains
+# selected 2957 pairs of domains to be aligned.
+
+mkdir sap_aln
+# ~/bin/sap dompdb/3lbeB00 dompdb/3r87A00 > sap_aln/3lbeB00_3r87A00
+# ...
+
+parse_sap_aln.py > index/cath_s35.sap_aln
+
+
+################################################################################
 # Done                                                                         #
 ################################################################################
