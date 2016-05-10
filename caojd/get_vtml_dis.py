@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import numpy as np
 
 #######################################
@@ -39,7 +39,9 @@ for dom_id in dom_ls:
     ifile=open('../cath/bl_out/'+dom_id)
     ifile.readline()
     dom_seq = ifile.readline()[:-1]
-    for line in ifile:
+    while True:
+        line = ifile.readline()
+        if not line :break;
         aln_seq = ifile.readline()[:-1]
         aln_mat = np.outer(Pi,Pi)       # Laplace smoothing?
         for i in range(len(aln_seq)):

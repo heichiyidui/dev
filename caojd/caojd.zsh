@@ -79,8 +79,24 @@ aa_counter.py
 # 15 seconds for 3135 alignments.
 # about 200 alignment per second
 
+# get_vtml_dis.py
 
+# To run it on nc2, we had to change the script from python3 to python2.7,
+# because of the libraries numpy and scipy are not available for python3!
 
+split -l 21 index/dom.ls
+
+for ifile in x?? ; do
+    get_vtml_dis.py $ifile > $ifile.out &
+done
+
+# should be done in ~ 0.5 hours
+cat x??.out > dis.out
+# the first round distance estimation:
+# min:       0.3118
+# mean:      105.9467
+# max:       240.8510
+# std:       33.8776
 
 ################################################################################
 
