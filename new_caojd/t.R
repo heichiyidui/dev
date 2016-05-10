@@ -1,22 +1,21 @@
-args = commandArgs(trailingOnly = TRUE)
+library(pracma)
 
-dom_id=args[1]
-dom_len=strtoi(args[2])
+Pi=as.matrix(read.table('vtml/Pi',header=FALSE))
+F=diag(c(Pi))
+Q=as.matrix(read.table('vtml/Q',header=FALSE))
 
-c_mat=as.matrix(read.table('t.in',header=FALSE))
+ev <- eigen(Q)
+Lambda=ev$values
+S=ev$vectors
+inv_S=solve(S)
 
-png(paste(dom_id,'png',sep='.'),width=dom_len*3+80,height=dom_len*3+130)
+aln_mat = as.matrix(read.table('t.in'))
 
-image(c_mat, col=(c('#FFFFFF','#000000')), useRaster = TRUE ,axes = FALSE)
+# t=60
 
-axis(1, labels=FALSE, tick=TRUE, at = seq(0, 1,100/dom_len))
-axis(2, labels=FALSE, tick=TRUE, at = seq(0, 1,100/dom_len))
+loglikeN <- function (t) {
+    -sum(n_mat * log(F %*% (S %*% diag(exp(Lambda *t )) %*% inv_S)) )
+}
 
-axis(1, labels=FALSE, tick=TRUE, at = c(0, 1) )
-axis(2, labels=FALSE, tick=TRUE, at = c(0, 1) )
-axis(3, labels=FALSE, tick=TRUE, at = c(0, 1) )
-axis(4, labels=FALSE, tick=TRUE, at = c(0, 1) )
-
-title(main = dom_id)
-
-dev.off()
+min_dis=fminbnd(loglikeN,1,1000)
+# min_dis$xmin = 91.97997
