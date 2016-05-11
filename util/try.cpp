@@ -10,7 +10,7 @@
 int main(int argc, char** argv)
 {
     using namespace std;
-    srandom(519);
+    srandom(520);
     random();random();random();random();random();
     cout<<random()%100000000<<'\n';
     return 0;
@@ -22,3 +22,4 @@ int main(int argc, char** argv)
 //69852759 518 HF
 //S1031033 519 VG
 //random312 HF
+//58535803 520 HM
