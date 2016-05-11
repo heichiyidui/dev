@@ -28,11 +28,12 @@ def loglikeN(t): # log likelihood of time t
     b_mat = np.dot(a_mat,inv_S)
     c_mat = np.dot(F,b_mat)
     d_mat = np.multiply(aln_mat,np.log(c_mat))
-    return -np.sum(np.multiply(aln_mat,np.log(c_mat)))
+    return -np.sum(d_mat)
 
 import sys
 dom_ls = open(sys.argv[1]).read().split()
 # dom_ls = open('index/dom.ls').read().split()
+# dom_ls = open('t.ls').read().split()
 
 for dom_id in dom_ls:
     print('>'+dom_id)
@@ -51,8 +52,6 @@ for dom_id in dom_ls:
             c_j = AA_TO_INT[aln_seq[i]]
             aln_mat[c_i][c_j] += 1
             aln_mat[c_j][c_i] += 1
-
         aln_mat /= np.sum(aln_mat)
         print(scipy.optimize.minimize(loglikeN,0.1).x[0])
-
     ifile.close()

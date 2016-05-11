@@ -46,9 +46,7 @@ for dom_id in dom_ls:
     for dis in dom_dis[dom_id]:
         line = ifile.readline()
         aln_seq = ifile.readline()[:-1]
-
         dis_index = int(dis/(MAX_DIS/100))
-
         for i in range(len(aln_seq)):
             if aln_seq[i] == '-':
                 continue
@@ -56,7 +54,6 @@ for dom_id in dom_ls:
             c_j = AA_TO_INT[aln_seq[i]]
             sum_aln_mats[dis_index][c_i][c_j] += 1
             sum_aln_mats[dis_index][c_j][c_i] += 1
-
     ifile.close()
 
 #######################################
@@ -91,22 +88,27 @@ for i in range(100):
     R += np.exp(-ALPHA*dis[i]) * p_mats[i] * dis_step
 
 inv_R = np.linalg.inv(R)
-
 Q = ALPHA * np.eye(20) - inv_R
+
 
 #######################################
 # 6. normalize Q
 
-# sum(Q) should be zero
+# off-diag elements should all be positive
+t_mat = Q - np.diag(np.diag(Q))
+if np.min(t_mat) < 0 :
+    Q -= np.min(t_mat)
 
-Q -= np.ones((20,20),dtype=float) * np.sum(Q) /400
+# sum(Q.T) should be zero
+t_mat = Q - np.diag(np.diag(Q))
+Q = t_mat - np.diag(sum(t_mat.T))
 
 # I-Q should give PAM1
 
-t_mat = Q - np.diag(np.diag(Q))
-
-Q /= np.sum(t_mat) / (0.01 * 20)
+Q /= np.sum(t_mat) / 0.2
 
 #######################################
 # 7. write the Q matrix
 np.savetxt('vtml/Q',Q,'%08e')
+
+

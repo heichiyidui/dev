@@ -43,13 +43,16 @@ Q = ALPHA * np.eye(20) - inv_R
 #######################################
 # 6. normalize Q
 
-# sum(Q) should be zero
+# off-diag elements should all be positive
+t_mat = Q - np.diag(np.diag(Q))
+if np.min(t_mat) < 0 :
+    Q -= np.min(t_mat)
 
-Q -= np.ones((20,20),dtype=float) * np.sum(Q) /400
+# sum(Q.T) should be zero
+t_mat = Q - np.diag(np.diag(Q))
+Q = t_mat - np.diag(sum(t_mat.T))
 
 # I-Q should give PAM1
-
-t_mat = Q - np.diag(np.diag(Q))
 
 Q /= np.sum(t_mat) / 0.2
 
