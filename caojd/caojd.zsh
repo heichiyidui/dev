@@ -93,6 +93,11 @@ done
 
 # should be done in ~ 0.5 hours
 cat x??.out > dis.out
+
+# to check the distribution of distances:
+grep -v ">" dis.out > t.ls
+listdis t.ls > t.dat
+
 # the first round distance estimation:
 # min:       0.3118
 # max:       240.8510
@@ -111,7 +116,6 @@ cat x??.out > dis.out
 # mean:      107.5811
 # std:       34.8137
 
-
 #######################################
 # 2.3 sum up the alignment matrices, get the new Q
 
@@ -120,6 +124,7 @@ get_vtml_Q.py
 
 # and then go back to distance estimation.
 # C-E and C-K might have negative values in the Q matrix when alpha is small.
+
 
 
 ################################################################################

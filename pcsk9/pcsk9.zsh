@@ -62,6 +62,13 @@ grab -f t.ls -c 2 ckb_ph12_s3.fam > t.fam
 plink --bfile ckb_ph12_s3 --keep t.fam --make-bed --out ckb_ph12_s3_qc01
 # 32109 individuals
 
+
+
+# skip the PCA and QC part below. Go section 3.
+
+
+
+
 # remove the bad SNPs found in manual clustering check
 tail -n +2 /kuser/kuangl/dev/ckb_batch_check/manual_chk_res.table | \
     awk '{if ($2==0) print $1}' > to_rm_snp.ls
@@ -228,3 +235,14 @@ ckb_global_pca.txt
 
 pheno.ods
 # we need their DOB.
+# we need to add sttroke and statin use.
+
+################################################################################
+# 3 genotype file
+
+# almost without any QC
+
+plink --bfile ckb_ph12_s3_qc01 \
+      --chr 1 --from-mb 55.44 --to-mb 56.01 \
+      --make-bed --out geno
+# 159 SNPs, 32109 subjects
