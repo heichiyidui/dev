@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 MAX_DIS = 241
-ALPHA = 0.005
+ALPHA = 0.01
 
 #######################################
 # 1. read alignment distances
@@ -105,7 +105,7 @@ Q -= np.ones((20,20),dtype=float) * np.sum(Q) /400
 
 t_mat = Q - np.diag(np.diag(Q))
 
-Q /= np.sum(t_mat) / 0.01
+Q /= np.sum(t_mat) / (0.01 * 20)
 
 #######################################
 # 7. write the Q matrix

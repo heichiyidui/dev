@@ -102,11 +102,9 @@ cat x??.out > dis.out
 # 2.3 sum up the alignment matrices, get the new Q
 
 mkdir sum_mat
-# get_vtml_sum_mat.py
 get_vtml_Q.py
 
-#######################################
-# 2.4
+# and followed by another round of distance calculation
 
 
 
