@@ -84,7 +84,8 @@ aa_counter.py
 # To run it on nc2, we had to change the script from python3 to python2.7,
 # because of the libraries numpy and scipy are not available for python3!
 
-split -l 21 index/dom.ls
+random_shuffle_lines.py  index/dom.ls > t.ls
+split -l 21 t.ls
 
 for ifile in x?? ; do
     get_vtml_dis.py $ifile > $ifile.out &
@@ -94,9 +95,22 @@ done
 cat x??.out > dis.out
 # the first round distance estimation:
 # min:       0.3118
-# mean:      105.9467
 # max:       240.8510
+# mean:      105.9467
 # std:       33.8776
+
+# the second round
+# min:       0.3103
+# max:       214.8263
+# mean:      100.6145
+# std:       31.0843
+
+# the third round
+# min:       0.3106
+# max:       247.6158
+# mean:      107.5811
+# std:       34.8137
+
 
 #######################################
 # 2.3 sum up the alignment matrices, get the new Q
@@ -104,8 +118,8 @@ cat x??.out > dis.out
 mkdir sum_mat
 get_vtml_Q.py
 
-# and followed by another round of distance calculation
-
+# and then go back to distance estimation.
+# C-E and C-K might have negative values in the Q matrix when alpha is small.
 
 
 ################################################################################

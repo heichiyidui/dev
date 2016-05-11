@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-MAX_DIS = 215
-ALPHA = 0.01
+MAX_DIS =  248
+ALPHA   = 0.02
 
 #######################################
 # 1. read alignment distances
@@ -89,7 +89,6 @@ for i in range(100):
 
 inv_R = np.linalg.inv(R)
 Q = ALPHA * np.eye(20) - inv_R
-
 
 #######################################
 # 6. normalize Q

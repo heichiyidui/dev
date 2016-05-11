@@ -33,7 +33,6 @@ def loglikeN(t): # log likelihood of time t
 import sys
 dom_ls = open(sys.argv[1]).read().split()
 # dom_ls = open('index/dom.ls').read().split()
-# dom_ls = open('t.ls').read().split()
 
 for dom_id in dom_ls:
     print('>'+dom_id)
