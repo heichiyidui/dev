@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-MAX_DIS = 241
+MAX_DIS = 215
 ALPHA = 0.01
 
 #######################################
@@ -94,10 +94,11 @@ Q = ALPHA * np.eye(20) - inv_R
 #######################################
 # 6. normalize Q
 
-# off-diag elements should all be positive
-t_mat = Q - np.diag(np.diag(Q))
-if np.min(t_mat) < 0 :
-    Q -= np.min(t_mat)
+# off-diag elements should all be non-negtive
+for i in range(20):
+    for j in range(20):
+        if i==j :continue
+        if Q[i,j] < 0: Q[i,j]=0
 
 # sum(Q.T) should be zero
 t_mat = Q - np.diag(np.diag(Q))
