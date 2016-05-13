@@ -237,6 +237,20 @@ pheno.ods
 # we need their DOB.
 # we need to add sttroke and statin use.
 
+# checking different covariants
+plot_pheno.R
+
+# put the ldl phenotype into ldl.pheno
+
+# rc cov as 9 binary factors
+# rc_map = {'12':0, '16':1, '26':2, '36':3, '46':4,
+#           '52':5, '58':6, '68':7, '78':8}
+
+# ascertainment cov as 4 binary factors
+# rc_map = {'control':0, 'ICH':1, 'IS':2, 'MI_IHD':3}
+
+# put the covariants into ldl.cov
+
 ################################################################################
 # 3 genotype file
 
@@ -244,5 +258,60 @@ pheno.ods
 
 plink --bfile ckb_ph12_s3_qc01 \
       --chr 1 --from-mb 55.44 --to-mb 56.01 \
+      --keep ldl.pheno \
       --make-bed --out geno
-# 159 SNPs, 32109 subjects
+# 159 SNPs, 17458 subjects
+
+
+################################################################################
+# 4. assoc
+
+plink --bfile geno \
+      --pheno ldl.pheno \
+      --linear --ci 0.95
+
+# 1   AX-83389438   55509585    T        ADD
+# 17455   -0.09347 0.007536  -0.1082 -0.07869        -12.4    3.588e-35
+
+# with all covariants
+plink --bfile geno \
+      --pheno ldl.pheno \
+      --covar ldl.cov \
+      --linear --ci 0.95
+
+grep ADD plink.assoc.linear | sort -g -k 12 | head -n 22
+head  -n 1 plink.assoc.linear > t.in
+grep ADD plink.assoc.linear | sort -g -k 12 | grep -v NA  >> t.in
+# then plot it
+
+#   1   AX-83389438   55509585    T        ADD
+# 17455      -0.38  0.03056  -0.4399  -0.3201       -12.43    2.419e-35
+# MAF = 0.013
+
+
+# check ld
+plink --bfile geno \
+       --r2 --ld-snp AX-39912161 \
+       --ld-window-r2 0 \
+       --ld-window 99999 \
+       --ld-window-kb 77000
+# nothing is in LD with AX-83389438
+
+sort -g -k 7 plink.ld
+#   1     55509585   AX-83389438      1     55601339   AX-11187195    0.0140177
+# highest of all but itself is 0.0140177
+
+plink --bfile geno \
+       --r2 --ld-snp AX-11576926 \
+       --ld-window-r2 0 \
+       --ld-window 99999 \
+       --ld-window-kb 77000
+# not too bad
+
+plink --bfile geno \
+       --r2 --ld-snp AX-39912161 \
+       --ld-window-r2 0 \
+       --ld-window 99999 \
+       --ld-window-kb 77000
+#############
+# chk the clustering

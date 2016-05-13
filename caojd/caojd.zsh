@@ -93,6 +93,8 @@ done
 
 # should be done in ~ 0.5 hours
 cat x??.out > dis.out
+rm x??
+rm x??.out
 
 # to check the distribution of distances:
 grep -v ">" dis.out > t.ls
@@ -116,16 +118,54 @@ listdis t.ls > t.dat
 # mean:      107.5811
 # std:       34.8137
 
+# the forth round
+# min:       0.3091
+# max:       252.3087
+# mean:      108.2184
+# std:       35.2222
+
+# the fifth round
+# min:       0.3091
+# max:       252.4887
+# mean:      108.2653
+# std:       35.2465
+
+# the sixth round
+# min:       0.3091
+# max:       252.4366
+# mean:      108.2713
+# std:       35.2499
+
+# the seventh round
+# min:       0.3091
+# max:       252.5826
+# mean:      108.2730
+# std:       35.2508
+
+# the eighth round
+# min:       0.3091
+# max:       252.5416
+# mean:      108.2719
+# std:       35.2503
+
+# the ninth round
+# min:       0.3091
+# max:       252.5146
+# mean:      108.2730
+# std:       35.2509
+
 #######################################
 # 2.3 sum up the alignment matrices, get the new Q
 
 mkdir sum_mat
 get_vtml_Q.py
+# Don't forget to change the MAX_DIS variable!
+# It takes about a hour.
 
 # and then go back to distance estimation.
 # C-E and C-K might have negative values in the Q matrix when alpha is small.
 
-
+# Stop here after the ninth round.
 
 ################################################################################
 # 1. CAO contact clustering
