@@ -203,7 +203,52 @@ cp t.out vtml/vtml100
 # 3. CAO matrix estimation                                                     #
 ################################################################################
 
-# To reduce the dimension of our problems, we need to further classify the
-# residue contacts into groups?
+#######################################
+# 3.1 CAO contact frequency
+
+# 886435 contacts
+# According to the amino acid pair frequencies, the sequence distance clearly
+# matters.
+
+# Sequence distance groups: 1, 2, 3, 4, 5 and more
+# or 1 and 2, 3 and 4, 5 and more ?
+
+mkdir cao
+get_cao_pi.py
+
+# Save the Pi matrices into cao/Pi_1, cao/Pi_2, cao/Pi_3, cao/Pi_4 and cao/Pi_5.
+
+# to plot the log-odds of frequency matrices in R
+
+# Labels=c('A','R','N','D','C','Q','E','G','H','I',
+#          'L','K','M','F','P','S','T','W','Y','V')
+#
+# freq_aa = as.matrix(read.table('vtml/Pi'),header=F)
+# base_aa_aa = freq_aa %*% t(freq_aa)
+# rownames(base_aa_aa)=Labels
+# colnames(base_aa_aa)=Labels
+# heatmap(base_aa_aa,symm=T)
+#
+# freq_aa_aa = as.matrix(read.table('cao/Pi_5'),header=F)
+# rownames(freq_aa_aa)=Labels
+# colnames(freq_aa_aa)=Labels
+#
+# freq_aa_aa = log(freq_aa_aa) - log(base_aa_aa)
+# heatmap(freq_aa_aa,Colv = "Rowv")
+#
+# # write.table(freq_aa_aa,file='t.out', col.names=F,row.names=F)
+
+# remember the frequency matrices are not symmetric.
+# For Pi_5, there are basically two groups: big and hydrophobic, and others.
+# For Pi_4, G and P (maybe C) are special.
+# For Pi_3, C is special.
+# For Pi_2, unclear, rather 3 groups.
+# For Pi_1, two groups, grouping is similar to Pi_5. The frequencies are very
+# different.
+
+#######################################
+# 3.2
+
+
 
 
