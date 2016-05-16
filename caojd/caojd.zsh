@@ -8,7 +8,6 @@
 # Scoring matrices for YASPIN and residue-residue contact prediction           #
 ################################################################################
 
-
 ################################################################################
 # 1. select H class representative domains                                     #
 ################################################################################
@@ -167,8 +166,42 @@ get_vtml_Q.py
 
 # Stop here after the ninth round.
 
+#######################################
+# 2.4 cluserting of amino acids:
+# using -log(pt120), in R
+
+# library('fastcluster')
+#
+# pt120=as.matrix(read.table('sum_mat/050',header=F))
+# dis=as.dist(-log(pt120),diag=F,upper=F)
+#
+# Labels=c('A','R','N','D','C','Q','E','G','H','I',
+#          'L','K','M','F','P','S','T','W','Y','V')
+#
+# tree = hclust(dis, method='ward.D2' )
+# plot(tree,labels=Labels)
+#
+# clu = rect.hclust(tree,k=5)
+
+#######################################
+# 2.5 get VTML scoring matrices
+
+get_vtml.py 100
+# 100 here is the PAM distance
+cp t.out vtml/vtml100
+
+# To plot it in R:
+#
+# a=as.matrix(read.table('t.out'))
+# Labels=c('A','R','N','D','C','Q','E','G','H','I',
+#          'L','K','M','F','P','S','T','W','Y','V')
+# rownames(a)=Labels
+# colnames(a)=Labels
+# heatmap(a)
+
 ################################################################################
-# 1. CAO contact clustering
+# 3. CAO matrix estimation                                                     #
+################################################################################
 
 # To reduce the dimension of our problems, we need to further classify the
 # residue contacts into groups?
