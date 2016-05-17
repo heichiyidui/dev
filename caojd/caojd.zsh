@@ -247,8 +247,24 @@ get_cao_pi.py
 # different.
 
 #######################################
-# 3.2
+# 3.2 sum up cao alignment matrices
 
+# using vtml distances to sum CAO alignments into 100 matrices
+get_cao_sum_mat.py
+# Note the matrices 94, 96, 97 and 98 have no alignment data.
+# we used the outer product of pi instead.
 
+get_cao_Q.py
 
+get_cao_dis.py > cao.dis
+
+# the first round cao distances:
+# quartiles: 1.7617 93.1874 202.8065 318.2812 1897.4218
+# the second round
+# quartiles: 1.7677 95.6950 213.6681 343.6129 2043.7113
+
+# after the first round, calculate the Q and the distances using only the first
+# 85 sum alignment matrices. The last summary matrices are of too few samples.
+
+# The problem is still the under sampling. Too many bins too fill.
 
