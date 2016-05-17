@@ -93,6 +93,16 @@ Q = ALPHA * np.eye(20) - inv_R
 #######################################
 # 6. normalize Q
 
+# Q should be semi-symmetric
+for i in range(20):
+    Q[i] = Q[i] * Pi[i]
+
+Q = (Q + Q.T) * 0.5
+
+for i in range(20):
+    Q[i] = Q[i] / Pi[i]
+
+
 # off-diag elements should all be non-negtive
 for i in range(20):
     for j in range(20):

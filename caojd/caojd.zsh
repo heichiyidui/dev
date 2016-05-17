@@ -255,8 +255,10 @@ get_cao_sum_mat.py
 # we used the outer product of pi instead.
 
 get_cao_Q.py
+# a few minutes
 
 get_cao_dis.py > cao.dis
+# 30 to 50 minutes
 
 # the first round cao distances:
 # quartiles: 1.7617 93.1874 202.8065 318.2812 1897.4218
