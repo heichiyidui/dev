@@ -254,6 +254,9 @@ get_cao_sum_mat.py
 # Note the matrices 94, 96, 97 and 98 have no alignment data.
 # we used the outer product of pi instead.
 
+#######################################
+# 3.3 CAO Q esitmation
+
 get_cao_Q.py
 # a few minutes
 
@@ -270,8 +273,15 @@ get_cao_dis.py > cao.dis
 # after the first round, calculate the Q and the distances using only the first
 # 85 sum alignment matrices. The last summary matrices are of too few samples.
 
-# The problem is still the under sampling. Too many bins too fill.
+# The problem is still under-sampling.
+# Too many bins too fill.
 
-# OK, not too many. 1314 empty bins out of 160000 in sum_mat/050.
-# That's less than 1%.
-# Still, vast majority got only a few counts.
+################################################################################
+# 4. classify contacts                                                         #
+################################################################################
+
+# sum sum_mat/040 ~ sum_mat/060
+# now all bins are covered.
+# log of the sum_mat is pretty normal
+
+
