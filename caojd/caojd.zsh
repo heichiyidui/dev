@@ -264,6 +264,8 @@ get_cao_dis.py > cao.dis
 # quartiles: 1.7617 93.1874 202.8065 318.2812 1897.4218
 # the second round
 # quartiles: 1.7677 95.6950 213.6681 343.6129 2043.7113
+# the third round
+# quartiles: 1.7699 95.9406 214.8316 346.4199 2089.7011
 
 # after the first round, calculate the Q and the distances using only the first
 # 85 sum alignment matrices. The last summary matrices are of too few samples.
