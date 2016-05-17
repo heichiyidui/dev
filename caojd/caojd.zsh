@@ -272,3 +272,6 @@ get_cao_dis.py > cao.dis
 
 # The problem is still the under sampling. Too many bins too fill.
 
+# OK, not too many. 1314 empty bins out of 160000 in sum_mat/050.
+# That's less than 1%.
+# Still, vast majority got only a few counts.
