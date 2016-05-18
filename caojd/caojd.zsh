@@ -153,12 +153,24 @@ listdis t.ls > t.dat
 # mean:      108.2730
 # std:       35.2509
 
+# the tenth round
+# min:       0.3080
+# max:       251.7229
+# mean:      108.1158
+# std:       35.1741
+
+# the eleventh round
+# min:       0.3080
+# max:       251.5537
+# mean:      108.0473
+# std:       35.1397
+
 #######################################
 # 2.3 sum up the alignment matrices, get the new Q
 
 mkdir sum_mat
 get_vtml_Q.py
-# Don't forget to change the MAX_DIS variable!
+# Don't forget to change the MAX_DIS constant!
 # It takes about a hour.
 
 # and then go back to distance estimation.
@@ -284,4 +296,10 @@ get_cao_dis.py > cao.dis
 # now all bins are covered.
 # log of the sum_mat is pretty normal
 
+cont_cluster.R
 
+# group contact types into 20 clusters.
+# we used hierarchical clustering with manual selected number of cluster.
+
+cont_cluster.py > t.in
+cont_cluster.R # the second part
