@@ -57,34 +57,112 @@ colnames(data) = aa_labels
 
 heatmap(data)
 
-
 #######################################
 # using different colours, change row and column orders
 
 library(ggplot2)
 
 data=read.table('t.in',header=TRUE)
-data$group = as.factor(data$group)
+# data$group = as.factor(data$group)
 
 row_labels = c('W','F','Y','P','V','M','I','L','C','G',
                'T','A','S','H','D','N','E','Q','R','K')
 col_labels = c('C','T','A','S','V','M','I','L','W','F',
                'Y','P','H','N','Q','E','D','G','R','K')
 
-group_colors = c("#F7FCF5","#F4FAF1","#F1F9EE","#EEF8EA","#C8E9C1",
-				 "#C2E7BB","#BCE4B5","#B5E1AF","#AFDFA9","#A9DCA3",
-				 "#A3D99D","#4EB163","#46AD5F","#3FA95B","#3AA357",
-				 "#359E53","#006528","#005E26","#005823","#005120")
 # roughly 4 groups
 
-ggplot(data, aes(x, y, fill = group )) +
-    xlab('the second residue') +
-    ylab('the first residue') +
+p1 <- ggplot(subset(data,group < 4) , aes(x, y, fill = group )) +
+    xlab('second residue') +
+    ylab('first residue') +
     scale_x_discrete(limits=col_labels) +
     scale_y_discrete(limits=row_labels) +
     geom_tile() +
+    ggtitle("Group 1") +
     theme_bw() +
-    scale_fill_manual(values = group_colors) +
     theme(legend.position="none")
 
+p2 <- ggplot(subset(data,group < 21 & group > 3) , aes(x, y, fill = group )) +
+    xlab('second residue') +
+    ylab('first residue') +
+    scale_x_discrete(limits=col_labels) +
+    scale_y_discrete(limits=row_labels) +
+    geom_tile() +
+    ggtitle("Group 2") +
+    theme_bw() +
+    theme(legend.position="none")
 
+p3 <- ggplot(subset(data,group < 40 & group > 20) , aes(x, y, fill = group )) +
+    xlab('second residue') +
+    ylab('first residue') +
+    scale_x_discrete(limits=col_labels) +
+    scale_y_discrete(limits=row_labels) +
+    geom_tile() +
+    ggtitle("Group 3") +
+    theme_bw() +
+    theme(legend.position="none")
+
+p4 <- ggplot(subset(data, group > 35) , aes(x, y, fill = group )) +
+    xlab('second residue') +
+    ylab('first residue') +
+    scale_x_discrete(limits=col_labels) +
+    scale_y_discrete(limits=row_labels) +
+    geom_tile() +
+    ggtitle("Group 4") +
+    theme_bw() +
+    theme(legend.position="none")
+
+################################################################################
+# Multiple plot function
+# from
+# http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_%28ggplot2%29/
+# ggplot objects can be passed in ..., or to plotlist
+# (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+################################################################################
+
+png('t2.png',height=8.3, width=8.3,unit='in',res=288)
+multiplot(p1, p3, p2,p4,cols=2)
+dev.off()
