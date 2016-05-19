@@ -38,7 +38,7 @@ dis=as.dist(-log(pt120),diag=F,upper=F)
 
 tree = hclust(dis, method='ward.D2' )
 
-pdf('t.pdf', width = 28)
+pdf('cont_groups_1.pdf', width = 28)
 par(cex=0.5)
 plot(tree)
 
@@ -163,6 +163,6 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 
 ################################################################################
 
-png('t2.png',height=8.3, width=8.3,unit='in',res=288)
+pdf('cont_groups_2.pdf',height=8.3, width=8.3)
 multiplot(p1, p3, p2,p4,cols=2)
 dev.off()

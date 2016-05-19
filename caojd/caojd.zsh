@@ -9,6 +9,20 @@
 ################################################################################
 
 ################################################################################
+#                                                                              #
+# CAO (contact accepted mutation).                                             #
+# Kuang Lin, Jens Kleinjung, William R Taylor, Jaap Heringa 2003               #
+# Computational Biology and Chemistry  2003, vol 27 issue 2 Pages 93-102       #
+#                                                                              #
+# It's after the PAM (Point Accepted Mutation), a Markov model of amino acid   #
+# replacements in proteins.                                                    #
+#                                                                              #
+# The VTML method is from T Muller and M Vingron 2000.                         #
+# The difference is in CAO we are looking at residue side-chain contacts.      #
+#                                                                              #
+################################################################################
+
+################################################################################
 # 1. select H class representative domains                                     #
 ################################################################################
 mkdir index
@@ -105,41 +119,7 @@ listdis t.ls > t.dat
 # mean:      105.9467
 # std:       33.8776
 
-# the second round
-# min:       0.3103
-# max:       214.8263
-# mean:      100.6145
-# std:       31.0843
-
-# the third round
-# min:       0.3106
-# max:       247.6158
-# mean:      107.5811
-# std:       34.8137
-
-# the forth round
-# min:       0.3091
-# max:       252.3087
-# mean:      108.2184
-# std:       35.2222
-
-# the fifth round
-# min:       0.3091
-# max:       252.4887
-# mean:      108.2653
-# std:       35.2465
-
-# the sixth round
-# min:       0.3091
-# max:       252.4366
-# mean:      108.2713
-# std:       35.2499
-
-# the seventh round
-# min:       0.3091
-# max:       252.5826
-# mean:      108.2730
-# std:       35.2508
+# ...
 
 # the eighth round
 # min:       0.3091
@@ -152,18 +132,6 @@ listdis t.ls > t.dat
 # max:       252.5146
 # mean:      108.2730
 # std:       35.2509
-
-# the tenth round
-# min:       0.3080
-# max:       251.7229
-# mean:      108.1158
-# std:       35.1741
-
-# the eleventh round
-# min:       0.3080
-# max:       251.5537
-# mean:      108.0473
-# std:       35.1397
 
 #######################################
 # 2.3 sum up the alignment matrices, get the new Q
@@ -288,6 +256,20 @@ get_cao_dis.py > cao.dis
 # The problem is still under-sampling.
 # Too many bins too fill.
 
+#######################################
+# 3.4 CAO estimation
+
+get_cao.py 200
+
+# now t.out is the CAO200 matrix
+# min:       -4.5226
+# max:       6.6471
+# mean:      -1.0756
+# std:       1.3066
+# quartiles: -4.5226 -1.9866 -1.2318 -0.3605 6.6471
+
+# better use VTML100 and CAO200 for alignments
+
 ################################################################################
 # 4. classify contacts                                                         #
 ################################################################################
@@ -302,4 +284,12 @@ cont_cluster.R
 # we used hierarchical clustering with manual selected number of cluster.
 
 cont_cluster.py > t.in
-cont_cluster.R # the second part
+
+# the second part of
+cont_cluster.R
+
+################################################################################
+# the end                                                                      #
+################################################################################
+
+
