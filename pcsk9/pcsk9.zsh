@@ -3,13 +3,16 @@
 ################################################################################
 
 ################################################################################
+#                                                                              #
 # The PCSK9 gene blocks LDL (Low-density lipoprotein) receptors. Less LDL      #
 # receptor on the surface of liver to remove LDL from bloodstream, leads to    #
 # higher LDL cholesterol (LDL-C) concentrations.                               #
 # PCSK9 is a fat-control drug target. It is well studied with caucasian        #
 # populations.                                                                 #
+#                                                                              #
 # Now verify our CKB dataset on the detection of SNPs associating with LDL-C   #
 # level in this gene.                                                          #
+#                                                                              #
 ################################################################################
 
 # K:\kadoorie\Groups\Genetics\PROJECTS\PCSK9
@@ -20,27 +23,39 @@
 #######################################
 # 1.1 the original set
 
-# 32435 subjects in GWAS_sample_ascertainment.txt
+# 32435 subjects in GWAS_sample_ascertainment.txt from
+# K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists
+# I replaced ' ' with '_' in the 'ascert.' and 'notes' columns.
+
 # let's start from the stage3 set at
 /kuser/shared/data/GWASphase12
 
-tail -n +2 /kuser/shared/data/GWASphase12/stage3_mandatory_exclusions.txt | \
-    awk '{print $1,$2,0,0,0,0}' > t.fam
-
 plink --bfile /kuser/shared/data/GWASphase12/stage3 \
-      --remove t.fam --make-bed --out ckb_ph12_s3
+      --remove /kuser/shared/data/GWASphase12/stage3_mandatory_exclusions.txt \
+      --make-bed --out ckb_ph12_s3
+
 # 659231 variants and 32205 people
-# 15599 '1' (male) and 16606 '2' (female)
 # all with unknown father, mother and status
 # no repeat in individual ids
 
-# change the last column from '-9' to '0'
+# make-sure all subjects have ascertainments
+tail -n +2 GWAS_sample_ascertainment.txt | awk '{print $1}' > t.ls
+grab -v -f t.ls -c 2 ckb_ph12_s3.fam > t.fam
+# 96 subjects to be removed
 
-GWAS_sample_ascertainment.txt
-# The list of sample ascertainments is from
-# K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists
-# GWAS_SNPdata_samples.xlsx
-# I replaced ' ' with '_' in the 'ascert.' and 'notes' columns.
+plink --bfile ckb_ph12_s3 \
+      --remove t.fam \
+      --autosome \
+      --geno 0.05 \
+      --maf  0.001 \
+      --make-bed --out ckb_ph12_s3_qc01
+# 542534 variants and 32109 people
+# 51983 variants removed due to missing genotype data (--geno).
+# 42153 variants removed due to minor allele threshold(s)
+
+awk '{print $5}' ckb_ph12_s3_qc01.fam | sort | uniq -c
+# 15599 '1' (male) and 16606 '2' (female)
+
 
 # 10 RCs
 # 1388 12 Qingdao

@@ -270,6 +270,15 @@ get_cao.py 200
 
 # better use VTML100 and CAO200 for alignments
 
+# From 3669406 pair-wise alignment of PAM distance 50-150,
+# we obtained the frequencies of aligned contact-pairs.
+# From CAO model, we estimated the frequencies of aligned contact-pairs at
+# CAO distance 200.
+
+# The log of two sets of frequencies were compared in
+pic/cao_vs_obv.pdf
+# It is quite linear. The correlation coefficient is 0.96703.
+
 ################################################################################
 # 4. classify contacts                                                         #
 ################################################################################
