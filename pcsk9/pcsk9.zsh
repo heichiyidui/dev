@@ -18,7 +18,7 @@
 # K:\kadoorie\Groups\Genetics\PROJECTS\PCSK9
 
 ################################################################################
-# 1. genotype data PCA
+# 1. genotype data
 
 #######################################
 # 1.1 the original set
@@ -27,7 +27,7 @@
 # K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists
 # I replaced ' ' with '_' in the 'ascert.' and 'notes' columns.
 
-# let's start from the stage3 set at
+# Start from the stage3 set at
 /kuser/shared/data/GWASphase12
 
 plink --bfile /kuser/shared/data/GWASphase12/stage3 \
@@ -56,6 +56,46 @@ plink --bfile ckb_ph12_s3 \
 awk '{print $5}' ckb_ph12_s3_qc01.fam | sort | uniq -c
 # 15599 '1' (male) and 16606 '2' (female)
 
+################################################################################
+# 2. phenotype data
+
+awk '{print $2}' ckb_ph12_s3_qc01.fam > ck_id.ls
+# 32109 uniq ids in ck_id.ls
+
+
+# direct LDL-C
+# min:       0.3300
+# max:       9.9400
+# mean:      2.3782
+# std:       0.7136
+# quartiles: 0.3300 1.8800 2.3200 2.8000 9.9400
+
+# indirect LDL-C
+# min:       0.0000
+# max:       1078.0000
+# mean:      218.6738
+# std:       91.0916
+# quartiles: 0.0000 153.0000 212.0000 274.0000 1078.0000
+
+# just use indirect LDL-C / 100
+
+awk '{if ($2=="ICH" && $3==0 && $5==1) print $1}' t.in > st1.ls
+awk '{if ($2=="IS"  && $3==0 && $5==1) print $1}' t.in > st2.ls
+awk '{if ($2=="SAH" && $3==0 && $5==1) print $1}' t.in > st3.ls
+awk '{if ($2=="MI/IHD" && $3==0 && $5==1) print $1}' t.in > st4.ls
+awk '{if ($2=="control" && $3==0 && $5==1) print $1}' t.in > st5.ls
+awk '{if ($2=="resurvey_2" && $3==0 && $5!=1 && $8 != "NA" ) print $1}' \
+  t.in > st6.ls
+
+wc st?.ls
+#   4694   4694  51998 st1.ls
+#   5113   5113  56683 st2.ls
+#    165    165   1823 st3.ls
+#   1253   1253  13965 st4.ls
+#   5756   5756  63715 st5.ls
+#   3201   3201  35833 st6.ls
+#  20182  20182 224017 total
+
 
 # 10 RCs
 # 1388 12 Qingdao
@@ -69,44 +109,108 @@ awk '{print $5}' ckb_ph12_s3_qc01.fam | sort | uniq -c
 # 3360 78 Zhejiang
 # 5881 88 Hunan
 
-#######################################
-# 1.2 basic QC
+# 10 PCs
 
-tail -n +2 GWAS_sample_ascertainment.txt | awk '{print $1}' > t.ls
-grab -f t.ls -c 2 ckb_ph12_s3.fam > t.fam
-
-plink --bfile ckb_ph12_s3 --keep t.fam --make-bed --out ckb_ph12_s3_qc01
-# 32109 individuals
+# all in cov.csv
 
 
-
-# skip the PCA and QC part below. Go section 3.
-
-
+################################################################################
+# 3. linear regression
 
 
-# remove the bad SNPs found in manual clustering check
-tail -n +2 /kuser/kuangl/dev/ckb_batch_check/manual_chk_res.table | \
-    awk '{if ($2==0) print $1}' > to_rm_snp.ls
-tail -n +2 /kuser/kuangl/dev/ckb_batch_check/plate_man_qc.table | \
-    awk '{if ($2==0) print $1}' | awk -F"_" '{print $1}' >>  to_rm_snp.ls
-# 14162 SNPs to be removed
+# with all covariants
+plink --bfile geno \
+      --pheno ldl.pheno \
+      --covar ldl.cov \
+      --linear --ci 0.95
 
-plink --bfile ckb_ph12_s3_qc01 \
-      --exclude to_rm_snp.ls   \
-      --autosome \
-      --geno 0.05 \
-      --maf  0.001 \
-      --hwe 1e-8 midp \
-      --make-bed --out ckb_ph12_s3_qc02
+grab -f st1.ls ckb_ph12_s3_qc01.fam -c 2 > t1.fam ; \
+plink --bfile ckb_ph12_s3_qc01 --keep t1.fam --make-bed --out st1 &
+grab -f st2.ls ckb_ph12_s3_qc01.fam -c 2 > t2.fam ; \
+plink --bfile ckb_ph12_s3_qc01 --keep t2.fam --make-bed --out st2 &
+grab -f st3.ls ckb_ph12_s3_qc01.fam -c 2 > t3.fam ; \
+plink --bfile ckb_ph12_s3_qc01 --keep t3.fam --make-bed --out st3 &
+grab -f st4.ls ckb_ph12_s3_qc01.fam -c 2 > t4.fam ; \
+plink --bfile ckb_ph12_s3_qc01 --keep t4.fam --make-bed --out st4 &
+grab -f st5.ls ckb_ph12_s3_qc01.fam -c 2 > t5.fam ; \
+plink --bfile ckb_ph12_s3_qc01 --keep t5.fam --make-bed --out st5 &
+grab -f st6.ls ckb_ph12_s3_qc01.fam -c 2 > t6.fam ; \
+plink --bfile ckb_ph12_s3_qc01 --keep t6.fam --make-bed --out st6 &
 
-# 636670 SNPs loaded (autosome), 32109 subjects
-#  12346 SNPs removed using the list 'to_rm_snp.ls'
-#  47053 SNPs removed due to '--geno 0.05'
-#  12947 SNPs removed due to '--hwe 1e-8 midp'
-#  41478 SNPs removed due to '--maf  0.001'
 
-# 522846 SNPs x 32109 people left
+
+# with all covariants
+for st in st1 st2 st4 st5 st6 ; do
+    nohup plink --bfile $st \
+      --pheno ldl.pheno \
+      --covar ldl.cov \
+      --linear --ci 0.95 \
+      --out $st &
+done
+
+# SAH is way too small, witch all covariants the output will only be NA
+plink --bfile st3 --pheno ldl.pheno --covar ldl.cov \
+    --covar-name age, gender, PC1, PC2 \
+    --linear --ci 0.95 --out st3 &
+
+for st in st1 st2 st3 st4 st5 st6 ; do
+    head -n 1 $st.assoc.linear > $st.out ;
+    grep ADD $st.assoc.linear >> $st.out &
+done
+
+# lets have a look
+for st in st1 st2 st3 st4 st5 st6 ; do
+    plot_qq_man.R $st  &
+done
+
+
+################################################################################
+# 4. METAL analysis
+
+
+# put a2 into it
+
+for st in st1 st2 st3 st4 st5 st6 ; do
+    t1.py $st > $st.metal_in  &
+done
+
+
+# prepare for plotting
+
+awk '{print $1}' pcsk9_direct1.tbl | t -n +2 > t.ls
+grab -f t.ls -c 2 ckb_ph12_s3.bim | awk '{print $1,$2,$4} ' > t.in
+sort_table -f t.ls -c 2 t.in > t.out
+
+mv t.out t.in
+t -n +2 pcsk9_direct1.tbl > t2.in
+echo "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_direct_metal.out
+paste t.in t2.in | \
+     awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_direct_metal.out
+
+
+
+
+awk '{print $1}' pcsk9_all1.tbl | t -n +2 > t.ls
+grab -f t.ls -c 2 ckb_ph12_s3.bim | awk '{print $1,$2,$4} ' > t.in
+sort_table -f t.ls -c 2 t.in > t.out
+
+mv t.out t.in
+t -n +2 pcsk9_all1.tbl > t2.in
+echo "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_all_metal.out
+paste t.in t2.in | \
+     awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_all_metal.out
+
+
+
+
+
+
+
+################################################################################
+
+
+
+
 
 #######################################
 # 1.3 LD-based pruning
@@ -307,7 +411,7 @@ grep ADD plink.assoc.linear | sort -g -k 12 | grep -v NA  >> t.in
 
 # check ld
 plink --bfile geno \
-       --r2 --ld-snp AX-39912161 \
+       --r2 --ld-snp AX-83389438 \
        --ld-window-r2 0 \
        --ld-window 99999 \
        --ld-window-kb 77000
