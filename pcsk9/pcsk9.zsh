@@ -23,20 +23,191 @@
 #######################################
 # 1.1 the original set
 
-# 32435 subjects in GWAS_sample_ascertainment.txt from
-# K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists
-# I replaced ' ' with '_' in the 'ascert.' and 'notes' columns.
-
 # Start from the stage3 set at
 /kuser/shared/data/GWASphase12
 
 plink --bfile /kuser/shared/data/GWASphase12/stage3 \
       --remove /kuser/shared/data/GWASphase12/stage3_mandatory_exclusions.txt \
+      --autosome \
       --make-bed --out ckb_ph12_s3
 
-# 659231 variants and 32205 people
+# 636670 variants and 32205 people
 # all with unknown father, mother and status
-# no repeat in individual ids
+# no repeat in individual G-cryovial ids (ck_ids)
+
+# Obviously, the gender check has been done.
+#
+
+#######################################
+# 1.2 very basic missing-call and MAF filter
+
+plink --bfile ckb_ph12_s3 \
+      --geno 0.05 \
+      --maf  0.0001 \
+      --make-bed --out ckb_ph12_s3_qc01
+
+# 51983 variants removed due to missing genotype data (--geno).
+# 30961 variants removed due to minor allele threshold(s)
+# 553726 variants and 32205 people left
+
+########################################
+# 1.3 heterogeneous related to missingness
+
+plink --bfile ckb_ph12_s3_qc01 \
+      --het
+
+# No, plink says use a LD-free set.
+# I made a comparison, the two sets of F valuse are pretty close.
+# But let's just do the LD-pruning
+
+plink --bfile ckb_ph12_s3_qc01 \
+      --geno 0.01 \
+      --hwe 1e-4 midp \
+      --maf 0.05 \
+      --indep-pairwise 1500 150 0.2
+
+# 120201 SNPs left
+
+plink --bfile ckb_ph12_s3_qc01 \
+      --extract plink.prune.in \
+      --make-bed --out t
+
+plink --bfile t  \
+      --het
+
+# and missing
+plink --bfile ckb_ph12_s3_qc01 \
+      --missing
+
+paste plink.het plink.imiss | awk '{print $1,$2,$6,$12}' > t.in
+
+###################
+# in R
+R
+library(ggplot2)
+data = read.table('t.in',header=T)
+
+p1 <- ggplot(data) + geom_point(aes(x=F, y=F_MISS)) + theme_bw()
+
+p2 <- ggplot(data=subset(data,F<0.10), aes(F)) +
+      geom_histogram(bins=30) + theme_bw()
+
+threshold = mean(data$F) - 3 * sd(data$F)
+data$lowF <- data$F < threshold
+# -0.0287 ~ 0.03048 for +-3 SD
+# 395 individuals flaged
+# or 20 individuals on the lower end
+
+p3 <- ggplot(data,aes(x=lowF, y=F_MISS)) + geom_boxplot( ) + theme_bw()
+
+write.table(subset(data,lowF)$IID,file='low_hom.ls',
+            row.names=F,col.names=F,quote=F)
+
+###################
+#
+# low homozygotes might mean sample contamination.
+# The 20 subjects with < 3SD F values are of very high missingness.
+# 0.022146 vs 0.002926294 for all
+# And, according to the plink IBD estimation,
+# these subjects are related to EVERYONE else.
+
+grab -f low_hom.ls -c 2 ckb_ph12_s3_qc01.fam > t.fam
+
+plink --bfile ckb_ph12_s3_qc01 \
+      --remove t.fam \
+      --make-bed --out  ckb_ph12_s3_qc02
+
+# 553726 variants and 32185 people left
+
+#######################################
+# 1.4 IBD and PCA
+
+# LD pruning again
+
+plink --bfile ckb_ph12_s3_qc02 \
+      --geno 0.01 \
+      --hwe 1e-4 midp \
+      --maf 0.05 \
+      --indep-pairwise 1500 150 0.2
+# 120177 SNPs in, 217508 SNPs out
+
+plink --bfile ckb_ph12_s3_qc02 \
+      --extract plink.prune.in \
+      --make-bed --out pca
+# 120177 variants and 32185 people
+
+plink --bfile pca \
+      --genome
+
+# 20 minutes on NC2
+
+
+tail  -n +2 plink.genome | \
+    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq > t.ls
+
+tail  -n +2 plink.genome | \
+    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq -c | \
+    sort -k 1 -g > t.dat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#######################################
+# 1.2 LD-based pruning
+
+plink  --bfile ckb_ph12_s3 \
+    --geno 0.01 \
+    --hwe 1e-4 midp \
+    --maf 0.05 \
+    --indep-pairwise 1500 150 0.2
+
+# 120201 SNPs in, 217496 SNPs out
+
+plink --bfile ckb_ph12_s3 \
+      --extract plink.prune.in \
+      --make-bed --out ckb_ph12_pca
+
+# find relatives
+plink --bfile ckb_ph12_pca \
+      --genome
+
+tail  -n +2 plink.genome | \
+    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq > t.ls
+
+
+
+tail  -n +2 plink.genome | \
+    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq -c | \
+    sort -k 1 -g > t.dat
+
+
+
+tail  -n +2 plink.genome | \
+    awk '{if ($10>0.4) print $2 "\n" $4}' | sort | uniq > t2.ls
+
+
+# inbreeding coefficients
+plink --bfile  ckb_ph12_pca \
+      --het
+# Observed number of homozygotes are pretty low for some subjects,
+# they are often the cores of the ibd clusters.
+
+
+
+
+
+
 
 # make-sure all subjects have ascertainments
 tail -n +2 GWAS_sample_ascertainment.txt | awk '{print $1}' > t.ls
@@ -58,6 +229,14 @@ awk '{print $5}' ckb_ph12_s3_qc01.fam | sort | uniq -c
 
 ################################################################################
 # 2. phenotype data
+
+
+# 32435 subjects in GWAS_sample_ascertainment.txt from
+# K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists\
+# GWAS_SNPdata_samples.xlsx
+
+# I replaced ' ' with '_' in the 'ascert.' and 'notes' columns.
+
 
 awk '{print $2}' ckb_ph12_s3_qc01.fam > ck_id.ls
 # 32109 uniq ids in ck_id.ls

@@ -25,10 +25,10 @@ cp green.xml ~/.local/share/gtksourceview-3.0/styles/
 mkdir -p ~/.local/share/gtksourceview-3.0/language-specs/
 cp c.lang python.lang zsh.lang ~/.local/share/gtksourceview-3.0/language-specs/
 
-# at last, 
+# at last,
 # got the regular expression lookahead right there for funtion coloring
 
-# for cursor width and color 
+# for cursor width and color
 mkdir -p  ~/.config/gtk-3.0/
 cp gtk.css ~/.config/gtk-3.0/
 
@@ -49,7 +49,7 @@ cp gtk.css ~/.config/gtk-3.0/
 # 4. preference                                                                #
 ################################################################################
 
-# View: select all 
+# View: select all
 # Editor: Tab 4 spaces
 #    insert spaces
 #    enable auto indention
@@ -66,8 +66,8 @@ cp gtk.css ~/.config/gtk-3.0/
 # 1. language syntax                                                           #
 ################################################################################
 
-sudo cp cpp.xml    /usr/share/kde4/apps/katepart/syntax/ 
-sudo cp python.xml /usr/share/kde4/apps/katepart/syntax/ 
+sudo cp cpp.xml    /usr/share/kde4/apps/katepart/syntax/
+sudo cp python.xml /usr/share/kde4/apps/katepart/syntax/
 
 ################################################################################
 #  2 kate setting                                                              #
@@ -83,7 +83,7 @@ cp 0_C++\ Snippets-0.6.xml 0_Python\ Snippets-0.1.xml \
 
 # config kate
 #    application
-#        general 
+#        general
 #            warn about foreign process modification -> on
 #        plugin
 #            build plugin -> on
@@ -100,7 +100,7 @@ cp 0_C++\ Snippets-0.6.xml 0_Python\ Snippets-0.1.xml \
 #            Highlight range between selected brackets -> on
 #            Show line numbers -> on
 #        Font And Colour
-#            set font to "Liberation Mono 11" 
+#            set font to "Liberation Mono 11"
 #            import scheme kate_Normal.kateschema
 #        Editing
 #            using 4 spaces for indentation
@@ -115,14 +115,14 @@ cp 0_C++\ Snippets-0.6.xml 0_Python\ Snippets-0.1.xml \
 ################################################################################
 #
 # $70 is a bit too much?
-# It seems to be a damn good one. 
-# 
+# It seems to be a damn good one.
+#
 # sublime text editor build 3047 Release Date: 27 June 2013
 #
-# download and unzip it into ~/bin/ 
+# download and unzip it into ~/bin/
 ln -s ~/bin/sublime_text_3/sublime_text ~/bin/
 
-# put this line into ~/.alias 
+# put this line into ~/.alias
 alias se='sublime_text '
 
 #############
@@ -132,5 +132,10 @@ cp subl_snipets/* \
    Green.tmTheme \
    Preferences.sublime-settings \
    ~/.config/sublime-text-3/Packages/User/
+
+# add a line:
+#	{ "keys": ["ctrl+e"], "command": "move_to", \
+#    "args": {"to": "eol", "extend": false} },
+# to Preferences -> Key Bindings - User
 
 ################################################################################
