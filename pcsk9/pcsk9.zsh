@@ -18,9 +18,10 @@
 # K:\kadoorie\Groups\Genetics\PROJECTS\PCSK9
 
 ################################################################################
-# 1. genotype data
+# 1. genotype data                                                             #
+################################################################################
 
-#######################################
+################################################################################
 # 1.1 the original set
 
 # Start from the stage3 set at
@@ -36,9 +37,8 @@ plink --bfile /kuser/shared/data/GWASphase12/stage3 \
 # no repeat in individual G-cryovial ids (ck_ids)
 
 # Obviously, the gender check has been done.
-#
 
-#######################################
+################################################################################
 # 1.2 very basic missing-call and MAF filter
 
 plink --bfile ckb_ph12_s3 \
@@ -50,7 +50,7 @@ plink --bfile ckb_ph12_s3 \
 # 30961 variants removed due to minor allele threshold(s)
 # 553726 variants and 32205 people left
 
-########################################
+################################################################################
 # 1.3 heterogeneous related to missingness
 
 plink --bfile ckb_ph12_s3_qc01 \
@@ -81,7 +81,7 @@ plink --bfile ckb_ph12_s3_qc01 \
 
 paste plink.het plink.imiss | awk '{print $1,$2,$6,$12}' > t.in
 
-###################
+#--------------------------------------
 # in R
 R
 library(ggplot2)
@@ -103,10 +103,14 @@ p3 <- ggplot(data,aes(x=lowF, y=F_MISS)) + geom_boxplot( ) + theme_bw()
 write.table(subset(data,lowF)$IID,file='low_hom.ls',
             row.names=F,col.names=F,quote=F)
 
-###################
+grab -f low_hom.ls -c 2 ckb_ph12_s3_qc01.fam | awk '{print $1}' | sort | uniq -c
+# The plate ids are rather scattered. I was expecting some plate  contamination.
+
+#--------------------------------------
 #
+
 # low homozygotes might mean sample contamination.
-# The 20 subjects with < 3SD F values are of very high missingness.
+# The 20 subjects with < 3 x SD F values are of very high missingness.
 # 0.022146 vs 0.002926294 for all
 # And, according to the plink IBD estimation,
 # these subjects are related to EVERYONE else.
@@ -119,7 +123,7 @@ plink --bfile ckb_ph12_s3_qc01 \
 
 # 553726 variants and 32185 people left
 
-#######################################
+################################################################################
 # 1.4 IBD and PCA
 
 # LD pruning again
@@ -141,95 +145,67 @@ plink --bfile pca \
 
 # 20 minutes on NC2
 
+awk '{if ($10> 0.05) print $0}' plink.genome > t_genome.in
+rm plink.genome
+# plink.genome is huge
+# now t_genome.in is much much smaller
 
-tail  -n +2 plink.genome | \
-    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq > t.ls
+awk '{if ($10>0.05) print $2 "\n" $4}' t_genome.in | sort | uniq > t.ls
+# 31771 subjects to be removed? not acceptable.
 
-tail  -n +2 plink.genome | \
-    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq -c | \
-    sort -k 1 -g > t.dat
+awk '{if ($10>0.05) print $2 "\n" $4}' t_genome.in | sort | uniq -c | \
+    sort -k 1 -g -r > t.dat
+# sort the subject ids according to the frequencies they are related to others.
+# The most related subjects are still with low homozygotes.
 
+select_fam.py > to_remove.ls
+# select ck_ids to be removed. The most related subjects to be removed first.
+# 7191 subjects, 22.3% of 32185
 
+grab -f to_remove.ls -c 2 pca.fam | awk '{print $1,$2,$3,$4,$5,"rel"}' > t.out
+grab -f to_remove.ls -c 2 pca.fam -v | \
+    awk '{print $1,$2,$3,$4,$5,"no_rel"}' >> t.out
 
+awk '{print $2}' pca.fam > t.ls
+sort_table -f t.ls -c 2 t.out > t2.out
 
+mv t2.out pca.fam
+# change the 6th column of pca.fam to 'rel' and 'no_rel'.
 
+echo "no_rel" > pop.ls
 
+# By default, smartpca should be using multithreading now.
+nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
+        -i pca.bed \
+        -a pca.bim \
+        -b pca.fam \
+        -w pop.ls \
+        -o no_rel.pca  \
+        -p no_rel.plot \
+        -e no_rel.eval \
+        -l no_rel.log  \
+        -m 0   &
 
-
-
-
-
-
-
-
-
-#######################################
-# 1.2 LD-based pruning
-
-plink  --bfile ckb_ph12_s3 \
-    --geno 0.01 \
-    --hwe 1e-4 midp \
-    --maf 0.05 \
-    --indep-pairwise 1500 150 0.2
-
-# 120201 SNPs in, 217496 SNPs out
-
-plink --bfile ckb_ph12_s3 \
-      --extract plink.prune.in \
-      --make-bed --out ckb_ph12_pca
-
-# find relatives
-plink --bfile ckb_ph12_pca \
-      --genome
-
-tail  -n +2 plink.genome | \
-    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq > t.ls
-
-
-
-tail  -n +2 plink.genome | \
-    awk '{if ($10>0.05) print $2 "\n" $4}' | sort | uniq -c | \
-    sort -k 1 -g > t.dat
-
-
-
-tail  -n +2 plink.genome | \
-    awk '{if ($10>0.4) print $2 "\n" $4}' | sort | uniq > t2.ls
-
-
-# inbreeding coefficients
-plink --bfile  ckb_ph12_pca \
-      --het
-# Observed number of homozygotes are pretty low for some subjects,
-# they are often the cores of the ibd clusters.
-
-
-
-
-
-
-
-# make-sure all subjects have ascertainments
-tail -n +2 GWAS_sample_ascertainment.txt | awk '{print $1}' > t.ls
-grab -v -f t.ls -c 2 ckb_ph12_s3.fam > t.fam
-# 96 subjects to be removed
-
-plink --bfile ckb_ph12_s3 \
-      --remove t.fam \
-      --autosome \
-      --geno 0.05 \
-      --maf  0.001 \
-      --make-bed --out ckb_ph12_s3_qc01
-# 542534 variants and 32109 people
-# 51983 variants removed due to missing genotype data (--geno).
-# 42153 variants removed due to minor allele threshold(s)
-
-awk '{print $5}' ckb_ph12_s3_qc01.fam | sort | uniq -c
-# 15599 '1' (male) and 16606 '2' (female)
+nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
+        -i pca.bed \
+        -a pca.bim \
+        -b pca.fam \
+        -o all.pca  \
+        -p all.plot \
+        -e all.eval \
+        -l all.log  \
+        -m 0   &
 
 ################################################################################
-# 2. phenotype data
+# 1.5
 
+# check the PCA plots and don't forget to remove the bad SNPs found via
+# the manual checking of the plate and batch effects.
+
+
+################################################################################
+# 2. phenotype data                                                            #
+################################################################################
 
 # 32435 subjects in GWAS_sample_ascertainment.txt from
 # K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists\
