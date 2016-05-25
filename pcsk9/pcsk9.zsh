@@ -36,7 +36,10 @@ plink --bfile /kuser/shared/data/GWASphase12/stage3 \
 # all with unknown father, mother and status
 # no repeat in individual G-cryovial ids (ck_ids)
 
-# Obviously, the gender check has been done.
+plink --bfile /kuser/shared/data/GWASphase12/stage3 \
+      --remove /kuser/shared/data/GWASphase12/stage3_mandatory_exclusions.txt \
+      --check-sex
+# Obviously, the gender check has been done before.
 
 ################################################################################
 # 1.2 very basic missing-call and MAF filter
@@ -83,7 +86,7 @@ paste plink.het plink.imiss | awk '{print $1,$2,$6,$12}' > t.in
 
 #--------------------------------------
 # in R
-R
+
 library(ggplot2)
 data = read.table('t.in',header=T)
 
@@ -102,18 +105,18 @@ p3 <- ggplot(data,aes(x=lowF, y=F_MISS)) + geom_boxplot( ) + theme_bw()
 
 write.table(subset(data,lowF)$IID,file='low_hom.ls',
             row.names=F,col.names=F,quote=F)
+#--------------------------------------
+# end of the R script
 
 grab -f low_hom.ls -c 2 ckb_ph12_s3_qc01.fam | awk '{print $1}' | sort | uniq -c
-# The plate ids are rather scattered. I was expecting some plate  contamination.
-
-#--------------------------------------
-#
+# The plate ids are rather scattered. I was expecting some plate contamination.
 
 # low homozygotes might mean sample contamination.
 # The 20 subjects with < 3 x SD F values are of very high missingness.
-# 0.022146 vs 0.002926294 for all
+# 0.022 vs 0.0029 for all subjects
 # And, according to the plink IBD estimation,
-# these subjects are related to EVERYONE else.
+# these subjects are related to almost EVERYONE else.
+# remove them
 
 grab -f low_hom.ls -c 2 ckb_ph12_s3_qc01.fam > t.fam
 
@@ -159,7 +162,8 @@ awk '{if ($10>0.05) print $2 "\n" $4}' t_genome.in | sort | uniq -c | \
 # The most related subjects are still with low homozygotes.
 
 select_fam.py > to_remove.ls
-# select ck_ids to be removed. The most related subjects to be removed first.
+# Select ck_ids to be removed.
+# The most related subjects are to be removed first.
 # 7191 subjects, 22.3% of 32185
 
 grab -f to_remove.ls -c 2 pca.fam | awk '{print $1,$2,$3,$4,$5,"rel"}' > t.out
@@ -175,6 +179,9 @@ mv t2.out pca.fam
 echo "no_rel" > pop.ls
 
 # By default, smartpca should be using multithreading now.
+# Runing PCA with the un-related subjects only. Then project the factors to the
+# related subjects as well.
+# Don't remove outliers yet.
 nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -i pca.bed \
         -a pca.bim \
@@ -186,6 +193,8 @@ nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -l no_rel.log  \
         -m 0   &
 
+# It took 13G of memory, about 20 hours on nc2.
+
 nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -i pca.bed \
         -a pca.bim \
@@ -196,22 +205,104 @@ nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -l all.log  \
         -m 0   &
 
+# 21G of memory,
+
 ################################################################################
-# 1.5
+# 1.5 final genotype QC
 
-# check the PCA plots and don't forget to remove the bad SNPs found via
-# the manual checking of the plate and batch effects.
+#######################################
+# 1.5.1 check the PCA plots
 
+sed 's/\:/\t/' no_rel.pca.evec -i
+
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+
+tail -n +2 no_rel.pca.evec |\
+    awk '{print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13}' | \
+    grep -f t.ls -v > t.in
+
+# for ck_id.ls and study_id.ls, see section 2.
+sort_table -f ck_id.ls t.in > t.out
+
+echo "study_id rc pc1 pc2 pc3 pc4 pc5 pc6 pc7 pc8 pc9 pc10 is_fam" > t.in
+
+paste study_id.ls t.out | \
+    awk '{print $1,substr($1,1,2),$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13}' >> t.in
+
+plot_pca.R
+cp t.in pca.in
+
+# It seems no outliers are left to be removed.
+# PCs are not corresponding to if the subjects are related or not.
+# PCs, up to PC7 and PC8, are obviously related to the region codes.
+
+#######################################
+# 1.5.2 Remove badly called SNPs found in the manual check.
+tail -n +2 ../ckb_batch_check/manual_chk_res.table | \
+    awk '{if ($2==0) print $1}' > to_remove_snp.ls
+
+# 13938 SNPs to be removed.
+# and the four subjects with missing ascertainments
+
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+
+grab -f t.ls -c 2 ckb_ph12_s3_qc02.fam > t.fam
+
+plink --bfile ckb_ph12_s3_qc02 \
+      --exclude to_remove_snp.ls \
+      --remove t.fam \
+      --make-bed --out ckb_ph12_s3_qc03
+# 546462 variants and 32181 people
 
 ################################################################################
 # 2. phenotype data                                                            #
 ################################################################################
 
-# 32435 subjects in GWAS_sample_ascertainment.txt from
-# K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists\
-# GWAS_SNPdata_samples.xlsx
+awk '{print $2}' ckb_ph12_s3_qc03.fam > ck_id.ls
+# 32181 uniq ids in ck_id.ls
 
-# I replaced ' ' with '_' in the 'ascert.' and 'notes' columns.
+# 32410 subject ascerntaiments from
+# GWAS_SNPdata_samples.xlsx in
+# K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists\
+
+# The modify and sorted file
+GWAS_SNPdata_samples.csv
+tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $1}' > ck_id.ls
+tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
+
+
+# The ids in the 'notes' column are absent in the ids from the data request
+# form. Removed this column.
+# Changed annotations in the 'ascert.' column to shorter forms.
+
+# Some G-cryovial ids are of different format with the ids in the fam file.
+# CK28185397-1 vs CK28185397-QC
+# CK22754927-1 vs CK22754927-1-QC
+# etc
+# Changed the ids in the ascertainment file.
+
+# 4 subjects in ckb_ph12_s3_qc02.fam are not found in the ascertainment files:
+# CK24820387 CK25228869 CK28902540 CK28730586
+# They were deleted from the genotype set.
+
+# 32181 uniq study and ck id pairs.
+# ck_id.ls and study_id.ls were used in 1.5.1
+
+
+# use the sheet 2 of PCSK9_sample_summary.xlsx from
+# K:\kadoorie\Groups\Genetics\PROJECTS\PCSK9
+# for subject stratification.
+
+
+
+
+
+
+
+
+
+
+
 
 
 awk '{print $2}' ckb_ph12_s3_qc01.fam > ck_id.ls
@@ -338,7 +429,7 @@ sort_table -f t.ls -c 2 t.in > t.out
 
 mv t.out t.in
 t -n +2 pcsk9_direct1.tbl > t2.in
-echo "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_direct_metal.out
+printf "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_direct_metal.out
 paste t.in t2.in | \
      awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_direct_metal.out
 
@@ -351,7 +442,7 @@ sort_table -f t.ls -c 2 t.in > t.out
 
 mv t.out t.in
 t -n +2 pcsk9_all1.tbl > t2.in
-echo "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_all_metal.out
+printf "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_all_metal.out
 paste t.in t2.in | \
      awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_all_metal.out
 
