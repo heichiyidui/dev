@@ -205,7 +205,7 @@ nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -l all.log  \
         -m 0   &
 
-# 21G of memory,
+# 21G of memory, about 45 hours on nc2
 
 ################################################################################
 # 1.5 final genotype QC
@@ -236,6 +236,9 @@ cp t.in pca.in
 # PCs are not corresponding to if the subjects are related or not.
 # PCs, up to PC7 and PC8, are obviously related to the region codes.
 
+# If we didn't remove the Suzhou (and other) families, they will cousing trouble
+# with PCA. PC4-PC10 are all draged by them.
+
 #######################################
 # 1.5.2 Remove badly called SNPs found in the manual check.
 tail -n +2 ../ckb_batch_check/manual_chk_res.table | \
@@ -258,18 +261,15 @@ plink --bfile ckb_ph12_s3_qc02 \
 # 2. phenotype data                                                            #
 ################################################################################
 
+################################################################################
+# 2.1 to get study ids
+
 awk '{print $2}' ckb_ph12_s3_qc03.fam > ck_id.ls
 # 32181 uniq ids in ck_id.ls
 
 # 32410 subject ascerntaiments from
 # GWAS_SNPdata_samples.xlsx in
 # K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists\
-
-# The modify and sorted file
-GWAS_SNPdata_samples.csv
-tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $1}' > ck_id.ls
-tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
-
 
 # The ids in the 'notes' column are absent in the ids from the data request
 # form. Removed this column.
@@ -285,21 +285,105 @@ tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
 # CK24820387 CK25228869 CK28902540 CK28730586
 # They were deleted from the genotype set.
 
+# The modified and sorted file
+GWAS_SNPdata_samples.csv
+tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $1}' > ck_id.ls
+tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
+
 # 32181 uniq study and ck id pairs.
 # ck_id.ls and study_id.ls were used in 1.5.1
 
+################################################################################
+# 2.2 stratification
 
 # use the sheet 2 of PCSK9_sample_summary.xlsx from
 # K:\kadoorie\Groups\Genetics\PROJECTS\PCSK9
 # for subject stratification.
+# Added 1298 '0's in the 'pass GWAS QC' column according to study_id.ls
+
+# simplified table with header:
+# studyid ascert pass_QC dir_ldl_base dir_ldl_rs1 dir_ldl_rs2 indir_ldl_rs2
+
+# using the data request form to get the age_at_study info.
+
+# use LDL-c_biochem_data.xlsx for direct LDL-C
+# use ldl_levels_resurvey2_latest.xls for indirect LDL-C
+# scale indirect ldl-c by 0.01
+
+# indirect ldl-c is smaller
+# mean 2.120 vs 2.376
+# t-test says the difference is very significant.
+
+PCSK9_sample_summary.csv
+
+# str1: ICH     direct
+# str2: IS      direct
+# str3: SAH     direct
+# str4: MI/IHD  direct
+# str5: control direct
+# str6: all indirect left
+
+# others: NA
+
+# put the first 7 columns of PCSK9_sample_summary.csv into t.in
+get_strat.py > t.in
+
+
+################################################################################
+# 2.3  Covariates
+
+sed 's/\:/\t/' no_rel.pca.evec -i
+
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+
+tail -n +2 no_rel.pca.evec |\
+    awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' | \
+    grep -f t.ls -v > t.in
+
+paste study_id.ls t.in | sed 's/\t/\ /' > t.out
+
+# ...
+# and add 9 RCs
+# 1388 12 Qingdao
+# 3310 16 Harbin
+# 1173 26 Haikou
+# 1705 36 Suzhou
+# 2445 46 Liuzhou
+# 4106 52 Sichuan
+# 4703 58 Gansu
+# 4341 68 Henan
+# 3360 78 Zhejiang
+# 5881 88 Hunan
+# Hunan will be absent from RC factors
+
+# changed NA to -9 for missing covariates
+cov.csv
+# or use --missing-code -9,0,NA,na when dealing with bgen sets
+
+# don't forget keep-pheno-on-missing-cov
+
+phnoe.csv
+# FID IID STR LDL
+
+
+
+# adding study_id
+# put the study_id column of PCSK9_sample_summary.csv into t.ls
+sort_table -f t.ls t.out > t.in
+
+sed 's/NA/NA NA NA NA NA NA NA NA NA NA NA NA/' -i t.in
+
+# put the content of t.in into PCSK9_sample_summary.csv
 
 
 
 
 
+################################################################################
 
 
 
+keep-pheno-on-missing-cov in runing
 
 
 
