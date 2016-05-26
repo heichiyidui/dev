@@ -330,7 +330,7 @@ get_strat.py > t.in
 
 
 ################################################################################
-# 2.3  Covariates
+# 2.3  Covariates and phenotypes
 
 sed 's/\:/\t/' no_rel.pca.evec -i
 
@@ -357,6 +357,7 @@ paste study_id.ls t.in | sed 's/\t/\ /' > t.out
 # Hunan will be absent from RC factors
 
 # changed NA to -9 for missing covariates
+# Given the stratification only 4 subjects have missing ages.
 cov.csv
 # or use --missing-code -9,0,NA,na when dealing with bgen sets
 
@@ -365,16 +366,30 @@ cov.csv
 phnoe.csv
 # FID IID STR LDL
 
+# str1: ICH     direct      4759
+# str2: IS      direct      5209
+# str3: SAH     direct       167
+# str4: MI/IHD  direct      1263
+# str5: control direct      6693
+# str6: all indirect left   3462
+
+################################################################################
+# 3. plink linear regression                                                   #
+################################################################################
 
 
-# adding study_id
-# put the study_id column of PCSK9_sample_summary.csv into t.ls
-sort_table -f t.ls t.out > t.in
-
-sed 's/NA/NA NA NA NA NA NA NA NA NA NA NA NA/' -i t.in
-
-# put the content of t.in into PCSK9_sample_summary.csv
-
+awk '{if ($3==1) print $0}' pheno.csv > t1.fam ;
+plink --bfile ckb_ph12_s3_qc03 --keep t1.fam --make-bed --out st1 &
+awk '{if ($3==2) print $0}' pheno.csv > t2.fam ;
+plink --bfile ckb_ph12_s3_qc03 --keep t2.fam --make-bed --out st2 &
+awk '{if ($3==3) print $0}' pheno.csv > t3.fam ;
+plink --bfile ckb_ph12_s3_qc03 --keep t3.fam --make-bed --out st3 &
+awk '{if ($3==4) print $0}' pheno.csv > t4.fam ;
+plink --bfile ckb_ph12_s3_qc03 --keep t4.fam --make-bed --out st4 &
+awk '{if ($3==5) print $0}' pheno.csv > t5.fam ;
+plink --bfile ckb_ph12_s3_qc03 --keep t5.fam --make-bed --out st5 &
+awk '{if ($3==6) print $0}' pheno.csv > t6.fam ;
+plink --bfile ckb_ph12_s3_qc03 --keep t6.fam --make-bed --out st6 &
 
 
 
@@ -383,76 +398,12 @@ sed 's/NA/NA NA NA NA NA NA NA NA NA NA NA NA/' -i t.in
 
 
 
-keep-pheno-on-missing-cov in runing
 
-
-
-
-
-awk '{print $2}' ckb_ph12_s3_qc01.fam > ck_id.ls
-# 32109 uniq ids in ck_id.ls
-
-
-# direct LDL-C
-# min:       0.3300
-# max:       9.9400
-# mean:      2.3782
-# std:       0.7136
-# quartiles: 0.3300 1.8800 2.3200 2.8000 9.9400
-
-# indirect LDL-C
-# min:       0.0000
-# max:       1078.0000
-# mean:      218.6738
-# std:       91.0916
-# quartiles: 0.0000 153.0000 212.0000 274.0000 1078.0000
-
-# just use indirect LDL-C / 100
-
-awk '{if ($2=="ICH" && $3==0 && $5==1) print $1}' t.in > st1.ls
-awk '{if ($2=="IS"  && $3==0 && $5==1) print $1}' t.in > st2.ls
-awk '{if ($2=="SAH" && $3==0 && $5==1) print $1}' t.in > st3.ls
-awk '{if ($2=="MI/IHD" && $3==0 && $5==1) print $1}' t.in > st4.ls
-awk '{if ($2=="control" && $3==0 && $5==1) print $1}' t.in > st5.ls
-awk '{if ($2=="resurvey_2" && $3==0 && $5!=1 && $8 != "NA" ) print $1}' \
-  t.in > st6.ls
-
-wc st?.ls
-#   4694   4694  51998 st1.ls
-#   5113   5113  56683 st2.ls
-#    165    165   1823 st3.ls
-#   1253   1253  13965 st4.ls
-#   5756   5756  63715 st5.ls
-#   3201   3201  35833 st6.ls
-#  20182  20182 224017 total
-
-
-# 10 RCs
-# 1388 12 Qingdao
-# 3310 16 Harbin
-# 1173 26 Haikou
-# 1705 36 Suzhou
-# 2445 46 Liuzhou
-# 4106 52 Sichuan
-# 4703 58 Gansu
-# 4341 68 Henan
-# 3360 78 Zhejiang
-# 5881 88 Hunan
-
-# 10 PCs
-
-# all in cov.csv
 
 
 ################################################################################
 # 3. linear regression
 
-
-# with all covariants
-plink --bfile geno \
-      --pheno ldl.pheno \
-      --covar ldl.cov \
-      --linear --ci 0.95
 
 grab -f st1.ls ckb_ph12_s3_qc01.fam -c 2 > t1.fam ; \
 plink --bfile ckb_ph12_s3_qc01 --keep t1.fam --make-bed --out st1 &
@@ -467,21 +418,28 @@ plink --bfile ckb_ph12_s3_qc01 --keep t5.fam --make-bed --out st5 &
 grab -f st6.ls ckb_ph12_s3_qc01.fam -c 2 > t6.fam ; \
 plink --bfile ckb_ph12_s3_qc01 --keep t6.fam --make-bed --out st6 &
 
-
-
 # with all covariants
+
 for st in st1 st2 st4 st5 st6 ; do
     nohup plink --bfile $st \
-      --pheno ldl.pheno \
-      --covar ldl.cov \
+      --pheno pheno.csv \
+      --pheno-name LDL \
+      --covar cov.csv keep-pheno-on-missing-cov \
       --linear --ci 0.95 \
       --out $st &
 done
 
-# SAH is way too small, witch all covariants the output will only be NA
-plink --bfile st3 --pheno ldl.pheno --covar ldl.cov \
-    --covar-name age, gender, PC1, PC2 \
-    --linear --ci 0.95 --out st3 &
+# SAH is way too small, witch all covariants the output will be all NA.
+
+nohup plink --bfile st3 \
+  --pheno pheno.csv \
+  --pheno-name LDL \
+  --covar cov.csv keep-pheno-on-missing-cov \
+  --covar-name sex,age,pc1,pc2 \
+  --linear --ci 0.95 \
+  --out st3 &
+
+
 
 for st in st1 st2 st3 st4 st5 st6 ; do
     head -n 1 $st.assoc.linear > $st.out ;
