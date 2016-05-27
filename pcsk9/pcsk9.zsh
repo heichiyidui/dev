@@ -16,6 +16,7 @@
 ################################################################################
 
 # K:\kadoorie\Groups\Genetics\PROJECTS\PCSK9
+# PCSK9\ analysis\ plan\ v3.docx
 
 ################################################################################
 # 1. genotype data                                                             #
@@ -44,23 +45,29 @@ plink --bfile /kuser/shared/data/GWASphase12/stage3 \
 ################################################################################
 # 1.2 very basic missing-call and MAF filter
 
-plink --bfile ckb_ph12_s3 \
-      --geno 0.05 \
-      --maf  0.0001 \
-      --make-bed --out ckb_ph12_s3_qc01
+# Do not perform it yet.
 
-# 51983 variants removed due to missing genotype data (--geno).
-# 30961 variants removed due to minor allele threshold(s)
-# 553726 variants and 32205 people left
+# The plan says no QC on SNPs
+
+# plink --bfile ckb_ph12_s3 \
+#       --geno 0.05 \
+#       --maf  0.0001 \
+#       --make-bed --out ckb_ph12_s3_qc01
+
+# # 51983 variants removed due to missing genotype data (--geno).
+# # 30961 variants removed due to minor allele threshold(s)
+# # 553726 variants and 32205 people left
 
 ################################################################################
 # 1.3 heterogeneous related to missingness
+
+# Do not remove subjects yet
 
 plink --bfile ckb_ph12_s3_qc01 \
       --het
 
 # No, plink says use a LD-free set.
-# I made a comparison, the two sets of F valuse are pretty close.
+# I made a comparison. The two sets of F valuse are pretty close.
 # But let's just do the LD-pruning
 
 plink --bfile ckb_ph12_s3_qc01 \
@@ -116,55 +123,83 @@ grab -f low_hom.ls -c 2 ckb_ph12_s3_qc01.fam | awk '{print $1}' | sort | uniq -c
 # 0.022 vs 0.0029 for all subjects
 # And, according to the plink IBD estimation,
 # these subjects are related to almost EVERYONE else.
-# remove them
+# templed to remove them
 
-grab -f low_hom.ls -c 2 ckb_ph12_s3_qc01.fam > t.fam
+#######################################
+# don't remove any subject here yet
 
-plink --bfile ckb_ph12_s3_qc01 \
-      --remove t.fam \
-      --make-bed --out  ckb_ph12_s3_qc02
+# grab -f low_hom.ls -c 2 ckb_ph12_s3_qc01.fam > t.fam
 
-# 553726 variants and 32185 people left
+# plink --bfile ckb_ph12_s3_qc01 \
+#       --remove t.fam \
+#       --make-bed --out  ckb_ph12_s3_qc02
+
+# # 553726 variants and 32185 people left
 
 ################################################################################
 # 1.4 IBD and PCA
 
-# LD pruning again
+#######################################
+# 1.4.1 LD pruning again
 
-plink --bfile ckb_ph12_s3_qc02 \
+plink --bfile ckb_ph12_s3 \
       --geno 0.01 \
-      --hwe 1e-4 midp \
       --maf 0.05 \
+      --hwe 1e-4 midp \
       --indep-pairwise 1500 150 0.2
-# 120177 SNPs in, 217508 SNPs out
 
-plink --bfile ckb_ph12_s3_qc02 \
+# 120201 SNPs in, 217496 out
+
+plink --bfile ckb_ph12_s3 \
       --extract plink.prune.in \
       --make-bed --out pca
-# 120177 variants and 32185 people
+
+# 120201 variants and 32205 people
+
+#######################################
+# 1.4.2 IBD
 
 plink --bfile pca \
-      --genome
+      --genome --min 0.05
 
 # 20 minutes on NC2
+# plink.genome is huge without the 0.05 filter
 
-awk '{if ($10> 0.05) print $0}' plink.genome > t_genome.in
-rm plink.genome
-# plink.genome is huge
-# now t_genome.in is much much smaller
+tail -n +2 plink.genome | awk '{print $2 "\n" $4}'  | sort | uniq > t.ls
+# 32040 subjects to be removed? not acceptable.
 
-awk '{if ($10>0.05) print $2 "\n" $4}' t_genome.in | sort | uniq > t.ls
-# 31771 subjects to be removed? not acceptable.
-
-awk '{if ($10>0.05) print $2 "\n" $4}' t_genome.in | sort | uniq -c | \
+tail -n +2 plink.genome | awk '{print $2 "\n" $4}' | sort | uniq -c | \
     sort -k 1 -g -r > t.dat
+
+tail -n +2 plink.genome | awk '{print $2, $4}' > t.in
+
 # sort the subject ids according to the frequencies they are related to others.
 # The most related subjects are still with low homozygotes.
 
 select_fam.py > to_remove.ls
-# Select ck_ids to be removed.
+# Select ck_ids to be removed from PCA.
 # The most related subjects are to be removed first.
-# 7191 subjects, 22.3% of 32185
+# 7333 subjects, 22.8% of 32205
+
+# There are three pairs of people with PI_HAT about 0.5
+# CK22775935 CK28153131
+# CK28568808 CK28569055
+# CK30580964 CK30589772
+# The others are a huge family.
+
+# Now, we need to remove as few as possible nodes in that family, so that no
+# edge should be left.
+
+
+awk '{print $1 "\n" $2}' fam.in | sort | uniq -c | sort -k 1 -g -r > t.dat
+head -n 50 t.dat | awk '{print $2}' > t.ls
+grep -f t.ls -v fam.in > t.in
+
+random_shuffle_lines.py t.in > t.out
+mv t.out t.in
+select_fam.py | wc
+
+# something to be done here...
 
 grab -f to_remove.ls -c 2 pca.fam | awk '{print $1,$2,$3,$4,$5,"rel"}' > t.out
 grab -f to_remove.ls -c 2 pca.fam -v | \
@@ -176,12 +211,16 @@ sort_table -f t.ls -c 2 t.out > t2.out
 mv t2.out pca.fam
 # change the 6th column of pca.fam to 'rel' and 'no_rel'.
 
-echo "no_rel" > pop.ls
+printf "no_rel" > pop.ls
+
+#######################################
+# 1.4.3 PCA via EIGENSOFT
 
 # By default, smartpca should be using multithreading now.
 # Runing PCA with the un-related subjects only. Then project the factors to the
 # related subjects as well.
 # Don't remove outliers yet.
+
 nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -i pca.bed \
         -a pca.bim \
@@ -206,6 +245,20 @@ nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -m 0   &
 
 # 21G of memory, about 45 hours on nc2
+
+
+#######################################
+# 1.4.4 PCA via plink (GCTA)
+
+awk '{print $1,$2,$6}' pca.fam > pca_cluster.in
+
+nohup plink --bfile pca \
+            --pca 10 \
+            --within pca_cluster.in \
+            --pca-cluster-names no_rel &
+
+# plink uses about 80 threads
+# 7G of memory
 
 ################################################################################
 # 1.5 final genotype QC
@@ -264,33 +317,37 @@ plink --bfile ckb_ph12_s3_qc02 \
 ################################################################################
 # 2.1 to get study ids
 
-awk '{print $2}' ckb_ph12_s3_qc03.fam > ck_id.ls
-# 32181 uniq ids in ck_id.ls
+awk '{print $2}' pca.fam > ck_id.ls
+# 32205 uniq ids in ck_id.ls
 
 # 32410 subject ascerntaiments from
 # GWAS_SNPdata_samples.xlsx in
 # K:\kadoorie\Groups\Genetics\Data Archive\Project Sample Lists\Lists\
 
-# The ids in the 'notes' column are absent in the ids from the data request
-# form. Removed this column.
-# Changed annotations in the 'ascert.' column to shorter forms.
+# The ids in the 'notes' column are absent from the ids obtained using the data
+# request form. We removed this column.
 
 # Some G-cryovial ids are of different format with the ids in the fam file.
 # CK28185397-1 vs CK28185397-QC
 # CK22754927-1 vs CK22754927-1-QC
 # etc
-# Changed the ids in the ascertainment file.
+# Changed the ids in the ascertainment file to confirm the plink fam files.
 
-# 4 subjects in ckb_ph12_s3_qc02.fam are not found in the ascertainment files:
+# 4 subjects in ckb_ph12_s3.fam are not found in the ascertainment files:
 # CK24820387 CK25228869 CK28902540 CK28730586
-# They were deleted from the genotype set.
+# They were to be deleted from the genotype set?
 
 # The modified and sorted file
 GWAS_SNPdata_samples.csv
+
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+grep -f t.ls -v GWAS_SNPdata_samples.csv > t.out
+mv t.out GWAS_SNPdata_samples.csv
+
 tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $1}' > ck_id.ls
 tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
 
-# 32181 uniq study and ck id pairs.
+# 32201 uniq study and ck id pairs.
 # ck_id.ls and study_id.ls were used in 1.5.1
 
 ################################################################################
@@ -303,8 +360,6 @@ tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
 
 # simplified table with header:
 # studyid ascert pass_QC dir_ldl_base dir_ldl_rs1 dir_ldl_rs2 indir_ldl_rs2
-
-# using the data request form to get the age_at_study info.
 
 # use LDL-c_biochem_data.xlsx for direct LDL-C
 # use ldl_levels_resurvey2_latest.xls for indirect LDL-C
@@ -331,6 +386,13 @@ get_strat.py > t.in
 
 ################################################################################
 # 2.3  Covariates and phenotypes
+
+# using the data request form to get the age_at_study info.
+# ages of 3 subjects are missing:
+# CK28728060      580282304
+# CK28728462      580281490
+# CK30579300-1    580235861
+
 
 sed 's/\:/\t/' no_rel.pca.evec -i
 
@@ -391,6 +453,7 @@ plink --bfile ckb_ph12_s3_qc03 --keep t5.fam --make-bed --out st5 &
 awk '{if ($3==6) print $0}' pheno.csv > t6.fam ;
 plink --bfile ckb_ph12_s3_qc03 --keep t6.fam --make-bed --out st6 &
 
+# 2 hours at most
 
 
 
@@ -439,8 +502,6 @@ nohup plink --bfile st3 \
   --linear --ci 0.95 \
   --out st3 &
 
-
-
 for st in st1 st2 st3 st4 st5 st6 ; do
     head -n 1 $st.assoc.linear > $st.out ;
     grep ADD $st.assoc.linear >> $st.out &
@@ -451,6 +512,10 @@ for st in st1 st2 st3 st4 st5 st6 ; do
     plot_qq_man.R $st  &
 done
 
+# to calculate lambda
+# in R
+chisq <- qchisq(1-pvalue,1)
+lambda = median(chisq)/qchisq(0.5,1)
 
 ################################################################################
 # 4. METAL analysis
