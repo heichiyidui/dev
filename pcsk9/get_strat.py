@@ -19,21 +19,21 @@ for s_id in s_ids:
     age_resu1[s_id] = 'NA'
     age_resu2[s_id] = 'NA'
 
-ifile=open('age_base.csv')
+ifile=open('age_base.txt')
 ifile.readline()
 for line in ifile:
     cols = line[:-1].split()
     age_base[cols[0]] = cols[1]
 ifile.close()
 
-ifile=open('age_resu1.csv')
+ifile=open('age_resu1.txt')
 ifile.readline()
 for line in ifile:
     cols = line[:-1].split()
     age_resu1[cols[0]] = cols[1]
 ifile.close()
 
-ifile=open('age_resu2.csv')
+ifile=open('age_resu2.txt')
 ifile.readline()
 for line in ifile:
     cols = line[:-1].split()

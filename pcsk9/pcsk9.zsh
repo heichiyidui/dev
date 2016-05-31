@@ -168,18 +168,14 @@ plink --bfile pca \
 tail -n +2 plink.genome | awk '{print $2 "\n" $4}'  | sort | uniq > t.ls
 # 32040 subjects to be removed? not acceptable.
 
-tail -n +2 plink.genome | awk '{print $2 "\n" $4}' | sort | uniq -c | \
-    sort -k 1 -g -r > t.dat
-
-tail -n +2 plink.genome | awk '{print $2, $4}' > t.in
-
-# sort the subject ids according to the frequencies they are related to others.
-# The most related subjects are still with low homozygotes.
+tail -n +2 plink.genome | awk '{print $2,$4}' > t.in
 
 select_fam.py > to_remove.ls
-# Select ck_ids to be removed from PCA.
+# Remove (flag) the subjects according to their degree of connection.
 # The most related subjects are to be removed first.
-# 7333 subjects, 22.8% of 32205
+# The top ones are still with low homozygotes.
+
+# 6990 subjects, 22% of 32205
 
 # There are three pairs of people with PI_HAT about 0.5
 # CK22775935 CK28153131
@@ -187,20 +183,11 @@ select_fam.py > to_remove.ls
 # CK30580964 CK30589772
 # The others are a huge family.
 
-# Now, we need to remove as few as possible nodes in that family, so that no
-# edge should be left.
+# We need to delete all edges. I tried different ad hoc approaches to remove as
+# few as possible nodes. I Was doing the PCA with 7333 subjects flagged as
+# related. It shouldn't change the results much.
 
-
-awk '{print $1 "\n" $2}' fam.in | sort | uniq -c | sort -k 1 -g -r > t.dat
-head -n 50 t.dat | awk '{print $2}' > t.ls
-grep -f t.ls -v fam.in > t.in
-
-random_shuffle_lines.py t.in > t.out
-mv t.out t.in
-select_fam.py | wc
-
-# something to be done here...
-
+# change the 6th column of pca.fam to 'rel' and 'no_rel'.
 grab -f to_remove.ls -c 2 pca.fam | awk '{print $1,$2,$3,$4,$5,"rel"}' > t.out
 grab -f to_remove.ls -c 2 pca.fam -v | \
     awk '{print $1,$2,$3,$4,$5,"no_rel"}' >> t.out
@@ -209,7 +196,6 @@ awk '{print $2}' pca.fam > t.ls
 sort_table -f t.ls -c 2 t.out > t2.out
 
 mv t2.out pca.fam
-# change the 6th column of pca.fam to 'rel' and 'no_rel'.
 
 printf "no_rel" > pop.ls
 
@@ -232,7 +218,7 @@ nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -l no_rel.log  \
         -m 0   &
 
-# It took 13G of memory, about 20 hours on nc2.
+# It took 13G of memory, about 24 hours on nc2.
 
 nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -i pca.bed \
@@ -244,8 +230,7 @@ nohup /kuser/shared/bin/EIG/bin/smartpca.perl \
         -l all.log  \
         -m 0   &
 
-# 21G of memory, about 45 hours on nc2
-
+# 21G of memory, about 48 hours on nc2
 
 #######################################
 # 1.4.4 PCA via plink (GCTA)
@@ -259,6 +244,7 @@ nohup plink --bfile pca \
 
 # plink uses about 80 threads
 # 7G of memory
+# about 5 hours
 
 ################################################################################
 # 1.5 final genotype QC
@@ -292,23 +278,31 @@ cp t.in pca.in
 # If we didn't remove the Suzhou (and other) families, they will cousing trouble
 # with PCA. PC4-PC10 are all draged by them.
 
+
+# plink is about 4 times faster than eigensoft.
+# They produce mostly the same results.
+#
+
 #######################################
 # 1.5.2 Remove badly called SNPs found in the manual check.
-tail -n +2 ../ckb_batch_check/manual_chk_res.table | \
-    awk '{if ($2==0) print $1}' > to_remove_snp.ls
 
-# 13938 SNPs to be removed.
-# and the four subjects with missing ascertainments
+# Don't do it yet.
 
-printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+# tail -n +2 ../ckb_batch_check/manual_chk_res.table | \
+#     awk '{if ($2==0) print $1}' > to_remove_snp.ls
 
-grab -f t.ls -c 2 ckb_ph12_s3_qc02.fam > t.fam
+# # 13938 SNPs to be removed.
+# # and the four subjects with missing ascertainments
 
-plink --bfile ckb_ph12_s3_qc02 \
-      --exclude to_remove_snp.ls \
-      --remove t.fam \
-      --make-bed --out ckb_ph12_s3_qc03
-# 546462 variants and 32181 people
+# printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+
+# grab -f t.ls -c 2 ckb_ph12_s3_qc02.fam > t.fam
+
+# plink --bfile ckb_ph12_s3_qc02 \
+#       --exclude to_remove_snp.ls \
+#       --remove t.fam \
+#       --make-bed --out ckb_ph12_s3_qc03
+# # 546462 variants and 32181 people
 
 ################################################################################
 # 2. phenotype data                                                            #
@@ -356,14 +350,16 @@ tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
 # use the sheet 2 of PCSK9_sample_summary.xlsx from
 # K:\kadoorie\Groups\Genetics\PROJECTS\PCSK9
 # for subject stratification.
-# Added 1298 '0's in the 'pass GWAS QC' column according to study_id.ls
+# Added 1288 '0's in the 'pass GWAS QC' column according to study_id.ls
+# instead of 1275 in the original one.
 
 # simplified table with header:
-# studyid ascert pass_QC dir_ldl_base dir_ldl_rs1 dir_ldl_rs2 indir_ldl_rs2
+# studyid ascert still_OK dir_ldl_base dir_ldl_rs1 dir_ldl_rs2 indir_ldl_rs2
 
 # use LDL-c_biochem_data.xlsx for direct LDL-C
 # use ldl_levels_resurvey2_latest.xls for indirect LDL-C
 # scale indirect ldl-c by 0.01
+# 18091 direct and 7110 indirect measures
 
 # indirect ldl-c is smaller
 # mean 2.120 vs 2.376
@@ -371,21 +367,40 @@ tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
 
 PCSK9_sample_summary.csv
 
-# str1: ICH     direct
-# str2: IS      direct
-# str3: SAH     direct
-# str4: MI/IHD  direct
-# str5: control direct
-# str6: all indirect left
-
-# others: NA
-
 # put the first 7 columns of PCSK9_sample_summary.csv into t.in
-get_strat.py > t.in
+# and prepare the other input files:
+# age_base.csv
+# age_resu1.csv
+# age_resu2.csv
+# direct_ldl_c.txt
+# indirect_ldl_c.txt
+
+get_strat.py > t.out
+
+
+# str1: ICH     direct       4762
+# str2: IS      direct       5210
+# str3: SAH     direct        167
+# str4: MI/IHD  direct       1265
+# str5: control direct       6696
+# str6: all indirect left    4174
+
+# others: 11205 NA
 
 
 ################################################################################
 # 2.3  Covariates and phenotypes
+
+#######################################
+# 2.3.1 The phenotype file is easy to make.
+pheno.csv
+# FID IID LDL
+# 21553 subject LDL measures
+
+#######################################
+# 2.3.2 The covariates file
+
+# use plink no-rel 10 PCs
 
 # using the data request form to get the age_at_study info.
 # ages of 3 subjects are missing:
@@ -393,8 +408,16 @@ get_strat.py > t.in
 # CK28728462      580281490
 # CK30579300-1    580235861
 
-
-sed 's/\:/\t/' no_rel.pca.evec -i
+# 1377 12 Qingdao   rc1
+# 3285 16 Harbin    rc2
+# 1164 26 Haikou    rc3
+# 1695 36 Suzhou    rc4
+# 2424 46 Liuzhou   rc5
+# 4090 52 Sichuan   rc6
+# 4675 58 Gansu     rc7
+# 4324 68 Henan     rc8
+# 3336 78 Zhejiang  rc9
+# 5831 88 Hunan     Hunan will be absent from RC factors
 
 printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
 
@@ -405,35 +428,13 @@ tail -n +2 no_rel.pca.evec |\
 paste study_id.ls t.in | sed 's/\t/\ /' > t.out
 
 # ...
-# and add 9 RCs
-# 1388 12 Qingdao
-# 3310 16 Harbin
-# 1173 26 Haikou
-# 1705 36 Suzhou
-# 2445 46 Liuzhou
-# 4106 52 Sichuan
-# 4703 58 Gansu
-# 4341 68 Henan
-# 3360 78 Zhejiang
-# 5881 88 Hunan
-# Hunan will be absent from RC factors
 
-# changed NA to -9 for missing covariates
-# Given the stratification only 4 subjects have missing ages.
 cov.csv
-# or use --missing-code -9,0,NA,na when dealing with bgen sets
+
+# 'NA' to -9 for missing covariates (age)
+# Given the stratification only 4 subjects have missing ages.
 
 # don't forget keep-pheno-on-missing-cov
-
-phnoe.csv
-# FID IID STR LDL
-
-# str1: ICH     direct      4759
-# str2: IS      direct      5209
-# str3: SAH     direct       167
-# str4: MI/IHD  direct      1263
-# str5: control direct      6693
-# str6: all indirect left   3462
 
 ################################################################################
 # 3. plink linear regression                                                   #

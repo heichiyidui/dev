@@ -1,27 +1,38 @@
 #!/usr/bin/env python3
 
-ifile=open('t.dat')
-ck_links = {}
+# tail -n +2 plink.genome | awk '{print $2,$4}' > t.in
+
+edges = []
+ifile =open('t.in')
 for line in ifile:
     cols = line[:-1].split()
-    ck_links [ cols[1] ] = int(cols[0])
+    edges.append([cols[0],cols[1]])
 ifile.close()
 
-ifile=open('t.in')
-ifile.readline() # the header line
-to_remove_cks=set([])
-for line in ifile:
-    cols = line[:-1].split()
-    if cols[0] in to_remove_cks:
-        continue
-    if cols[1] in to_remove_cks:
-        continue
-    if ck_links[cols[0]] > ck_links[cols[1]]:
-        to_remove_cks.add(cols[0])
-    else:
-        to_remove_cks.add(cols[1])
-ifile.close()
+import collections
+node_dgres = collections.Counter()
+nodes_1 = [x[0] for x in edges]
+nodes_2 = [x[1] for x in edges]
 
-for ck_id in to_remove_cks:
-    print(ck_id)
+node_dgres.update(nodes_1)
+node_dgres.update(nodes_2)
 
+# lets remove nodes according to their degrees
+to_remove_list = []
+for l in range(10000):
+    if edges == []:
+        break
+    to_remove_id = node_dgres.most_common(1)[0][0]
+    to_remove_list.append(to_remove_id)
+    new_edges = [x for x in edges if to_remove_id not in x]
+    # print(len(new_edges))
+    edges = new_edges
+    node_dgres = collections.Counter()
+    nodes_1 = [x[0] for x in edges]
+    nodes_2 = [x[1] for x in edges]
+    node_dgres.update(nodes_1)
+    node_dgres.update(nodes_2)
+
+
+for id in to_remove_list:
+    print(id)
