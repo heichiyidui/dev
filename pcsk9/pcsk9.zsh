@@ -197,7 +197,7 @@ sort_table -f t.ls -c 2 t.out > t2.out
 
 mv t2.out pca.fam
 
-printf "no_rel" > pop.ls
+printf "no_rel\n" > pop.ls
 
 #######################################
 # 1.4.3 PCA via EIGENSOFT
@@ -254,7 +254,7 @@ nohup plink --bfile pca \
 
 sed 's/\:/\t/' no_rel.pca.evec -i
 
-printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586\n" > t.ls
 
 tail -n +2 no_rel.pca.evec |\
     awk '{print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13}' | \
@@ -263,13 +263,28 @@ tail -n +2 no_rel.pca.evec |\
 # for ck_id.ls and study_id.ls, see section 2.
 sort_table -f ck_id.ls t.in > t.out
 
-echo "study_id rc pc1 pc2 pc3 pc4 pc5 pc6 pc7 pc8 pc9 pc10 is_fam" > t.in
+printf "study_id rc pc1 pc2 pc3 pc4 pc5 pc6 pc7 pc8 pc9 pc10 is_fam\n" > t.in
 
 paste study_id.ls t.out | \
     awk '{print $1,substr($1,1,2),$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13}' >> t.in
 
 plot_pca.R
-cp t.in pca.in
+
+###################
+# check plink none-relative PCA
+awk '{print $6}' pca.fam > t.ls
+paste plink.eigenvec t.ls > t.in
+
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586\n" > t.ls
+grep -v -f t.ls t.in > t.out
+
+printf "study_id rc pc1 pc2 pc3 pc4 pc5 pc6 pc7 pc8 pc9 pc10 is_fam\n" > t.in
+
+paste study_id.ls t.out | \
+    awk '{print $1,substr($1,1,2),$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,\
+         $14}' >> t.in
+
+plot_pca.R
 
 # It seems no outliers are left to be removed.
 # PCs are not corresponding to if the subjects are related or not.
@@ -294,7 +309,7 @@ cp t.in pca.in
 # # 13938 SNPs to be removed.
 # # and the four subjects with missing ascertainments
 
-# printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+# printf "CK24820387\nCK25228869\nCK28902540\nCK28730586\n" > t.ls
 
 # grab -f t.ls -c 2 ckb_ph12_s3_qc02.fam > t.fam
 
@@ -334,7 +349,7 @@ awk '{print $2}' pca.fam > ck_id.ls
 # The modified and sorted file
 GWAS_SNPdata_samples.csv
 
-printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586\n" > t.ls
 grep -f t.ls -v GWAS_SNPdata_samples.csv > t.out
 mv t.out GWAS_SNPdata_samples.csv
 
@@ -419,7 +434,7 @@ pheno.csv
 # 3336 78 Zhejiang  rc9
 # 5831 88 Hunan     Hunan will be absent from RC factors
 
-printf "CK24820387\nCK25228869\nCK28902540\nCK28730586" > t.ls
+printf "CK24820387\nCK25228869\nCK28902540\nCK28730586\n" > t.ls
 
 tail -n +2 no_rel.pca.evec |\
     awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' | \
@@ -534,7 +549,8 @@ done
 # 4. METAL analysis                                                            #
 ################################################################################
 
-plink --meta-analysis  st6.assoc.linear st3.assoc.linear + qt
+# We can use plink for some very simple meta-analysis
+# plink --meta-analysis  st6.assoc.linear st3.assoc.linear + qt
 
 t_metal.sh
 
@@ -546,7 +562,7 @@ sort_table -f t.ls -c 2 t.in > t.out
 
 mv t.out t.in
 t -n +2 pcsk9_direct1.tbl > t2.in
-printf "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_direct_metal.out
+printf "CHR SNP BP A1 A2 BETA SE P DIR\n" > pcsk9_direct_metal.out
 paste t.in t2.in | \
      awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_direct_metal.out
 
@@ -559,7 +575,7 @@ sort_table -f t.ls -c 2 t.in > t.out
 
 mv t.out t.in
 t -n +2 pcsk9_all1.tbl > t2.in
-printf "CHR SNP BP A1 A2 BETA SE P DIR" > pcsk9_all_metal.out
+printf "CHR SNP BP A1 A2 BETA SE P DIR\n" > pcsk9_all_metal.out
 paste t.in t2.in | \
      awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_all_metal.out
 

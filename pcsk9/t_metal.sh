@@ -1,10 +1,5 @@
-#THIS SCRIPT EXECUTES AN ANALYSIS OF EIGHT STUDIES
-#THE RESULTS FOR EACH STUDY ARE STORED IN FILES Inputfile1.txt THROUGH Inputfile8.txt
-
-#LOAD THE FIRST EIGHT INPUT FILES
-
-# UNCOMMENT THE NEXT LINE TO ENABLE GenomicControl CORRECTION
-# GENOMICCONTROL ON
+# scheme weights effect size estimated using inverse of the corresponding
+# standard errors.
 
 SCHEME STDERR
 
@@ -14,26 +9,44 @@ ALLELE A1 A2
 EFFECT BETA
 PVALUE P
 STDERR SE
-PROCESS st1.metal_in
-PROCESS st2.metal_in
-PROCESS st3.metal_in
-PROCESS st4.metal_in
-PROCESS st5.metal_in
-#
+PROCESS st1.assoc.linear
+PROCESS st2.assoc.linear
+PROCESS st3.assoc.linear
+PROCESS st4.assoc.linear
+PROCESS st5.assoc.linear
+
 
 # === CARRY OUT AN INTERIM ANALYSIS OF THE FIRST FOUR FILES ===
 OUTFILE pcsk9_direct .tbl
-ANALYZE
+ANALYZE HETEROGENEITY
 
-# LOAD THE indirect INPUT FILES
+
+CLEAR
+
+################################################################################
+SCHEME STDERR
+
+# Load the metal results of direct LDL cohorts
+MARKER MarkerName
+ALLELE Allele1 Allele2
+EFFECT Effect
+STDERR StdErr
+PVALUE P-value
+
+PROCESS pcsk9_direct1.tbl
+
+# LOAD THE indirect LDL cohort
 MARKER SNP
 ALLELE A1 A2
 EFFECT BETA
-PVALUE P
 STDERR SE
-PROCESS st6.metal_in
+PVALUE P
+
+PROCESS st6.assoc.linear
+
+
 
 OUTFILE pcsk9_all .tbl
-ANALYZE
+ANALYZE HETEROGENEITY
 
 QUIT
