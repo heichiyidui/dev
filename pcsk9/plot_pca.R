@@ -17,9 +17,8 @@ rc_names = c('12'='Qingdao',  '16'='Harbin',  '26'='Haikou', '36'='Suzhou',
 source('../util/multiplot.R')
 
 # family members against the others
-p1 = ggplot(data, aes(x=pc2, y=pc1, color=is_fam)) +
+p1 = ggplot(data, aes(x=pc1, y=pc2, color=is_fam)) +
     geom_point(alpha=0.5, size=1.5, shape=19) +
-    xlim(c(0.0233,-0.015)) +
     theme_bw() +
     theme(legend.position="none")
 
@@ -49,9 +48,8 @@ dev.off()
 
 
 # rc vs pcs
-p1 = ggplot(data, aes(x=pc2, y=pc1, color=rc)) +
+p1 = ggplot(data, aes(x=pc1, y=pc2, color=rc)) +
     geom_point(alpha=0.5, size=1.5, shape=19) +
-    xlim(c(0.0233,-0.015)) +
     scale_colour_manual(values=rc_cols) +
     theme_bw() +
     theme(legend.position="none")
