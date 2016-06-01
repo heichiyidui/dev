@@ -460,7 +460,6 @@ awk '{if ($8==6) print $1}' PCSK9_sample_summary.csv > t6.ls ;
 grab -f t6.ls -c 2 pca.fam > t6.fam ;
 plink --bfile ckb_ph12_s3 --keep t6.fam --make-bed --out st6 &
 
-
 # linear regression with all covariants
 for st in st1 st2 st4 st5 st6 ; do
     nohup plink --bfile $st \
@@ -481,7 +480,8 @@ nohup plink --bfile st3 \
   --linear hide-covar --ci 0.95 \
   --out st3 &
 
-########################
+#######################################
+# format the output
 
 for st in st1 st2 st3 st4 st5 st6 ; do
     head -n 1 $st.assoc.linear > t.out
@@ -495,9 +495,12 @@ for st in st1 st2 st3 st4 st5 st6 ; do
     mv t.out $st.assoc.linear
 done
 
-# lets have a look
+#######################################
+# QQ and Manhattan plots and lambda
+
+# let's have a look
 for st in st1 st2 st3 st4 st5 st6 ; do
-    plot_qq_man.R $st &
+    plot_qq_man.R $st.assoc.linear &
 done
 
 # to calculate lambda
@@ -513,14 +516,23 @@ data=subset(data,!is.na(P))
 
 chisq <- qchisq(1-data$P,1)
 lambda = median(chisq)/qchisq(0.5,1)
-cat('lambda',lambda,'\n')
+cat(args[1],'lambda: ',lambda,'\n')
 #--------------------------------------
+
 for st in st1 st2 st3 st4 st5 st6 ; do
-	lambda.R $st.assoc.linear
+    lambda.R $st.assoc.linear
 done
 
+# st1.assoc.linear lambda:  1.007485
+# st2.assoc.linear lambda:  1.008424
+# st3.assoc.linear lambda:  0.9920914
+# st4.assoc.linear lambda:  0.9907005
+# st5.assoc.linear lambda:  1.025426
+# st6.assoc.linear lambda:  1.008893
+
 ################################################################################
-# 4. METAL analysis
+# 4. METAL analysis                                                            #
+################################################################################
 
 plink --meta-analysis  st6.assoc.linear st3.assoc.linear + qt
 
