@@ -20,25 +20,30 @@ source('../util/multiplot.R')
 p1 = ggplot(data, aes(x=pc2, y=pc1, color=is_fam)) +
     geom_point(alpha=0.5, size=1.5, shape=19) +
     xlim(c(0.0233,-0.015)) +
-    theme_bw()
+    theme_bw() +
+    theme(legend.position="none")
 
 p2 = ggplot(data, aes(x=pc3, y=pc4, color=is_fam)) +
     geom_point(alpha=0.5, size=1.5, shape=19) +
-    theme_bw()
+    theme_bw() +
+    theme(legend.position="none")
 
 p3 = ggplot(data, aes(x=pc5, y=pc6, color=is_fam)) +
     geom_point(alpha=0.5, size=1.5, shape=19) +
-    theme_bw()
+    theme_bw() +
+    theme(legend.position="none")
 
 p4 = ggplot(data, aes(x=pc7, y=pc8, color=is_fam)) +
     geom_point(alpha=0.5, size=1.5, shape=19) +
-    theme_bw()
+    theme_bw() +
+    theme(legend.position="none")
 
 p5 = ggplot(data, aes(x=pc9, y=pc10, color=is_fam)) +
     geom_point(alpha=0.5, size=1.5, shape=19) +
-    theme_bw()
+    theme_bw() +
+    theme(legend.position="none")
 
-png('pca_fam.png',height=11.7, width=8.3,unit='in',res=288)
+png('pca_fam.png',height=11.7, width=7.8,unit='in',res=288)
 multiplot(p1, p2, p3, p4, p5, cols=2)
 dev.off()
 
@@ -76,7 +81,7 @@ p5 = ggplot(data, aes(x=pc9, y=pc10, color=rc)) +
     theme(legend.position="none")
 
 
-png('pca_rc.png',height=11.7, width=8.3,unit='in',res=288)
+png('pca_rc.png',height=11.7, width=7.8,unit='in',res=288)
 multiplot(p1, p2, p3, p4, p5, cols=2)
 dev.off()
 
