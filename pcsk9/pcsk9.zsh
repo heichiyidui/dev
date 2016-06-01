@@ -440,93 +440,90 @@ cov.csv
 # 3. plink linear regression                                                   #
 ################################################################################
 
-
-awk '{if ($3==1) print $0}' pheno.csv > t1.fam ;
-plink --bfile ckb_ph12_s3_qc03 --keep t1.fam --make-bed --out st1 &
-awk '{if ($3==2) print $0}' pheno.csv > t2.fam ;
-plink --bfile ckb_ph12_s3_qc03 --keep t2.fam --make-bed --out st2 &
-awk '{if ($3==3) print $0}' pheno.csv > t3.fam ;
-plink --bfile ckb_ph12_s3_qc03 --keep t3.fam --make-bed --out st3 &
-awk '{if ($3==4) print $0}' pheno.csv > t4.fam ;
-plink --bfile ckb_ph12_s3_qc03 --keep t4.fam --make-bed --out st4 &
-awk '{if ($3==5) print $0}' pheno.csv > t5.fam ;
-plink --bfile ckb_ph12_s3_qc03 --keep t5.fam --make-bed --out st5 &
-awk '{if ($3==6) print $0}' pheno.csv > t6.fam ;
-plink --bfile ckb_ph12_s3_qc03 --keep t6.fam --make-bed --out st6 &
-
-# 2 hours at most
-
-
-
-################################################################################
-
-
+# get the sets
+awk '{if ($8==1) print $1}' PCSK9_sample_summary.csv > t1.ls ;
+grab -f t1.ls -c 2 pca.fam > t1.fam ;
+plink --bfile ckb_ph12_s3 --keep t1.fam --make-bed --out st1 &
+awk '{if ($8==2) print $1}' PCSK9_sample_summary.csv > t2.ls ;
+grab -f t2.ls -c 2 pca.fam > t2.fam ;
+plink --bfile ckb_ph12_s3 --keep t2.fam --make-bed --out st2 &
+awk '{if ($8==3) print $1}' PCSK9_sample_summary.csv > t3.ls ;
+grab -f t3.ls -c 2 pca.fam > t3.fam ;
+plink --bfile ckb_ph12_s3 --keep t3.fam --make-bed --out st3 &
+awk '{if ($8==4) print $1}' PCSK9_sample_summary.csv > t4.ls ;
+grab -f t4.ls -c 2 pca.fam > t4.fam ;
+plink --bfile ckb_ph12_s3 --keep t4.fam --make-bed --out st4 &
+awk '{if ($8==5) print $1}' PCSK9_sample_summary.csv > t5.ls ;
+grab -f t5.ls -c 2 pca.fam > t5.fam ;
+plink --bfile ckb_ph12_s3 --keep t5.fam --make-bed --out st5 &
+awk '{if ($8==6) print $1}' PCSK9_sample_summary.csv > t6.ls ;
+grab -f t6.ls -c 2 pca.fam > t6.fam ;
+plink --bfile ckb_ph12_s3 --keep t6.fam --make-bed --out st6 &
 
 
-
-
-################################################################################
-# 3. linear regression
-
-
-grab -f st1.ls ckb_ph12_s3_qc01.fam -c 2 > t1.fam ; \
-plink --bfile ckb_ph12_s3_qc01 --keep t1.fam --make-bed --out st1 &
-grab -f st2.ls ckb_ph12_s3_qc01.fam -c 2 > t2.fam ; \
-plink --bfile ckb_ph12_s3_qc01 --keep t2.fam --make-bed --out st2 &
-grab -f st3.ls ckb_ph12_s3_qc01.fam -c 2 > t3.fam ; \
-plink --bfile ckb_ph12_s3_qc01 --keep t3.fam --make-bed --out st3 &
-grab -f st4.ls ckb_ph12_s3_qc01.fam -c 2 > t4.fam ; \
-plink --bfile ckb_ph12_s3_qc01 --keep t4.fam --make-bed --out st4 &
-grab -f st5.ls ckb_ph12_s3_qc01.fam -c 2 > t5.fam ; \
-plink --bfile ckb_ph12_s3_qc01 --keep t5.fam --make-bed --out st5 &
-grab -f st6.ls ckb_ph12_s3_qc01.fam -c 2 > t6.fam ; \
-plink --bfile ckb_ph12_s3_qc01 --keep t6.fam --make-bed --out st6 &
-
-# with all covariants
-
+# linear regression with all covariants
 for st in st1 st2 st4 st5 st6 ; do
     nohup plink --bfile $st \
       --pheno pheno.csv \
       --pheno-name LDL \
       --covar cov.csv keep-pheno-on-missing-cov \
-      --linear --ci 0.95 \
+      --linear hide-covar --ci 0.95 \
       --out $st &
 done
 
-# SAH is way too small, witch all covariants the output will be all NA.
-
+# The SAH cohort is way too small.
+# With all covariants the output will be all NA.
 nohup plink --bfile st3 \
   --pheno pheno.csv \
   --pheno-name LDL \
   --covar cov.csv keep-pheno-on-missing-cov \
   --covar-name sex,age,pc1,pc2 \
-  --linear --ci 0.95 \
+  --linear hide-covar --ci 0.95 \
   --out st3 &
 
+########################
+
 for st in st1 st2 st3 st4 st5 st6 ; do
-    head -n 1 $st.assoc.linear > $st.out ;
-    grep ADD $st.assoc.linear >> $st.out &
+    head -n 1 $st.assoc.linear > t.out
+    grep ADD $st.assoc.linear | grep -v NA >> t.out
+    mv t.out $st.assoc.linear
+done
+
+# put A2 into the tables
+for st in st1 st2 st3 st4 st5 st6 ; do
+    add_a2.py $st.assoc.linear > t.out
+    mv t.out $st.assoc.linear
 done
 
 # lets have a look
 for st in st1 st2 st3 st4 st5 st6 ; do
-    plot_qq_man.R $st  &
+    plot_qq_man.R $st &
 done
 
 # to calculate lambda
-# in R
-chisq <- qchisq(1-pvalue,1)
+# lambda.R
+#--------------------------------------
+#!/usr/bin/Rscript
+
+args = commandArgs(trailingOnly=TRUE)
+ifile_name = args[1]
+
+data=read.table(ifile_name,header=T)
+data=subset(data,!is.na(P))
+
+chisq <- qchisq(1-data$P,1)
 lambda = median(chisq)/qchisq(0.5,1)
+cat('lambda',lambda,'\n')
+#--------------------------------------
+for st in st1 st2 st3 st4 st5 st6 ; do
+	lambda.R $st.assoc.linear
+done
 
 ################################################################################
 # 4. METAL analysis
 
+plink --meta-analysis  st6.assoc.linear st3.assoc.linear + qt
 
-# put a2 into it
-
-for st in st1 st2 st3 st4 st5 st6 ; do
-    t1.py $st > $st.metal_in  &
-done
 
 
 # prepare for plotting

@@ -7,7 +7,7 @@ args = commandArgs(trailingOnly=TRUE)
 str=args[1]
 # str="st1"
 
-ifile_name = paste(str,'.out',sep='')
+ifile_name = paste(str,'assoc.linear',sep='')
 
 data=read.table(ifile_name,header=T)
 data=subset(data,!is.na(P))
