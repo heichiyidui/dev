@@ -553,6 +553,9 @@ done
 # plink --meta-analysis  st6.assoc.linear st3.assoc.linear + qt
 
 t_metal.sh
+# direct vs indirect , HetPVal lambda = 0.9102188
+
+
 
 # prepare for plotting
 
