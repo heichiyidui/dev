@@ -555,10 +555,7 @@ done
 t_metal.sh
 # direct vs indirect , HetPVal lambda = 0.9102188
 
-
-
 # prepare for plotting
-
 awk '{print $1}' pcsk9_direct1.tbl | t -n +2 > t.ls
 grab -f t.ls -c 2 ckb_ph12_s3.bim | awk '{print $1,$2,$4} ' > t.in
 sort_table -f t.ls -c 2 t.in > t.out
@@ -568,7 +565,6 @@ t -n +2 pcsk9_direct1.tbl > t2.in
 printf "CHR SNP BP A1 A2 BETA SE P DIR\n" > pcsk9_direct_metal.out
 paste t.in t2.in | \
      awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_direct_metal.out
-
 
 
 
@@ -583,7 +579,8 @@ paste t.in t2.in | \
      awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_all_metal.out
 
 
-
+plot_qq_man.R pcsk9_direct_metal.out
+plot_qq_man.R pcsk9_all_metal.out
 
 
 
@@ -594,7 +591,7 @@ paste t.in t2.in | \
 
 
 # check ld
-plink --bfile geno \
+plink --bfile ckb_ph12_s3 \
        --r2 --ld-snp AX-83389438 \
        --ld-window-r2 0 \
        --ld-window 99999 \
