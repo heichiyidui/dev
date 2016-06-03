@@ -616,7 +616,27 @@ plink --bfile geno \
 
 # and ld for AX-11576926 and AX-39912161
 
+# Axiom_CKB_1_variant_list.xlsx from
+# K:\kadoorie\Groups\Genetics\Data Archive\Array_design_ver1\
+
+
 # save into snp.ld
+
+# AX-83389438 is rs151193009
+# It is presented only in CHB, CHS, JPT and KHV cohorts in 1000G phase 3, with
+# MAF around 1.3%.
+# It is causing the 93R->C mutation in the protein.
+
+# exon 2
+
+# Found in http://www.sciencedirect.com/science/article/pii/S0021915007000512
+#                                 LOW LDL         HIGH LDL
+# c.277C > T    Exon 2    R93C    70    8    0    95    1    0
+# P-value by Fisher's exact test was 0.003
+# only missense mutation found
+# Japan, general population (n = 3655)
+pic/pcsk9_ldlr_93R_pdb.ps
+# The 93R residue is nowhere close to the binding site!
 
 ################################################################################
 # 5.3 linear regression
@@ -681,3 +701,28 @@ metal_results.csv
 
 # SNPs AX-105027908 and AX-83302687 are giving NA results, removed them
 
+
+################################################################################
+# 6. direct strata only                                                        #
+################################################################################
+
+# Finding variants in PCSK9 affecting LDL-C
+
+# Given the biochemistry direct measures of LDL-C (Low-Density Lipoprotein
+# Cholesterol) concentration, and the SNP genotype data, we can perform
+# association studies to identify relevant genes, and their genetic variants.
+#
+# PCSK9 (proprotein convertase subtilisin/kexin type 9) is a fat-control drug
+# target, well studied with Caucasian populations. The gene blocks LDL-C
+# receptors on the surface of liver. Less active receptor removing LDL-C from
+# bloodstream leads to higher LDL-C concentration and increased risk of
+# cardiovascular events. Drugs targeting PCSK9 have been developed to reduce
+# LDL-C concentration in blood.
+#
+# Given some Caucasian PCSK9 variants identified as associated with LDL-C are
+# absent from or present at low frequencies in Chinese, we seek to identify
+# additional PCSK9 variants associated with LDL-C levels in Chinese populations.
+#
+
+################################################################################
+# 6.1 cohorts
