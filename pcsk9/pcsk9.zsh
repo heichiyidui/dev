@@ -578,41 +578,106 @@ printf "CHR SNP BP A1 A2 BETA SE P DIR\n" > pcsk9_all_metal.out
 paste t.in t2.in | \
      awk '{print $1,$2,$3,$5,$6,$7,$8,$9,$10}'>> pcsk9_all_metal.out
 
-
 plot_qq_man.R pcsk9_direct_metal.out
 plot_qq_man.R pcsk9_all_metal.out
 
-
-
-
+################################################################################
+# 5. linear again and metal again                                              #
 ################################################################################
 
+################################################################################
+# 5.1 ldl-c rank inverse-normal transformed
 
+rint.R
 
+# and put the results into pheno.csv
+# 4 ages are missing, so 4 more ldl measures are gone.
+
+################################################################################
+# 5.2 the genotype file. We now look at pcsk9 region only
+plink --bfile ckb_ph12_s3 \
+      --from AX-105169173 --to AX-31657601 \
+      --make-bed --out geno
+# 166 variants and 32205 people
+# 6 SNPs with '0' in genotype are cousing trouble. Exclude them.
+# 160 variants and 32205 people
+
+awk '{print $2}' geno.bim > snp.ls
 
 # check ld
-plink --bfile ckb_ph12_s3 \
+plink --bfile geno \
        --r2 --ld-snp AX-83389438 \
        --ld-window-r2 0 \
        --ld-window 99999 \
-       --ld-window-kb 77000
-# nothing is in LD with AX-83389438
+       --ld-window-kb 177000
 
-sort -g -k 7 plink.ld
-#   1     55509585   AX-83389438      1     55601339   AX-11187195    0.0140177
+# nothing is in LD with AX-83389438
 # highest of all but itself is 0.0140177
 
-plink --bfile geno \
-       --r2 --ld-snp AX-11576926 \
-       --ld-window-r2 0 \
-       --ld-window 99999 \
-       --ld-window-kb 77000
-# not too bad
+# and ld for AX-11576926 and AX-39912161
+
+# save into snp.ld
+
+################################################################################
+# 5.3 linear regression
+
+# raw analysisi
+for st in st1 st2 st4 st5 st6 ; do
+    plink --bfile geno \
+      --keep $st.fam \
+      --pheno pheno.csv \
+      --pheno-name LDL \
+      --covar cov.csv keep-pheno-on-missing-cov \
+      --linear hide-covar --ci 0.95 \
+      --out $st.raw &
+done
 
 plink --bfile geno \
-       --r2 --ld-snp AX-39912161 \
-       --ld-window-r2 0 \
-       --ld-window 99999 \
-       --ld-window-kb 77000
-#############
-# chk the clustering
+  --keep st3.fam \
+  --pheno pheno.csv \
+  --pheno-name LDL \
+  --covar cov.csv keep-pheno-on-missing-cov \
+  --covar-name sex,age,pc1,pc2 \
+  --linear hide-covar --ci 0.95 \
+  --out st3.raw
+
+# standard-beta
+for st in st1 st2 st4 st5 st6 ; do
+	std_beta.py $st.raw.assoc.linear > t.out
+	mv t.out $st.std.assoc.linear
+done
+
+
+# rint_ldl
+plink --bfile geno \
+  --pheno pheno.csv \
+  --pheno-name rint_LDL \
+  --covar cov.csv keep-pheno-on-missing-cov \
+  --covar-name pc1-pc10 \
+  --linear hide-covar --ci 0.95 \
+  --out rint_ldl
+# to make sure standard beta in rint_ldl
+std_beta.py rint_ldl.assoc.linear > t.out
+mv t.out rint_ldl.assoc.linear
+
+
+################################################################################
+# 5.4 meta analysis
+
+# put A2 into the tables
+for ifile in *.assoc.linear ; do
+    add_a2.py $ifile > t.out
+    mv t.out $ifile
+done
+
+full_metal.sh
+
+################################################################################
+# 5.5 plot them
+
+plot_metal.R
+
+metal_results.csv
+
+# SNPs AX-105027908 and AX-83302687 are giving NA results, removed them
+

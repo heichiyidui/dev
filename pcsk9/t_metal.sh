@@ -20,7 +20,6 @@ PROCESS st5.assoc.linear
 OUTFILE pcsk9_direct .tbl
 ANALYZE HETEROGENEITY
 
-
 CLEAR
 
 ################################################################################
@@ -43,8 +42,6 @@ STDERR SE
 PVALUE P
 
 PROCESS st6.assoc.linear
-
-
 
 OUTFILE pcsk9_all .tbl
 ANALYZE HETEROGENEITY
