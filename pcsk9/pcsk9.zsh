@@ -739,6 +739,7 @@ metal_results.csv
 # covariates sex, age, PC1 and PC2 only. With other strata, sex, age, PC1-10 and
 # RC were employed as covriates.
 
+################################################################################
 # first starts without using SNP's allelic dosage as a covariate,
 printf "" > c_snp.ls
 
@@ -754,7 +755,7 @@ for st in st1 st2 st4 st5 ; do
       --covar cov.csv \
       --linear hide-covar --ci 0.95 \
       --condition-list c_snp.ls \
-      --out $st.raw &
+      --out $st.raw
 done
 
 plink --bfile geno \
@@ -772,4 +773,43 @@ for st in st1 st2 st3 st4 st5 ; do
     mv t.out $st.raw.assoc.linear
 done
 
+metal < t_metal.sh
+
+# collect the columns together
+parse_meta_out.py > t.in
+# plot them
+plot_meta_p_q.R
+
+cp t.in  meta_0.in
+cp t.png meta_0.png
+################################################################################
+# add SNPs now
+
+printf "AX-83389438\n" > c_snp.ls
+
+# and the above stuff
+cp t.in  meta_1.in
+cp t.png meta_1.png
+
 printf "AX-83389438\nAX-39912161\n" > c_snp.ls
+# and the above stuff
+cp t.in  meta_2.in
+cp t.png meta_2.png
+
+printf "AX-83389438\nAX-39912161\nAX-31641677\n" > c_snp.ls
+# and the above stuff
+cp t.in  meta_3.in
+cp t.png meta_3.png
+
+printf "AX-83389438\nAX-39912161\nAX-31641677\nAX-11576926\n" > c_snp.ls
+
+cp t.in  meta_4.in
+cp t.png meta_4.png
+
+# to simply it
+for i in {1..2} ; do
+    head -n $i  snp_p.ls > c_snp.ls
+    t.sh
+    cp t.in meta_$i.in
+    cp t.png meta_$i.png
+done
