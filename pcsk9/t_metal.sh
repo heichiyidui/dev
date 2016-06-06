@@ -9,11 +9,11 @@ ALLELE A1 A2
 EFFECT BETA
 PVALUE P
 STDERR SE
-PROCESS st1.assoc.linear
-PROCESS st2.assoc.linear
-PROCESS st3.assoc.linear
-PROCESS st4.assoc.linear
-PROCESS st5.assoc.linear
+PROCESS st1.raw.assoc.linear
+PROCESS st2.raw.assoc.linear
+PROCESS st3.raw.assoc.linear
+PROCESS st4.raw.assoc.linear
+PROCESS st5.raw.assoc.linear
 
 
 # === CARRY OUT AN INTERIM ANALYSIS OF THE FIRST FOUR FILES ===
@@ -23,27 +23,27 @@ ANALYZE HETEROGENEITY
 CLEAR
 
 ################################################################################
-SCHEME STDERR
+# SCHEME STDERR
 
-# Load the metal results of direct LDL cohorts
-MARKER MarkerName
-ALLELE Allele1 Allele2
-EFFECT Effect
-STDERR StdErr
-PVALUE P-value
+# # Load the metal results of direct LDL cohorts
+# MARKER MarkerName
+# ALLELE Allele1 Allele2
+# EFFECT Effect
+# STDERR StdErr
+# PVALUE P-value
 
-PROCESS pcsk9_direct1.tbl
+# PROCESS pcsk9_direct1.tbl
 
-# LOAD THE indirect LDL cohort
-MARKER SNP
-ALLELE A1 A2
-EFFECT BETA
-STDERR SE
-PVALUE P
+# # LOAD THE indirect LDL cohort
+# MARKER SNP
+# ALLELE A1 A2
+# EFFECT BETA
+# STDERR SE
+# PVALUE P
 
-PROCESS st6.assoc.linear
+# PROCESS st6.raw.assoc.linear
 
-OUTFILE pcsk9_all .tbl
-ANALYZE HETEROGENEITY
+# OUTFILE pcsk9_all .tbl
+# ANALYZE HETEROGENEITY
 
 QUIT

@@ -2,7 +2,7 @@
 import sys
 
 # read SNP allele 1 and 2
-ifile=open('ckb_ph12_s3.bim')
+ifile=open('geno.bim')
 SNP_A1={}
 SNP_A2={}
 for line in ifile:

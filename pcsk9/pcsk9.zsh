@@ -725,4 +725,51 @@ metal_results.csv
 #
 
 ################################################################################
-# 6.1 cohorts
+# now let's look at the direct measures only
+
+
+#            ascert   size    lambda
+# stratum_1  ICH      4762    1.007
+# stratum_2  IS       5210    1.008
+# stratum_3  SAH       167    0.992
+# stratum_4  MI/IHD   1265    0.991
+# stratum_5  control  6696    1.025
+
+# With stratum 3 (ascertainment SAH), because of the small cohort size, we used
+# covariates sex, age, PC1 and PC2 only. With other strata, sex, age, PC1-10 and
+# RC were employed as covriates.
+
+# first starts without using SNP's allelic dosage as a covariate,
+printf "" > c_snp.ls
+
+# The top 10 SNPs are
+# AX-83389438\nAX-39912161\nAX-31641677\nAX-11576926\nAX-39912159\n
+# AX-31642169\nAX-11541856\nAX-31642001\nAX-51209582\nAX-31641243
+
+for st in st1 st2 st4 st5 ; do
+    plink --bfile geno \
+      --keep $st.fam \
+      --pheno pheno.csv \
+      --pheno-name LDL \
+      --covar cov.csv \
+      --linear hide-covar --ci 0.95 \
+      --condition-list c_snp.ls \
+      --out $st.raw &
+done
+
+plink --bfile geno \
+  --keep st3.fam   \
+  --pheno pheno.csv \
+  --pheno-name LDL  \
+  --covar cov.csv  \
+  --covar-name sex,age,pc1,pc2 \
+  --linear hide-covar --ci 0.95 \
+  --condition-list c_snp.ls \
+  --out st3.raw
+
+for st in st1 st2 st3 st4 st5 ; do
+    add_a2.py $st.raw.assoc.linear > t.out
+    mv t.out $st.raw.assoc.linear
+done
+
+printf "AX-83389438\nAX-39912161\n" > c_snp.ls
