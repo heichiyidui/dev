@@ -785,31 +785,25 @@ cp t.png meta_0.png
 ################################################################################
 # add SNPs now
 
-printf "AX-83389438\n" > c_snp.ls
-
-# and the above stuff
-cp t.in  meta_1.in
-cp t.png meta_1.png
-
-printf "AX-83389438\nAX-39912161\n" > c_snp.ls
-# and the above stuff
-cp t.in  meta_2.in
-cp t.png meta_2.png
-
-printf "AX-83389438\nAX-39912161\nAX-31641677\n" > c_snp.ls
-# and the above stuff
-cp t.in  meta_3.in
-cp t.png meta_3.png
-
-printf "AX-83389438\nAX-39912161\nAX-31641677\nAX-11576926\n" > c_snp.ls
-
-cp t.in  meta_4.in
-cp t.png meta_4.png
-
-# to simply it
-for i in {1..2} ; do
-    head -n $i  snp_p.ls > c_snp.ls
+for i in {1..5} ; do
+    sort -g -k 23 t.in | tail -n +2 | head -n 1 | awk '{print $1}' >> c_snp.ls
     t.sh
     cp t.in meta_$i.in
     cp t.png meta_$i.png
 done
+
+# SNPs removed
+# AX-83389438
+# AX-31642001
+# AX-11541856
+# AX-31642169
+# AX-12930867
+
+# Two SNPs are in the 384 panel.
+# AX-11150762 rs11206510
+# AX-39911995 rs2479409
+# With AX-11150762 the P values are 0.04063 0.01933 and 0.05688
+# in meta_0, meta_1 and meta_2
+# With AX-39911995 nothing found.
+
+
