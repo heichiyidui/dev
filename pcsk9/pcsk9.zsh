@@ -743,10 +743,6 @@ metal_results.csv
 # first starts without using SNP's allelic dosage as a covariate,
 printf "" > c_snp.ls
 
-# The top 10 SNPs are
-# AX-83389438\nAX-39912161\nAX-31641677\nAX-11576926\nAX-39912159\n
-# AX-31642169\nAX-11541856\nAX-31642001\nAX-51209582\nAX-31641243
-
 for st in st1 st2 st4 st5 ; do
     plink --bfile geno \
       --keep $st.fam \
@@ -775,8 +771,12 @@ done
 
 metal < t_metal.sh
 
-# collect the columns together
+# collect the columns together and sort them
 parse_meta_out.py > t.in
+head -n 1 t.in > t.out
+tail -n +2 t.in | sort -g -k 11 >> t.out
+mv t.out t.in
+
 # plot them
 plot_meta_p_q.R
 
@@ -786,7 +786,7 @@ cp t.png meta_0.png
 # add SNPs now
 
 for i in {1..5} ; do
-    sort -g -k 23 t.in | tail -n +2 | head -n 1 | awk '{print $1}' >> c_snp.ls
+    tail -n +2 t.in | sort -g -k 11 | awk '{if (NR==1) print $1}' >> c_snp.ls
     t.sh
     cp t.in meta_$i.in
     cp t.png meta_$i.png
@@ -797,13 +797,48 @@ done
 # AX-31642001
 # AX-11541856
 # AX-31642169
-# AX-12930867
+
 
 # Two SNPs are in the 384 panel.
-# AX-11150762 rs11206510
-# AX-39911995 rs2479409
+
 # With AX-11150762 the P values are 0.04063 0.01933 and 0.05688
 # in meta_0, meta_1 and meta_2
 # With AX-39911995 nothing found.
 
+# AX-11150762 rs11206510
+# meta_0.in  1 55496039 0.05637 T C 0.0308 0.0151 0.4555 +++-+ 0.04063
+# meta_1.in  1 55496039 0.05637 T C 0.0351 0.0150 0.4839 +++-+ 0.01933
+# meta_2.in  1 55496039 0.05637 T C 0.0287 0.0151 0.4496 +++-+ 0.05688
+# meta_3.in  1 55496039 0.05637 T C 0.0245 0.0151 0.4445 +++-+ 0.1048
 
+# AX-39911995 rs2479409
+# meta_0.in  1 55504650 0.3181 A G -0.0073 0.0075 0.5959 ---+- 0.3301
+# meta_1.in  1 55504650 0.3181 A G -0.0156 0.0075 0.5641 ---+- 0.0378
+# meta_2.in  1 55504650 0.3181 A G -0.0124 0.0076 0.5271 ---+- 0.1011
+# meta_3.in  1 55504650 0.3181 A G -0.0148 0.0076 0.4978 ---+- 0.05061
+
+################################################################################
+# RINT phenotype
+# now just switch --pheno-name LDL to --pheno-name rint_LDL
+
+# SNPs removed
+# AX-83389438
+# AX-39912161
+# AX-11576926
+# AX-64101281
+
+# different order of remving the second got the third very different.
+
+# The 384 panel SNPs
+
+# AX-11150762 rs11206510
+# meta_0.in 1 55496039 0.05637 T C 0.0459 0.0228 0.5536 +++-+ 0.04429
+# meta_1.in 1 55496039 0.05637 T C 0.0530 0.0227 0.5715 +++-+ 0.01967
+# meta_2.in 1 55496039 0.05637 T C 0.0147 0.0238 0.5259 +-+-+ 0.5375
+# meta_3.in 1 55496039 0.05637 T C 0.0184 0.0239 0.5138 +-+-+ 0.4412
+
+# AX-39911995 rs2479409
+# meta_0.in 1 55504650 0.3181 A G -0.0120 0.0114 0.7843 ---+- 0.2939
+# meta_1.in 1 55504650 0.3181 A G -0.0253 0.0114 0.7582 ---+- 0.02611
+# meta_2.in 1 55504650 0.3181 A G -0.0098 0.0117 0.7504 ---+- 0.4016
+# meta_3.in 1 55504650 0.3181 A G -0.0121 0.0118 0.7907 --++- 0.3051
