@@ -12,12 +12,14 @@ data$minus_log_q = -log10(data$meta_q)
 p1= ggplot(data, aes(x=BP, y=minus_log_p))+
     geom_point(alpha=0.5, size=1.5, shape=19) +
     geom_hline( yintercept=-log10(0.0001)) +
+    ylab('-log10(P)') +
     ggtitle('Meta-analysis P') +
     theme_bw()
 
 p2= ggplot(data, aes(x=BP, y=minus_log_q))+
     geom_point(alpha=0.5, size=1.5, shape=19) +
     geom_hline( yintercept=-log10(0.05)) +
+    ylab('-log10(Q)') +
     ggtitle('Meta-analysis Q') +
     theme_bw()
 
