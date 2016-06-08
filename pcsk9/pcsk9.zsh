@@ -846,3 +846,14 @@ done
 # meta_1.in 1 55504650 0.3181 A G -0.0249 0.0113 0.7438 ---+- 0.02813
 # meta_2.in 1 55504650 0.3181 A G -0.0096 0.0117 0.7401 ---+- 0.4134
 # meta_3.in 1 55504650 0.3181 A G -0.0118 0.0117 0.7811 --++- 0.3156
+
+################################################################################
+# 7. Re-check the indirect LDL measures                                        #
+################################################################################
+
+# using the data request form to get snapshort 10 ldl data
+# got 19423 numbers, scared by 1/100.
+
+# 7114 got study_id of the genotype set
+ Correlation coefficient	 is 0.35 very significant
+
