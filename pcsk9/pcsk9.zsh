@@ -855,5 +855,7 @@ done
 # got 19423 numbers, scared by 1/100.
 
 # 7114 got study_id of the genotype set
- Correlation coefficient	 is 0.35 very significant
+# The correlation coefficient is 0.35 very significant, but not high ...
+
+
 
