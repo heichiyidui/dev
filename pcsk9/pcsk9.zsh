@@ -858,4 +858,15 @@ done
 # The correlation coefficient is 0.35 very significant, but not high ...
 
 
+get_strata.py > t.in
+rint.R
+# The table generated is in the file 't.out'.
+# Maybe re-order the table according to the fam file?
+awk '{print $2}' ckb_ph12_s3.fam > t.ls
+sort_table -f t.ls t.out -c 2 -sh | grep -v NA > pheno.csv
+
+
+# use plink no-rel 10 PCs and the pheno.csv for covariates
+get_cov.py | sed 's/\ /\t/g' > cov.csv
+
 
