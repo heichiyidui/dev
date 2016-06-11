@@ -7,7 +7,7 @@
 ! the .Xdefaults file in your home directory (or the X resource
 ! specification method appropriate to your system).  The contents of this
 ! file can be moved into an X resource file, but since resources in this file
-! override their corresponding X resources, either this file should be 
+! override their corresponding X resources, either this file should be
 ! deleted or individual resource lines in the file should be deleted for the
 ! moved lines to take effect.
 
@@ -396,7 +396,7 @@ nedit.languageModes: 	Ada:.ada .ad .ads .adb .a:::::::\n\
 	Regex:.reg .regex:"\\(\\?[:#=!iInN].+\\)":None:Continuous::::\n\
 	SGML HTML:.sgml .sgm .html .htm:"\\<[Hh][Tt][Mm][Ll]\\>"::::::\n\
 	SQL:.sql:::::::\n\
-	Sh Ksh Bash:.sh .bash .ksh .profile .bashrc .bash_logout .bash_login .bash_profile:"^[ \\t]*#[ \\t]*![ \\t]*/.*bin/(bash|ksh|sh|zsh)"::::::\n\
+	Sh Ksh Bash:.sh .bash .ksh .zsh .profile .bashrc .bash_logout .bash_login .bash_profile:"^[ \\t]*#[ \\t]*![ \\t]*/.*bin/(bash|ksh|sh|zsh)"::::::\n\
 	Tcl:.tcl .tk .itcl .itk::Smart:None::::\n\
 	VHDL:.vhd .vhdl .vdl:::::::\n\
 	Verilog:.v:::::::\n\
@@ -404,7 +404,7 @@ nedit.languageModes: 	Ada:.ada .ad .ads .adb .a:::::::\n\
 	X Resources:.Xresources .Xdefaults .nedit .pats nedit.rc:"^[!#].*([Aa]pp|[Xx]).*[Dd]efaults"::::::\n\
 	Yacc:.y::::::".,/\\`'!|@#%^&*()-=+{}[]"":;<>?~":
 nedit.styles: 	Plain:black:Plain\n\
-	Comment:gray20:Italic\n\
+	Comment:gray60:Bold\n\
 	Keyword:black:Bold\n\
 	Operator:dark blue:Bold\n\
 	Bracket:dark blue:Bold\n\
@@ -482,10 +482,10 @@ nedit.textFont: -*-courier-medium-r-normal--14-*-*-*-*-iso8859-1
 nedit.boldHighlightFont: -*-courier-bold-r-normal--14-*-*-*-*-iso8859-1
 nedit.italicHighlightFont: -*-courier-medium-o-normal--14-*-*-*-*-iso8859-1
 nedit.boldItalicHighlightFont: -*-courier-bold-o-normal--14-*-*-*-*-iso8859-1
-nedit.textFgColor: #141312
-nedit.textBgColor: #e8e7e7
-nedit.selectFgColor: #ffffff
-nedit.selectBgColor: #00a489
+nedit.textFgColor: #000000
+nedit.textBgColor: #ffffff
+nedit.selectFgColor: #030303
+nedit.selectBgColor: #a9d1ff
 nedit.hiliteFgColor: white
 nedit.hiliteBgColor: red
 nedit.lineNoFgColor: black
