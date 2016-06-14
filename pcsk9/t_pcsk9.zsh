@@ -388,6 +388,9 @@ get_cov.py | sed 's/\ /\t/g' > cov.csv
 # 3. linear regression and meta-analysis                                       #
 ################################################################################
 
+################################################################################
+# 3.1 linear regression
+
 for stratum in {1..6}; do
     awk -vStr=$stratum '{if ($5==Str) print $2 }' pheno.csv > t.ls
     grab -f t.ls -c 2 ckb_ph12_s3.fam > str$stratum.fam
@@ -401,21 +404,59 @@ wc str?.fam
 # 6687  40122 215004 str5.fam
 # 4177  25062 135136 str6.fam
 
+# for the big strata
 for st in st1 st2 st4 st5 st6 ; do
-    plink --bfile geno \
+    plink --bfile ckb_ph12_s3 \
       --keep $st.fam \
       --pheno pheno.csv \
-      --pheno-name LDL \
-      --covar cov.csv keep-pheno-on-missing-cov \
+      --pheno-name ldl_c \
+      --covar cov.csv \
       --linear hide-covar --ci 0.95 \
       --out $st.raw &
 done
 
-plink --bfile geno \
+# for the smallest stratum, using only a few covariates.
+# otherwise we will get all 'NA'
+
+plink --bfile ckb_ph12_s3 \
   --keep st3.fam \
   --pheno pheno.csv \
-  --pheno-name LDL \
-  --covar cov.csv keep-pheno-on-missing-cov \
+  --pheno-name ldl_c \
+  --covar cov.csv \
   --covar-name sex,age,pc1,pc2 \
   --linear hide-covar --ci 0.95 \
   --out st3.raw
+
+for st in st1 st2 st3 st4 st5 st6 ; do
+    lambda.R $st.raw.assoc.linear
+done
+
+#######################################
+# RINT LDL-C measures
+
+for st in st1 st2 st4 st5 st6 ; do
+    nohup plink --bfile ckb_ph12_s3 \
+      --keep $st.fam \
+      --pheno pheno.csv \
+      --pheno-name rint_ldl_c \
+      --covar cov.csv \
+      --linear hide-covar --ci 0.95 \
+      --out $st.rint &
+done
+
+# for the smallest stratum, using only a few covariates.
+nohup plink --bfile ckb_ph12_s3 \
+  --keep st3.fam \
+  --pheno pheno.csv \
+  --pheno-name rint_ldl_c \
+  --covar cov.csv \
+  --covar-name sex,age,pc1,pc2 \
+  --linear hide-covar --ci 0.95 \
+  --out st3.rint &
+
+for st in st1 st2 st3 st4 st5 st6 ; do
+    lambda.R $st.rint.assoc.linear
+done
+
+################################################################################
+#

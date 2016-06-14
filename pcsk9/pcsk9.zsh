@@ -353,8 +353,8 @@ printf "CK24820387\nCK25228869\nCK28902540\nCK28730586\n" > t.ls
 grep -f t.ls -v GWAS_SNPdata_samples.csv > t.out
 mv t.out GWAS_SNPdata_samples.csv
 
-tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $1}' > ck_id.ls
-tail -n +2  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
+skh  GWAS_SNPdata_samples.csv | awk -F"," '{print $1}' > ck_id.ls
+skh  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
 
 # 32201 uniq study and ck id pairs.
 # ck_id.ls and study_id.ls were used in 1.5.1
@@ -833,6 +833,9 @@ done
 # If we did select SNP AX-31642001 in the second round (it was a close match),
 # we would end up with exactly the same selection.
 
+# If we selected AX-31642001 after the top hit, the next one will be AX-64101281
+# But all are of large P values. (2*10^-3)
+
 # The 384 panel SNPs
 
 # AX-11150762 rs11206510
@@ -870,3 +873,4 @@ sort_table -f t.ls t.out -c 2 -sh | grep -v NA > pheno.csv
 get_cov.py | sed 's/\ /\t/g' > cov.csv
 
 
+################################################################################
