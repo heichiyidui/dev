@@ -4,8 +4,9 @@ alias ll='l'
 alias ..='cd ..'
 
 alias o='less'
-alias t='tail' 
+alias t='tail'
 alias h='head'
+alias skh='tail -n +2 '
 
 alias r='rasmol'
 alias g='g++ -Wall '

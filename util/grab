@@ -61,7 +61,7 @@ sys.stderr.write('ids in the column '+str(args.id_col)+' of '\
 if args.skip_header:
     sys.stderr.write('Skipping the header line of '\
                  +args.in_file+'\n\n')
-    print(in_file.readline(),end='')
+    print(in_file.readline()[:-1])
 
 id_col=args.id_col-1
 
