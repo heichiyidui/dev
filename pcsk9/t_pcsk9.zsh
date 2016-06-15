@@ -605,10 +605,13 @@ plink --bfile geno \
 skh rint_p9_3.assoc.linear | grep -v NA | sort -g -k 12 | h
 
 # The leading SNPs :
-AX-83389438
-AX-39912161
-AX-11576926
+# AX-83389438
+# AX-39912161
+# AX-11576926
 
+# If we removed AX-83389438, followed by AX-31642001,
+# we would go on to remove AX-11541856
+# and AX-31642169 after that.
 ################################################################################
 # 4.2 raw plink, then raw metal, then all metal
 printf "" > c_snp.ls
@@ -700,7 +703,6 @@ skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
 # AX-31642001
 # AX-11541856
 # AX-31642169
-
 
 ################################################################################
 # 5. Feature selection                                                         #
