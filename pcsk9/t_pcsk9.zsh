@@ -393,20 +393,23 @@ get_cov.py | sed 's/\ /\t/g' > cov.csv
 
 for stratum in {1..6}; do
     awk -vStr=$stratum '{if ($5==Str) print $2 }' pheno.csv > t.ls
-    grab -f t.ls -c 2 ckb_ph12_s3.fam > str$stratum.fam
+    grab -f t.ls -c 2 ckb_ph12_s3.fam > st$stratum.fam
 done
 
-wc str?.fam
-# 4762  28572 153184 str1.fam
-# 5210  31260 167661 str2.fam
-#  167   1002   5363 str3.fam
-# 1265   7590  40848 str4.fam
-# 6687  40122 215004 str5.fam
-# 4177  25062 135136 str6.fam
+wc st?.fam
+# 4762  28572 153184 st1.fam
+# 5210  31260 167661 st2.fam
+#  167   1002   5363 st3.fam
+# 1265   7590  40848 st4.fam
+# 6687  40122 215004 st5.fam
+# 4177  25062 135136 st6.fam
+
+#######################################
+# 3.1.1 raw LDL-C measures
 
 # for the big strata
 for st in st1 st2 st4 st5 st6 ; do
-    plink --bfile ckb_ph12_s3 \
+    nohup plink --bfile ckb_ph12_s3 \
       --keep $st.fam \
       --pheno pheno.csv \
       --pheno-name ldl_c \
@@ -418,21 +421,18 @@ done
 # for the smallest stratum, using only a few covariates.
 # otherwise we will get all 'NA'
 
-plink --bfile ckb_ph12_s3 \
+nohup plink --bfile ckb_ph12_s3 \
   --keep st3.fam \
   --pheno pheno.csv \
   --pheno-name ldl_c \
   --covar cov.csv \
   --covar-name sex,age,pc1,pc2 \
   --linear hide-covar --ci 0.95 \
-  --out st3.raw
-
-for st in st1 st2 st3 st4 st5 st6 ; do
-    lambda.R $st.raw.assoc.linear
-done
+  --out st3.raw &
 
 #######################################
-# RINT LDL-C measures
+# 3.1.2 RINT LDL-C measures
+# note the '--covar-name' lines are different
 
 for st in st1 st2 st4 st5 st6 ; do
     nohup plink --bfile ckb_ph12_s3 \
@@ -440,6 +440,7 @@ for st in st1 st2 st4 st5 st6 ; do
       --pheno pheno.csv \
       --pheno-name rint_ldl_c \
       --covar cov.csv \
+      --covar-name pc1-pc10 \
       --linear hide-covar --ci 0.95 \
       --out $st.rint &
 done
@@ -450,13 +451,18 @@ nohup plink --bfile ckb_ph12_s3 \
   --pheno pheno.csv \
   --pheno-name rint_ldl_c \
   --covar cov.csv \
-  --covar-name sex,age,pc1,pc2 \
+  --covar-name pc1,pc2 \
   --linear hide-covar --ci 0.95 \
   --out st3.rint &
 
-for st in st1 st2 st3 st4 st5 st6 ; do
-    lambda.R $st.rint.assoc.linear
-done
+# RINT LDL-C can also be used in a cancatenated single set
+nohup plink --bfile ckb_ph12_s3 \
+    --pheno pheno.csv \
+    --pheno-name rint_ldl_c \
+    --covar cov.csv \
+    --covar-name pc1-pc10 \
+    --linear hide-covar --ci 0.95 \
+    --out rint &
 
 ################################################################################
 # 3.2 QQ, Manhattan plots and Lambda
@@ -473,6 +479,7 @@ for st in st1 st2 st3 st4 st5 st6 ; do
     plot_qq_man.R $st.rint.assoc.linear &
 done
 
+#######################################
 # to calculate lambda
 # lambda.R
 #--------------------------------------
@@ -488,6 +495,7 @@ chisq <- qchisq(1-data$P,1)
 lambda = median(chisq)/qchisq(0.5,1)
 cat(args[1],'lambda: ',lambda,'\n')
 #--------------------------------------
+# end of lambda.R
 
 for st in st1 st2 st3 st4 st5 st6 ; do
     lambda.R $st.raw.assoc.linear
@@ -496,3 +504,28 @@ done
 for st in st1 st2 st3 st4 st5 st6 ; do
     lambda.R $st.rint.assoc.linear
 done
+
+#   stratum     size  lambda_raw  lambda_RINT
+#   stratum 1	4762  1.007485    1.019263
+#   stratum 2	5210  1.008424    1.010303
+#   stratum 3	 167  0.9920914   0.9990672
+#   stratum 4	1265  0.9907005   0.998135
+#   stratum 5	6687  1.024951    1.026377
+#   stratum 6	4177  1.019736    1.02971
+
+################################################################################
+# 3.3 meta-analysis
+
+# put A2 into the tables
+for ifile in *.assoc.linear ; do
+    add_a2.py $ifile > t.out
+    mv t.out $ifile
+done
+
+
+################################################################################
+# 4.                                        #
+################################################################################
+
+# install the caret package in R like:
+# install.packages("caret", dependencies = c("Depends", "Suggests"))
