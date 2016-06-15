@@ -464,6 +464,16 @@ nohup plink --bfile ckb_ph12_s3 \
     --linear hide-covar --ci 0.95 \
     --out rint &
 
+# Well, there's trouble.
+# In the result, we found 4 APOE SNPs with P value 0.
+# AX-59878593
+# AX-32750083
+# AX-82989693
+# AX-94348016
+# Changed all of them into 4.574e-292, the smallest P value otherwise.
+# Or maybe the smallest double number greater than zero?
+# 4.94066e-324?
+
 ################################################################################
 # 3.2 QQ, Manhattan plots and Lambda
 
@@ -478,6 +488,8 @@ done
 for st in st1 st2 st3 st4 st5 st6 ; do
     plot_qq_man.R $st.rint.assoc.linear &
 done
+
+plot_qq_man.R rint.assoc.linear &
 
 #######################################
 # to calculate lambda
@@ -505,6 +517,8 @@ for st in st1 st2 st3 st4 st5 st6 ; do
     lambda.R $st.rint.assoc.linear
 done
 
+lambda.R rint.assoc.linear
+
 #   stratum     size  lambda_raw  lambda_RINT
 #   stratum 1	4762  1.007485    1.019263
 #   stratum 2	5210  1.008424    1.010303
@@ -512,20 +526,187 @@ done
 #   stratum 4	1265  0.9907005   0.998135
 #   stratum 5	6687  1.024951    1.026377
 #   stratum 6	4177  1.019736    1.02971
+#   all_rint   22268  NA          1.056657
 
 ################################################################################
 # 3.3 meta-analysis
 
 # put A2 into the tables
-for ifile in *.assoc.linear ; do
+for ifile in st?.*.assoc.linear ; do
     add_a2.py $ifile > t.out
     mv t.out $ifile
 done
 
+################################################################################
+# 4. In the PCSK9 region, conditioned on leading SNPs                          #
+################################################################################
+
+# looking at the PCSK9 region only
+plink --bfile ckb_ph12_s3 \
+      --from AX-105169173 --to AX-31657601 \
+      --make-bed --out geno
+
+# 160 variates, 32205 subjects
 
 ################################################################################
-# 4.                                        #
+# 4.1 RINT in a single set, plink only
+# This is the simplest one?
+
+printf "" > c_snp.ls
+plink --bfile geno \
+    --pheno pheno.csv \
+    --pheno-name rint_ldl_c \
+    --covar cov.csv \
+    --covar-name pc1-pc10 \
+    --linear hide-covar --ci 0.95 \
+    --condition-list c_snp.ls \
+    --out rint_p9_0
+
+# the leading SNP is AX-83389438
+
+skh rint_p9_0.assoc.linear | grep -v NA | sort -g -k 12 | \
+    h -n 1 | awk '{print $2}' >> c_snp.ls
+
+plink --bfile geno \
+    --pheno pheno.csv \
+    --pheno-name rint_ldl_c \
+    --covar cov.csv \
+    --covar-name pc1-pc10 \
+    --linear hide-covar --ci 0.95 \
+    --condition-list c_snp.ls \
+    --out rint_p9_1
+
+# the second SNP is AX-39912161
+skh rint_p9_1.assoc.linear | grep -v NA | sort -g -k 12 | \
+    h -n 1 | awk '{print $2}' >> c_snp.ls
+
+plink --bfile geno \
+    --pheno pheno.csv \
+    --pheno-name rint_ldl_c \
+    --covar cov.csv \
+    --covar-name pc1-pc10 \
+    --linear hide-covar --ci 0.95 \
+    --condition-list c_snp.ls \
+    --out rint_p9_2
+
+# the third SNP is AX-11576926
+skh rint_p9_2.assoc.linear | grep -v NA | sort -g -k 12 | \
+    h -n 1 | awk '{print $2}' >> c_snp.ls
+
+plink --bfile geno \
+    --pheno pheno.csv \
+    --pheno-name rint_ldl_c \
+    --covar cov.csv \
+    --covar-name pc1-pc10 \
+    --linear hide-covar --ci 0.95 \
+    --condition-list c_snp.ls \
+    --out rint_p9_3
+# No SNP after that
+skh rint_p9_3.assoc.linear | grep -v NA | sort -g -k 12 | h
+
+# The leading SNPs :
+AX-83389438
+AX-39912161
+AX-11576926
+
 ################################################################################
+# 4.2 raw plink, then raw metal, then all metal
+printf "" > c_snp.ls
+
+for st in st1 st2 st4 st5 ; do
+    plink --bfile geno \
+      --keep $st.fam \
+      --pheno pheno.csv \
+      --pheno-name ldl_c \
+      --covar cov.csv \
+      --linear hide-covar --ci 0.95 \
+      --condition-list c_snp.ls \
+      --out $st.raw
+done
+
+plink --bfile geno \
+  --keep st3.fam   \
+  --pheno pheno.csv \
+  --pheno-name ldl_c  \
+  --covar cov.csv  \
+  --covar-name sex,age,pc1,pc2 \
+  --linear hide-covar --ci 0.95 \
+  --condition-list c_snp.ls \
+  --out st3.raw
+
+plink --bfile geno \
+  --keep st6.fam   \
+  --pheno pheno.csv \
+  --pheno-name rint_ldl_c  \
+  --covar cov.csv  \
+  --covar-name pc1-pc10 \
+  --linear hide-covar --ci 0.95 \
+  --condition-list c_snp.ls \
+  --out st6.rint
+
+for st in st1 st2 st3 st4 st5 ; do
+    add_a2.py $st.raw.assoc.linear > t.out
+    mv t.out $st.raw.assoc.linear
+done
+
+add_a2.py st6.rint.assoc.linear > t.out
+mv t.out  st6.rint.assoc.linear
+
+metal < p9_metal.sh
+
+# collect the columns together and sort them
+# don't forget to get the allele frequency by running:
+# plink --bfile geno --freq
+
+parse_meta_out.py > t.in
+head -n 1 t.in > t.out
+skh t.in | sort -g -k 14 >> t.out
+mv t.out t.in
+
+# plot them
+plot_meta_p_q.R
+
+cp t.in  meta_0.in
+cp t.png meta_0.png
+
+
+# well the first SNP is always AX-83389438
+skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
+# re-run
+
+cp t.in  meta_1.in
+cp t.png meta_1.png
+# a close match between AX-31642001 and AX-39912161
+# because of higher MAF and slightly smaller P
+# use AX-31642001
+skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
+
+# re-run it
+
+cp t.in  meta_2.in
+cp t.png meta_2.png
+
+# clearly AX-11541856
+skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
+# re-run it
+
+cp t.in  meta_3.in
+cp t.png meta_3.png
+# might add AX-31642169
+skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
+
+# Now the c_snp.ls :
+# AX-83389438
+# AX-31642001
+# AX-11541856
+# AX-31642169
+
+
+################################################################################
+# 5. Feature selection                                                         #
+################################################################################
+
+
 
 # install the caret package in R like:
 # install.packages("caret", dependencies = c("Depends", "Suggests"))
