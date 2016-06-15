@@ -14,7 +14,7 @@ data=subset(data,!is.na(P))
 cbPalette  <- c("#666666", "#E69F00", "#56B4E9", "#009E73",
                 "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-png(out_man_png_name,height=8.3, width=11.7, unit='in', res=288)
+png(out_man_png_name,height=5.3, width=11.7, unit='in', res=288)
 manhattan(data,col=cbPalette)
 dev.off()
 

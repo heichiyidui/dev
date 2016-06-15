@@ -459,4 +459,40 @@ for st in st1 st2 st3 st4 st5 st6 ; do
 done
 
 ################################################################################
-#
+# 3.2 QQ, Manhattan plots and Lambda
+
+#######################################
+# QQ and Manhattan plots
+
+# let's have a look
+for st in st1 st2 st3 st4 st5 st6 ; do
+    plot_qq_man.R $st.raw.assoc.linear &
+done
+
+for st in st1 st2 st3 st4 st5 st6 ; do
+    plot_qq_man.R $st.rint.assoc.linear &
+done
+
+# to calculate lambda
+# lambda.R
+#--------------------------------------
+#!/usr/bin/Rscript
+
+args = commandArgs(trailingOnly=TRUE)
+ifile_name = args[1]
+
+data=read.table(ifile_name,header=T)
+data=subset(data,!is.na(P))
+
+chisq <- qchisq(1-data$P,1)
+lambda = median(chisq)/qchisq(0.5,1)
+cat(args[1],'lambda: ',lambda,'\n')
+#--------------------------------------
+
+for st in st1 st2 st3 st4 st5 st6 ; do
+    lambda.R $st.raw.assoc.linear
+done
+
+for st in st1 st2 st3 st4 st5 st6 ; do
+    lambda.R $st.rint.assoc.linear
+done
