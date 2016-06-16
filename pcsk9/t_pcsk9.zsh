@@ -537,6 +537,38 @@ for ifile in st?.*.assoc.linear ; do
     mv t.out $ifile
 done
 
+# meta
+metal < t_metal.sh
+
+# try plot the meta results and calculate the Lambda
+# first add the CHR SNP and BP columns
+
+printf "CHR MarkerName BP\n" > t.loc
+awk '{print $1,$2,$4}' ckb_ph12_s3.bim >> t.loc
+
+ifile='ldl_direct1.tbl'
+# ifile='ldl_all1.tbl'
+awk '{print $1}' $ifile > t.ls
+grab -f t.ls t.loc -c 2 > t.out
+sort_table -f t.ls t.out -c 2 | sed 's/MarkerName/SNP/' >  t.in
+
+paste t.in $ifile | sed 's/P-value/P/' > t.out
+plot_qq_man.R t.out
+lambda.R t.out
+
+mv  t.out_qq.png  $ifile\_qq.png
+mv  t.out_man.png $ifile\_man.png
+
+# 1.040715 direct meta
+# 1.050356 all meta
+
+# again, we have 0 P values in all strata meta
+# again, they are in the Apoe region
+# AX-59878593  2.52e-334
+# AX-32750083  2.09e-337
+# The values are so small, they are considered 0 in R.
+# manually change them to 2.52e-324
+
 ################################################################################
 # 4. In the PCSK9 region, conditioned on leading SNPs                          #
 ################################################################################
@@ -616,7 +648,7 @@ skh rint_p9_3.assoc.linear | grep -v NA | sort -g -k 12 | h
 # 4.2 raw plink, then raw metal, then all metal
 printf "" > c_snp.ls
 
-for st in st1 st2 st4 st5 ; do
+for st in st1 st2 st4 st5 st6; do
     plink --bfile geno \
       --keep $st.fam \
       --pheno pheno.csv \
@@ -637,28 +669,15 @@ plink --bfile geno \
   --condition-list c_snp.ls \
   --out st3.raw
 
-plink --bfile geno \
-  --keep st6.fam   \
-  --pheno pheno.csv \
-  --pheno-name rint_ldl_c  \
-  --covar cov.csv  \
-  --covar-name pc1-pc10 \
-  --linear hide-covar --ci 0.95 \
-  --condition-list c_snp.ls \
-  --out st6.rint
-
-for st in st1 st2 st3 st4 st5 ; do
+for st in st1 st2 st3 st4 st5 st6 ; do
     add_a2.py $st.raw.assoc.linear > t.out
     mv t.out $st.raw.assoc.linear
 done
 
-add_a2.py st6.rint.assoc.linear > t.out
-mv t.out  st6.rint.assoc.linear
-
 metal < p9_metal.sh
 
 # collect the columns together and sort them
-# don't forget to get the allele frequency by running:
+# Do not forget to get the allele frequency by running:
 # plink --bfile geno --freq
 
 parse_meta_out.py > t.in
@@ -666,12 +685,10 @@ head -n 1 t.in > t.out
 skh t.in | sort -g -k 14 >> t.out
 mv t.out t.in
 
-# plot them
 plot_meta_p_q.R
 
 cp t.in  meta_0.in
 cp t.png meta_0.png
-
 
 # well the first SNP is always AX-83389438
 skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
@@ -704,11 +721,53 @@ skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
 # AX-11541856
 # AX-31642169
 
+# P of the top SNP rise to about 1% afterwards
+
 ################################################################################
 # 5. Feature selection                                                         #
 ################################################################################
 
+################################################################################
+# 5.1 get SNP dosages
+
+# so far 6 SNPs to be choosen from:
+# AX-83389438
+# AX-39912161
+# AX-31642001
+# AX-31642169
+# AX-11541856
+# AX-11576926
+
+# put them into snp.ls
+
+plink --bfile geno --recode12 --extract snp.ls
+get_dosage.py > p9.dosage
+
+################################################################################
+# 5.2 select SNP hits
+
+select_SNP.R
+# The rfe function of the caret package runs forever!
+# This is a simple problem. Don't understand why it takes so loooooong.
 
 
-# install the caret package in R like:
-# install.packages("caret", dependencies = c("Depends", "Suggests"))
+# according to stepAIC
+# final models
+# direct ldl_c ~ rc + sex + age + stratum +
+#                AX-83389438 + AX-31642001 + AX-31642169 + AX-11541856
+#
+#   rint_ldl_c ~ AX-83389438 + AX-39912161 + AX-31642169 + AX-11541856
+
+# If we simply gave it all 20 top hits, the final model will contact 8 SNPs,
+#
+# all 4 meta SNP hits are still there
+#
+# direct ldl_c ~ rc + sex+ age + stratum +
+#                AX-83389438 + AX-31642001 + AX-31642169 + AX-11541856 +
+#                AX-51209582 + AX-12935655 + AX-12932322 + AX-11447635
+#
+#   rint_ldl_c ~ AX.83389438 + AX.31642001 + AX.31642169 + AX.11541856 +
+#                AX.39912161 + AX.50958112 + AX.11447635
+
+
+################################################################################

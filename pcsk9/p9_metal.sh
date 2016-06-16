@@ -40,7 +40,7 @@ EFFECT BETA
 STDERR SE
 PVALUE P
 
-PROCESS st6.rint.assoc.linear
+PROCESS st6.raw.assoc.linear
 
 OUTFILE pcsk9_all .tbl
 ANALYZE HETEROGENEITY
