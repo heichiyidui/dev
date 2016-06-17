@@ -1,8 +1,6 @@
 #!/usr/bin/Rscript
 library(ggplot2)
 library(methods)
-library(plyr)
-library(latex2exp)
 
 source('../util/multiplot.R')
 

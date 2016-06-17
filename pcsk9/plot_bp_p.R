@@ -17,7 +17,6 @@ p1= ggplot(data, aes(x=BP, y=minus_log_p))+
     geom_point(alpha=0.5, size=1.5, shape=19 ) +
     geom_hline( yintercept=-log10(0.0001)) +
     ylab( expression( paste('-log' [10] , italic(P) ) ) ) +
-    ggtitle('Meta-analysis P') +
     theme_bw()
 
 png(out_man_png_name,height=6, width=6,unit='in',res=288)

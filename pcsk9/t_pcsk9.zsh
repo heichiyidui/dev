@@ -644,6 +644,11 @@ skh rint_p9_3.assoc.linear | grep -v NA | sort -g -k 12 | h
 # If we removed AX-83389438, followed by AX-31642001,
 # we would go on to remove AX-11541856
 # and AX-31642169 after that.
+
+for ifile in rint_p9_?.assoc.linear ; do
+    plot_bp_p.R $ifile
+done
+
 ################################################################################
 # 4.2 raw plink, then raw metal, then all metal
 printf "" > c_snp.ls
@@ -732,13 +737,15 @@ skh t.in | awk '{print $1}' | h -n 1 >> c_snp.ls
 
 # so far 6 SNPs to be choosen from:
 # AX-83389438
-# AX-39912161
 # AX-31642001
-# AX-31642169
 # AX-11541856
+# AX-31642169
+# AX-39912161
 # AX-11576926
 
 # put them into snp.ls
+# or simply the top 20 SNPs in meta 1
+skh meta_0.in | h -n 20 | awk '{print $1}' > snp.ls
 
 plink --bfile geno --recode12 --extract snp.ls
 get_dosage.py > p9.dosage
@@ -749,25 +756,21 @@ get_dosage.py > p9.dosage
 select_SNP.R
 # The rfe function of the caret package runs forever!
 # This is a simple problem. Don't understand why it takes so loooooong.
-
+# It picks only the top SNP AX-83389438, nothing else.
 
 # according to stepAIC
-# final models
+# final models given the 6 SNPs
 # direct ldl_c ~ rc + sex + age + stratum +
-#                AX-83389438 + AX-31642001 + AX-31642169 + AX-11541856
+#                AX-83389438 + AX-39912161 + AX-31642169 + AX-11541856
 #
-#   rint_ldl_c ~ AX-83389438 + AX-39912161 + AX-31642169 + AX-11541856
+#   rint_ldl_c ~ AX-83389438 + AX-39912161 + AX-31642001 + AX-31642169 +
+#                AX-11541856
 
-# If we simply gave it all 20 top hits, the final model will contact 8 SNPs,
-#
-# all 4 meta SNP hits are still there
-#
-# direct ldl_c ~ rc + sex+ age + stratum +
-#                AX-83389438 + AX-31642001 + AX-31642169 + AX-11541856 +
-#                AX-51209582 + AX-12935655 + AX-12932322 + AX-11447635
-#
-#   rint_ldl_c ~ AX.83389438 + AX.31642001 + AX.31642169 + AX.11541856 +
-#                AX.39912161 + AX.50958112 + AX.11447635
-
+# final model given the top 20 SNPs
+# direct ldl_c ~ rc + sex + age + stratum +
+#                AX-83389438 + AX-39912161 + AX-31642169 + AX-11541856 +
+#                AX-50958112 + AX-11447635
+#   rint_ldl_c ~ AX-83389438 + AX-39912161 + AX-31642001 + AX-31642169 +
+#                AX-11541856 + AX-50958112 + AX-11447635
 
 ################################################################################
