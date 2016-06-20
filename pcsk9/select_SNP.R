@@ -44,8 +44,36 @@ library(methods)
 # # and method the optimization method is a support vector machine.
 
 # What the heck? It gave a single SNP AX-83389438 after hours.
+
+################################################################################
+# the SA approach
+
+# library(caret)
+# data1=read.table('p9.dosage',header=T)
+# data2=read.table('pheno.csv',header=T)
+
+# data2$rc      = as.factor(data2$rc)
+# data2$stratum = as.factor(data2$stratum)
+
+# data = merge(data1,data2,by='IID')
+# data = data[rowSums(is.na(data)) == 0,]
+
+# SNPs=c('AX.83389438', 'AX.39912161', 'AX.31642001',
+#        'AX.31642169', 'AX.11541856', 'AX.11576926')
+
+# data_input = data[SNPs]
+
+# ctrl <- safsControl(functions = caretSA)
+# obj <- safs(x = data_input,
+#             y = data$rint_ldl_c,
+#             iters = 100,
+#             safsControl = ctrl,
+#             method = "lm")
+
+
 ################################################################################
 # The SVM training is running forever
+# SA is not very fast, just about acceptable.
 # stepAIC?
 
 data1=read.table('p9.dosage',header=T)
