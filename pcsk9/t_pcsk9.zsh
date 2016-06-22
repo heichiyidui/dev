@@ -356,7 +356,7 @@ skh  GWAS_SNPdata_samples.csv | awk -F"," '{print $2}' > study_id.ls
 ################################################################################
 # 2.2 stratification
 
-# using the data request form to get snapshort 10 ldl data
+# using the data request form to get snapshot 10 ldl data
 # got 19423 numbers, scared by 1/100.
 
 # 7114 got study_id of the genotype set
