@@ -8,6 +8,8 @@ batch_id  = args[1]
 
 #######################################
 # a funtion to calculate posterior ellipse border coordinates
+# from the SNPolisher package
+
 pos.ellipse <- function(x0, vx, y0, vy, cov)
 {
     theta <- 0.5 * atan2(cov * 2, vx - vy)

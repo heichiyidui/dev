@@ -3,13 +3,19 @@
 ################################################################################
 
 ################################################################################
-# Given batches of SNP calling from AxiomGT1, regressions have be performed to #
-# detect SNPs with potential batch and other effects.                          #
-# Some manual (visual) checking might be necessary for deciding thresholds     #
-# and removal of SNPs with bad calling.                                        #
+# Given batches of SNP calling from AxiomGT1, we performed (logistic)          #
+# regressions to detect SNPs with potential batch and plate effects.           #
+# Some manual (visual) checking might be necessary for deciding the thresholds #
+# and the rejection of SNPs with bad calling.                                  #
 ################################################################################
 
-# on the nc2 server:
+# Linux command alias:
+
+alias h='head'
+alias t='tail'
+alias skh='tail -n +2 '
+
+# the directory on the nc2 computer (nc2.ndph.ox.ac.uk)
 cd /kuser/kuangl/dev/ckb_batch_check
 
 ################################################################################
@@ -22,16 +28,23 @@ cd /kuser/kuangl/dev/ckb_batch_check
 # plate effect:
 /kuser/shared/data/GWAS_backup/full_data/plate-effect/\
 variant_plate_effects_v2.txt
+# 4 columns
 # batch   plate   probeset p-value
+# 'p-value' is missing in the header
+
 # 33621 entries, 30570 uniq SNPs
 
 # batch effect:
 /kuser/shared/data/GWAS_backup/full_data/batch_test/\
 variant_batch_effects.txt
+# 3 columns
 # batch   probeset        P-val
 # 6407 entries, 4048 uniq SNPs
+
+# batch effect for non-relatives:
 /kuser/shared/data/GWAS_backup/full_data/batch_test/\
 variant_batch_norel_effects.txt
+# 3 columns
 # batch   probeset        P-val
 # 4154 entries, 2876 uniq SNPs
 
@@ -43,21 +56,22 @@ awk '{print $2}' /kuser/shared/data/GWAS_backup/full_data/batch_test/\
 variant_batch_norel_effects.txt >> t.ls
 sort t.ls | uniq | grep -v probeset > snp.ls
 # 44183 entries, 34394 unique SNPs
+# now lets plot the probsets in snp.ls
 
 ################################################################################
 # 1.2 calling files:
 
-# on the nc2 server again:
-# 7 batches of calling files at
-/kuser/shared/data/GWAS_backup/
+indir=/kuser/shared/data/GWAS_backup/
 
-plates1-53/
-plates54-105/
-plates106-156/
-plates157-209/
-plates210-261/
-plates262-318/
-plates319-367/
+# 7 batches of calling files at
+
+$indir/plates1-53/
+$indir/plates54-105/
+$indir/plates106-156/
+$indir/plates157-209/
+$indir/plates210-261/
+$indir/plates262-318/
+$indir/plates319-367/
 
 # From each batch, we need the four files:
 AxiomGT1.calls.txt
@@ -66,13 +80,13 @@ AxiomGT1.snp-posteriors.txt
 AxiomGT1.summary.txt
 
 # and the plate cel file lists for plate highlighting
-plates1-53.txt
-plates54-105.txt
-plates106-156.txt
-plates157-209.txt
-plates210-261.txt
-plates262-318.txt
-plates319-367.txt
+$indir/plates1-53.txt
+$indir/plates54-105.txt
+$indir/plates106-156.txt
+$indir/plates157-209.txt
+$indir/plates210-261.txt
+$indir/plates262-318.txt
+$indir/plates319-367.txt
 
 ################################################################################
 # 2. SNP cluster plots                                                         #
@@ -81,22 +95,30 @@ plates319-367.txt
 ################################################################################
 # 2.1 SNPolisher SNP classification
 
-mkdir b01 b02 b03 b04 b05 b06 b07
+# Install the R package SNPolisher from
+# http://www.affymetrix.com/estore/partners_programs/programs/developer/\
+# tools/devnettools.affx
 
-cat /kuser/shared/data/GWAS_backup/full_data/*stage1.bim | awk '{print $2'} | \
+# Note that the SNP classification is not that slow. We apply it on all SNPs.
+
+cat $indir/full_data/*stage1.bim | awk '{print $2'} | \
     sort | uniq > full_snp.ls
 # 687236 SNPs
 
-# install R package SNPolisher
+mkdir b01 b02 b03 b04 b05 b06 b07
 
+# For batch 1
 SNP_classify.R b01 plates1-53/
-# 1 calculate SNP clustering metrics for all SNPs in 'full_snp.ls'.
-# 2 classify them into 7 categories.
-# 3 grab the calls, confs, posterior and summary sub-tables for the listed SNPs
-#    using SNPolisher's perl script.
-# 4 plot (if uncommented the last two sections.)
 
-# on the nc2 server
+# The R script
+# 1. calculates SNP clustering metrics for all SNPs in 'full_snp.ls'.
+# 2. classifys them into 7 categories.
+# 3. grabs the calls, confs, posterior and summary sub-tables for the listed
+#    SNPs using a perl script included in the SNPolisher package.
+# 4. plots the clustering if the last two sections were un-commented.
+#
+
+# let it run over night on NC2
 nohup SNP_classify.R b01 plates1-53/     &
 nohup SNP_classify.R b02 plates54-105/   &
 nohup SNP_classify.R b03 plates106-156/  &
@@ -109,15 +131,13 @@ nohup SNP_classify.R b07 plates319-367/  &
 # It takes about 8~9 hours to classify all SNP callings of each batch.
 
 # Then about 1 hour to grab sub-tables for 4000 SNPs,
-# and 1.5 hours to plot 4000 SNPs.
+# and 1.5 hours to plot 4000 SNPs if asked.
 
-# The plotting part is slow, and the pictures are hard to look at.
+# The plotting is slow, and the pictures are hard to look at.
 
 ################################################################################
 # 2.2 counting SNP calling classes
 
-tail -n +2  b01/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
-# and b02, b03 etc ...
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     tail -n +2 $batch/Ps.performance.txt | awk '{print $16}'  | sort | uniq -c
 done
@@ -167,20 +187,19 @@ for batch in  b02 b03 b04 b05 b06 b07 ; do
     paste t.in t3.in > t2.in
     mv t2.in t.in
 done
+# Now t.in is the table of SNP classification.
+# It is to be used by the next R script.
 
 nohup SNP_class_squares.R &
-# more than 200 SNPs per min
-# 300,000 per day
+# more than 200 SNPs per min, 300,000 per day.
 # fast enough
 
 ################################################################################
 # 2.4 re-visit the plotting problem
 
-# We want to plot SNP clustering, but found the script SNP_classify.R
-# which uses the SNPolisher library, was too slow (about 1 png per min).
-
-# Using the ggplot2 library allows more freedom on manipulating the pictures.
-# And it should be faster.
+# We want to plot SNP clustering.
+# But the R script SNP_classify.R, which uses the SNPolisher library,
+# was too slow (about 1 plot per min).
 
 ###################
 # double check the orders of chips are the same between the
@@ -217,6 +236,7 @@ done
 for batch in b01 b02 b03 b04 b05 b06 b07 ; do
     get_posterior.py $batch > ${batch}.posterior
 done
+# very quick
 
 #######################################
 # 2.4.2 generate avm files
@@ -235,13 +255,14 @@ nohup get_avm.py b06 &
 nohup get_avm.py b07 &
 
 # 500 SNP avm files per min per job
-# That's far better than 1 or 2 SNPs per min using the SNPolisher script.
-# Finished making all 687236 x 7 avm files in 17 hours.
-# However, DO NOT DO IT.
-
+# Finished making ALL 687236 x 7 avm files for ALL SNPS in 17 hours.
+# However,
+# DO NOT DO IT (again).
 # 4.8 million extra files make the system very very slow.
 
-# given the A_vs_M files
+#######################################
+# 2.4.3 plot the A_vs_M files
+
 nohup SNP_cluster_plot.R b01 &
 nohup SNP_cluster_plot.R b02 &
 nohup SNP_cluster_plot.R b03 &
@@ -256,7 +277,7 @@ nohup SNP_cluster_plot.R b07 &
 # It might be the huge number of avm files slowing down the system.
 # The normal speed is 70 pictures per minute per job on smaller sets.
 
-# So, about 60 times faster. Good. And the pictures are nicer.
+# So, about 60 times faster.
 
 ################################################################################
 # 2.5 combine the square plot and the clustering plots.
@@ -288,9 +309,9 @@ mkdir to_exam
 
 split -l 800 snp.ls
 mv x?? to_exam/
-# got the lists of SNPs to be examed.
+# Got the lists of SNPs to be examed.
 # Well, don't do too many at one time.
-# check 800 SNPs in a batch
+# Check 800 SNPs in a batch
 
 # manual_chk_res.table is the results of manual checking
 # In the second column, '0' means the SNP failed the check, '1' means pass.
@@ -310,15 +331,15 @@ awk '{print "cp to_exam_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls | sh
 
 geeqie to_exam_png/
 # 'gwenview' or whatever picture viewer if 'geeqie' is not available.
-# now check the png pictures in the to_exam_png directory
-# delete pictures of badly called SNPs.
+# Now check the png pictures in the to_exam_png directory and delete pictures
+# of badly called SNPs.
 
-# after two passes, collect the checking results, add to the result table.
+# After two passes, collect the checking results, add to the result table.
 ls to_exam_png | sed 's/_comb.png//' > t.in
 get_chk_res.py >> manual_chk_res.table
 
 ################################################################################
-# 4. checking the missing rates and MAF againt failing manual QC               #
+# 4. checking the missing rates and MAF against failing manual QC              #
 ################################################################################
 
 ped_dir=/kuser/shared/data/GWAS_backup/full_data
@@ -391,7 +412,8 @@ done
 rm x??
 
 mkdir -p to_exam_png.bak/
-# after proper backup
+
+# ONLY after proper backup
 rm to_exam_png.bak/*.png
 
 mv b0?/*.png to_exam_png.bak/
@@ -441,4 +463,6 @@ plot_man_qc.R
 # added p10.png
 # The Plate p-values and the plate missingness are important here.
 
+################################################################################
+# The END                                                                      #
 ################################################################################

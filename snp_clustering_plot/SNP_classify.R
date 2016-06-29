@@ -45,7 +45,6 @@ Ps_Classification(
     output.dir  = temp.dir  ,
                  )
 
-
 ################################################################################
 # Use a perl script to do some grab job:
 # getting sub-tables for the listed SNPs only
@@ -96,29 +95,29 @@ sapply(cmd, system)
 
 ################################################################################
 # read the sub-tables
-
+#
 # dd <- lapply(1:l, function(i) {
 #     SNPolisher:::read.snp.data(temp.dir[i], sampFile, !is.null(refFile),
 #                                match.cel.file.name, geno.col[6])
 # })
-
+#
 # inlist <- read.delim(snp_file, header = F)[, 1]
-
+#
 # cat("Found ", nrow(dd[[1]]$call), " of ", length(inlist),
 #     " requested probesets\n", sep = "")
-
+#
 # pid <- inlist[is.element(inlist, dd[[1]]$call[, 1])]
-
+#
 # postdata <- SNPolisher:::read.post_prior2d(
 #     paste(temp.dir[i],"/posterior.txt", sep = "")
 #                                           )
-
+#
 ################################################################################
-# start plotting now
-
+# plot the SNPs
+#
 # geno_col=c("red","yellow","blue","gray",
 #            "cyan","green", "darkgreen","purple")
-
+#
 # # s = 'ps100'
 # for (s in pid) {
 #     for (i in 1:l) {
@@ -129,7 +128,7 @@ sapply(cmd, system)
 #             b_signal = as.numeric(d$summary.b[d$summary.b[, 1] == s, -1]),
 #             sample = names(d$call)[-1], samps.highlight = d$samps
 #                        )
-
+#
 #         if (is.null(refFile)) {
 #             g$reference <- rep(-1, (ncol(d$summary.a) - 1))
 #         } else {
@@ -146,9 +145,9 @@ sapply(cmd, system)
 #               g$reference[is.na(g$reference)] <- -9
 #             }
 #         }
-
+#
 #         p <- SNPolisher:::prior.for.pid(postdata, s, nclus=3)
-
+#
 #         png(paste(temp.dir,'/',s,'.png',sep=''))
 #         SNPolisher:::plot.cluster(
 #             s, g, p,
@@ -157,7 +156,7 @@ sapply(cmd, system)
 #         dev.off()
 #     }
 # }
-
+#
 ################################################################################
 # the end                                                                      #
 ################################################################################

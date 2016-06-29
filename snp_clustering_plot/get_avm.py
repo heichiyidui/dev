@@ -4,6 +4,7 @@ import sys
 
 batch_id = sys.argv[1]
 # batch_id = 'b01'
+
 snp_ids = set(open('snp.ls').read().split())
 
 in_call_file = open(batch_id+'/calls.txt')
@@ -14,7 +15,7 @@ in_call_file.readline()
 in_summ_file.readline()
 for line in in_call_file:
     cols = line[:-1].replace('\t-1','\t3').split()
-    # want '3' for missing calls, not '-1'
+    # I want '3' for missing calls, not '-1'
     snp_id = cols[0]
 
     snp_calls = cols[1:]
