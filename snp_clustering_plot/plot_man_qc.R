@@ -58,8 +58,6 @@ png('p2.png', width=8.3, height=11.7, unit='in', res=288)
 multiplot(p1, p2,cols=2)
 dev.off()
 
-
-#
 # p <- ggplot() +
 #     geom_point(data = data,
 #                aes(x=min_maf, y=batch_norel_min_p,
@@ -238,10 +236,6 @@ p3<- ggplot() +
 
 
 png('p10.png', width=8.3, height=11.7, unit='in', res=288)
-    multiplot(p1, p2, p3, cols=1)
-dev.off()
-
-pdf('p10.pdf',width=8.3, height = 11.7)
     multiplot(p1, p2, p3, cols=1)
 dev.off()
 

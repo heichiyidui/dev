@@ -1,11 +1,11 @@
 ################################################################################
-#                      CKB SNP Clustering (manual) check                       #
+#                  CKB SNP Clustering plot (manual) check                      #
 ################################################################################
 
 ################################################################################
 # Given batches of SNP calling from AxiomGT1, we performed (logistic)          #
 # regressions to detect SNPs with potential batch and plate effects.           #
-# Some manual (visual) checking might be necessary for deciding the thresholds #
+# Some manual (visual) checking is necessary for deciding the thresholds       #
 # and the rejection of SNPs with bad calling.                                  #
 ################################################################################
 
@@ -15,56 +15,41 @@ alias h='head'
 alias t='tail'
 alias skh='tail -n +2 '
 
-# the directory on the nc2 computer (nc2.ndph.ox.ac.uk)
-cd /kuser/kuangl/dev/ckb_batch_check
+# the directory on the NC2 computer (nc2.ndph.ox.ac.uk)
+cd /kuser/kuangl/dev/snp_clustering_plot
 
 ################################################################################
 # 1. Input files                                                               #
 ################################################################################
 
+indir=/kuser/shared/data/GWAS_backup/
+
 ################################################################################
 # 1.1 SNP lists:
 
 # plate effect:
-/kuser/shared/data/GWAS_backup/full_data/plate-effect/\
-variant_plate_effects_v2.txt
+h $indir/full_data/plate-effect/variant_plate_effects_v2.txt
 # 4 columns
-# batch   plate   probeset p-value
+# batch plate probeset p-value
 # 'p-value' is missing in the header
-
 # 33621 entries, 30570 uniq SNPs
 
 # batch effect:
-/kuser/shared/data/GWAS_backup/full_data/batch_test/\
-variant_batch_effects.txt
+h $indir/full_data/batch_test/variant_batch_effects.txt
 # 3 columns
-# batch   probeset        P-val
+# batch probeset P-val
 # 6407 entries, 4048 uniq SNPs
 
 # batch effect for non-relatives:
-/kuser/shared/data/GWAS_backup/full_data/batch_test/\
-variant_batch_norel_effects.txt
+h $indir/full_data/batch_test/variant_batch_norel_effects.txt
 # 3 columns
-# batch   probeset        P-val
+# batch probeset P-val
 # 4154 entries, 2876 uniq SNPs
-
-awk '{print $3}' /kuser/shared/data/GWAS_backup/full_data/plate-effect/\
-variant_plate_effects_v2.txt    >  t.ls
-awk '{print $2}' /kuser/shared/data/GWAS_backup/full_data/batch_test/\
-variant_batch_effects.txt       >> t.ls
-awk '{print $2}' /kuser/shared/data/GWAS_backup/full_data/batch_test/\
-variant_batch_norel_effects.txt >> t.ls
-sort t.ls | uniq | grep -v probeset > snp.ls
-# 44183 entries, 34394 unique SNPs
-# now lets plot the probsets in snp.ls
 
 ################################################################################
 # 1.2 calling files:
 
-indir=/kuser/shared/data/GWAS_backup/
-
 # 7 batches of calling files at
-
 $indir/plates1-53/
 $indir/plates54-105/
 $indir/plates106-156/
@@ -79,7 +64,7 @@ AxiomGT1.confidences.txt
 AxiomGT1.snp-posteriors.txt
 AxiomGT1.summary.txt
 
-# and the plate cel file lists for plate highlighting
+# and the plate cel file lists (needed for plate highlighting)
 $indir/plates1-53.txt
 $indir/plates54-105.txt
 $indir/plates106-156.txt
@@ -91,6 +76,17 @@ $indir/plates319-367.txt
 ################################################################################
 # 2. SNP cluster plots                                                         #
 ################################################################################
+
+awk '{print $3}' $indir/full_data/plate-effect/\
+variant_plate_effects_v2.txt    >  t.ls
+awk '{print $2}' $indir/full_data/batch_test/\
+variant_batch_effects.txt       >> t.ls
+awk '{print $2}' $indir/full_data/batch_test/\
+variant_batch_norel_effects.txt >> t.ls
+sort t.ls | uniq | grep -v probeset > snp.ls
+# 44183 entries, 34394 unique SNPs
+
+# now lets plot the probsets in snp.ls
 
 ################################################################################
 # 2.1 SNPolisher SNP classification
@@ -112,13 +108,13 @@ SNP_classify.R b01 plates1-53/
 
 # The R script
 # 1. calculates SNP clustering metrics for all SNPs in 'full_snp.ls'.
-# 2. classifys them into 7 categories.
+# 2. classifies them into 7 categories.
 # 3. grabs the calls, confs, posterior and summary sub-tables for the listed
 #    SNPs using a perl script included in the SNPolisher package.
-# 4. plots the clustering if the last two sections were un-commented.
+# 4. plots the clustering if the last two sections were uncommented.
 #
 
-# let it run over night on NC2
+# Let it run over night on NC2
 nohup SNP_classify.R b01 plates1-53/     &
 nohup SNP_classify.R b02 plates54-105/   &
 nohup SNP_classify.R b03 plates106-156/  &
@@ -127,8 +123,8 @@ nohup SNP_classify.R b05 plates210-261/  &
 nohup SNP_classify.R b06 plates262-318/  &
 nohup SNP_classify.R b07 plates319-367/  &
 
-# To get the 'metrics.txt' and 'Ps.performance.txt' files:
-# It takes about 8~9 hours to classify all SNP callings of each batch.
+# It takes about 8~9 hours to classify all SNP callings of each batch,
+# and get the 'metrics.txt' and 'Ps.performance.txt' files.
 
 # Then about 1 hour to grab sub-tables for 4000 SNPs,
 # and 1.5 hours to plot 4000 SNPs if asked.
@@ -151,17 +147,17 @@ done
 # Other                   77710   80636   79786   82277   85380   79715   81393
 # CallRateBelowThreshold   2723    2439    2886    2972    2564    3007    2591
 
-# PolyHighResolution      66.2 +- 0.34 %
-# NoMinorHom              13.5 +- 0.48 %
-# MonoHighResolution       9.0 +- 0.53 %
-# Hemizygous               0.2 +- 0    %
-# OTV                      0.5 +- 0.04 %
-# Other                   10.4 +- 0.31 %
-# CallRateBelowThreshold   0.4 +- 0.03 %
+# PolyHighResolution       66.2 +- 0.34 %
+# NoMinorHom               13.5 +- 0.48 %
+# MonoHighResolution        9.0 +- 0.53 %
+# Hemizygous                0.2 +- 0    %
+# OTV                       0.5 +- 0.04 %
+# Other                    10.4 +- 0.31 %
+# CallRateBelowThreshold    0.4 +- 0.03 %
 
 # Use
 SNP_class_pie.R
-# to get a pie plot of different SNP classes.
+# to get a pie plot of the 7 SNP classes.
 
 ################################################################################
 # 2.3 calling class square plots
@@ -200,6 +196,7 @@ nohup SNP_class_squares.R &
 # We want to plot SNP clustering.
 # But the R script SNP_classify.R, which uses the SNPolisher library,
 # was too slow (about 1 plot per min).
+# And we need to modiy the plots so it's easier to check them visually.
 
 ###################
 # double check the orders of chips are the same between the
@@ -215,7 +212,7 @@ done
 # no difference found, all are consistent.
 
 ###################
-# double check the summary files has the order of A and B of the same SNP
+# double check the summary files have the order of A and B of the same SNP
 # say, 'AX-100002645-A' followed by 'AX-100002645-B'
 # then 'AX-100002667-A' followed by 'AX-100002667-B'
 
@@ -240,12 +237,16 @@ done
 
 #######################################
 # 2.4.2 generate avm files
+
 # The avm (A_vs_M) files should have the a and b signals,
 # in the form of A <- (log2(a) + log2(b))/2 and M <- log2(a) - log2(b).
-# The calls, included into an avm file, are '0', '1', '2' and '-1' for missing.
+# The SNP callings are included into an avm file.
+# Originally they are '0', '1', '2' or '-1' for missing.
 # Here we change '-1' to '3' for missing.
 
 # This script use the calls.txt and summary.txt files in the batch directories.
+# It reads the SNP ids from 'snp.ls'.
+
 nohup get_avm.py b01 &
 nohup get_avm.py b02 &
 nohup get_avm.py b03 &
@@ -254,11 +255,16 @@ nohup get_avm.py b05 &
 nohup get_avm.py b06 &
 nohup get_avm.py b07 &
 
-# 500 SNP avm files per min per job
-# Finished making ALL 687236 x 7 avm files for ALL SNPS in 17 hours.
+# A job produces 500 SNP avm files per min.
+# We finished making ALL 687236 x 7 avm files for ALL SNPS in 17 hours.
 # However,
+
 # DO NOT DO IT (again).
+
 # 4.8 million extra files make the system very very slow.
+# Make sure your 'snp.ls' is not too long.
+# Unless you have parallelized hard-drive clusters which can easily handle
+# millions of files.
 
 #######################################
 # 2.4.3 plot the A_vs_M files
@@ -301,6 +307,8 @@ mv *comb.png to_exam_png.bak/
 # 3. manual check of the clustering plots                                      #
 ################################################################################
 
+# After getting all the plots.
+
 #######################################
 # preparing
 
@@ -311,7 +319,7 @@ split -l 800 snp.ls
 mv x?? to_exam/
 # Got the lists of SNPs to be examed.
 # Well, don't do too many at one time.
-# Check 800 SNPs in a batch
+# Check 800 SNPs in a batch.
 
 # manual_chk_res.table is the results of manual checking
 # In the second column, '0' means the SNP failed the check, '1' means pass.
@@ -330,11 +338,11 @@ grab -f examed.ls -v t1.ls > to_exam.ls
 awk '{print "cp to_exam_png.bak/" $1 "_comb.png to_exam_png/"}' to_exam.ls | sh
 
 geeqie to_exam_png/
-# 'gwenview' or whatever picture viewer if 'geeqie' is not available.
-# Now check the png pictures in the to_exam_png directory and delete pictures
+# 'gwenview' or any other picture viewer if 'geeqie' is not available.
+# Now check the pictures in the to_exam_png directory and delete pictures
 # of badly called SNPs.
 
-# After two passes, collect the checking results, add to the result table.
+# After two passes, collect the checking results, add them to the result table.
 ls to_exam_png | sed 's/_comb.png//' > t.in
 get_chk_res.py >> manual_chk_res.table
 
@@ -378,13 +386,14 @@ tail -n +2 t.in | awk '{print $2,$5,$9}' | grep -v NA > t2.in
 get_plate_p_miss_hm.py > t3.in
 
 plot_man_qc.R
-# produces p1.png p2.png ... p9.png
+# produces p1.png p2.png ... p10.png
 
 ################################################################################
 # 5. plate effect plotting                                                     #
 ################################################################################
 
-# modify the get_avm.py
+# modify the get_avm.py, so the problematic plote will be highlighted.
+
 nohup get_highlight_avm.py b01 &
 nohup get_highlight_avm.py b02 &
 nohup get_highlight_avm.py b03 &
