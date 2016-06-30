@@ -97,7 +97,7 @@ sort t.ls | uniq | grep -v probeset > snp.ls
 
 # Note that the SNP classification is not that slow. We apply it on all SNPs.
 
-cat $indir/full_data/*stage1.bim | awk '{print $2'} | \
+awk '{print $2'}  $indir/full_data/*stage1.bim |   \
     sort | uniq > full_snp.ls
 # 687236 SNPs
 
@@ -196,7 +196,7 @@ nohup SNP_class_squares.R &
 # We want to plot SNP clustering.
 # But the R script SNP_classify.R, which uses the SNPolisher library,
 # was too slow (about 1 plot per min).
-# And we need to modiy the plots so it's easier to check them visually.
+# And we need to modify the plots so it's easier to check them visually.
 
 ###################
 # double check the orders of chips are the same between the
@@ -404,6 +404,8 @@ nohup get_highlight_avm.py b07 &
 
 # 33620 avm files to be generated
 # done in 45 minutes
+# It generates files like 'b01/AX-64101281_NOR14120204.avm'.
+
 ls b0?/*avm > t.ls
 split -l 1682 t.ls
 
