@@ -95,7 +95,7 @@ aa_counter.py
 # get_vtml_dis.py
 
 # To run it on nc2, we had to change the script from python3 to python2.7,
-# because of the libraries numpy and scipy are not available for python3!
+# because the numpy and scipy libraries were not available for python3!
 
 random_shuffle_lines.py  index/dom.ls > t.ls
 split -l 21 t.ls
@@ -254,7 +254,7 @@ get_cao_dis.py > cao.dis
 # 85 sum alignment matrices. The last summary matrices are of too few samples.
 
 # The problem is still under-sampling.
-# Too many bins too fill.
+# Too many bins to fill.
 
 #######################################
 # 3.4 CAO estimation
@@ -297,8 +297,13 @@ cont_cluster.py > t.in
 # the second part of
 cont_cluster.R
 
+# the plots
+pic/cont_groups_1.pdf
+pic/cont_groups_2.pdf
+# show the clustering of contacts.
+
 ################################################################################
-# the end                                                                      #
+# The End                                                                      #
 ################################################################################
 
 

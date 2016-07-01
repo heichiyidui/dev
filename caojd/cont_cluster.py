@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-AA_CODE = "ARNDCQEGHILKMFPSTWYV"
+AA_CODE  = "ARNDCQEGHILKMFPSTWYV"
+AA_2_int = {}
+for i in range(len(AA_CODE)):
+    AA_2_int[AA_CODE[i]] = i
 
 CONT_GROUPS = \
     [['WA','WR','WN','WD','WQ','WE','WH','WI','WL','WK','WM','WS','WT','WV'],\
@@ -43,34 +46,8 @@ CONT_GROUPS = \
     ['AA','AI','AL','AM','AS','AT','AV','SA','SI','SL','SM','SS','ST','SV',  \
      'TA','TI','TL','TM','TS','TT','TV']]
 
-AA_AA_to_GROUP = {}
-for i in range(20):
-    for AA_AA in CONT_GROUPS[i]:
-        AA_AA_to_GROUP[AA_AA] = i
+print('r1 r2 group')
+for i in range(len(CONT_GROUPS)):
+    for j in range(len(CONT_GROUPS[i])):
+        print(CONT_GROUPS[i][j][0], CONT_GROUPS[i][j][1], i)
 
-for AA_AA in AA_AA_to_GROUP.keys():
-    if AA_AA_to_GROUP[AA_AA] > 15:
-        AA_AA_to_GROUP[AA_AA] += 10
-
-for AA_AA in AA_AA_to_GROUP.keys():
-    if AA_AA_to_GROUP[AA_AA] > 10:
-        AA_AA_to_GROUP[AA_AA] += 10
-
-for AA_AA in AA_AA_to_GROUP.keys():
-    if AA_AA_to_GROUP[AA_AA] > 3:
-        AA_AA_to_GROUP[AA_AA] += 10
-
-
-row_ind = [17,13,18,14,19,12,9,10,4,7,16,0,15,8,3,2,6,5,1,11]
-col_ind = [4,16,0,15,19,12,9,10,17,13,18,14,8,2,5,6,3,7,1,11]
-
-print('x y r1 r2 group')
-for i in row_ind:
-    for j in col_ind:
-        print(i+1,j+1,AA_CODE[i],AA_CODE[j],\
-              AA_AA_to_GROUP[AA_CODE[i]+AA_CODE[j]])
-
-# for i in range(20):
-#     for j in range(20):
-#         print(AA_AA_to_GROUP[AA_CODE[i]+AA_CODE[j]],end=' ')
-#     print()
